@@ -1,5 +1,7 @@
+
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import type { Book } from "@/lib/types";
 import {
@@ -10,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Heart, ShoppingCart } from "lucide-react";
-import { useStore as useCart } from "@/context/AppProvider";
+import { useCart } from "@/context/AppProvider";
 import { useWishlist } from "@/context/WishlistContext";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -29,6 +31,11 @@ export function BookCard({ book }: BookCardProps) {
   const { addToCart, isBookInCart } = useCart();
   const { addToWishlist, isInWishlist } = useWishlist();
   const { toast } = useToast();
+
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   
   const inWishlist = isInWishlist(book.id);
   const inCart = isBookInCart(book.id);
@@ -94,10 +101,10 @@ export function BookCard({ book }: BookCardProps) {
           <DropdownMenuTrigger asChild>
             <Button
               className="w-full"
-              disabled={book.availability === 'out-of-stock' || inCart}
+              disabled={!isMounted || book.availability === 'out-of-stock' || inCart}
             >
               <ShoppingCart className="mr-2 h-4 w-4" />
-              {inCart ? 'In Cart' : 'Add to Cart'}
+              {isMounted && inCart ? 'In Cart' : 'Add to Cart'}
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
@@ -112,10 +119,10 @@ export function BookCard({ book }: BookCardProps) {
           variant="outline"
           size="icon"
           onClick={handleAddToWishlist}
-          disabled={inWishlist}
+          disabled={!isMounted || inWishlist}
           aria-label="Add to wishlist"
         >
-          <Heart className={`h-4 w-4 ${inWishlist ? 'fill-destructive text-destructive' : ''}`} />
+          <Heart className={`h-4 w-4 ${isMounted && inWishlist ? 'fill-destructive text-destructive' : ''}`} />
         </Button>
       </CardFooter>
     </Card>
