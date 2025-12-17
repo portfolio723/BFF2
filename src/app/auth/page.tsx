@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import {
   BookOpen,
   Mail,
@@ -34,8 +34,9 @@ import { useAuth } from "@/context/AuthContext";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import AadharKyc from "@/components/AadharKyc";
 import { AnimatePresence, motion } from "framer-motion";
+import OtpVerification from "@/components/OtpVerification";
 
-type AuthStep = "welcome" | "kyc" | "profile";
+type AuthStep = "welcome" | "kyc" | "otp";
 
 const signUpSchema = z.object({
   fullName: z.string().min(1, "Full name is required."),
@@ -52,10 +53,6 @@ const signInSchema = z.object({
   password: z.string().min(1, "Password is required."),
 });
 
-const otpSchema = z.object({
-  email: z.string().email("Invalid email address."),
-});
-
 export default function AuthPage() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -65,8 +62,7 @@ export default function AuthPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") || "/";
-  const { toast } = useToast();
-  const { signIn, signUp, signInWithOtp } = useAuth();
+  const { signIn, signUp } = useAuth();
 
   const authBgImage = PlaceHolderImages.find((img) => img.id === "book-cover-2");
 
@@ -80,22 +76,13 @@ export default function AuthPage() {
     defaultValues: { email: "", password: "", fullName: "", phone: "", terms: false },
   });
 
-  const otpForm = useForm<z.infer<typeof otpSchema>>({
-    resolver: zodResolver(otpSchema),
-    defaultValues: { email: "" },
-  });
-
   const handleSignIn = async (values: z.infer<typeof signInSchema>) => {
     setLoading(true);
     const { error } = await signIn(values.email, values.password);
     if (error) {
-      toast({
-        title: "Sign In Failed",
-        description: error.message,
-        variant: "destructive",
-      });
+      toast.error("Sign In Failed", { description: error.message });
     } else {
-      toast({ title: "Signed in successfully!" });
+      toast.success("Signed in successfully!");
       router.push(redirect);
     }
     setLoading(false);
@@ -105,39 +92,16 @@ export default function AuthPage() {
     setLoading(true);
     const { error } = await signUp(values.email, values.password, values.fullName, values.phone);
     if (error) {
-      toast({
-        title: "Sign Up Failed",
-        description: error.message,
-        variant: "destructive",
-      });
+      toast.error("Sign Up Failed", { description: error.message });
        setLoading(false);
     } else {
-      toast({
-        title: "Account created successfully!",
+      toast.success("Account created successfully!", {
         description: "Please check your email to verify your account.",
       });
       setAuthStep("kyc");
       setLoading(false);
     }
   };
-  
-  const handleOtpSignIn = async (values: z.infer<typeof otpSchema>) => {
-    setLoading(true);
-    const { error } = await signInWithOtp(values.email);
-    if (error) {
-       toast({
-        title: "OTP Sign In Failed",
-        description: error.message,
-        variant: "destructive",
-      });
-    } else {
-       toast({
-        title: "Check your email",
-        description: "We've sent you a magic link to sign in.",
-      });
-    }
-    setLoading(false);
-  }
 
   const renderAuthContent = () => {
     switch (authStep) {
@@ -231,7 +195,7 @@ export default function AuthPage() {
                           htmlFor="remember"
                           className="ml-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         >
-                          Remember me for 30 days
+                          Remember me
                         </label>
                     </div>
 
@@ -248,35 +212,15 @@ export default function AuthPage() {
                   </div>
                   <div className="relative flex justify-center text-xs uppercase">
                     <span className="bg-background px-2 text-muted-foreground">
-                      Or continue with
+                      Or
                     </span>
                   </div>
                 </div>
                 
-                <Form {...otpForm}>
-                    <form onSubmit={otpForm.handleSubmit(handleOtpSignIn)}>
-                      <div className="flex gap-2">
-                          <FormField
-                              control={otpForm.control}
-                              name="email"
-                              render={({ field }) => (
-                              <FormItem className="flex-1">
-                                  <FormControl>
-                                  <div className="relative">
-                                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                                      <Input placeholder="Enter your email for OTP" {...field} type="email" className="pl-10 h-12"/>
-                                  </div>
-                                  </FormControl>
-                                  <FormMessage />
-                              </FormItem>
-                              )}
-                          />
-                           <Button type="submit" variant="outline" className="h-12" disabled={loading}>
-                             {loading ? 'Sending...' : 'Email OTP'}
-                          </Button>
-                      </div>
-                    </form>
-                </Form>
+                 <Button variant="outline" className="w-full h-12" onClick={() => setAuthStep("otp")}>
+                    Sign In with Email OTP
+                </Button>
+
 
                 <div className="text-center mt-6">
                   <Link href="/books" className="text-sm font-medium text-muted-foreground hover:text-primary">
@@ -413,6 +357,13 @@ export default function AuthPage() {
             onBack={() => setAuthStep("welcome")}
             onSkip={() => router.push(redirect)}
           />
+        );
+      case "otp":
+        return (
+           <OtpVerification
+             onSuccess={() => router.push(redirect)}
+             onBack={() => setAuthStep("welcome")}
+           />
         );
       default:
         return null;
