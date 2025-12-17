@@ -657,12 +657,14 @@ export default function Home() {
   return (
     <>
       <HeroSection />
+      <FeaturedBooks/>
       <CategoriesSection />
       <FeaturesSection />
-      <TestimonialsSection />
-      <FeaturedBooks/>
       <DonateSection />
+      <TestimonialsSection />
       <CTASection />
     </>
   );
 }
+
+    
