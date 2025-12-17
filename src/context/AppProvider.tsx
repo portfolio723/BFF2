@@ -115,11 +115,11 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     }, 0);
 
   const getDeliveryCharge = () => {
-    const hasRental = cart.some((item) => item.type === "rent");
-    if (cart.length === 0) return 0;
     const subtotal = getSubtotal();
     if (subtotal > 500) return 0; // Free delivery over 500
-    return hasRental ? 40 : 0; // Delivery charge only for rentals under 500
+    if (cart.length === 0) return 0;
+    // Standard delivery charge
+    return 40;
   };
 
   const getTotal = () => getSubtotal() + getDeliveryCharge();
@@ -165,3 +165,5 @@ export const useStore = () => {
     }
     return context;
 }
+
+    

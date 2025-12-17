@@ -23,7 +23,19 @@ export const AddressProvider = ({ children }: { children: ReactNode }) => {
   const [addresses, setAddresses] = useState<Address[]>(() => {
     if (typeof window !== "undefined") {
       const stored = localStorage.getItem(ADDRESS_STORAGE_KEY);
-      return stored ? JSON.parse(stored) : [];
+      // Sample address for demo
+      const sampleAddress = {
+          id: '1',
+          type: 'Home' as const,
+          firstName: 'John',
+          lastName: 'Doe',
+          address: '123, Jubilee Hills',
+          city: 'Hyderabad',
+          state: 'Telangana',
+          pincode: '500033',
+          phone: '9876543210'
+      };
+      return stored ? JSON.parse(stored) : [sampleAddress];
     }
     return [];
   });
@@ -72,3 +84,4 @@ export const useAddress = () => {
   return context;
 };
 
+    

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { AppProvider } from "@/context/AppProvider";
@@ -42,3 +43,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+    

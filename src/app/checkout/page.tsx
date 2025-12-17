@@ -88,7 +88,7 @@ export default function CheckoutPage() {
   if (items.length === 0 && !orderPlaced) {
     return (
         <section>
-          <div className="container-custom">
+          <div className="container-custom py-12 lg:py-16">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -118,7 +118,7 @@ export default function CheckoutPage() {
   if (orderPlaced) {
     return (
         <section>
-          <div className="container-custom">
+          <div className="container-custom py-12 lg:py-16">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -180,7 +180,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <section>
+    <section className="py-12 lg:py-16">
       <div className="container-custom">
         {/* Breadcrumb */}
         <motion.nav
@@ -538,3 +538,5 @@ export default function CheckoutPage() {
     </section>
   );
 };
+
+    
