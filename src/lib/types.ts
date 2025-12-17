@@ -1,3 +1,5 @@
+import type { User } from 'firebase/auth';
+
 export type Author = {
   id: string;
   name: string;
@@ -37,3 +39,12 @@ export type CommunityPost = {
   timestamp: string;
   replies: number;
 };
+
+export type CartItem = {
+  book: Book;
+  type: 'buy' | 'rent';
+};
+
+export interface AppUser extends User {
+  isKycVerified?: boolean;
+}

@@ -8,7 +8,7 @@ import { ArrowRight, BookOpen, Gift, Users, Package, CheckCircle, Truck, CreditC
 import { motion } from "framer-motion";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { BookCard } from "@/components/BookCard";
-import { books, communityPosts } from "@/lib/data";
+import { books } from "@/lib/data";
 
 const HeroSection = () => {
   const heroImage1 = PlaceHolderImages.find(img => img.id === 'hero-1');
@@ -345,7 +345,7 @@ const TestimonialsSection = () => {
   ];
 
   return (
-    <section className="py-20 lg:py-28 bg-secondary/30">
+    <section className="py-20 lg:py-28">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -659,13 +659,10 @@ export default function Home() {
       <HeroSection />
       <CategoriesSection />
       <FeaturesSection />
+      <TestimonialsSection />
       <FeaturedBooks/>
       <DonateSection />
       <CTASection />
     </>
   );
 }
-
-    
-
-    

@@ -5,13 +5,37 @@ import { useStore } from "@/context/AppProvider";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { X, ShoppingCart } from "lucide-react";
+import { X, ShoppingCart, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useUser } from "@/firebase";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function CartPage() {
-  const { cart, removeFromCart, cartTotal } = useStore();
+  const { user, loading: userLoading } = useUser();
+  const { cart, removeFromCart, cartTotal, loading: cartLoading } = useStore();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!userLoading && !user) {
+      router.push('/auth?redirect=/cart');
+    }
+  }, [user, userLoading, router]);
+
   const deliveryCharge = cart.length > 0 ? 50.00 : 0.00;
   const total = cartTotal + deliveryCharge;
+
+  if (userLoading || cartLoading) {
+    return (
+      <div className="flex justify-center items-center h-[60vh]">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    );
+  }
+  
+  if (!user) {
+    return null; // or a message encouraging login
+  }
 
   return (
     <div className="container mx-auto px-4 md:px-6 py-8 md:py-12">

@@ -14,10 +14,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useStore } from "@/context/AppProvider";
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
+import { useUser } from "@/firebase";
+import { useEffect } from "react";
+import { Loader2 } from "lucide-react";
+import type { AppUser } from "@/lib/types";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
@@ -28,28 +32,61 @@ const formSchema = z.object({
 });
 
 export default function CheckoutPage() {
-  const { cart, cartTotal, clearCart } = useStore();
+  const { user, loading: userLoading } = useUser() as { user: AppUser | null, loading: boolean };
+  const { cart, cartTotal, clearCart, loading: cartLoading } = useStore();
   const { toast } = useToast();
   const router = useRouter();
+
+  const isKycVerified = user?.isKycVerified || false; // Mocked for now
+  const requiresKyc = cart.some(item => item.type === 'rent');
+
+  useEffect(() => {
+    if (!userLoading && !user) {
+      router.push('/auth?redirect=/checkout');
+    }
+    if (!userLoading && user && requiresKyc && !isKycVerified) {
+        toast({
+            title: "KYC Verification Required",
+            description: "You must complete KYC verification to rent books.",
+            variant: "destructive"
+        });
+        router.push('/profile');
+    }
+  }, [user, userLoading, router, requiresKyc, isKycVerified, toast]);
+
+
   const deliveryCharge = cart.length > 0 ? 50.00 : 0.00;
   const total = cartTotal + deliveryCharge;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      name: user?.displayName || "",
       address: "",
       city: "Hyderabad",
       pincode: "",
-      phone: "",
+      phone: user?.phoneNumber || "",
     },
   });
+
+   useEffect(() => {
+    if (user) {
+      form.reset({
+        name: user.displayName || "",
+        phone: user.phoneNumber || "",
+        address: "",
+        city: "Hyderabad",
+        pincode: "",
+      });
+    }
+  }, [user, form]);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log("Order placed:", {
       ...values,
       items: cart,
       total: total.toFixed(2),
+      userId: user?.uid,
     });
     toast({
       title: "Order Placed Successfully!",
@@ -59,6 +96,19 @@ export default function CheckoutPage() {
     router.push("/");
   }
 
+  if (userLoading || cartLoading) {
+    return (
+      <div className="flex justify-center items-center h-[60vh]">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    );
+  }
+
+  if (!user || (requiresKyc && !isKycVerified)) {
+    // Redirecting or showing message, so render nothing here.
+    return null;
+  }
+  
   if (cart.length === 0) {
     return (
       <div className="container mx-auto px-4 md:px-6 py-8 md:py-12 text-center">

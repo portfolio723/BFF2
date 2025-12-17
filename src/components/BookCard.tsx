@@ -7,10 +7,9 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Heart, ShoppingCart } from "lucide-react";
+import { Heart, ShoppingCart, Loader2 } from "lucide-react";
 import { useStore } from "@/context/AppProvider";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -19,25 +18,47 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useUser } from "@/firebase";
+import { useToast } from "@/hooks/use-toast";
+import type { AppUser } from "@/lib/types";
 
 interface BookCardProps {
   book: Book;
 }
 
 export function BookCard({ book }: BookCardProps) {
+  const { user } = useUser() as { user: AppUser | null };
   const {
     addToCart,
     addToWishlist,
     isBookInWishlist,
     isBookInCart,
   } = useStore();
+  const { toast } = useToast();
+  
   const inWishlist = isBookInWishlist(book.id);
   const inCart = isBookInCart(book.id);
 
   const handleAddToCart = (type: 'buy' | 'rent') => {
+    if (!user) {
+        toast({ title: "Authentication Required", description: "Please sign in to add items to your cart.", variant: "destructive" });
+        return;
+    }
+    if (type === 'rent' && (!user.isKycVerified)) {
+        toast({ title: "KYC Required", description: "Please complete KYC verification to rent books.", variant: "destructive" });
+        return;
+    }
     if (book.availability === 'in-stock') {
       addToCart(book, type);
     }
+  }
+  
+  const handleAddToWishlist = () => {
+    if (!user) {
+        toast({ title: "Authentication Required", description: "Please sign in to add items to your wishlist.", variant: "destructive" });
+        return;
+    }
+    addToWishlist(book);
   }
 
   return (
@@ -57,9 +78,9 @@ export function BookCard({ book }: BookCardProps) {
         </div>
       </CardHeader>
       <CardContent className="p-4 flex-grow">
-        <CardTitle className="text-lg font-bold leading-snug tracking-tight mb-1 font-headline">
+        <h3 className="text-lg font-bold leading-snug tracking-tight mb-1 font-headline">
           {book.title}
-        </CardTitle>
+        </h3>
         <p className="text-sm text-muted-foreground">{book.author.name}</p>
         <div className="mt-2 flex items-center justify-between">
           <p className="text-lg font-semibold">₹{book.price}</p>
@@ -90,7 +111,7 @@ export function BookCard({ book }: BookCardProps) {
         <Button
           variant="outline"
           size="icon"
-          onClick={() => addToWishlist(book)}
+          onClick={handleAddToWishlist}
           disabled={inWishlist}
           aria-label="Add to wishlist"
         >
