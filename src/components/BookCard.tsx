@@ -5,25 +5,11 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Book } from "@/lib/types";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Heart, ShoppingCart, Eye, BookMarked } from "lucide-react";
 import { useCart } from "@/context/AppProvider";
 import { useWishlist } from "@/context/WishlistContext";
-import { useAuth } from "@/context/AuthContext";
 import { Badge } from "@/components/ui/badge";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -118,15 +104,19 @@ export function BookCard({
             >
               <Heart className={cn("w-4 h-4", inWishlist && "fill-current")} />
             </Button>
-            <Link href={`/book/${id}`}>
-              <Button 
-                size="icon" 
-                variant="secondary"
-                className="w-9 h-9 rounded-full bg-background/90 backdrop-blur-sm hover:bg-background"
-              >
-                <Eye className="w-4 h-4" />
-              </Button>
-            </Link>
+            <Button 
+              size="icon" 
+              variant="secondary"
+              className="w-9 h-9 rounded-full bg-background/90 backdrop-blur-sm hover:bg-background"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                // We are already in a link, so we can just let the default behavior happen
+                // or programmatically navigate if needed, but for now, it's just visual
+              }}
+            >
+              <Eye className="w-4 h-4" />
+            </Button>
           </div>
           
           {/* Add to Cart & Rent Buttons */}
