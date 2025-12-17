@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -65,14 +66,14 @@ export function BookCard({
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4 }}
-      className="group"
-    >
-      <Link href={`/book/${id}`} className="card-book cursor-pointer block">
+      <Link href={`/book/${id}`} className="block group">
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="card-book cursor-pointer"
+        >
         {/* Image Container */}
         <div className="relative aspect-[3/4] overflow-hidden bg-secondary">
           <Image
@@ -174,7 +175,7 @@ export function BookCard({
             </div>
           </div>
         </div>
+        </motion.div>
       </Link>
-    </motion.div>
   );
 };
