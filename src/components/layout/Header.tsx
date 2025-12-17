@@ -11,29 +11,14 @@ import {
   Heart,
   Search,
   BookOpen,
-  Moon,
   Users,
-  Sun,
   LogOut,
-  ChevronDown,
   User,
-  ShieldCheck,
-  Shield,
-  MessageCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useStore } from "@/context/AppProvider";
 import { cn } from "@/lib/utils";
-import { useUser, useAuth } from "@/firebase";
-import type { AppUser } from "@/lib/types";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 const navLinks = [
   { name: "Explore", href: "/books" },
@@ -47,19 +32,21 @@ export function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const { cartCount, wishlistCount } = useStore();
-  const { user } = useUser() as { user: AppUser | null };
-  const auth = useAuth();
+  
+  // Mock user state since Firebase is removed
+  const [user, setUser] = useState<{displayName: string} | null>(null);
 
-  const userInitial = user?.displayName?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || "U";
-  const userName = user?.displayName || user?.email?.split("@")[0] || "User";
-  const isKycVerified = user?.isKycVerified || false; // Mocked for now
+  const handleSignIn = () => {
+    // In a real app, this would be your auth logic
+    setUser({ displayName: "Book Lover" });
+    router.push('/');
+  }
 
-  const handleSignOut = async () => {
-    if (auth) {
-      await auth.signOut();
-      router.push("/");
-    }
+  const handleSignOut = () => {
+    setUser(null);
+    router.push("/");
   };
+
 
   return (
     <header className="sticky top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
@@ -154,57 +141,12 @@ export function Header() {
             </Link>
             
             {user ? (
-               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="gap-2 pl-2 pr-3">
-                    <div className="w-8 h-8 rounded-full bg-foreground text-background flex items-center justify-center text-sm font-semibold">
-                      {userInitial}
-                    </div>
-                    <span className="text-sm font-medium max-w-[100px] truncate">{userName}</span>
-                    <ChevronDown className="w-4 h-4 text-muted-foreground" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
-                  <div className="px-3 py-2">
-                    <p className="text-sm font-medium">{userName}</p>
-                    <p className="text-xs text-muted-foreground truncate">{user.email}</p>
-                    <div className="flex items-center gap-1 mt-1">
-                      {isKycVerified ? (
-                        <span className="text-xs text-green-600 dark:text-green-400 flex items-center gap-1">
-                          <ShieldCheck className="w-3 h-3" />
-                          KYC Verified
-                        </span>
-                      ) : (
-                        <span className="text-xs text-muted-foreground flex items-center gap-1">
-                          <Shield className="w-3 h-3" />
-                          KYC Pending
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => router.push("/profile")}>
-                    <User className="mr-2 h-4 w-4" />
-                    My Profile
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => router.push("/wishlist")}>
-                    <Heart className="mr-2 h-4 w-4" />
-                    Wishlist
-                  </DropdownMenuItem>
-                   <DropdownMenuItem onClick={() => router.push("/cart")}>
-                    <ShoppingCart className="mr-2 h-4 w-4" />
-                    Cart
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleSignOut} className="text-destructive focus:text-destructive">
-                    <LogOut className="mr-2 h-4 w-4" />
-                    Sign Out
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+               <Button onClick={handleSignOut} variant="secondary" size="sm" className="rounded-full px-5">
+                  Sign Out
+                </Button>
             ) : (
-                <Button asChild variant="default" size="sm" className="rounded-full px-5">
-                  <Link href="/auth">Sign In</Link>
+                <Button onClick={handleSignIn} variant="default" size="sm" className="rounded-full px-5">
+                  Sign In
                 </Button>
             )}
           </div>
@@ -250,17 +192,10 @@ export function Header() {
                   <div className="px-4 pb-4 mb-2 border-b border-border">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-foreground text-background flex items-center justify-center text-lg font-semibold">
-                        {userInitial}
+                        {user.displayName?.charAt(0) || 'U'}
                       </div>
                       <div>
-                        <p className="font-medium">{userName}</p>
-                        <p className="text-xs text-muted-foreground flex items-center gap-1">
-                          {isKycVerified ? (
-                            <><ShieldCheck className="w-3 h-3 text-green-600" />KYC Verified</>
-                          ) : (
-                            <><Shield className="w-3 h-3" />KYC Pending</>
-                          )}
-                        </p>
+                        <p className="font-medium">{user.displayName}</p>
                       </div>
                     </div>
                   </div>
@@ -326,12 +261,10 @@ export function Header() {
                       Sign Out
                     </Button>
                   ) : (
-                   <Link href="/auth" onClick={() => setIsOpen(false)}>
-                      <Button variant="default" className="w-full justify-start gap-3">
+                      <Button variant="default" className="w-full justify-start gap-3" onClick={() => { handleSignIn(); setIsOpen(false); }}>
                         <Users className="w-4 h-4" />
                         Sign In
                       </Button>
-                    </Link>
                   )}
                 </div>
               </div>

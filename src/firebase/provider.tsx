@@ -1,46 +1,53 @@
+export type Author = {
+  id: string;
+  name: string;
+};
 
-"use client";
+export type Genre = {
+  id: string;
+  name: string;
+};
 
-import React, { createContext, useContext, ReactNode } from 'react';
-import { initializeFirebase } from '@/firebase';
-import type { FirebaseApp } from 'firebase/app';
-import type { Auth } from 'firebase/auth';
-import type { Firestore } from 'firebase/firestore';
+export type Book = {
+  id: string;
+  title: string;
+  author: Author;
+  genre: Genre;
+  price: number;
+  coverImage: {
+    url: string;
+    hint: string;
+  };
+  description: string;
+  availability: 'in-stock' | 'out-of-stock';
+  rentalPrice?: number;
+};
 
-interface FirebaseContextType {
-  app: FirebaseApp;
-  auth: Auth;
-  firestore: Firestore;
+export type CommunityPost = {
+  id: string;
+  title: string;
+  author: {
+    name: string;
+    avatar: {
+      url: string;
+      hint: string;
+    };
+  };
+  content: string;
+  timestamp: string;
+  replies: number;
+};
+
+export type CartItem = {
+  book: Book;
+  type: 'buy' | 'rent';
+};
+
+// This can be simplified as we are no longer extending the Firebase user
+export interface AppUser {
+  displayName?: string | null;
+  email?: string | null;
+  photoURL?: string | null;
+  uid: string;
+  isKycVerified?: boolean;
 }
-
-const FirebaseContext = createContext<FirebaseContextType | undefined>(undefined);
-
-export const FirebaseProvider: React.FC<{ children: ReactNode; value: FirebaseContextType }> = ({ children, value }) => {
-  return <FirebaseContext.Provider value={value}>{children}</FirebaseContext.Provider>;
-};
-
-export const useFirebase = (): FirebaseContextType => {
-  const context = useContext(FirebaseContext);
-  if (!context) {
-    throw new Error('useFirebase must be used within a FirebaseProvider');
-  }
-  return context;
-};
-
-export const useFirebaseApp = (): FirebaseApp => {
-    const context = useContext(FirebaseContext);
-    if (!context) {
-        throw new Error('useFirebaseApp must be used within a FirebaseProvider');
-    }
-    return context.app;
-}
-
-export const useAuth = (): Auth | undefined => {
-  const context = useContext(FirebaseContext);
-  return context?.auth;
-};
-
-export const useFirestore = (): Firestore | undefined => {
-  const context = useContext(FirebaseContext);
-  return context?.firestore;
-};

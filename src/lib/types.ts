@@ -1,4 +1,3 @@
-import type { User } from 'firebase/auth';
 
 export type Author = {
   id: string;
@@ -45,6 +44,11 @@ export type CartItem = {
   type: 'buy' | 'rent';
 };
 
-export interface AppUser extends User {
+// This can be simplified as we are no longer extending the Firebase user
+export interface AppUser {
+  displayName?: string | null;
+  email?: string | null;
+  photoURL?: string | null;
+  uid: string;
   isKycVerified?: boolean;
 }

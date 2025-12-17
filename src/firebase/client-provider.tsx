@@ -1,17 +1,53 @@
-
-"use client";
-
-import React from 'react';
-import { initializeFirebase } from '@/firebase/index';
-import { FirebaseProvider } from './provider';
-
-// Initialize Firebase on the client
-const firebaseInstance = initializeFirebase();
-
-export const FirebaseClientProvider = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <FirebaseProvider value={firebaseInstance}>
-      {children}
-    </FirebaseProvider>
-  );
+export type Author = {
+  id: string;
+  name: string;
 };
+
+export type Genre = {
+  id: string;
+  name: string;
+};
+
+export type Book = {
+  id: string;
+  title: string;
+  author: Author;
+  genre: Genre;
+  price: number;
+  coverImage: {
+    url: string;
+    hint: string;
+  };
+  description: string;
+  availability: 'in-stock' | 'out-of-stock';
+  rentalPrice?: number;
+};
+
+export type CommunityPost = {
+  id: string;
+  title: string;
+  author: {
+    name: string;
+    avatar: {
+      url: string;
+      hint: string;
+    };
+  };
+  content: string;
+  timestamp: string;
+  replies: number;
+};
+
+export type CartItem = {
+  book: Book;
+  type: 'buy' | 'rent';
+};
+
+// This can be simplified as we are no longer extending the Firebase user
+export interface AppUser {
+  displayName?: string | null;
+  email?: string | null;
+  photoURL?: string | null;
+  uid: string;
+  isKycVerified?: boolean;
+}

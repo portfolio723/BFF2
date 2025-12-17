@@ -1,77 +1,53 @@
+export type Author = {
+  id: string;
+  name: string;
+};
 
-{
-  "entities": {
-    "book": {
-      "title": "Book",
-      "description": "Represents a book in the catalog.",
-      "type": "object",
-      "properties": {
-        "id": { "type": "string" },
-        "title": { "type": "string" },
-        "author": {
-          "type": "object",
-          "properties": {
-            "id": { "type": "string" },
-            "name": { "type": "string" }
-          },
-          "required": ["id", "name"]
-        },
-        "genre": {
-          "type": "object",
-          "properties": {
-            "id": { "type": "string" },
-            "name": { "type": "string" }
-          },
-          "required": ["id", "name"]
-        },
-        "price": { "type": "number" },
-        "rentalPrice": { "type": "number" },
-        "coverImage": {
-          "type": "object",
-          "properties": {
-            "url": { "type": "string" },
-            "hint": { "type": "string" }
-          },
-          "required": ["url", "hint"]
-        },
-        "description": { "type": "string" },
-        "availability": { "type": "string", "enum": ["in-stock", "out-of-stock"] }
-      },
-      "required": ["id", "title", "author", "genre", "price", "coverImage", "description", "availability"]
-    },
-    "cartItem": {
-      "title": "Cart Item",
-      "description": "Represents an item in the shopping cart.",
-      "type": "object",
-      "properties": {
-        "book": { "$ref": "#/backend/entities/book" },
-        "type": { "type": "string", "enum": ["buy", "rent"] }
-      },
-      "required": ["book", "type"]
-    },
-    "userProfile": {
-      "title": "User Profile",
-      "description": "Stores user-specific data.",
-      "type": "object",
-      "properties": {
-        "wishlist": {
-          "type": "array",
-          "items": { "$ref": "#/backend/entities/book" }
-        },
-        "cart": {
-          "type": "array",
-          "items": { "$ref": "#/backend/entities/cartItem" }
-        }
-      }
-    }
-  },
-  "auth": {
-    "providers": ["email", "google.com"]
-  },
-  "firestore": {
-    "/users/{userId}": {
-      "schema": { "$ref": "#/backend/entities/userProfile" },
-      "description": "User profile documents, keyed by user ID."
-    }
-  }
+export type Genre = {
+  id: string;
+  name: string;
+};
+
+export type Book = {
+  id: string;
+  title: string;
+  author: Author;
+  genre: Genre;
+  price: number;
+  coverImage: {
+    url: string;
+    hint: string;
+  };
+  description: string;
+  availability: 'in-stock' | 'out-of-stock';
+  rentalPrice?: number;
+};
+
+export type CommunityPost = {
+  id: string;
+  title: string;
+  author: {
+    name: string;
+    avatar: {
+      url: string;
+      hint: string;
+    };
+  };
+  content: string;
+  timestamp: string;
+  replies: number;
+};
+
+export type CartItem = {
+  book: Book;
+  type: 'buy' | 'rent';
+};
+
+// This can be simplified as we are no longer extending the Firebase user
+export interface AppUser {
+  displayName?: string | null;
+  email?: string | null;
+  photoURL?: string | null;
+  uid: string;
+  isKycVerified?: boolean;
 }

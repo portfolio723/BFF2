@@ -7,34 +7,21 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Separator } from "@/components/ui/separator";
 import { X, ShoppingCart, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { useUser } from "@/firebase";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 export default function CartPage() {
-  const { user, loading: userLoading } = useUser();
-  const { cart, removeFromCart, cartTotal, loading: cartLoading } = useStore();
+  const { cart, removeFromCart, cartTotal, loading } = useStore();
   const router = useRouter();
-
-  useEffect(() => {
-    if (!userLoading && !user) {
-      router.push('/auth?redirect=/cart');
-    }
-  }, [user, userLoading, router]);
 
   const deliveryCharge = cart.length > 0 ? 50.00 : 0.00;
   const total = cartTotal + deliveryCharge;
 
-  if (userLoading || cartLoading) {
+  if (loading) {
     return (
       <div className="flex justify-center items-center h-[60vh]">
         <Loader2 className="h-8 w-8 animate-spin" />
       </div>
     );
-  }
-  
-  if (!user) {
-    return null; // or a message encouraging login
   }
 
   return (

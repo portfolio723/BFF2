@@ -9,7 +9,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Heart, ShoppingCart, Loader2 } from "lucide-react";
+import { Heart, ShoppingCart } from "lucide-react";
 import { useStore } from "@/context/AppProvider";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -18,7 +18,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useUser } from "@/firebase";
 import { useToast } from "@/hooks/use-toast";
 import type { AppUser } from "@/lib/types";
 
@@ -27,7 +26,6 @@ interface BookCardProps {
 }
 
 export function BookCard({ book }: BookCardProps) {
-  const { user } = useUser() as { user: AppUser | null };
   const {
     addToCart,
     addToWishlist,
@@ -38,13 +36,13 @@ export function BookCard({ book }: BookCardProps) {
   
   const inWishlist = isBookInWishlist(book.id);
   const inCart = isBookInCart(book.id);
+  
+  // In a non-Firebase app, user state would be managed differently.
+  // We'll simulate a logged-in user for KYC checks.
+  const user = { isKycVerified: false }; 
 
   const handleAddToCart = (type: 'buy' | 'rent') => {
-    if (!user) {
-        toast({ title: "Authentication Required", description: "Please sign in to add items to your cart.", variant: "destructive" });
-        return;
-    }
-    if (type === 'rent' && (!user.isKycVerified)) {
+    if (type === 'rent' && !user.isKycVerified) {
         toast({ title: "KYC Required", description: "Please complete KYC verification to rent books.", variant: "destructive" });
         return;
     }
@@ -54,10 +52,6 @@ export function BookCard({ book }: BookCardProps) {
   }
   
   const handleAddToWishlist = () => {
-    if (!user) {
-        toast({ title: "Authentication Required", description: "Please sign in to add items to your wishlist.", variant: "destructive" });
-        return;
-    }
     addToWishlist(book);
   }
 

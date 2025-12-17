@@ -5,31 +5,16 @@ import { BookCard } from "@/components/BookCard";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Heart, Loader2 } from "lucide-react";
-import { useUser } from "@/firebase";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 export default function WishlistPage() {
-  const { user, loading: userLoading } = useUser();
   const { wishlist, loading: wishlistLoading } = useStore();
-  const router = useRouter();
 
-  useEffect(() => {
-    if (!userLoading && !user) {
-      router.push('/auth?redirect=/wishlist');
-    }
-  }, [user, userLoading, router]);
-
-  if (userLoading || wishlistLoading) {
+  if (wishlistLoading) {
     return (
       <div className="flex justify-center items-center h-[60vh]">
         <Loader2 className="h-8 w-8 animate-spin" />
       </div>
     );
-  }
-
-  if (!user) {
-    return null; // Or a login prompt
   }
 
   return (

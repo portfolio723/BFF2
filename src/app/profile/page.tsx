@@ -1,8 +1,7 @@
 "use client";
 
-import { useUser } from "@/firebase";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -14,21 +13,16 @@ import type { AppUser } from "@/lib/types";
 
 
 export default function ProfilePage() {
-  const { user, loading } = useUser() as { user: AppUser | null, loading: boolean };
   const router = useRouter();
   const { toast } = useToast();
-  const [isKycVerified, setIsKycVerified] = useState(user?.isKycVerified || false);
-
-  useEffect(() => {
-    if (!loading && !user) {
-      router.push('/auth?redirect=/profile');
-    }
-    // In a real app, you'd fetch the KYC status from your backend
-    // For now, we'll just use the mock status and allow simulating verification.
-    if (user) {
-        setIsKycVerified(user.isKycVerified || false);
-    }
-  }, [user, loading, router]);
+  const [isKycVerified, setIsKycVerified] = useState(false);
+  
+  // This is a mock user as Firebase is removed.
+  const user = {
+    displayName: "Book Lover",
+    email: "user@example.com",
+    photoURL: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjU4NjUxMjF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+  }
 
   const handleKycVerification = () => {
     // This is a mock verification process.
@@ -44,18 +38,6 @@ export default function ProfilePage() {
         description: "You can now rent books.",
       });
     }, 2000);
-  }
-  
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-[60vh]">
-        <Loader2 className="h-8 w-8 animate-spin" />
-      </div>
-    );
-  }
-
-  if (!user) {
-    return null;
   }
   
   const userInitial = user.displayName?.charAt(0).toUpperCase() || user.email?.charAt(0).toUpperCase() || "U";

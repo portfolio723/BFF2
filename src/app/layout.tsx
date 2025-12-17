@@ -5,7 +5,6 @@ import { Footer } from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { FirebaseClientProvider } from "@/firebase";
 
 export const metadata: Metadata = {
   title: "Hyderabad Reads",
@@ -22,14 +21,12 @@ export default function RootLayout({
       <head>
       </head>
       <body className={cn("antialiased flex flex-col min-h-screen")}>
-        <FirebaseClientProvider>
-          <AppProvider>
-            <Header />
-            <main className="flex-grow pt-16 lg:pt-20">{children}</main>
-            <Footer />
-            <Toaster />
-          </AppProvider>
-        </FirebaseClientProvider>
+        <AppProvider>
+          <Header />
+          <main className="flex-grow pt-16 lg:pt-20">{children}</main>
+          <Footer />
+          <Toaster />
+        </AppProvider>
       </body>
     </html>
   );
