@@ -1,4 +1,5 @@
 
+
 export type Author = {
   id: string;
   name: string;
@@ -52,3 +53,26 @@ export interface AppUser {
   uid: string;
   isKycVerified?: boolean;
 }
+
+export type Order = {
+  id: string;
+  userId: string;
+  items: CartItem[];
+  total: number;
+  subtotal: number;
+  deliveryCharge: number;
+  shippingAddress: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    address: string;
+    address2?: string;
+    city: string;
+    state: string;
+    pincode: string;
+  };
+  paymentMethod: string;
+  status: 'pending' | 'shipped' | 'delivered' | 'cancelled';
+  createdAt: any; 
+};

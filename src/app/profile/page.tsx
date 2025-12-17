@@ -1,36 +1,64 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, ShieldCheck, User, Mail, Upload, AlertCircle } from "lucide-react";
+import { Loader2, ShieldCheck, User, Mail, Upload, AlertCircle, ShoppingBag, Package2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import type { AppUser } from "@/lib/types";
-
+import { useUser, useFirestore } from "@/firebase";
+import { collection, query, where, getDocs, orderBy } from "firebase/firestore";
+import type { Order } from "@/lib/types";
 
 export default function ProfilePage() {
   const router = useRouter();
   const { toast } = useToast();
-  const [isKycVerified, setIsKycVerified] = useState(false);
-  
-  // This is a mock user as Firebase is removed.
-  const user = {
-    displayName: "Book Lover",
-    email: "user@example.com",
-    photoURL: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjU4NjUxMjF8MA&ixlib=rb-4.1.0&q=80&w=1080",
-  }
+  const { user, loading: userLoading } = useUser();
+  const firestore = useFirestore();
+
+  const [isKycVerified, setIsKycVerified] = useState(user?.isKycVerified || false);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [loadingOrders, setLoadingOrders] = useState(true);
+
+  useEffect(() => {
+    if (user && firestore) {
+      setIsKycVerified(user.isKycVerified || false);
+      
+      const fetchOrders = async () => {
+        setLoadingOrders(true);
+        try {
+          const q = query(
+            collection(firestore, "orders"),
+            where("userId", "==", user.uid),
+            orderBy("createdAt", "desc")
+          );
+          const querySnapshot = await getDocs(q);
+          const userOrders = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Order));
+          setOrders(userOrders);
+        } catch (error) {
+          console.error("Error fetching orders:", error);
+          toast({
+            title: "Error",
+            description: "Could not fetch order history.",
+            variant: "destructive",
+          });
+        } finally {
+          setLoadingOrders(false);
+        }
+      };
+
+      fetchOrders();
+    }
+  }, [user, firestore, toast]);
 
   const handleKycVerification = () => {
-    // This is a mock verification process.
     toast({
         title: "KYC Verification",
         description: "In a real app, this would start the document upload process. For now, we'll simulate a successful verification.",
     });
-    // Simulate updating user state. In a real app, this would be a backend call.
      setTimeout(() => {
       setIsKycVerified(true);
       toast({
@@ -40,12 +68,25 @@ export default function ProfilePage() {
     }, 2000);
   }
   
+  if (userLoading) {
+      return (
+          <div className="flex justify-center items-center min-h-screen">
+              <Loader2 className="h-8 w-8 animate-spin" />
+          </div>
+      );
+  }
+
+  if (!user) {
+    router.push('/auth?redirect=/profile');
+    return null;
+  }
+  
   const userInitial = user.displayName?.charAt(0).toUpperCase() || user.email?.charAt(0).toUpperCase() || "U";
 
   return (
     <div className="container mx-auto px-4 md:px-6 py-8 md:py-12 max-w-4xl">
-       <header className="mb-8 pt-16 lg:pt-20">
-        <h1 className="font-headline text-4xl font-bold tracking-tight">
+       <header className="mb-8">
+        <h1 className="font-heading text-4xl font-bold tracking-tight">
           My Profile
         </h1>
         <p className="text-muted-foreground mt-2">
@@ -119,9 +160,38 @@ export default function ProfilePage() {
                     <CardDescription>Your past purchases and rentals.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                   <div className="text-center py-10 text-muted-foreground">
-                        <p>You have no past orders.</p>
-                   </div>
+                   {loadingOrders ? (
+                       <div className="text-center py-10 text-muted-foreground">
+                           <Loader2 className="h-6 w-6 animate-spin mx-auto" />
+                           <p className="mt-2">Loading orders...</p>
+                       </div>
+                   ) : orders.length > 0 ? (
+                       <div className="space-y-4">
+                           {orders.map(order => (
+                               <div key={order.id} className="p-4 border rounded-lg">
+                                   <div className="flex justify-between items-center mb-2">
+                                       <p className="font-semibold">Order #{order.id.slice(-6)}</p>
+                                       <Badge variant={order.status === 'delivered' ? 'secondary' : 'default'} className="capitalize">{order.status}</Badge>
+                                   </div>
+                                   <p className="text-sm text-muted-foreground">
+                                       {new Date(order.createdAt?.toDate()).toLocaleDateString()} - ₹{order.total.toFixed(2)}
+                                   </p>
+                                   <div className="mt-2 text-sm">
+                                      {order.items.map(item => (
+                                          <p key={`${item.id}-${item.type}`} className="text-muted-foreground">
+                                              {item.quantity} x {item.title} ({item.type})
+                                          </p>
+                                      ))}
+                                   </div>
+                               </div>
+                           ))}
+                       </div>
+                   ) : (
+                       <div className="text-center py-10 text-muted-foreground">
+                            <Package2 className="h-8 w-8 mx-auto mb-2" />
+                            <p>You have no past orders.</p>
+                       </div>
+                   )}
                 </CardContent>
             </Card>
         </div>

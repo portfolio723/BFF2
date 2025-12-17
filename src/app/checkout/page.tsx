@@ -31,6 +31,9 @@ import {
 import { cn } from "@/lib/utils";
 import { useStore } from "@/context/AppProvider";
 import Image from "next/image";
+import { useUser, useFirestore } from "@/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+
 
 const steps = [
   { id: 1, name: "Address", icon: MapPin },
@@ -49,21 +52,62 @@ const indianStates = [
 export default function CheckoutPage() {
   const router = useRouter();
   const { cart, cartTotal, clearCart } = useStore();
+  const { user } = useUser();
+  const firestore = useFirestore();
   const [currentStep, setCurrentStep] = useState(1);
   const [paymentMethod, setPaymentMethod] = useState("upi");
   const [isProcessing, setIsProcessing] = useState(false);
-  const [orderPlaced, setOrderPlaced] = useState(false);
+  const [orderPlaced, setOrderPlaced] = useState<any>(null);
+  const [address, setAddress] = useState({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      address: "",
+      address2: "",
+      city: "",
+      state: "",
+      pincode: "",
+  });
 
   const deliveryCharge = cart.some(item => item.type ==='rent') ? 50.00 : 0.00;
   const total = cartTotal + deliveryCharge;
+  
+  const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setAddress(prev => ({...prev, [id]: value}));
+  }
 
-  const handlePlaceOrder = () => {
+  const handleStateChange = (value: string) => {
+    setAddress(prev => ({...prev, state: value}));
+  }
+
+  const handlePlaceOrder = async () => {
+    if (!user || !firestore) return;
+
     setIsProcessing(true);
-    setTimeout(() => {
-      setIsProcessing(false);
-      setOrderPlaced(true);
-      clearCart();
-    }, 2000);
+    
+    const orderData = {
+        userId: user.uid,
+        items: cart,
+        subtotal: cartTotal,
+        deliveryCharge,
+        total,
+        shippingAddress: address,
+        paymentMethod,
+        status: 'pending',
+        createdAt: serverTimestamp()
+    };
+
+    try {
+        const docRef = await addDoc(collection(firestore, "orders"), orderData);
+        setOrderPlaced({ id: docRef.id });
+        clearCart();
+    } catch(e) {
+        console.error("Error adding document: ", e);
+    } finally {
+        setIsProcessing(false);
+    }
   };
 
   if (cart.length === 0 && !orderPlaced) {
@@ -121,7 +165,7 @@ export default function CheckoutPage() {
                 Thank you for your order. Your order ID is:
               </p>
               <p className="font-mono text-xl font-semibold mb-8">
-                #BFF{Date.now().toString().slice(-8)}
+                #{orderPlaced.id.slice(-8).toUpperCase()}
               </p>
               
               <div className="bg-secondary/50 rounded-xl p-6 mb-8 text-left">
@@ -129,7 +173,7 @@ export default function CheckoutPage() {
                 <div className="space-y-3 text-sm">
                   <div className="flex items-start gap-3">
                     <Mail className="w-4 h-4 mt-0.5 text-muted-foreground" />
-                    <span className="text-muted-foreground">Order confirmation sent to your email</span>
+                    <span className="text-muted-foreground">Order confirmation sent to {address.email}</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <Package className="w-4 h-4 mt-0.5 text-muted-foreground" />
@@ -148,9 +192,9 @@ export default function CheckoutPage() {
                     Continue Shopping
                   </Button>
                 </Link>
-                <Link href="/">
+                <Link href="/profile">
                   <Button size="lg" className="rounded-full px-8">
-                    Back to Home
+                    View My Orders
                   </Button>
                 </Link>
               </div>
@@ -243,11 +287,11 @@ export default function CheckoutPage() {
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="firstName">First Name *</Label>
-                        <Input id="firstName" placeholder="Enter first name" className="h-12" />
+                        <Input id="firstName" placeholder="Enter first name" className="h-12" value={address.firstName} onChange={handleAddressChange} />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="lastName">Last Name *</Label>
-                        <Input id="lastName" placeholder="Enter last name" className="h-12" />
+                        <Input id="lastName" placeholder="Enter last name" className="h-12" value={address.lastName} onChange={handleAddressChange} />
                       </div>
                     </div>
                     
@@ -256,42 +300,42 @@ export default function CheckoutPage() {
                         <Label htmlFor="email">Email Address *</Label>
                         <div className="relative">
                           <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                          <Input id="email" type="email" placeholder="your@email.com" className="h-12 pl-11" />
+                          <Input id="email" type="email" placeholder="your@email.com" className="h-12 pl-11" value={address.email} onChange={handleAddressChange} />
                         </div>
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="phone">Phone Number *</Label>
                         <div className="relative">
                           <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                          <Input id="phone" placeholder="+91 98765 43210" className="h-12 pl-11" />
+                          <Input id="phone" placeholder="+91 98765 43210" className="h-12 pl-11" value={address.phone} onChange={handleAddressChange} />
                         </div>
                       </div>
                     </div>
                     
                     <div className="space-y-2">
                       <Label htmlFor="address">Street Address *</Label>
-                      <Input id="address" placeholder="House no., Building, Street" className="h-12" />
+                      <Input id="address" placeholder="House no., Building, Street" className="h-12" value={address.address} onChange={handleAddressChange} />
                     </div>
                     
                     <div className="space-y-2">
                       <Label htmlFor="address2">Apartment, Suite, etc. (optional)</Label>
-                      <Input id="address2" placeholder="Apartment, suite, unit, etc." className="h-12" />
+                      <Input id="address2" placeholder="Apartment, suite, unit, etc." className="h-12" value={address.address2} onChange={handleAddressChange}/>
                     </div>
                     
                     <div className="grid sm:grid-cols-3 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="city">City *</Label>
-                        <Input id="city" placeholder="City" className="h-12" />
+                        <Input id="city" placeholder="City" className="h-12" value={address.city} onChange={handleAddressChange} />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="state">State *</Label>
-                        <Select>
+                        <Select onValueChange={handleStateChange} value={address.state}>
                           <SelectTrigger className="h-12">
                             <SelectValue placeholder="Select state" />
                           </SelectTrigger>
                           <SelectContent>
                             {indianStates.map((state) => (
-                              <SelectItem key={state} value={state.toLowerCase().replace(/\s+/g, '-')}>
+                              <SelectItem key={state} value={state}>
                                 {state}
                               </SelectItem>
                             ))}
@@ -300,7 +344,7 @@ export default function CheckoutPage() {
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="pincode">PIN Code *</Label>
-                        <Input id="pincode" placeholder="500001" className="h-12" />
+                        <Input id="pincode" placeholder="500001" className="h-12" value={address.pincode} onChange={handleAddressChange} />
                       </div>
                     </div>
                     
@@ -445,7 +489,7 @@ export default function CheckoutPage() {
                     <div className="p-4 bg-secondary/50 rounded-xl">
                       <h3 className="font-medium mb-2">Delivery Address</h3>
                       <p className="text-sm text-muted-foreground">
-                        Address details will be shown here after form submission
+                        {address.firstName} {address.lastName}, {address.address}, {address.city}, {address.state} - {address.pincode}
                       </p>
                     </div>
                     
