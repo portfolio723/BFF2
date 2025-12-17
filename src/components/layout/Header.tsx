@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useStore as useCartStore } from "@/context/AppProvider";
+import { useCart } from "@/context/AppProvider";
 import { useWishlist } from "@/context/WishlistContext";
 import { cn } from "@/lib/utils";
 
@@ -32,10 +32,15 @@ export function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const { cartCount } = useCartStore();
+  const { cartCount } = useCart();
   const { wishlistCount } = useWishlist();
   
   const [user, setUser] = useState<{displayName: string} | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleSignIn = () => {
     setUser({ displayName: "Book Lover" });
@@ -116,7 +121,7 @@ export function Header() {
                 aria-label="Wishlist"
               >
                 <Heart className="w-5 h-5" />
-                {wishlistCount > 0 && (
+                {isMounted && wishlistCount > 0 && (
                   <span className="absolute -top-1 -right-1 w-4 h-4 bg-foreground text-background text-[10px] font-medium rounded-full flex items-center justify-center">
                     {wishlistCount > 9 ? "9+" : wishlistCount}
                   </span>
@@ -132,7 +137,7 @@ export function Header() {
                 aria-label="Cart"
               >
                 <ShoppingCart className="w-5 h-5" />
-                {cartCount > 0 && (
+                {isMounted && cartCount > 0 && (
                   <span className="absolute -top-1 -right-1 w-4 h-4 bg-foreground text-background text-[10px] font-medium rounded-full flex items-center justify-center">
                     {cartCount > 9 ? "9+" : cartCount}
                   </span>
@@ -160,7 +165,7 @@ export function Header() {
                  aria-label="Cart"
               >
                 <ShoppingCart className="w-5 h-5" />
-                {cartCount > 0 && (
+                {isMounted && cartCount > 0 && (
                   <span className="absolute -top-1 -right-1 w-4 h-4 bg-foreground text-background text-[10px] font-medium rounded-full flex items-center justify-center">
                     {cartCount > 9 ? "9+" : cartCount}
                   </span>
@@ -244,7 +249,7 @@ export function Header() {
                       className="w-full justify-start gap-3"
                     >
                       <Heart className="w-4 h-4" />
-                      Wishlist {wishlistCount > 0 && `(${wishlistCount})`}
+                      Wishlist {isMounted && wishlistCount > 0 && `(${wishlistCount})`}
                     </Button>
                   </Link>
 
