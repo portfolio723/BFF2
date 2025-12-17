@@ -1,3 +1,76 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "book-cover-1",
+      "description": "Abstract book cover with geometric shapes",
+      "imageUrl": "https://images.unsplash.com/photo-1641154748135-8032a61a3f80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxib29rJTIwY292ZXJ8ZW58MHx8fHwxNzY1OTM1ODE0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "book cover"
+    },
+    {
+      "id": "book-cover-2",
+      "description": "Minimalist book cover with a single object",
+      "imageUrl": "https://images.unsplash.com/photo-1490013616775-3ca8865fb129?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxib29rJTIwZGVzaWdufGVufDB8fHx8MTc2NTk1NzMxOHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "book design"
+    },
+    {
+      "id": "book-cover-3",
+      "description": "Typographic book cover",
+      "imageUrl": "https://images.unsplash.com/photo-1620325645116-82a352eee4d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx0eXBvZ3JhcGh5JTIwZGVzaWdufGVufDB8fHx8MTc2NTg1OTc1NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "typography design"
+    },
+    {
+      "id": "book-cover-4",
+      "description": "Book cover with a nature photograph",
+      "imageUrl": "https://images.unsplash.com/photo-1625503502641-ee6e46a251e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxuYXR1cmUlMjBwaG90b2dyYXBofGVufDB8fHx8MTc2NTk1NzMxOHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "nature photograph"
+    },
+    {
+      "id": "book-cover-5",
+      "description": "Vintage style book cover",
+      "imageUrl": "https://images.unsplash.com/photo-1728241965201-b3e0292ad075?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx2aW50YWdlJTIwZGVzaWdufGVufDB8fHx8MTc2NTk1NzMxOHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "vintage design"
+    },
+    {
+      "id": "book-cover-6",
+      "description": "Modern art book cover",
+      "imageUrl": "https://images.unsplash.com/photo-1615184697985-c9bde1b07da7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtb2Rlcm4lMjBhcnR8ZW58MHx8fHwxNzY1OTIzODY4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "modern art"
+    },
+    {
+      "id": "book-cover-7",
+      "description": "Fantasy themed book cover",
+      "imageUrl": "https://images.unsplash.com/photo-1741118235609-bf637a4e7d39?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmYW50YXN5JTIwYXJ0fGVufDB8fHx8MTc2NTk1NzMxOHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fantasy art"
+    },
+    {
+      "id": "book-cover-8",
+      "description": "Science fiction themed book cover",
+      "imageUrl": "https://images.unsplash.com/photo-1639262498805-17c7dc422d37?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzY2llbmNlJTIwZmljdGlvbnxlbnwwfHx8fDE3NjU5MDY1NjF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "science fiction"
+    },
+    {
+      "id": "hero-background",
+      "description": "A cozy and modern library or reading nook",
+      "imageUrl": "https://images.unsplash.com/photo-1554896541-dff010081afe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBsaWJyYXJ5fGVufDB8fHx8MTc2NTk0MjE1NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "modern library"
+    },
+    {
+      "id": "user-avatar-1",
+      "description": "Portrait of a person",
+      "imageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjU4NjUxMjF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "user-avatar-2",
+      "description": "Portrait of another person",
+      "imageUrl": "https://images.unsplash.com/photo-1531123414780-f74242c2b052?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cGVyc29uJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzY1ODY1MTIxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "user-avatar-3",
+      "description": "Portrait of a third person",
+      "imageUrl": "https://images.unsplash.com/photo-1540569014015-19a7be504e3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjU4NjUxMjF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    }
+  ]
 }
