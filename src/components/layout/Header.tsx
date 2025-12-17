@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { BookOpen, Heart, ShoppingCart, Menu } from "lucide-react";
+import { BookOpen, Heart, ShoppingCart, Menu, Search, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/context/AppProvider";
 import {
@@ -11,10 +11,11 @@ import {
 import { useState } from "react";
 
 const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/books", label: "Books" },
-  { href: "/community", label: "Community" },
+  { href: "/books", label: "Explore" },
+  { href: "/books", label: "Rent" },
+  { href: "/books", label: "Buy" },
   { href: "/donate", label: "Donate" },
+  { href: "/community", label: "Community" },
 ];
 
 export function Header() {
@@ -22,18 +23,18 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-card shadow-sm sticky top-0 z-40">
+    <header className="bg-card border-b sticky top-0 z-40">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2">
           <BookOpen className="h-6 w-6 text-primary" />
           <span className="font-headline text-xl font-bold tracking-tight">
-            Hyderabad Reads
+            Books For Fosters
           </span>
         </Link>
         <nav className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => (
+          {navLinks.map((link, index) => (
             <Link
-              key={link.href}
+              key={`${link.href}-${index}`}
               href={link.href}
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
@@ -41,7 +42,13 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" size="icon" aria-label="Search">
+            <Search className="h-5 w-5" />
+          </Button>
+           <Button variant="ghost" size="icon" aria-label="Toggle theme">
+            <Moon className="h-5 w-5" />
+          </Button>
           <Link href="/wishlist" passHref>
             <Button variant="ghost" size="icon" aria-label="Wishlist">
               <div className="relative">
@@ -66,6 +73,7 @@ export function Header() {
               </div>
             </Button>
           </Link>
+          <Button>Sign In</Button>
           <div className="md:hidden">
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>

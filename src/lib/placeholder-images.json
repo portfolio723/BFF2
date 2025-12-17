@@ -49,10 +49,22 @@
       "imageHint": "science fiction"
     },
     {
-      "id": "hero-background",
-      "description": "A cozy and modern library or reading nook",
-      "imageUrl": "https://images.unsplash.com/photo-1554896541-dff010081afe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBsaWJyYXJ5fGVufDB8fHx8MTc2NTk0MjE1NHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "modern library"
+      "id": "hero-1",
+      "description": "Stack of books",
+      "imageUrl": "https://images.unsplash.com/photo-1660479123634-2c700dfbbbdb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxib29rcyUyMHN0YWNrfGVufDB8fHx8MTc2NTg4MDUxOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "books stack"
+    },
+    {
+      "id": "hero-2",
+      "description": "milk and honey book on a table",
+      "imageUrl": "https://images.unsplash.com/photo-1682286745619-943c15e87fd5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxib29rJTIwdGFibGV8ZW58MHx8fHwxNzY1OTQyOTgxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "book table"
+    },
+    {
+      "id": "hero-3",
+      "description": "Open book",
+      "imageUrl": "https://images.unsplash.com/photo-1515118058350-d72d92dd5140?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxib29rJTIwb3BlbnxlbnwwfHx8fDE3NjU5MjM2ODl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "book open"
     },
     {
       "id": "user-avatar-1",
