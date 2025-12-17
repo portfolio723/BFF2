@@ -1,7 +1,8 @@
+
 "use client";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { BookCard } from "@/components/BookCard";
-import { books, genres, authors } from "@/lib/data";
+import { books, genres } from "@/lib/data";
 import {
   Select,
   SelectContent,
@@ -10,123 +11,131 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import { Slider } from "@/components/ui/slider";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 import type { Book } from "@/lib/types";
+import { Search } from "lucide-react";
 
 export default function BooksPage() {
-  const [filteredBooks, setFilteredBooks] = useState<Book[]>(books);
   const [searchTerm, setSearchTerm] = useState("");
   const [genre, setGenre] = useState("all");
-  const [author, setAuthor] = useState("all");
   const [availability, setAvailability] = useState("all");
+  const [priceRange, setPriceRange] = useState<[number]>([1000]);
 
-  const handleFilterChange = (
-    value: string,
-    filterType: "search" | "genre" | "author" | "availability"
-  ) => {
-    let newSearchTerm = searchTerm;
-    let newGenre = genre;
-    let newAuthor = author;
-    let newAvailability = availability;
+  const maxPrice = useMemo(() => Math.max(...books.map((b) => b.price), 1000), []);
 
-    switch (filterType) {
-      case "search":
-        newSearchTerm = value;
-        setSearchTerm(value);
-        break;
-      case "genre":
-        newGenre = value;
-        setGenre(value);
-        break;
-      case "author":
-        newAuthor = value;
-        setAuthor(value);
-        break;
-      case "availability":
-        newAvailability = value;
-        setAvailability(value);
-        break;
-    }
+  const filteredBooks = useMemo(() => {
+    return books.filter((book) => {
+      const searchMatch = book.title
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const genreMatch = genre === "all" || book.genre.id === genre;
+      const availabilityMatch =
+        availability === "all" || book.availability === availability;
+      const priceMatch = book.price <= priceRange[0];
 
-    let tempBooks = books;
-
-    if (newSearchTerm) {
-      tempBooks = tempBooks.filter((book) =>
-        book.title.toLowerCase().includes(newSearchTerm.toLowerCase())
-      );
-    }
-    if (newGenre !== "all") {
-      tempBooks = tempBooks.filter((book) => book.genre.id === newGenre);
-    }
-    if (newAuthor !== "all") {
-      tempBooks = tempBooks.filter((book) => book.author.id === newAuthor);
-    }
-    if (newAvailability !== "all") {
-      tempBooks = tempBooks.filter(
-        (book) => book.availability === newAvailability
-      );
-    }
-    setFilteredBooks(tempBooks);
-  };
+      return searchMatch && genreMatch && availabilityMatch && priceMatch;
+    });
+  }, [searchTerm, genre, availability, priceRange]);
 
   return (
-    <div className="container mx-auto px-4 md:px-6 pb-8 md:pb-12">
-      <header className="mb-8">
-        <h1 className="font-headline text-4xl font-bold tracking-tight">
+    <div className="container-custom">
+      <header className="py-12 md:py-16">
+        <h1 className="font-heading text-4xl lg:text-5xl font-bold tracking-tight">
           Book Catalog
         </h1>
-        <p className="text-muted-foreground mt-2">
-          Browse our collection of books available for rent or purchase.
+        <p className="text-muted-foreground mt-3 max-w-xl">
+          Browse our collection of books available for rent or purchase. Use the filters to find your next great read.
         </p>
       </header>
-      
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <Input
-          placeholder="Search by title..."
-          value={searchTerm}
-          onChange={(e) => handleFilterChange(e.target.value, "search")}
-        />
-        <Select value={genre} onValueChange={(v) => handleFilterChange(v, 'genre')}>
-          <SelectTrigger>
-            <SelectValue placeholder="Filter by Genre" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Genres</SelectItem>
-            {genres.map(g => <SelectItem key={g.id} value={g.id}>{g.name}</SelectItem>)}
-          </SelectContent>
-        </Select>
-        <Select value={author} onValueChange={(v) => handleFilterChange(v, 'author')}>
-          <SelectTrigger>
-            <SelectValue placeholder="Filter by Author" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Authors</SelectItem>
-             {authors.map(a => <SelectItem key={a.id} value={a.id}>{a.name}</SelectItem>)}
-          </SelectContent>
-        </Select>
-        <Select value={availability} onValueChange={(v) => handleFilterChange(v, 'availability')}>
-          <SelectTrigger>
-            <SelectValue placeholder="Filter by Availability" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All</SelectItem>
-            <SelectItem value="in-stock">In Stock</SelectItem>
-            <SelectItem value="out-of-stock">Out of Stock</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
 
-      {filteredBooks.length > 0 ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
-          {filteredBooks.map((book) => (
-            <BookCard key={book.id} book={book} />
-          ))}
-        </div>
-      ) : (
-        <div className="text-center py-20">
-            <h2 className="text-2xl font-bold">No books found</h2>
-            <p className="text-muted-foreground mt-2">Try adjusting your filters.</p>
-        </div>
-      )}
+      <div className="grid lg:grid-cols-4 gap-8 mb-12">
+        <aside className="lg:col-span-1 bg-card p-6 rounded-2xl border self-start sticky top-24">
+            <h3 className="font-heading text-lg font-semibold mb-6">Filters</h3>
+            <div className="space-y-6">
+                <div>
+                    <Label>Search by Title</Label>
+                    <div className="relative mt-2">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                        <Input
+                        placeholder="e.g. The God of Small Things"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="pl-10"
+                        />
+                    </div>
+                </div>
+
+                <Separator />
+                
+                <div>
+                    <Label>Genre</Label>
+                    <Select value={genre} onValueChange={setGenre}>
+                        <SelectTrigger className="mt-2">
+                            <SelectValue placeholder="Filter by Genre" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All Genres</SelectItem>
+                            {genres.map((g) => (
+                            <SelectItem key={g.id} value={g.id}>
+                                {g.name}
+                            </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+
+                <Separator />
+
+                <div>
+                    <div className="flex justify-between items-center mb-2">
+                        <Label>Max Price</Label>
+                        <span className="text-sm font-medium">₹{priceRange[0]}</span>
+                    </div>
+                    <Slider
+                        defaultValue={[1000]}
+                        max={maxPrice}
+                        step={50}
+                        onValueChange={setPriceRange}
+                    />
+                </div>
+
+                <Separator />
+
+                <div>
+                    <Label>Availability</Label>
+                    <Select value={availability} onValueChange={setAvailability}>
+                        <SelectTrigger className="mt-2">
+                            <SelectValue placeholder="Filter by Availability" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All</SelectItem>
+                            <SelectItem value="in-stock">In Stock</SelectItem>
+                            <SelectItem value="out-of-stock">Out of Stock</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+            </div>
+        </aside>
+
+        <main className="lg:col-span-3">
+            {filteredBooks.length > 0 ? (
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                {filteredBooks.map((book) => (
+                    <BookCard key={book.id} book={book} />
+                ))}
+                </div>
+            ) : (
+                <div className="text-center py-20 lg:py-32 bg-card rounded-2xl border border-dashed">
+                <h2 className="text-2xl font-bold font-heading">No Books Found</h2>
+                <p className="text-muted-foreground mt-2">
+                    Try adjusting your filters to find what you're looking for.
+                </p>
+                </div>
+            )}
+        </main>
+      </div>
     </div>
   );
 }
