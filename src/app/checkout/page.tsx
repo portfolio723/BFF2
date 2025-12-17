@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -8,30 +9,34 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Checkbox } from "@/components/ui/checkbox";
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
 } from "@/components/ui/select";
-import { 
-  ChevronRight, 
-  MapPin, 
-  CreditCard, 
-  Truck, 
+import {
+  ChevronRight,
+  MapPin,
+  CreditCard,
+  Truck,
   Check,
   Phone,
   Mail,
   Package,
   ShoppingBag,
-  ArrowRight
+  ArrowRight,
+  Home,
+  Briefcase,
+  Plus
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/context/AppProvider";
+import { useAddress } from "@/context/AddressContext";
 import Image from "next/image";
-
+import { AddressForm } from "@/components/AddressForm";
+import type { Address } from "@/lib/types";
 
 const steps = [
   { id: 1, name: "Address", icon: MapPin },
@@ -39,47 +44,27 @@ const steps = [
   { id: 3, name: "Confirm", icon: Check },
 ];
 
-const indianStates = [
-  "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
-  "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka",
-  "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram",
-  "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu",
-  "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"
-];
-
 export default function CheckoutPage() {
   const router = useRouter();
   const { items, getSubtotal, getDeliveryCharge, getTotal, clearCart } = useCart();
+  const { addresses } = useAddress();
+
   const [currentStep, setCurrentStep] = useState(1);
   const [paymentMethod, setPaymentMethod] = useState("upi");
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
-  const [address, setAddress] = useState({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      address: "",
-      address2: "",
-      city: "",
-      state: "",
-      pincode: "",
-  });
+  const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
+  const [showNewAddressForm, setShowNewAddressForm] = useState(false);
 
   const subtotal = getSubtotal();
   const delivery = getDeliveryCharge();
   const total = getTotal();
-  
-  const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    setAddress(prev => ({...prev, [id]: value}));
-  }
-
-  const handleStateChange = (value: string) => {
-    setAddress(prev => ({...prev, state: value}));
-  }
 
   const handlePlaceOrder = () => {
+    if (!selectedAddress) {
+      // Maybe show a toast message
+      return;
+    }
     setIsProcessing(true);
     setTimeout(() => {
       setIsProcessing(false);
@@ -87,6 +72,18 @@ export default function CheckoutPage() {
       clearCart();
     }, 2000);
   };
+  
+  const handleAddressSelect = (addressId: string) => {
+    const address = addresses.find(a => a.id === addressId);
+    if (address) {
+        setSelectedAddress(address);
+    }
+  };
+
+  const handleNewAddressSaved = (newAddress: Address) => {
+    setSelectedAddress(newAddress);
+    setShowNewAddressForm(false);
+  }
 
   if (items.length === 0 && !orderPlaced) {
     return (
@@ -151,7 +148,7 @@ export default function CheckoutPage() {
                 <div className="space-y-3 text-sm">
                   <div className="flex items-start gap-3">
                     <Mail className="w-4 h-4 mt-0.5 text-muted-foreground" />
-                    <span className="text-muted-foreground">Order confirmation sent to {address.email}</span>
+                    <span className="text-muted-foreground">Order confirmation will be sent to your email.</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <Package className="w-4 h-4 mt-0.5 text-muted-foreground" />
@@ -259,86 +256,58 @@ export default function CheckoutPage() {
                   exit={{ opacity: 0, x: -20 }}
                   className="bg-card border border-border rounded-2xl p-6 lg:p-8"
                 >
-                  <h2 className="font-heading text-xl font-semibold mb-6">Delivery Address</h2>
+                  <h2 className="font-heading text-xl font-semibold mb-6">Select Delivery Address</h2>
                   
-                  <div className="space-y-6">
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="firstName">First Name *</Label>
-                        <Input id="firstName" placeholder="Enter first name" className="h-12" value={address.firstName} onChange={handleAddressChange} />
+                  <RadioGroup value={selectedAddress?.id} onValueChange={handleAddressSelect} className="space-y-4 mb-6">
+                    {addresses.map(address => (
+                      <div key={address.id} className={cn(
+                        "flex items-start gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all",
+                        selectedAddress?.id === address.id ? "border-foreground bg-secondary" : "border-border"
+                      )}>
+                        <RadioGroupItem value={address.id} id={address.id} className="mt-1"/>
+                        <Label htmlFor={address.id} className="flex-1 cursor-pointer">
+                            <div className="flex items-center gap-2 font-medium">
+                                {address.type === 'Home' && <Home className="w-4 h-4"/>}
+                                {address.type === 'Work' && <Briefcase className="w-4 h-4"/>}
+                                {address.firstName} {address.lastName}
+                                <Badge variant="outline" className="text-xs">{address.type}</Badge>
+                            </div>
+                            <div className="text-sm text-muted-foreground mt-1">
+                                <p>{address.address}, {address.address2}</p>
+                                <p>{address.city}, {address.state} - {address.pincode}</p>
+                                <p>Phone: {address.phone}</p>
+                            </div>
+                        </Label>
                       </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="lastName">Last Name *</Label>
-                        <Input id="lastName" placeholder="Enter last name" className="h-12" value={address.lastName} onChange={handleAddressChange} />
-                      </div>
-                    </div>
+                    ))}
+                  </RadioGroup>
+
+                   <motion.div>
+                    <Button variant="outline" onClick={() => setShowNewAddressForm(!showNewAddressForm)} className="w-full">
+                        <Plus className="w-4 h-4 mr-2" />
+                        {showNewAddressForm ? 'Cancel' : 'Add New Address'}
+                    </Button>
                     
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email Address *</Label>
-                        <div className="relative">
-                          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                          <Input id="email" type="email" placeholder="your@email.com" className="h-12 pl-11" value={address.email} onChange={handleAddressChange} />
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="phone">Phone Number *</Label>
-                        <div className="relative">
-                          <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                          <Input id="phone" placeholder="+91 98765 43210" className="h-12 pl-11" value={address.phone} onChange={handleAddressChange} />
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="address">Street Address *</Label>
-                      <Input id="address" placeholder="House no., Building, Street" className="h-12" value={address.address} onChange={handleAddressChange} />
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="address2">Apartment, Suite, etc. (optional)</Label>
-                      <Input id="address2" placeholder="Apartment, suite, unit, etc." className="h-12" value={address.address2} onChange={handleAddressChange}/>
-                    </div>
-                    
-                    <div className="grid sm:grid-cols-3 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="city">City *</Label>
-                        <Input id="city" placeholder="City" className="h-12" value={address.city} onChange={handleAddressChange} />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="state">State *</Label>
-                        <Select onValueChange={handleStateChange} value={address.state}>
-                          <SelectTrigger className="h-12">
-                            <SelectValue placeholder="Select state" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {indianStates.map((state) => (
-                              <SelectItem key={state} value={state}>
-                                {state}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="pincode">PIN Code *</Label>
-                        <Input id="pincode" placeholder="500001" className="h-12" value={address.pincode} onChange={handleAddressChange} />
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center gap-2">
-                      <Checkbox id="saveAddress" />
-                      <label htmlFor="saveAddress" className="text-sm text-muted-foreground cursor-pointer">
-                        Save this address for future orders
-                      </label>
-                    </div>
-                  </div>
+                    <AnimatePresence>
+                    {showNewAddressForm && (
+                        <motion.div 
+                          initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                          animate={{ opacity: 1, height: 'auto', marginTop: '24px' }}
+                          exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                          className="overflow-hidden"
+                        >
+                           <AddressForm onSave={handleNewAddressSaved} />
+                        </motion.div>
+                    )}
+                    </AnimatePresence>
+                  </motion.div>
                   
                   <div className="flex justify-end mt-8">
                     <Button 
                       size="lg" 
                       className="rounded-full px-8"
                       onClick={() => setCurrentStep(2)}
+                      disabled={!selectedAddress}
                     >
                       Continue to Payment
                       <ChevronRight className="w-4 h-4 ml-2" />
@@ -378,17 +347,6 @@ export default function CheckoutPage() {
                       <Label htmlFor="card" className="flex-1 cursor-pointer">
                         <div className="font-medium">Credit / Debit Card</div>
                         <div className="text-sm text-muted-foreground">Visa, Mastercard, RuPay</div>
-                      </Label>
-                    </div>
-                    
-                    <div className={cn(
-                      "flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all",
-                      paymentMethod === "netbanking" ? "border-foreground bg-secondary" : "border-border"
-                    )}>
-                      <RadioGroupItem value="netbanking" id="netbanking" />
-                      <Label htmlFor="netbanking" className="flex-1 cursor-pointer">
-                        <div className="font-medium">Net Banking</div>
-                        <div className="text-sm text-muted-foreground">All major banks supported</div>
                       </Label>
                     </div>
                     
@@ -467,7 +425,7 @@ export default function CheckoutPage() {
                     <div className="p-4 bg-secondary/50 rounded-xl">
                       <h3 className="font-medium mb-2">Delivery Address</h3>
                       <p className="text-sm text-muted-foreground">
-                        {address.firstName} {address.lastName}, {address.address}, {address.city}, {address.state} - {address.pincode}
+                        {selectedAddress?.firstName} {selectedAddress?.lastName}, {selectedAddress?.address}, {selectedAddress?.city}, {selectedAddress?.state} - {selectedAddress?.pincode}
                       </p>
                     </div>
                     
@@ -480,22 +438,22 @@ export default function CheckoutPage() {
                       <h3 className="font-medium mb-4">Order Items</h3>
                       <div className="space-y-3">
                         {items.map((item) => (
-                          <div key={`${item.id}-${item.type}`} className="flex gap-4 p-3 bg-secondary/30 rounded-lg">
+                          <div key={`${item.book.id}-${item.type}`} className="flex gap-4 p-3 bg-secondary/30 rounded-lg">
                             <Image 
-                              src={item.coverImage.url} 
-                              alt={item.title}
+                              src={item.book.coverImage.url} 
+                              alt={item.book.title}
                               width={48}
                               height={64}
                               className="w-12 h-16 object-cover rounded"
                             />
                             <div className="flex-1">
-                              <p className="font-medium line-clamp-1">{item.title}</p>
+                              <p className="font-medium line-clamp-1">{item.book.title}</p>
                               <p className="text-sm text-muted-foreground">
                                 {item.type === "rent" ? "Rent" : "Buy"}
                               </p>
                             </div>
                             <p className="font-semibold">
-                              ₹{item.type === 'rent' ? item.rentalPrice : item.price}
+                              ₹{item.type === 'rent' ? item.book.rentalPrice : item.book.price}
                             </p>
                           </div>
                         ))}
@@ -538,22 +496,22 @@ export default function CheckoutPage() {
               
               <div className="space-y-3 mb-6">
                 {items.map((item) => (
-                  <div key={`${item.id}-${item.type}`} className="flex gap-3">
+                  <div key={`${item.book.id}-${item.type}`} className="flex gap-3">
                     <Image 
-                      src={item.coverImage.url} 
-                      alt={item.title}
+                      src={item.book.coverImage.url} 
+                      alt={item.book.title}
                       width={48}
                       height={64}
                       className="w-12 h-16 object-cover rounded"
                     />
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium line-clamp-1">{item.title}</p>
+                      <p className="text-sm font-medium line-clamp-1">{item.book.title}</p>
                       <p className="text-xs text-muted-foreground">
                         {item.type === "rent" ? "Rent" : "Buy"}
                       </p>
                     </div>
                     <p className="text-sm font-medium">
-                      ₹{item.type === 'rent' ? item.rentalPrice : item.price}
+                      ₹{item.type === 'rent' ? item.book.rentalPrice : item.book.price}
                     </p>
                   </div>
                 ))}

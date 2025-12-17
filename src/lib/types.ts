@@ -1,5 +1,6 @@
 
 
+
 export type Author = {
   id: string;
   name: string;
@@ -53,3 +54,17 @@ export interface AppUser {
   uid: string;
   isKycVerified?: boolean;
 }
+
+export type Address = {
+  id: string;
+  type: 'Home' | 'Work' | 'Other';
+  firstName: string;
+  lastName: string;
+  address: string;
+  address2?: string;
+  city: string;
+  state: string;
+  pincode: string;
+  phone: string;
+};
+
