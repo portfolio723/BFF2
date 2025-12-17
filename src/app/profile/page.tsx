@@ -1,7 +1,8 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,13 +26,13 @@ import {
   MapPin,
   Home,
   Briefcase,
-  MoreHorizontal,
   Edit,
   Trash2,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import type { AppUser, Address } from "@/lib/types";
+import type { Address } from "@/lib/types";
 import { useAddress } from "@/context/AddressContext";
+import { useAuth } from "@/context/AuthContext";
 import { AddressForm } from "@/components/AddressForm";
 import {
   Dialog,
@@ -40,16 +41,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
-// Mock user data
-const mockUser: AppUser = {
-  uid: "12345",
-  displayName: "Book Lover",
-  email: "user@example.com",
-  photoURL:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80",
-  isKycVerified: false,
-};
 
 const AddressIcon = ({ type }: { type: Address["type"] }) => {
   switch (type) {
@@ -64,28 +55,22 @@ const AddressIcon = ({ type }: { type: Address["type"] }) => {
 
 export default function ProfilePage() {
   const { toast } = useToast();
+  const router = useRouter();
   const { addresses, removeAddress } = useAddress();
+  const { user, isLoading: userLoading, isKycVerified, setKycVerified } = useAuth();
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingAddress, setEditingAddress] = useState<Address | null>(null);
-
-  // Use mock user data
-  const user = mockUser;
-  const userLoading = false;
-
-  const [isKycVerified, setIsKycVerified] = useState(
-    user?.isKycVerified || false
-  );
 
   // Mock orders data
   const [orders] = useState<any[]>([]);
   const [loadingOrders] = useState(false);
 
   useEffect(() => {
-    if (user) {
-      setIsKycVerified(user.isKycVerified || false);
+    if (!userLoading && !user) {
+      router.push('/auth');
     }
-  }, [user]);
+  }, [user, userLoading, router]);
 
   const handleKycVerification = () => {
     toast({
@@ -94,7 +79,7 @@ export default function ProfilePage() {
         "In a real app, this would start the document upload process. For now, we'll simulate a successful verification.",
     });
     setTimeout(() => {
-      setIsKycVerified(true);
+      setKycVerified(true);
       toast({
         title: "KYC Verified!",
         description: "You can now rent books.",
@@ -117,7 +102,7 @@ export default function ProfilePage() {
     setIsFormOpen(false);
   }
 
-  if (userLoading) {
+  if (userLoading || !user) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <Loader2 className="h-8 w-8 animate-spin" />
@@ -125,12 +110,8 @@ export default function ProfilePage() {
     );
   }
 
-  if (!user) {
-    return null;
-  }
-
   const userInitial =
-    user.displayName?.charAt(0).toUpperCase() ||
+    user.user_metadata.full_name?.charAt(0).toUpperCase() ||
     user.email?.charAt(0).toUpperCase() ||
     "U";
 
@@ -151,12 +132,12 @@ export default function ProfilePage() {
             <CardContent className="pt-6 flex flex-col items-center text-center">
               <Avatar className="w-24 h-24 mb-4">
                 <AvatarImage
-                  src={user.photoURL ?? ""}
-                  alt={user.displayName ?? "User"}
+                  src={user.user_metadata.avatar_url ?? ""}
+                  alt={user.user_metadata.full_name ?? "User"}
                 />
                 <AvatarFallback className="text-4xl">{userInitial}</AvatarFallback>
               </Avatar>
-              <h2 className="text-xl font-semibold">{user.displayName || "User"}</h2>
+              <h2 className="text-xl font-semibold">{user.user_metadata.full_name || "User"}</h2>
               <p className="text-sm text-muted-foreground">{user.email}</p>
               <Separator className="my-4" />
               <div className="flex flex-col gap-2 w-full">
@@ -203,7 +184,7 @@ export default function ProfilePage() {
                 <User className="h-5 w-5 mr-3 text-muted-foreground" />
                 <div>
                   <p className="text-sm text-muted-foreground">Full Name</p>
-                  <p className="font-medium">{user.displayName || "Not provided"}</p>
+                  <p className="font-medium">{user.user_metadata.full_name || "Not provided"}</p>
                 </div>
               </div>
               <div className="flex items-center">

@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCart } from "@/context/AppProvider";
 import { useWishlist } from "@/context/WishlistContext";
+import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -34,21 +35,16 @@ export function Header() {
   const router = useRouter();
   const { cartCount } = useCart();
   const { wishlistCount } = useWishlist();
+  const { user, signOut, isLoading } = useAuth();
   
-  const [user, setUser] = useState<{displayName: string} | null>(null);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  const handleSignIn = () => {
-    setUser({ displayName: "Book Lover" });
-    router.push('/');
-  }
-
-  const handleSignOut = () => {
-    setUser(null);
+  const handleSignOut = async () => {
+    await signOut();
     router.push("/");
   };
 
@@ -63,7 +59,7 @@ export function Header() {
           >
             <BookOpen className="w-6 h-6 lg:w-7 lg:h-7" strokeWidth={1.5} />
             <span className="font-headline text-lg lg:text-xl font-semibold tracking-tight">
-              Books For Fosters
+              Hyderabad Reads
             </span>
           </Link>
 
@@ -145,14 +141,16 @@ export function Header() {
               </Button>
             </Link>
             
-            {user ? (
-               <Button onClick={handleSignOut} variant="secondary" size="sm" className="rounded-full px-5">
-                  Sign Out
-                </Button>
-            ) : (
-                <Button onClick={handleSignIn} variant="default" size="sm" className="rounded-full px-5">
-                  Sign In
-                </Button>
+            {!isLoading && (
+              user ? (
+                <Button onClick={handleSignOut} variant="secondary" size="sm" className="rounded-full px-5">
+                   Sign Out
+                 </Button>
+             ) : (
+                 <Button asChild variant="default" size="sm" className="rounded-full px-5">
+                   <Link href="/auth">Sign In</Link>
+                 </Button>
+             )
             )}
           </div>
 
@@ -197,10 +195,10 @@ export function Header() {
                   <div className="px-4 pb-4 mb-2 border-b border-border">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-foreground text-background flex items-center justify-center text-lg font-semibold">
-                        {user.displayName?.charAt(0) || 'U'}
+                        {user.user_metadata.full_name?.charAt(0) || 'U'}
                       </div>
                       <div>
-                        <p className="font-medium">{user.displayName}</p>
+                        <p className="font-medium">{user.user_metadata.full_name}</p>
                       </div>
                     </div>
                   </div>
@@ -266,9 +264,11 @@ export function Header() {
                       Sign Out
                     </Button>
                   ) : (
-                      <Button variant="default" className="w-full justify-start gap-3" onClick={() => { handleSignIn(); setIsOpen(false); }}>
-                        <Users className="w-4 h-4" />
-                        Sign In
+                      <Button asChild variant="default" className="w-full justify-start gap-3">
+                        <Link href="/auth" onClick={() => setIsOpen(false)}>
+                          <Users className="w-4 h-4" />
+                          Sign In
+                        </Link>
                       </Button>
                   )}
                 </div>

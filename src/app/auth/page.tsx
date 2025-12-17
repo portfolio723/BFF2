@@ -25,8 +25,11 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { Chrome } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 const signUpSchema = z.object({
+  fullName: z.string().min(1, "Full name is required."),
+  phone: z.string().min(10, "Enter a valid 10-digit phone number."),
   email: z.string().email("Invalid email address."),
   password: z.string().min(6, "Password must be at least 6 characters."),
 });
@@ -43,6 +46,7 @@ export default function AuthPage() {
   const searchParams = useSearchParams();
   const redirect = searchParams.get('redirect') || '/';
   const { toast } = useToast();
+  const { signIn, signUp } = useAuth();
   
   const signInForm = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
@@ -51,27 +55,30 @@ export default function AuthPage() {
 
   const signUpForm = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
-    defaultValues: { email: "", password: "" },
+    defaultValues: { email: "", password: "", fullName: "", phone: "" },
   });
 
   const handleSignIn = async (values: z.infer<typeof signInSchema>) => {
     setLoading(true);
-    // Mock sign-in
-    setTimeout(() => {
+    const { error } = await signIn(values.email, values.password);
+    if (error) {
+      toast({ title: "Sign In Failed", description: error.message, variant: "destructive" });
+    } else {
       toast({ title: "Signed in successfully!" });
       router.push(redirect);
-      setLoading(false);
-    }, 1000);
+    }
+    setLoading(false);
   };
 
   const handleSignUp = async (values: z.infer<typeof signUpSchema>) => {
     setLoading(true);
-    // Mock sign-up
-    setTimeout(() => {
-      toast({ title: "Account created successfully!", description: "Please sign in." });
-      // In a real app, you might auto-sign-in or redirect to sign-in
-      setLoading(false);
-    }, 1000);
+    const { error } = await signUp(values.email, values.password, values.fullName, values.phone);
+    if (error) {
+      toast({ title: "Sign Up Failed", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "Account created successfully!", description: "Please check your email to verify your account." });
+    }
+    setLoading(false);
   };
 
   const handleGoogleSignIn = async () => {
@@ -177,6 +184,38 @@ export default function AuthPage() {
                   onSubmit={signUpForm.handleSubmit(handleSignUp)}
                   className="space-y-4"
                 >
+                  <FormField
+                    control={signUpForm.control}
+                    name="fullName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Full Name</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="e.g. John Doe"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                   <FormField
+                    control={signUpForm.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Phone</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="e.g. 9876543210"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                   <FormField
                     control={signUpForm.control}
                     name="email"

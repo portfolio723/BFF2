@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -14,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Heart, ShoppingCart } from "lucide-react";
 import { useCart } from "@/context/AppProvider";
 import { useWishlist } from "@/context/WishlistContext";
+import { useAuth } from "@/context/AuthContext";
 import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
@@ -30,6 +30,7 @@ interface BookCardProps {
 export function BookCard({ book }: BookCardProps) {
   const { addToCart, isBookInCart } = useCart();
   const { addToWishlist, isInWishlist } = useWishlist();
+  const { user, isKycVerified } = useAuth();
   const { toast } = useToast();
 
   const [isMounted, setIsMounted] = useState(false);
@@ -37,13 +38,11 @@ export function BookCard({ book }: BookCardProps) {
     setIsMounted(true);
   }, []);
   
-  const inWishlist = isInWishlist(book.id);
-  const inCart = isBookInCart(book.id);
-  
-  const user = { isKycVerified: false }; 
+  const inWishlist = isMounted ? isInWishlist(book.id) : false;
+  const inCart = isMounted ? isBookInCart(book.id) : false;
 
   const handleAddToCart = (type: 'buy' | 'rent') => {
-    if (type === 'rent' && !user.isKycVerified) {
+    if (type === 'rent' && !isKycVerified) {
         toast({ title: "KYC Required", description: "Please complete KYC verification to rent books.", variant: "destructive" });
         return;
     }
@@ -54,17 +53,7 @@ export function BookCard({ book }: BookCardProps) {
   
   const handleAddToWishlist = () => {
     if (!inWishlist) {
-        addToWishlist({
-            id: book.id,
-            title: book.title,
-            author: book.author,
-            coverImage: book.coverImage,
-            price: book.price,
-            rentalPrice: book.rentalPrice,
-            availability: book.availability,
-            genre: book.genre,
-            description: book.description,
-        });
+        addToWishlist(book);
     }
   }
 
@@ -104,7 +93,7 @@ export function BookCard({ book }: BookCardProps) {
               disabled={!isMounted || book.availability === 'out-of-stock' || inCart}
             >
               <ShoppingCart className="mr-2 h-4 w-4" />
-              {isMounted && inCart ? 'In Cart' : 'Add to Cart'}
+              {inCart ? 'In Cart' : 'Add to Cart'}
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
@@ -122,7 +111,7 @@ export function BookCard({ book }: BookCardProps) {
           disabled={!isMounted || inWishlist}
           aria-label="Add to wishlist"
         >
-          <Heart className={`h-4 w-4 ${isMounted && inWishlist ? 'fill-destructive text-destructive' : ''}`} />
+          <Heart className={`h-4 w-4 ${inWishlist ? 'fill-destructive text-destructive' : ''}`} />
         </Button>
       </CardFooter>
     </Card>

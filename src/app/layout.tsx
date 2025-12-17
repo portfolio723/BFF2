@@ -1,9 +1,9 @@
-
 "use client";
 
 import { AppProvider } from "@/context/AppProvider";
 import { WishlistProvider } from "@/context/WishlistContext";
 import { AddressProvider } from "@/context/AddressContext";
+import { AuthProvider } from "@/context/AuthContext";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/toaster";
@@ -24,16 +24,18 @@ export default function RootLayout({
           <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body className={cn("antialiased flex flex-col min-h-screen")}>
-        <AppProvider>
-          <WishlistProvider>
-            <AddressProvider>
-              <Header />
-              <main className="flex-grow pt-0">{children}</main>
-              <Footer />
-              <Toaster />
-            </AddressProvider>
-          </WishlistProvider>
-        </AppProvider>
+        <AuthProvider>
+          <AppProvider>
+            <WishlistProvider>
+              <AddressProvider>
+                <Header />
+                <main className="flex-grow">{children}</main>
+                <Footer />
+                <Toaster />
+              </AddressProvider>
+            </WishlistProvider>
+          </AppProvider>
+        </AuthProvider>
       </body>
     </html>
   );
