@@ -1,9 +1,8 @@
+
 "use client";
 
-import type { Book, CartItem } from "@/lib/types";
+import type { Book, CartItem as CartItemType } from "@/lib/types";
 import React, { createContext, useState, useContext, useMemo, useEffect, ReactNode } from "react";
-import { useToast } from "@/hooks/use-toast";
-
 
 export interface CartItem extends Book {
   type: "rent" | "buy";
@@ -11,39 +10,29 @@ export interface CartItem extends Book {
 }
 
 interface AppContextType {
-  wishlist: Book[];
   cart: CartItem[];
-  addToWishlist: (book: Book) => void;
-  removeFromWishlist: (bookId: string) => void;
-  isBookInWishlist: (bookId: string) => boolean;
   addToCart: (book: Book, type: 'buy' | 'rent') => void;
-  removeFromCart: (bookId: string) => void;
-  updateCartQuantity: (bookId: string, quantity: number) => void;
+  removeFromCart: (bookId: string, type: 'buy' | 'rent') => void;
+  updateCartQuantity: (bookId: string, type: "rent" | "buy", quantity: number) => void;
   isBookInCart: (bookId: string) => boolean;
   clearCart: () => void;
   cartCount: number;
-  wishlistCount: number;
   cartTotal: number;
   loading: boolean;
+  getItemCount: () => number;
+  getSubtotal: () => number;
+  getDeliveryCharge: () => number;
+  getTotal: () => number;
+  items: CartItem[];
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
-const WISHLIST_STORAGE_KEY = "hyderabad-reads-wishlist";
 const CART_STORAGE_KEY = "hyderabad-reads-cart";
 
 
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
-  const { toast } = useToast();
   
-  const [wishlist, setWishlist] = useState<Book[]>(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem(WISHLIST_STORAGE_KEY);
-      return stored ? JSON.parse(stored) : [];
-    }
-    return [];
-  });
-
   const [cart, setCart] = useState<CartItem[]>(() => {
     if (typeof window !== "undefined") {
       const stored = localStorage.getItem(CART_STORAGE_KEY);
@@ -55,43 +44,10 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    localStorage.setItem(WISHLIST_STORAGE_KEY, JSON.stringify(wishlist));
-    setLoading(false);
-  }, [wishlist]);
-
-  useEffect(() => {
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
     setLoading(false);
   }, [cart]);
 
-
-  const addToWishlist = (book: Book) => {
-    if (!wishlist.find((item) => item.id === book.id)) {
-      setWishlist((prev) => [...prev, book]);
-      toast({
-        title: "Added to Wishlist",
-        description: `"${book.title}" has been added to your wishlist.`,
-      });
-    } else {
-        toast({
-            title: "Already in Wishlist",
-            description: `"${book.title}" is already in your wishlist.`,
-        });
-    }
-  };
-
-  const removeFromWishlist = (bookId: string) => {
-     const bookToRemove = wishlist.find(item => item.id === bookId);
-     if (bookToRemove) {
-       setWishlist((prev) => prev.filter((item) => item.id !== bookId));
-       toast({
-         title: "Removed from Wishlist",
-         description: "The book has been removed from your wishlist.",
-       });
-     }
-  };
-  
-  const isBookInWishlist = (bookId: string) => wishlist.some((item) => item.id === bookId);
 
   const addToCart = (book: Book, type: 'buy' | 'rent') => {
     const existingItem = cart.find(
@@ -106,40 +62,27 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
             : i
         )
       );
-       toast({
-        title: "Cart updated",
-        description: `Quantity for "${book.title}" updated.`,
-      });
-
     } else {
         const cartItem: CartItem = { ...book, type, quantity: 1 };
         setCart((prev) => [...prev, cartItem]);
-        toast({
-            title: "Added to Cart",
-            description: `"${book.title}" has been added to your cart for ${type}.`,
-        });
     }
   };
   
-  const removeFromCart = (bookId: string) => {
-     const itemToRemove = cart.find(item => item.id === bookId);
+  const removeFromCart = (bookId: string, type: "rent" | "buy") => {
+     const itemToRemove = cart.find(item => item.id === bookId && item.type === type);
      if (itemToRemove) {
-       setCart((prev) => prev.filter((item) => item.id !== bookId));
-       toast({
-          title: "Removed from Cart",
-          description: "The book has been removed from your cart.",
-       });
+       setCart((prev) => prev.filter((item) => !(item.id === bookId && item.type === type)));
      }
   };
 
-  const updateCartQuantity = (bookId: string, quantity: number) => {
+  const updateCartQuantity = (bookId: string, type: "rent" | "buy", quantity: number) => {
     if (quantity <= 0) {
-      removeFromCart(bookId);
+      removeFromCart(bookId, type);
       return;
     }
     setCart((prev) =>
       prev.map((i) =>
-        i.id === bookId ? { ...i, quantity } : i
+        i.id === bookId && i.type === type ? { ...i, quantity } : i
       )
     );
   };
@@ -151,7 +94,6 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const cartCount = useMemo(() => cart.reduce((sum, item) => sum + item.quantity, 0), [cart]);
-  const wishlistCount = useMemo(() => wishlist.length, [wishlist]);
   
   const cartTotal = useMemo(() => {
     return cart.reduce((total, item) => {
@@ -160,24 +102,38 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     }, 0);
   }, [cart]);
 
+  const getItemCount = () => cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  const getSubtotal = () => cart.reduce((sum, item) => {
+      const price = item.type === "rent" ? item.rentalPrice || 0 : item.price;
+      return sum + (price || 0) * item.quantity;
+    }, 0);
+
+  const getDeliveryCharge = () => {
+    const hasRental = cart.some((item) => item.type === "rent");
+    return hasRental ? 40 : cart.length > 0 ? 0 : 0;
+  };
+
+  const getTotal = () => getSubtotal() + getDeliveryCharge();
+
 
   return (
     <AppContext.Provider
       value={{
-        wishlist,
         cart,
-        addToWishlist,
-        removeFromWishlist,
-        isBookInWishlist,
         addToCart,
         removeFromCart,
         updateCartQuantity,
         isBookInCart,
         clearCart,
         cartCount,
-        wishlistCount,
         cartTotal,
         loading,
+        items: cart,
+        getItemCount,
+        getSubtotal,
+        getDeliveryCharge,
+        getTotal,
       }}
     >
       {children}
@@ -185,10 +141,19 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export const useStore = () => {
+export const useCart = () => {
   const context = useContext(AppContext);
   if (context === undefined) {
-    throw new Error("useStore must be used within an AppProvider");
+    throw new Error("useCart must be used within an AppProvider");
   }
   return context;
 };
+
+// Kept for compatibility with other components that might still use useStore
+export const useStore = () => {
+    const context = useContext(AppContext);
+    if (context === undefined) {
+        throw new Error("useStore must be used within an AppProvider");
+    }
+    return context;
+}
