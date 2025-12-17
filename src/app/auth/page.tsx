@@ -29,14 +29,20 @@ import {
   EyeOff,
   User,
   Phone,
+  Shield,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const signUpSchema = z.object({
   fullName: z.string().min(1, "Full name is required."),
+  phone: z.string().min(10, "Please enter a valid 10-digit phone number."),
   email: z.string().email("Invalid email address."),
   password: z.string().min(6, "Password must be at least 6 characters."),
+  terms: z.boolean().refine((val) => val === true, {
+    message: "You must accept the terms and conditions.",
+  }),
 });
 
 const signInSchema = z.object({
@@ -68,7 +74,7 @@ export default function AuthPage() {
 
   const signUpForm = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
-    defaultValues: { email: "", password: "", fullName: "" },
+    defaultValues: { email: "", password: "", fullName: "", phone: "", terms: false },
   });
 
   const otpForm = useForm<z.infer<typeof otpSchema>>({
@@ -94,7 +100,7 @@ export default function AuthPage() {
 
   const handleSignUp = async (values: z.infer<typeof signUpSchema>) => {
     setLoading(true);
-    const { error } = await signUp(values.email, values.password, values.fullName, "");
+    const { error } = await signUp(values.email, values.password, values.fullName, values.phone);
     if (error) {
       toast({
         title: "Sign Up Failed",
@@ -302,13 +308,29 @@ export default function AuthPage() {
                   />
                   <FormField
                     control={signUpForm.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Phone Number</FormLabel>
+                        <FormControl>
+                           <div className="relative">
+                            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                            <Input placeholder="+91 98765 43210" {...field} className="pl-10" />
+                           </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={signUpForm.control}
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel>Email Address</FormLabel>
                         <FormControl>
                           <div className="relative">
-                            <Mail className="absolute left-3 top-1/2 -translate-y-12 w-4 h-4 text-muted-foreground" />
+                            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                             <Input placeholder="you@example.com" {...field} type="email" className="pl-10"/>
                           </div>
                         </FormControl>
@@ -321,7 +343,7 @@ export default function AuthPage() {
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Password</FormLabel>
+                        <FormLabel>Create Password</FormLabel>
                         <FormControl>
                            <div className="relative">
                             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -329,7 +351,7 @@ export default function AuthPage() {
                               placeholder="••••••••"
                               {...field}
                               type={showPassword ? "text" : "password"}
-                              className="pl-10"
+                              className="pl-10 pr-10"
                             />
                              <Button 
                               type="button"
@@ -346,8 +368,36 @@ export default function AuthPage() {
                       </FormItem>
                     )}
                   />
+                   <Alert className="bg-secondary">
+                    <Shield className="h-4 w-4" />
+                    <AlertTitle>KYC Verification Required</AlertTitle>
+                    <AlertDescription>
+                      To rent or buy books, you'll need to verify your identity with Aadhar KYC after registration.
+                    </AlertDescription>
+                  </Alert>
+
+                  <FormField
+                    control={signUpForm.control}
+                    name="terms"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                        </FormControl>
+                        <div className="space-y-1 leading-none">
+                          <FormLabel>
+                             I agree to the <Link href="/terms" className="underline">Terms of Service</Link> and <Link href="/privacy" className="underline">Privacy Policy</Link>.
+                          </FormLabel>
+                          <FormMessage />
+                        </div>
+                      </FormItem>
+                    )}
+                  />
                   <Button type="submit" className="w-full h-12 rounded-full" disabled={loading}>
-                    {loading ? "Creating Account..." : "Sign Up"}
+                    {loading ? "Creating Account..." : "Create Account"}
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </Button>
                 </form>
