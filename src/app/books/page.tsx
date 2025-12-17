@@ -69,8 +69,8 @@ export default function BooksPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 md:px-6 py-8 md:py-12">
-      <header className="mb-8 pt-16 lg:pt-20">
+    <div className="container mx-auto px-4 md:px-6 pb-8 md:pb-12">
+      <header className="mb-8">
         <h1 className="font-headline text-4xl font-bold tracking-tight">
           Book Catalog
         </h1>

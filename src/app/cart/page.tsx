@@ -31,7 +31,7 @@ export default function CartPage() {
   const total = cartTotal + deliveryCharge;
 
   return (
-    <section className="pt-24 lg:pt-28 pb-20">
+    <section className="pb-20">
       <div className="container-custom">
         {/* Header */}
         <motion.div
