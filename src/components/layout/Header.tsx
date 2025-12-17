@@ -59,7 +59,7 @@ export function Header() {
           >
             <BookOpen className="w-6 h-6 lg:w-7 lg:h-7" strokeWidth={1.5} />
             <span className="font-headline text-lg lg:text-xl font-semibold tracking-tight">
-              Hyderabad Reads
+              Books For Fosters
             </span>
           </Link>
 

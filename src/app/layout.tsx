@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <head>
-          <title>Hyderabad Reads</title>
+          <title>Books For Fosters</title>
           <meta name="description" content="Your local destination for books in Hyderabad." />
           <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
