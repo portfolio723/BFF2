@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import type { Book } from "@/lib/types";
 import {
   Card,
@@ -10,7 +11,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Heart, ShoppingCart } from "lucide-react";
+import { Heart, ShoppingCart, Eye, BookMarked } from "lucide-react";
 import { useCart } from "@/context/AppProvider";
 import { useWishlist } from "@/context/WishlistContext";
 import { useAuth } from "@/context/AuthContext";
@@ -22,98 +23,158 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/hooks/use-toast";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 interface BookCardProps {
   book: Book;
+  isNew?: boolean;
+  isFeatured?: boolean;
 }
 
-export function BookCard({ book }: BookCardProps) {
-  const { addToCart, isBookInCart } = useCart();
-  const { addToWishlist, isInWishlist } = useWishlist();
-  const { user, isKycVerified } = useAuth();
-  const { toast } = useToast();
+export function BookCard({
+  book,
+  isNew = false,
+  isFeatured = false,
+}: BookCardProps) {
+  const { id, title, author, coverImage, price, rentalPrice, genre, availability } = book;
+  const { addToCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     setIsMounted(true);
   }, []);
-  
-  const inWishlist = isMounted ? isInWishlist(book.id) : false;
-  const inCart = isMounted ? isBookInCart(book.id) : false;
 
-  const handleAddToCart = (type: 'buy' | 'rent') => {
-    if (type === 'rent' && !isKycVerified) {
-        toast({ title: "KYC Required", description: "Please complete KYC verification to rent books.", variant: "destructive" });
-        return;
+  const inWishlist = isMounted ? isInWishlist(id) : false;
+
+  const handleAddToCart = (e: React.MouseEvent, type: 'buy' | 'rent') => {
+    e.preventDefault();
+    e.stopPropagation();
+    addToCart(book, type);
+  };
+
+  const handleToggleWishlist = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (inWishlist) {
+      removeFromWishlist(id);
+    } else {
+      addToWishlist(book);
     }
-    if (book.availability === 'in-stock') {
-      addToCart(book, type);
-    }
-  }
-  
-  const handleAddToWishlist = () => {
-    if (!inWishlist) {
-        addToWishlist(book);
-    }
-  }
+  };
 
   return (
-    <Card className="flex flex-col h-full overflow-hidden transition-shadow hover:shadow-lg">
-      <CardHeader className="p-0">
-        <div className="relative aspect-[2/3] w-full">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4 }}
+      className="group"
+    >
+      <Link href={`/book/${id}`} className="card-book cursor-pointer block">
+        {/* Image Container */}
+        <div className="relative aspect-[3/4] overflow-hidden bg-secondary">
           <Image
-            src={book.coverImage.url}
-            alt={`Cover of ${book.title}`}
-            data-ai-hint={book.coverImage.hint}
+            src={coverImage.url}
+            alt={title}
+            data-ai-hint={coverImage.hint}
             fill
-            className="object-cover"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          {book.availability === 'out-of-stock' && (
-             <Badge variant="destructive" className="absolute top-2 left-2">Out of Stock</Badge>
-          )}
-        </div>
-      </CardHeader>
-      <CardContent className="p-4 flex-grow">
-        <h3 className="text-lg font-bold leading-snug tracking-tight mb-1 font-headline">
-          {book.title}
-        </h3>
-        <p className="text-sm text-muted-foreground">{book.author.name}</p>
-        <div className="mt-2 flex items-center justify-between">
-          <p className="text-lg font-semibold">₹{book.price}</p>
-          {book.rentalPrice && (
-             <p className="text-sm text-muted-foreground">Rent: ₹{book.rentalPrice}</p>
-          )}
-        </div>
-      </CardContent>
-      <CardFooter className="p-4 pt-0 flex gap-2">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              className="w-full"
-              disabled={!isMounted || book.availability === 'out-of-stock' || inCart}
-            >
-              <ShoppingCart className="mr-2 h-4 w-4" />
-              {inCart ? 'In Cart' : 'Add to Cart'}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem onClick={() => handleAddToCart('buy')} disabled={book.availability === 'out-of-stock'}>Buy for ₹{book.price}</DropdownMenuItem>
-            {book.rentalPrice && (
-              <DropdownMenuItem onClick={() => handleAddToCart('rent')} disabled={book.availability === 'out-of-stock'}>Rent for ₹{book.rentalPrice}</DropdownMenuItem>
+          
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/20 transition-colors duration-300" />
+          
+          {/* Badges */}
+          <div className="absolute top-3 left-3 flex flex-col gap-2">
+            {isNew && (
+              <Badge className="bg-foreground text-background hover:bg-foreground text-xs">
+                New
+              </Badge>
             )}
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={handleAddToWishlist}
-          disabled={!isMounted || inWishlist}
-          aria-label="Add to wishlist"
-        >
-          <Heart className={`h-4 w-4 ${inWishlist ? 'fill-destructive text-destructive' : ''}`} />
-        </Button>
-      </CardFooter>
-    </Card>
+            {isFeatured && (
+              <Badge className="bg-gold text-foreground hover:bg-gold text-xs">
+                Featured
+              </Badge>
+            )}
+             {availability === 'out-of-stock' && (
+                <Badge variant="destructive">Out of Stock</Badge>
+            )}
+          </div>
+          
+          {/* Quick Actions */}
+          <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-300">
+            <Button 
+              size="icon" 
+              variant="secondary"
+              className={cn(
+                "w-9 h-9 rounded-full bg-background/90 backdrop-blur-sm hover:bg-background",
+                inWishlist && "bg-foreground text-background hover:bg-foreground/90"
+              )}
+              onClick={handleToggleWishlist}
+              disabled={!isMounted}
+            >
+              <Heart className={cn("w-4 h-4", inWishlist && "fill-current")} />
+            </Button>
+            <Link href={`/book/${id}`}>
+              <Button 
+                size="icon" 
+                variant="secondary"
+                className="w-9 h-9 rounded-full bg-background/90 backdrop-blur-sm hover:bg-background"
+              >
+                <Eye className="w-4 h-4" />
+              </Button>
+            </Link>
+          </div>
+          
+          {/* Add to Cart & Rent Buttons */}
+          <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex gap-2">
+            <Button 
+              className="flex-1 rounded-full bg-foreground text-background hover:bg-foreground/90 gap-2 text-sm"
+              onClick={(e) => handleAddToCart(e, 'buy')}
+              disabled={availability === 'out-of-stock'}
+            >
+              <ShoppingCart className="w-4 h-4" />
+              Buy
+            </Button>
+            {rentalPrice && (
+              <Button 
+                variant="secondary"
+                className="flex-1 rounded-full bg-background/90 backdrop-blur-sm hover:bg-background gap-2 text-sm border border-border"
+                onClick={(e) => handleAddToCart(e, 'rent')}
+                disabled={availability === 'out-of-stock'}
+              >
+                <BookMarked className="w-4 h-4" />
+                Rent
+              </Button>
+            )}
+          </div>
+        </div>
+        
+        {/* Content */}
+        <div className="p-4">
+          <span className="text-xs text-muted-foreground uppercase tracking-wider">
+            {genre.name}
+          </span>
+          <h3 className="font-heading text-lg font-medium mt-1 line-clamp-1 group-hover:text-muted-foreground transition-colors">
+            {title}
+          </h3>
+          <p className="text-sm text-muted-foreground mt-0.5">
+            by {author.name}
+          </p>
+          <div className="flex items-center justify-between mt-3 pt-3 border-t border-border">
+            <div>
+              <p className="text-xs text-muted-foreground">Rent from</p>
+              <p className="font-semibold">₹{rentalPrice || 'N/A'}</p>
+            </div>
+            <div className="text-right">
+              <p className="text-xs text-muted-foreground">Buy for</p>
+              <p className="font-semibold">₹{price}</p>
+            </div>
+          </div>
+        </div>
+      </Link>
+    </motion.div>
   );
-}
+};
