@@ -1,8 +1,10 @@
 
 "use client";
 
-import type { Book, CartItem as CartItemType } from "@/lib/types";
+import type { Book } from "@/lib/types";
 import React, { createContext, useState, useContext, useMemo, useEffect, ReactNode } from "react";
+import { toast } from "sonner";
+
 
 export interface CartItem extends Book {
   type: "rent" | "buy";
@@ -14,7 +16,7 @@ interface AppContextType {
   addToCart: (book: Book, type: 'buy' | 'rent') => void;
   removeFromCart: (bookId: string, type: 'buy' | 'rent') => void;
   updateCartQuantity: (bookId: string, type: "rent" | "buy", quantity: number) => void;
-  isBookInCart: (bookId: string) => boolean;
+  isBookInCart: (bookId: string, type: "rent" | "buy") => boolean;
   clearCart: () => void;
   cartCount: number;
   cartTotal: number;
@@ -50,27 +52,30 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
 
   const addToCart = (book: Book, type: 'buy' | 'rent') => {
-    const existingItem = cart.find(
-      (i) => i.id === book.id && i.type === type
-    );
+    setCart((prevCart) => {
+      const existingItem = prevCart.find(
+        (i) => i.id === book.id && i.type === type
+      );
 
-    if (existingItem) {
-       setCart((prev) =>
-        prev.map((i) =>
+      if (existingItem) {
+        toast.success(`${book.title} quantity updated in cart!`);
+        return prevCart.map((i) =>
           i.id === book.id && i.type === type
             ? { ...i, quantity: i.quantity + 1 }
             : i
-        )
-      );
-    } else {
+        );
+      } else {
         const cartItem: CartItem = { ...book, type, quantity: 1 };
-        setCart((prev) => [...prev, cartItem]);
-    }
+        toast.success(`${book.title} added to cart!`);
+        return [...prevCart, cartItem];
+      }
+    });
   };
   
   const removeFromCart = (bookId: string, type: "rent" | "buy") => {
      const itemToRemove = cart.find(item => item.id === bookId && item.type === type);
      if (itemToRemove) {
+       toast.info(`${itemToRemove.title} removed from cart.`);
        setCart((prev) => prev.filter((item) => !(item.id === bookId && item.type === type)));
      }
   };
@@ -87,7 +92,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
-  const isBookInCart = (bookId: string) => cart.some((item) => item.id === bookId);
+  const isBookInCart = (bookId: string, type: 'rent' | 'buy') => cart.some((item) => item.id === bookId && item.type === type);
 
   const clearCart = () => {
     setCart([]);
@@ -111,7 +116,10 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
   const getDeliveryCharge = () => {
     const hasRental = cart.some((item) => item.type === "rent");
-    return hasRental ? 40 : cart.length > 0 ? 0 : 0;
+    if (cart.length === 0) return 0;
+    const subtotal = getSubtotal();
+    if (subtotal > 500) return 0; // Free delivery over 500
+    return hasRental ? 40 : 0; // Delivery charge only for rentals under 500
   };
 
   const getTotal = () => getSubtotal() + getDeliveryCharge();

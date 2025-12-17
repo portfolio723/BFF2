@@ -1,3 +1,4 @@
+
 "use client";
 
 import { motion } from "framer-motion";
@@ -7,21 +8,19 @@ import { Button } from "@/components/ui/button";
 import { Heart, ShoppingCart, X, ShoppingBag } from "lucide-react";
 import { useWishlist } from "@/context/WishlistContext";
 import { useStore as useCartStore } from "@/context/AppProvider";
-import { useToast } from "@/hooks/use-toast";
 import type { Book } from "@/lib/types";
 
 
 export default function WishlistPage() {
   const { items: wishlist, removeFromWishlist } = useWishlist();
   const { addToCart } = useCartStore();
-  const { toast } = useToast();
 
   const handleAddToCart = (item: Book, type: "rent" | "buy") => {
     addToCart(item, type);
   };
 
   return (
-    <section className="pb-20">
+    <section className="pb-20 pt-12">
       <div className="container-custom">
         {/* Header */}
         <motion.div

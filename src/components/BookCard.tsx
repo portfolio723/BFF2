@@ -58,9 +58,9 @@ export function BookCard({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4 }}
-        className="cursor-pointer"
+        className="cursor-pointer bg-card rounded-xl border border-border overflow-hidden transition-shadow hover:shadow-lg"
       >
-        <div className="relative aspect-[3/4] overflow-hidden bg-secondary rounded-lg">
+        <div className="relative aspect-[3/4] overflow-hidden bg-secondary">
           <Image
             src={coverImage.url}
             alt={title}
@@ -83,32 +83,24 @@ export function BookCard({
                 <Badge variant="destructive">Out of Stock</Badge>
             )}
           </div>
-          <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 via-black/30 to-transparent flex gap-2 justify-end">
+          <div className="absolute top-3 right-3">
             <Button
               size="icon"
               variant="secondary"
               className={cn(
-                "w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border-0",
+                "w-9 h-9 rounded-full bg-background/60 backdrop-blur-sm hover:bg-background text-foreground border-none transition-all",
                 inWishlist && "bg-foreground text-background hover:bg-foreground/90"
               )}
               onClick={handleToggleWishlist}
               disabled={!isMounted}
+              aria-label="Toggle Wishlist"
             >
               <Heart className={cn("w-4 h-4", inWishlist && "fill-current")} />
-            </Button>
-            <Button
-              size="icon"
-              variant="secondary"
-              className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border-0"
-              onClick={(e) => handleAddToCart(e, 'buy')}
-              disabled={availability === 'out-of-stock'}
-            >
-              <ShoppingCart className="w-4 h-4" />
             </Button>
           </div>
         </div>
         
-        <div className="p-2 mt-2">
+        <div className="p-4">
           <span className="text-xs text-muted-foreground uppercase tracking-wider">
             {genre.name}
           </span>
@@ -118,15 +110,33 @@ export function BookCard({
           <p className="text-sm text-muted-foreground mt-0.5">
             by {author.name}
           </p>
-          <div className="flex items-baseline justify-between mt-2">
-             <div className="flex items-baseline gap-2">
+          <div className="flex items-center justify-between mt-3 pt-3 border-t border-border">
+             <div className="text-center">
                 <p className="text-xs text-muted-foreground">Rent from</p>
-                <p className="font-semibold text-lg">₹{rentalPrice || 'N/A'}</p>
+                <p className="font-semibold text-sm">₹{rentalPrice || 'N/A'}</p>
              </div>
-             <div className="flex items-baseline gap-2">
+             <div className="text-center">
                 <p className="text-xs text-muted-foreground">Buy for</p>
-                <p className="font-semibold text-lg">₹{price}</p>
+                <p className="font-semibold text-sm">₹{price}</p>
              </div>
+          </div>
+          <div className="flex gap-2 mt-3">
+             <Button
+                variant="outline"
+                className="flex-1 rounded-full text-xs"
+                onClick={(e) => handleAddToCart(e, 'rent')}
+                disabled={availability === 'out-of-stock' || !rentalPrice}
+              >
+                Rent
+              </Button>
+              <Button
+                className="flex-1 rounded-full text-xs"
+                onClick={(e) => handleAddToCart(e, 'buy')}
+                disabled={availability === 'out-of-stock'}
+              >
+                <ShoppingCart className="w-3 h-3 mr-1"/>
+                Buy
+              </Button>
           </div>
         </div>
       </motion.div>
