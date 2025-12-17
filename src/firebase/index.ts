@@ -1,7 +1,4 @@
-// This barrel file is intentionally left empty.
-// Studio will not generate this file if it is empty.
-// If you need to export something from this directory,
-// you can add it here.
+
 "use client";
 
 import { initializeApp, getApp, getApps, type FirebaseOptions } from 'firebase/app';
@@ -19,10 +16,11 @@ const firebaseConfig: FirebaseOptions = {
 
 function initializeFirebase() {
   if (getApps().length > 0) {
+    const app = getApp();
     return {
-      app: getApp(),
-      auth: getAuth(),
-      firestore: getFirestore(),
+      app,
+      auth: getAuth(app),
+      firestore: getFirestore(app),
     };
   }
 
