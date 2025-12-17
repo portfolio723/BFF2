@@ -1,15 +1,15 @@
-@import '@fontsource/playfair-display/400.css';
-@import '@fontsource/playfair-display/500.css';
-@import '@fontsource/playfair-display/600.css';
-@import '@fontsource/playfair-display/700.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
 @import '@fontsource/dm-sans/400.css';
 @import '@fontsource/dm-sans/500.css';
 @import '@fontsource/dm-sans/600.css';
 @import '@fontsource/dm-sans/700.css';
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 @layer base {
   :root {
@@ -49,7 +49,7 @@
     --gold: 42 80% 55%;
     --gold-light: 42 80% 70%;
     
-    --font-heading: 'Playfair Display', serif;
+    --font-heading: 'Inter', sans-serif;
     --font-body: 'DM Sans', sans-serif;
 
     --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.08);
