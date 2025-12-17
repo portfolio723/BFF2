@@ -68,7 +68,6 @@ export default function CheckoutPage() {
 
   if (cart.length === 0 && !orderPlaced) {
     return (
-      <main className="min-h-screen">
         <section className="pt-24 lg:pt-28 pb-20">
           <div className="container-custom">
             <motion.div
@@ -94,13 +93,11 @@ export default function CheckoutPage() {
             </motion.div>
           </div>
         </section>
-      </main>
     );
   }
 
   if (orderPlaced) {
     return (
-      <main className="min-h-screen">
         <section className="pt-24 lg:pt-28 pb-20">
           <div className="container-custom">
             <motion.div
@@ -160,12 +157,11 @@ export default function CheckoutPage() {
             </motion.div>
           </div>
         </section>
-      </main>
     );
   }
 
   return (
-    <section className="pt-8 pb-20">
+    <section className="pt-24 lg:pt-28 pb-20">
       <div className="container-custom">
         {/* Breadcrumb */}
         <motion.nav

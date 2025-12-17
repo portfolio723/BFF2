@@ -48,7 +48,7 @@ export default function DonatePage() {
   };
 
   return (
-    <section className="pt-8 pb-20">
+    <section className="pt-24 lg:pt-28 pb-20">
       <div className="container-custom">
         {/* Header */}
         <motion.div
