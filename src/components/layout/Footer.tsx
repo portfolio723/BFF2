@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { BookOpen, Mail, Phone, MapPin, Twitter, Instagram, Facebook } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -48,10 +49,16 @@ export const Footer = () => {
           <div>
             <h4 className="font-heading font-semibold text-lg mb-4">Support</h4>
             <ul className="space-y-3">
-              {["Help Center", "Delivery Info", "Return Policy", "FAQs", "Contact Us"].map((item) => (
-                <li key={item}>
-                  <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-                    {item}
+              {[
+                { name: "Help Center", href: "/help" },
+                { name: "FAQs", href: "/faq" },
+                { name: "Delivery Info", href: "/delivery" },
+                { name: "Return Policy", href: "/returns" },
+                { name: "Contact Us", href: "/contact" },
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+                    {item.name}
                   </Link>
                 </li>
               ))}
