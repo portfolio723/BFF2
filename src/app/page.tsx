@@ -1,13 +1,14 @@
+
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BookOpen, Gift, Users, Package, CheckCircle, Truck, CreditCard, Shield } from "lucide-react";
+import { ArrowRight, BookOpen, Gift, Users, Package, CheckCircle, Truck, CreditCard, Shield, Star, Quote } from "lucide-react";
 import { motion } from "framer-motion";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { BookCard } from "@/components/BookCard";
-import { books } from "@/lib/data";
+import { books, communityPosts } from "@/lib/data";
 
 const HeroSection = () => {
   const heroImage1 = PlaceHolderImages.find(img => img.id === 'hero-1');
@@ -318,6 +319,98 @@ const FeaturesSection = () => {
   );
 };
 
+const TestimonialsSection = () => {
+  const testimonials = [
+    {
+      name: "Priya Sharma",
+      role: "Avid Reader",
+      avatarId: "user-avatar-1",
+      content: "Books For Fosters has transformed my reading habit. I rent 5-6 books monthly for just delivery charges. Absolute game changer!",
+      rating: 5,
+    },
+    {
+      name: "Rahul Verma",
+      role: "Book Donor",
+      avatarId: "user-avatar-2",
+      content: "Donated over 200 books from my collection. The pickup service is seamless and knowing my books find new readers is heartwarming.",
+      rating: 5,
+    },
+    {
+      name: "Anjali Patel",
+      role: "Student",
+      avatarId: "user-avatar-3",
+      content: "As a student, buying textbooks was expensive. Now I rent academic books at a fraction of the cost. Highly recommend!",
+      rating: 5,
+    },
+  ];
+
+  return (
+    <section className="py-20 lg:py-28 bg-secondary/30">
+      <div className="container-custom">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center max-w-2xl mx-auto mb-14"
+        >
+          <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+            Testimonials
+          </span>
+          <h2 className="font-heading text-3xl lg:text-4xl font-semibold mt-3">
+            What Our Community Says
+          </h2>
+        </motion.div>
+
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+          {testimonials.map((testimonial, index) => {
+             const avatar = PlaceHolderImages.find(img => img.id === testimonial.avatarId);
+             if (!avatar) return null;
+
+            return (
+              <motion.div
+                key={testimonial.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-card rounded-xl p-6 lg:p-8 border border-border relative"
+              >
+                <Quote className="absolute top-6 right-6 w-8 h-8 text-muted-foreground/20" />
+                
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  "{testimonial.content}"
+                </p>
+                
+                <div className="flex items-center gap-3">
+                  <Image 
+                    src={avatar.imageUrl}
+                    alt={testimonial.name}
+                    data-ai-hint={avatar.imageHint}
+                    width={48}
+                    height={48}
+                    className="w-12 h-12 rounded-full object-cover"
+                  />
+                  <div>
+                    <p className="font-medium">{testimonial.name}</p>
+                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                  </div>
+                </div>
+              </motion.div>
+            )
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
 const DonateSection = () => {
   const steps = [
     {
@@ -565,11 +658,14 @@ export default function Home() {
     <>
       <HeroSection />
       <CategoriesSection />
+      <FeaturesSection />
       <FeaturedBooks/>
       <DonateSection />
       <CTASection />
     </>
   );
 }
+
+    
 
     
