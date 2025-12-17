@@ -6,7 +6,8 @@ import { AddressProvider } from "@/context/AddressContext";
 import { AuthProvider } from "@/context/AuthContext";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster as LegacyToaster } from "@/components/ui/toaster";
+import { Toaster } from "sonner";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -31,7 +32,8 @@ export default function RootLayout({
                 <Header />
                 <main className="flex-grow">{children}</main>
                 <Footer />
-                <Toaster />
+                <LegacyToaster />
+                <Toaster richColors />
               </AddressProvider>
             </WishlistProvider>
           </AppProvider>

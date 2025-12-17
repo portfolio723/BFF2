@@ -29,11 +29,13 @@ import {
   EyeOff,
   User,
   Phone,
-  Shield,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import AadharKyc from "@/components/AadharKyc";
+import { AnimatePresence, motion } from "framer-motion";
+
+type AuthStep = "welcome" | "kyc" | "profile";
 
 const signUpSchema = z.object({
   fullName: z.string().min(1, "Full name is required."),
@@ -58,6 +60,7 @@ export default function AuthPage() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [activeTab, setActiveTab] = useState("signin");
+  const [authStep, setAuthStep] = useState<AuthStep>("welcome");
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -107,14 +110,15 @@ export default function AuthPage() {
         description: error.message,
         variant: "destructive",
       });
+       setLoading(false);
     } else {
       toast({
         title: "Account created successfully!",
         description: "Please check your email to verify your account.",
       });
-      setActiveTab("signin");
+      setAuthStep("kyc");
+      setLoading(false);
     }
-    setLoading(false);
   };
   
   const handleOtpSignIn = async (values: z.infer<typeof otpSchema>) => {
@@ -135,275 +139,293 @@ export default function AuthPage() {
     setLoading(false);
   }
 
+  const renderAuthContent = () => {
+    switch (authStep) {
+      case "welcome":
+        return (
+          <motion.div
+            key="welcome"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <Link href="/" className="flex items-center gap-2 mb-8">
+              <BookOpen className="w-6 h-6" />
+              <span className="font-semibold text-xl">Books For Fosters</span>
+            </Link>
+
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="signin">Sign In</TabsTrigger>
+                <TabsTrigger value="signup">Sign Up</TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="signin">
+                <div className="mt-6">
+                  <h1 className="text-3xl font-bold font-heading">Welcome Back</h1>
+                  <p className="text-muted-foreground mt-1">
+                    Sign in to continue your reading journey
+                  </p>
+                </div>
+
+                <Form {...signInForm}>
+                  <form
+                    onSubmit={signInForm.handleSubmit(handleSignIn)}
+                    className="space-y-6 mt-8"
+                  >
+                    <FormField
+                      control={signInForm.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <div className="relative">
+                              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                              <Input placeholder="you@example.com" {...field} type="email" className="pl-10"/>
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={signInForm.control}
+                      name="password"
+                      render={({ field }) => (
+                        <FormItem>
+                          <div className="flex justify-between items-center">
+                            <FormLabel>Password</FormLabel>
+                            <Link href="#" className="text-sm font-medium text-primary hover:underline">
+                              Forgot password?
+                            </Link>
+                          </div>
+                          <FormControl>
+                             <div className="relative">
+                              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                              <Input
+                                placeholder="••••••••"
+                                {...field}
+                                type={showPassword ? "text" : "password"}
+                                className="pl-10 pr-10"
+                              />
+                              <Button 
+                                type="button"
+                                variant="ghost" 
+                                size="icon" 
+                                className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8"
+                                onClick={() => setShowPassword(!showPassword)}
+                              >
+                                {showPassword ? <EyeOff className="w-4 h-4"/> : <Eye className="w-4 h-4"/>}
+                              </Button>
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <div className="flex items-center">
+                       <Checkbox id="remember" />
+                       <label
+                          htmlFor="remember"
+                          className="ml-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                          Remember me for 30 days
+                        </label>
+                    </div>
+
+                    <Button type="submit" className="w-full h-12 rounded-full" disabled={loading}>
+                      {loading ? "Signing In..." : "Sign In"}
+                      <ArrowRight className="ml-2 w-4 h-4" />
+                    </Button>
+                  </form>
+                </Form>
+
+                <div className="relative my-8">
+                  <div className="absolute inset-0 flex items-center">
+                    <span className="w-full border-t" />
+                  </div>
+                  <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-background px-2 text-muted-foreground">
+                      Or continue with
+                    </span>
+                  </div>
+                </div>
+                
+                <Form {...otpForm}>
+                    <form onSubmit={otpForm.handleSubmit(handleOtpSignIn)}>
+                      <div className="flex gap-2">
+                          <FormField
+                              control={otpForm.control}
+                              name="email"
+                              render={({ field }) => (
+                              <FormItem className="flex-1">
+                                  <FormControl>
+                                  <div className="relative">
+                                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                                      <Input placeholder="Enter your email for OTP" {...field} type="email" className="pl-10 h-12"/>
+                                  </div>
+                                  </FormControl>
+                                  <FormMessage />
+                              </FormItem>
+                              )}
+                          />
+                           <Button type="submit" variant="outline" className="h-12" disabled={loading}>
+                             {loading ? 'Sending...' : 'Email OTP'}
+                          </Button>
+                      </div>
+                    </form>
+                </Form>
+
+                <div className="text-center mt-6">
+                  <Link href="/books" className="text-sm font-medium text-muted-foreground hover:text-primary">
+                    Continue as Guest
+                  </Link>
+                </div>
+
+              </TabsContent>
+              <TabsContent value="signup">
+                 <div className="mt-6">
+                  <h1 className="text-3xl font-bold font-heading">Create an Account</h1>
+                  <p className="text-muted-foreground mt-1">
+                    Join our community of book lovers.
+                  </p>
+                </div>
+                <Form {...signUpForm}>
+                  <form
+                    onSubmit={signUpForm.handleSubmit(handleSignUp)}
+                    className="space-y-6 mt-8"
+                  >
+                    <FormField
+                      control={signUpForm.control}
+                      name="fullName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Full Name</FormLabel>
+                          <FormControl>
+                             <div className="relative">
+                              <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                              <Input placeholder="e.g. John Doe" {...field} className="pl-10" />
+                             </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={signUpForm.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Phone Number</FormLabel>
+                          <FormControl>
+                             <div className="relative">
+                              <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                              <Input placeholder="+91 98765 43210" {...field} className="pl-10" />
+                             </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={signUpForm.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email Address</FormLabel>
+                          <FormControl>
+                            <div className="relative">
+                              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                              <Input placeholder="you@example.com" {...field} type="email" className="pl-10"/>
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={signUpForm.control}
+                      name="password"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Create Password</FormLabel>
+                          <FormControl>
+                             <div className="relative">
+                              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                              <Input
+                                placeholder="••••••••"
+                                {...field}
+                                type={showPassword ? "text" : "password"}
+                                className="pl-10 pr-10"
+                              />
+                               <Button 
+                                type="button"
+                                variant="ghost" 
+                                size="icon" 
+                                className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8"
+                                onClick={() => setShowPassword(!showPassword)}
+                              >
+                                {showPassword ? <EyeOff className="w-4 h-4"/> : <Eye className="w-4 h-4"/>}
+                              </Button>
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={signUpForm.control}
+                      name="terms"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                          </FormControl>
+                          <div className="space-y-1 leading-none">
+                            <FormLabel>
+                               I agree to the <Link href="/terms" className="underline">Terms of Service</Link> and <Link href="/privacy" className="underline">Privacy Policy</Link>.
+                            </FormLabel>
+                            <FormMessage />
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+                    <Button type="submit" className="w-full h-12 rounded-full" disabled={loading}>
+                      {loading ? "Creating Account..." : "Create Account"}
+                      <ArrowRight className="ml-2 w-4 h-4" />
+                    </Button>
+                  </form>
+                </Form>
+              </TabsContent>
+            </Tabs>
+          </motion.div>
+        );
+      case "kyc":
+        return (
+          <AadharKyc
+            onComplete={() => router.push(redirect)}
+            onBack={() => setAuthStep("welcome")}
+            onSkip={() => router.push(redirect)}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2">
       <div className="flex flex-col items-center justify-center p-8 lg:p-12">
         <div className="w-full max-w-md">
-          <Link href="/" className="flex items-center gap-2 mb-8">
-            <BookOpen className="w-6 h-6" />
-            <span className="font-semibold text-xl">Books For Fosters</span>
-          </Link>
-
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="signin">Sign In</TabsTrigger>
-              <TabsTrigger value="signup">Sign Up</TabsTrigger>
-            </TabsList>
-            
-            {/* Sign In Tab */}
-            <TabsContent value="signin">
-              <div className="mt-6">
-                <h1 className="text-3xl font-bold font-heading">Welcome Back</h1>
-                <p className="text-muted-foreground mt-1">
-                  Sign in to continue your reading journey
-                </p>
-              </div>
-
-              <Form {...signInForm}>
-                <form
-                  onSubmit={signInForm.handleSubmit(handleSignIn)}
-                  className="space-y-6 mt-8"
-                >
-                  <FormField
-                    control={signInForm.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <div className="relative">
-                            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                            <Input placeholder="you@example.com" {...field} type="email" className="pl-10"/>
-                          </div>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={signInForm.control}
-                    name="password"
-                    render={({ field }) => (
-                      <FormItem>
-                        <div className="flex justify-between items-center">
-                          <FormLabel>Password</FormLabel>
-                          <Link href="#" className="text-sm font-medium text-primary hover:underline">
-                            Forgot password?
-                          </Link>
-                        </div>
-                        <FormControl>
-                           <div className="relative">
-                            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                            <Input
-                              placeholder="••••••••"
-                              {...field}
-                              type={showPassword ? "text" : "password"}
-                              className="pl-10 pr-10"
-                            />
-                            <Button 
-                              type="button"
-                              variant="ghost" 
-                              size="icon" 
-                              className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8"
-                              onClick={() => setShowPassword(!showPassword)}
-                            >
-                              {showPassword ? <EyeOff className="w-4 h-4"/> : <Eye className="w-4 h-4"/>}
-                            </Button>
-                          </div>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <div className="flex items-center">
-                     <Checkbox id="remember" />
-                     <label
-                        htmlFor="remember"
-                        className="ml-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      >
-                        Remember me for 30 days
-                      </label>
-                  </div>
-
-                  <Button type="submit" className="w-full h-12 rounded-full" disabled={loading}>
-                    {loading ? "Signing In..." : "Sign In"}
-                    <ArrowRight className="ml-2 w-4 h-4" />
-                  </Button>
-                </form>
-              </Form>
-
-              <div className="relative my-8">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-background px-2 text-muted-foreground">
-                    Or continue with
-                  </span>
-                </div>
-              </div>
-              
-              <Form {...otpForm}>
-                  <form onSubmit={otpForm.handleSubmit(handleOtpSignIn)}>
-                    <div className="flex gap-2">
-                        <FormField
-                            control={otpForm.control}
-                            name="email"
-                            render={({ field }) => (
-                            <FormItem className="flex-1">
-                                <FormControl>
-                                <div className="relative">
-                                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                                    <Input placeholder="Enter your email for OTP" {...field} type="email" className="pl-10 h-12"/>
-                                </div>
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                            )}
-                        />
-                         <Button type="submit" variant="outline" className="h-12" disabled={loading}>
-                           {loading ? 'Sending...' : 'Email OTP'}
-                        </Button>
-                    </div>
-                  </form>
-              </Form>
-
-              <div className="text-center mt-6">
-                <Link href="/books" className="text-sm font-medium text-muted-foreground hover:text-primary">
-                  Continue as Guest
-                </Link>
-              </div>
-
-            </TabsContent>
-
-            {/* Sign Up Tab */}
-            <TabsContent value="signup">
-               <div className="mt-6">
-                <h1 className="text-3xl font-bold font-heading">Create an Account</h1>
-                <p className="text-muted-foreground mt-1">
-                  Join our community of book lovers.
-                </p>
-              </div>
-              <Form {...signUpForm}>
-                <form
-                  onSubmit={signUpForm.handleSubmit(handleSignUp)}
-                  className="space-y-6 mt-8"
-                >
-                  <FormField
-                    control={signUpForm.control}
-                    name="fullName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Full Name</FormLabel>
-                        <FormControl>
-                           <div className="relative">
-                            <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                            <Input placeholder="e.g. John Doe" {...field} className="pl-10" />
-                           </div>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={signUpForm.control}
-                    name="phone"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Phone Number</FormLabel>
-                        <FormControl>
-                           <div className="relative">
-                            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                            <Input placeholder="+91 98765 43210" {...field} className="pl-10" />
-                           </div>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={signUpForm.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email Address</FormLabel>
-                        <FormControl>
-                          <div className="relative">
-                            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                            <Input placeholder="you@example.com" {...field} type="email" className="pl-10"/>
-                          </div>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={signUpForm.control}
-                    name="password"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Create Password</FormLabel>
-                        <FormControl>
-                           <div className="relative">
-                            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                            <Input
-                              placeholder="••••••••"
-                              {...field}
-                              type={showPassword ? "text" : "password"}
-                              className="pl-10 pr-10"
-                            />
-                             <Button 
-                              type="button"
-                              variant="ghost" 
-                              size="icon" 
-                              className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8"
-                              onClick={() => setShowPassword(!showPassword)}
-                            >
-                              {showPassword ? <EyeOff className="w-4 h-4"/> : <Eye className="w-4 h-4"/>}
-                            </Button>
-                          </div>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                   <Alert className="bg-secondary">
-                    <Shield className="h-4 w-4" />
-                    <AlertTitle>KYC Verification Required</AlertTitle>
-                    <AlertDescription>
-                      To rent or buy books, you'll need to verify your identity with Aadhar KYC after registration.
-                    </AlertDescription>
-                  </Alert>
-
-                  <FormField
-                    control={signUpForm.control}
-                    name="terms"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                        <FormControl>
-                          <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                          />
-                        </FormControl>
-                        <div className="space-y-1 leading-none">
-                          <FormLabel>
-                             I agree to the <Link href="/terms" className="underline">Terms of Service</Link> and <Link href="/privacy" className="underline">Privacy Policy</Link>.
-                          </FormLabel>
-                          <FormMessage />
-                        </div>
-                      </FormItem>
-                    )}
-                  />
-                  <Button type="submit" className="w-full h-12 rounded-full" disabled={loading}>
-                    {loading ? "Creating Account..." : "Create Account"}
-                    <ArrowRight className="ml-2 w-4 h-4" />
-                  </Button>
-                </form>
-              </Form>
-            </TabsContent>
-          </Tabs>
+           <AnimatePresence mode="wait">
+              {renderAuthContent()}
+           </AnimatePresence>
         </div>
       </div>
       <div className="hidden lg:block relative">
