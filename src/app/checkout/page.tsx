@@ -438,22 +438,22 @@ export default function CheckoutPage() {
                       <h3 className="font-medium mb-4">Order Items</h3>
                       <div className="space-y-3">
                         {items.map((item) => (
-                          <div key={`${item.book.id}-${item.type}`} className="flex gap-4 p-3 bg-secondary/30 rounded-lg">
+                          <div key={`${item.id}-${item.type}`} className="flex gap-4 p-3 bg-secondary/30 rounded-lg">
                             <Image 
-                              src={item.book.coverImage.url} 
-                              alt={item.book.title}
+                              src={item.coverImage.url} 
+                              alt={item.title}
                               width={48}
                               height={64}
                               className="w-12 h-16 object-cover rounded"
                             />
                             <div className="flex-1">
-                              <p className="font-medium line-clamp-1">{item.book.title}</p>
+                              <p className="font-medium line-clamp-1">{item.title}</p>
                               <p className="text-sm text-muted-foreground">
                                 {item.type === "rent" ? "Rent" : "Buy"}
                               </p>
                             </div>
                             <p className="font-semibold">
-                              ₹{item.type === 'rent' ? item.book.rentalPrice : item.book.price}
+                              ₹{item.type === 'rent' ? item.rentalPrice : item.price}
                             </p>
                           </div>
                         ))}
@@ -496,22 +496,22 @@ export default function CheckoutPage() {
               
               <div className="space-y-3 mb-6">
                 {items.map((item) => (
-                  <div key={`${item.book.id}-${item.type}`} className="flex gap-3">
+                  <div key={`${item.id}-${item.type}`} className="flex gap-3">
                     <Image 
-                      src={item.book.coverImage.url} 
-                      alt={item.book.title}
+                      src={item.coverImage.url} 
+                      alt={item.title}
                       width={48}
                       height={64}
                       className="w-12 h-16 object-cover rounded"
                     />
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium line-clamp-1">{item.book.title}</p>
+                      <p className="text-sm font-medium line-clamp-1">{item.title}</p>
                       <p className="text-xs text-muted-foreground">
                         {item.type === "rent" ? "Rent" : "Buy"}
                       </p>
                     </div>
                     <p className="text-sm font-medium">
-                      ₹{item.type === 'rent' ? item.book.rentalPrice : item.book.price}
+                      ₹{item.type === 'rent' ? item.rentalPrice : item.price}
                     </p>
                   </div>
                 ))}
