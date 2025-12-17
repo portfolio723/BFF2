@@ -1,13 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useAuth } from "@/firebase";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
+import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -51,7 +43,6 @@ export default function AuthPage() {
   const searchParams = useSearchParams();
   const redirect = searchParams.get('redirect') || '/';
   const { toast } = useToast();
-  const auth = useAuth();
   
   const signInForm = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
@@ -65,60 +56,32 @@ export default function AuthPage() {
 
   const handleSignIn = async (values: z.infer<typeof signInSchema>) => {
     setLoading(true);
-    if (!auth) return;
-    try {
-      await signInWithEmailAndPassword(auth, values.email, values.password);
+    // Mock sign-in
+    setTimeout(() => {
       toast({ title: "Signed in successfully!" });
       router.push(redirect);
-    } catch (error: any) {
-      console.error("Sign in error", error);
-      toast({
-        title: "Sign in failed",
-        description: error.message || "An unexpected error occurred.",
-        variant: "destructive",
-      });
-    } finally {
       setLoading(false);
-    }
+    }, 1000);
   };
 
   const handleSignUp = async (values: z.infer<typeof signUpSchema>) => {
     setLoading(true);
-    if (!auth) return;
-    try {
-      await createUserWithEmailAndPassword(auth, values.email, values.password);
+    // Mock sign-up
+    setTimeout(() => {
       toast({ title: "Account created successfully!", description: "Please sign in." });
-      router.push(redirect);
-    } catch (error: any) {
-      console.error("Sign up error", error);
-      toast({
-        title: "Sign up failed",
-        description: error.message || "An unexpected error occurred.",
-        variant: "destructive",
-      });
-    } finally {
+      // In a real app, you might auto-sign-in or redirect to sign-in
       setLoading(false);
-    }
+    }, 1000);
   };
 
   const handleGoogleSignIn = async () => {
     setIsGoogleLoading(true);
-    if (!auth) return;
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithPopup(auth, provider);
+    // Mock Google sign-in
+    setTimeout(() => {
       toast({ title: "Signed in with Google successfully!" });
       router.push(redirect);
-    } catch (error: any) {
-       console.error("Google sign in error", error);
-       toast({
-        title: "Google sign in failed",
-        description: error.message || "An unexpected error occurred.",
-        variant: "destructive",
-      });
-    } finally {
       setIsGoogleLoading(false);
-    }
+    }, 1000);
   };
 
   return (

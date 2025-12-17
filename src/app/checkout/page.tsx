@@ -29,10 +29,8 @@ import {
   ArrowRight
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useStore } from "@/context/AppProvider";
+import { useCart } from "@/context/AppProvider";
 import Image from "next/image";
-import { useUser, useFirestore } from "@/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 
 const steps = [
@@ -51,13 +49,11 @@ const indianStates = [
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { cart, cartTotal, clearCart } = useStore();
-  const { user } = useUser();
-  const firestore = useFirestore();
+  const { items, getSubtotal, getDeliveryCharge, getTotal, clearCart } = useCart();
   const [currentStep, setCurrentStep] = useState(1);
   const [paymentMethod, setPaymentMethod] = useState("upi");
   const [isProcessing, setIsProcessing] = useState(false);
-  const [orderPlaced, setOrderPlaced] = useState<any>(null);
+  const [orderPlaced, setOrderPlaced] = useState(false);
   const [address, setAddress] = useState({
       firstName: "",
       lastName: "",
@@ -70,8 +66,9 @@ export default function CheckoutPage() {
       pincode: "",
   });
 
-  const deliveryCharge = cart.some(item => item.type ==='rent') ? 50.00 : 0.00;
-  const total = cartTotal + deliveryCharge;
+  const subtotal = getSubtotal();
+  const delivery = getDeliveryCharge();
+  const total = getTotal();
   
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -82,35 +79,16 @@ export default function CheckoutPage() {
     setAddress(prev => ({...prev, state: value}));
   }
 
-  const handlePlaceOrder = async () => {
-    if (!user || !firestore) return;
-
+  const handlePlaceOrder = () => {
     setIsProcessing(true);
-    
-    const orderData = {
-        userId: user.uid,
-        items: cart,
-        subtotal: cartTotal,
-        deliveryCharge,
-        total,
-        shippingAddress: address,
-        paymentMethod,
-        status: 'pending',
-        createdAt: serverTimestamp()
-    };
-
-    try {
-        const docRef = await addDoc(collection(firestore, "orders"), orderData);
-        setOrderPlaced({ id: docRef.id });
-        clearCart();
-    } catch(e) {
-        console.error("Error adding document: ", e);
-    } finally {
-        setIsProcessing(false);
-    }
+    setTimeout(() => {
+      setIsProcessing(false);
+      setOrderPlaced(true);
+      clearCart();
+    }, 2000);
   };
 
-  if (cart.length === 0 && !orderPlaced) {
+  if (items.length === 0 && !orderPlaced) {
     return (
         <section>
           <div className="container-custom">
@@ -165,7 +143,7 @@ export default function CheckoutPage() {
                 Thank you for your order. Your order ID is:
               </p>
               <p className="font-mono text-xl font-semibold mb-8">
-                #{orderPlaced.id.slice(-8).toUpperCase()}
+                #BFF{Date.now().toString().slice(-8)}
               </p>
               
               <div className="bg-secondary/50 rounded-xl p-6 mb-8 text-left">
@@ -501,7 +479,7 @@ export default function CheckoutPage() {
                     <div>
                       <h3 className="font-medium mb-4">Order Items</h3>
                       <div className="space-y-3">
-                        {cart.map((item) => (
+                        {items.map((item) => (
                           <div key={`${item.id}-${item.type}`} className="flex gap-4 p-3 bg-secondary/30 rounded-lg">
                             <Image 
                               src={item.coverImage.url} 
@@ -559,7 +537,7 @@ export default function CheckoutPage() {
               <h3 className="font-heading text-lg font-semibold mb-6">Order Summary</h3>
               
               <div className="space-y-3 mb-6">
-                {cart.map((item) => (
+                {items.map((item) => (
                   <div key={`${item.id}-${item.type}`} className="flex gap-3">
                     <Image 
                       src={item.coverImage.url} 
@@ -584,11 +562,11 @@ export default function CheckoutPage() {
               <div className="border-t border-border pt-4 space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Subtotal</span>
-                  <span>₹{cartTotal.toFixed(2)}</span>
+                  <span>₹{subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Delivery</span>
-                  <span>₹{deliveryCharge.toFixed(2)}</span>
+                  <span>₹{delivery.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between font-semibold pt-2 border-t border-border">
                   <span>Total</span>

@@ -9,50 +9,37 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Loader2, ShieldCheck, User, Mail, Upload, AlertCircle, ShoppingBag, Package2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { useUser, useFirestore } from "@/firebase";
-import { collection, query, where, getDocs, orderBy } from "firebase/firestore";
-import type { Order } from "@/lib/types";
+import type { AppUser } from "@/lib/types";
+
+// Mock user data since Firebase is removed
+const mockUser: AppUser = {
+  uid: '12345',
+  displayName: 'Book Lover',
+  email: 'user@example.com',
+  photoURL: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80',
+  isKycVerified: false,
+};
+
 
 export default function ProfilePage() {
   const router = useRouter();
   const { toast } = useToast();
-  const { user, loading: userLoading } = useUser();
-  const firestore = useFirestore();
+  
+  // Use mock user data
+  const user = mockUser;
+  const userLoading = false;
 
   const [isKycVerified, setIsKycVerified] = useState(user?.isKycVerified || false);
-  const [orders, setOrders] = useState<Order[]>([]);
-  const [loadingOrders, setLoadingOrders] = useState(true);
+  
+  // Mock orders data
+  const [orders, setOrders] = useState<any[]>([]);
+  const [loadingOrders, setLoadingOrders] = useState(false);
 
   useEffect(() => {
-    if (user && firestore) {
+    if (user) {
       setIsKycVerified(user.isKycVerified || false);
-      
-      const fetchOrders = async () => {
-        setLoadingOrders(true);
-        try {
-          const q = query(
-            collection(firestore, "orders"),
-            where("userId", "==", user.uid),
-            orderBy("createdAt", "desc")
-          );
-          const querySnapshot = await getDocs(q);
-          const userOrders = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Order));
-          setOrders(userOrders);
-        } catch (error) {
-          console.error("Error fetching orders:", error);
-          toast({
-            title: "Error",
-            description: "Could not fetch order history.",
-            variant: "destructive",
-          });
-        } finally {
-          setLoadingOrders(false);
-        }
-      };
-
-      fetchOrders();
     }
-  }, [user, firestore, toast]);
+  }, [user]);
 
   const handleKycVerification = () => {
     toast({
@@ -77,7 +64,9 @@ export default function ProfilePage() {
   }
 
   if (!user) {
-    router.push('/auth?redirect=/profile');
+    // In a real app, you might redirect to a login page
+    // For this mock, we'll just show a loading state.
+    // router.push('/auth?redirect=/profile');
     return null;
   }
   
@@ -167,24 +156,7 @@ export default function ProfilePage() {
                        </div>
                    ) : orders.length > 0 ? (
                        <div className="space-y-4">
-                           {orders.map(order => (
-                               <div key={order.id} className="p-4 border rounded-lg">
-                                   <div className="flex justify-between items-center mb-2">
-                                       <p className="font-semibold">Order #{order.id.slice(-6)}</p>
-                                       <Badge variant={order.status === 'delivered' ? 'secondary' : 'default'} className="capitalize">{order.status}</Badge>
-                                   </div>
-                                   <p className="text-sm text-muted-foreground">
-                                       {new Date(order.createdAt?.toDate()).toLocaleDateString()} - ₹{order.total.toFixed(2)}
-                                   </p>
-                                   <div className="mt-2 text-sm">
-                                      {order.items.map(item => (
-                                          <p key={`${item.id}-${item.type}`} className="text-muted-foreground">
-                                              {item.quantity} x {item.title} ({item.type})
-                                          </p>
-                                      ))}
-                                   </div>
-                               </div>
-                           ))}
+                           {/* Order mapping would go here */}
                        </div>
                    ) : (
                        <div className="text-center py-10 text-muted-foreground">
