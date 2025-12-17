@@ -54,7 +54,7 @@ export default function CheckoutPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
 
-  const deliveryCharge = cart.length > 0 ? 50.00 : 0.00;
+  const deliveryCharge = cart.some(item => item.type ==='rent') ? 50.00 : 0.00;
   const total = cartTotal + deliveryCharge;
 
   const handlePlaceOrder = () => {
@@ -68,7 +68,7 @@ export default function CheckoutPage() {
 
   if (cart.length === 0 && !orderPlaced) {
     return (
-        <section className="pt-24 lg:pt-28 pb-20">
+        <section>
           <div className="container-custom">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -98,7 +98,7 @@ export default function CheckoutPage() {
 
   if (orderPlaced) {
     return (
-        <section className="pt-24 lg:pt-28 pb-20">
+        <section>
           <div className="container-custom">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
@@ -161,7 +161,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <section className="pt-24 lg:pt-28 pb-20">
+    <section>
       <div className="container-custom">
         {/* Breadcrumb */}
         <motion.nav
@@ -458,22 +458,22 @@ export default function CheckoutPage() {
                       <h3 className="font-medium mb-4">Order Items</h3>
                       <div className="space-y-3">
                         {cart.map((item) => (
-                          <div key={`${item.book.id}-${item.type}`} className="flex gap-4 p-3 bg-secondary/30 rounded-lg">
+                          <div key={`${item.id}-${item.type}`} className="flex gap-4 p-3 bg-secondary/30 rounded-lg">
                             <Image 
-                              src={item.book.coverImage.url} 
-                              alt={item.book.title}
+                              src={item.coverImage.url} 
+                              alt={item.title}
                               width={48}
                               height={64}
                               className="w-12 h-16 object-cover rounded"
                             />
                             <div className="flex-1">
-                              <p className="font-medium line-clamp-1">{item.book.title}</p>
+                              <p className="font-medium line-clamp-1">{item.title}</p>
                               <p className="text-sm text-muted-foreground">
                                 {item.type === "rent" ? "Rent" : "Buy"}
                               </p>
                             </div>
                             <p className="font-semibold">
-                              ₹{item.type === 'rent' ? item.book.rentalPrice : item.book.price}
+                              ₹{item.type === 'rent' ? item.rentalPrice : item.price}
                             </p>
                           </div>
                         ))}
@@ -516,22 +516,22 @@ export default function CheckoutPage() {
               
               <div className="space-y-3 mb-6">
                 {cart.map((item) => (
-                  <div key={`${item.book.id}-${item.type}`} className="flex gap-3">
+                  <div key={`${item.id}-${item.type}`} className="flex gap-3">
                     <Image 
-                      src={item.book.coverImage.url} 
-                      alt={item.book.title}
+                      src={item.coverImage.url} 
+                      alt={item.title}
                       width={48}
                       height={64}
                       className="w-12 h-16 object-cover rounded"
                     />
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium line-clamp-1">{item.book.title}</p>
+                      <p className="text-sm font-medium line-clamp-1">{item.title}</p>
                       <p className="text-xs text-muted-foreground">
                         {item.type === "rent" ? "Rent" : "Buy"}
                       </p>
                     </div>
                     <p className="text-sm font-medium">
-                      ₹{item.type === 'rent' ? item.book.rentalPrice : item.book.price}
+                      ₹{item.type === 'rent' ? item.rentalPrice : item.price}
                     </p>
                   </div>
                 ))}

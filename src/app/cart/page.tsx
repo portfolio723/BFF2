@@ -18,16 +18,19 @@ import {
   Shield, 
   ArrowRight,
   Tag,
-  Package
+  Package,
+  Plus,
+  Minus
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import type { CartItem } from "@/lib/types";
 
 export default function CartPage() {
-  const { cart, removeFromCart, cartTotal, loading } = useStore();
+  const { cart, removeFromCart, cartTotal, updateCartQuantity } = useStore();
   const { toast } = useToast();
   const [promoCode, setPromoCode] = useState("");
 
-  const deliveryCharge = cart.length > 0 ? 50.00 : 0.00;
+  const deliveryCharge = cart.some(item => item.type ==='rent') ? 50.00 : 0.00;
   const total = cartTotal + deliveryCharge;
 
   return (
@@ -57,9 +60,9 @@ export default function CartPage() {
               className="lg:col-span-2"
             >
               <div className="space-y-4">
-                {cart.map(({ book, type }, index) => (
+                {cart.map((item, index) => (
                   <motion.div
-                    key={`${book.id}-${type}`}
+                    key={`${item.id}-${item.type}`}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 + index * 0.05 }}
@@ -69,11 +72,11 @@ export default function CartPage() {
                       {/* Image */}
                       <div className="w-20 lg:w-28 flex-shrink-0">
                         <Image
-                          src={book.coverImage.url}
-                          alt={book.title}
+                          src={item.coverImage.url}
+                          alt={item.title}
                           width={112}
                           height={150}
-                          data-ai-hint={book.coverImage.hint}
+                          data-ai-hint={item.coverImage.hint}
                           className="w-full aspect-[3/4] object-cover rounded-lg"
                         />
                       </div>
@@ -82,30 +85,51 @@ export default function CartPage() {
                       <div className="flex-1 min-w-0">
                         <div className="flex justify-between gap-4">
                           <div>
-                            <Badge variant={type === "rent" ? "secondary" : "default"} className="mb-2 capitalize">
-                              {type}
+                            <Badge variant={item.type === "rent" ? "secondary" : "default"} className="mb-2 capitalize">
+                              {item.type}
                             </Badge>
                             <h3 className="font-heading text-lg font-medium line-clamp-1">
-                              {book.title}
+                              {item.title}
                             </h3>
                             <p className="text-sm text-muted-foreground">
-                              by {book.author.name}
+                              by {item.author.name}
                             </p>
                           </div>
                           <Button 
                             variant="ghost" 
                             size="icon"
                             className="flex-shrink-0 text-muted-foreground hover:text-destructive"
-                            onClick={() => removeFromCart(book.id)}
+                            onClick={() => removeFromCart(item.id)}
                           >
                             <X className="w-4 h-4" />
                           </Button>
                         </div>
                         
-                        <div className="flex flex-wrap items-center justify-end gap-4 mt-4">
+                        <div className="flex flex-wrap items-center justify-between gap-4 mt-4">
+                           <div className="flex items-center border border-border rounded-full">
+                              <Button 
+                                variant="ghost" 
+                                size="icon"
+                                className="h-9 w-9 rounded-full"
+                                onClick={() => updateCartQuantity(item.id, item.quantity - 1)}
+                              >
+                                <Minus className="w-3 h-3" />
+                              </Button>
+                              <span className="w-10 text-center font-medium">
+                                {item.quantity}
+                              </span>
+                              <Button 
+                                variant="ghost" 
+                                size="icon"
+                                className="h-9 w-9 rounded-full"
+                                onClick={() => updateCartQuantity(item.id, item.quantity + 1)}
+                              >
+                                <Plus className="w-3 h-3" />
+                              </Button>
+                            </div>
                           {/* Price */}
                           <p className="font-heading text-xl font-semibold">
-                            ₹{type === 'rent' ? book.rentalPrice : book.price}
+                            ₹{(item.type === 'rent' ? item.rentalPrice || 0 : item.price) * item.quantity}
                           </p>
                         </div>
                       </div>

@@ -42,9 +42,9 @@ export type CommunityPost = {
 export type CartItem = {
   book: Book;
   type: 'buy' | 'rent';
+  quantity: number;
 };
 
-// This can be simplified as we are no longer extending the Firebase user
 export interface AppUser {
   displayName?: string | null;
   email?: string | null;
