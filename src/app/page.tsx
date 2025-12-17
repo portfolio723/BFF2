@@ -3,9 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BookOpen, Gift, Users, Package, CheckCircle, Truck } from "lucide-react";
+import { ArrowRight, BookOpen, Gift, Users, Package, CheckCircle, Truck, CreditCard, Shield } from "lucide-react";
 import { motion } from "framer-motion";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { BookCard } from "@/components/BookCard";
+import { books } from "@/lib/data";
 
 const HeroSection = () => {
   const heroImage1 = PlaceHolderImages.find(img => img.id === 'hero-1');
@@ -236,6 +238,86 @@ const CategoriesSection = () => {
 };
 
 
+const FeaturesSection = () => {
+  const features = [
+    {
+      icon: BookOpen,
+      title: "Vast Collection",
+      description: "Access thousands of books across all genres, from bestsellers to rare finds.",
+    },
+    {
+      icon: Truck,
+      title: "Pay Only Delivery",
+      description: "Rent books for free – just pay minimal delivery charges to your doorstep.",
+    },
+    {
+      icon: Gift,
+      title: "Donate & Share",
+      description: "Give your books a new home. Donate easily and spread the joy of reading.",
+    },
+    {
+      icon: Users,
+      title: "Community Hub",
+      description: "Connect with fellow readers, discuss books, and make new friends.",
+    },
+    {
+      icon: CreditCard,
+      title: "Flexible Options",
+      description: "Rent for a period or buy outright. Choose what works best for you.",
+    },
+    {
+      icon: Shield,
+      title: "Verified Users",
+      description: "KYC verified members ensure safe transactions and trusted exchanges.",
+    },
+  ];
+
+  return (
+    <section className="py-20 lg:py-28 bg-secondary/30">
+      <div className="container-custom">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center max-w-2xl mx-auto mb-14"
+        >
+          <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+            Why Choose Us
+          </span>
+          <h2 className="font-heading text-3xl lg:text-4xl font-semibold mt-3">
+            Reading Made Accessible
+          </h2>
+          <p className="mt-4 text-muted-foreground">
+            We believe everyone deserves access to books. Our platform makes it easy to 
+            read, share, and connect through literature.
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {features.map((feature, index) => (
+            <motion.div
+              key={feature.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="group p-6 lg:p-8 bg-card rounded-xl border border-border hover:border-foreground/20 transition-colors"
+            >
+              <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center mb-5 group-hover:bg-foreground group-hover:text-background transition-colors">
+                <feature.icon className="w-5 h-5" />
+              </div>
+              <h3 className="font-heading text-xl font-medium">{feature.title}</h3>
+              <p className="mt-2 text-muted-foreground text-sm leading-relaxed">
+                {feature.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const DonateSection = () => {
   const steps = [
     {
@@ -369,6 +451,51 @@ const DonateSection = () => {
   );
 };
 
+const FeaturedBooks = () => {
+  const featuredBooks = books.slice(0, 4);
+
+  return (
+    <section className="py-20 lg:py-28">
+      <div className="container-custom">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+              Handpicked for You
+            </span>
+            <h2 className="font-heading text-3xl lg:text-4xl font-semibold mt-3">
+              Featured Books
+            </h2>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            <Button asChild variant="ghost" className="gap-2 group">
+                <Link href="/books">
+                  View All Books
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+            </Button>
+          </motion.div>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {featuredBooks.map((book) => (
+            <BookCard key={book.id} book={book} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 
 const CTASection = () => {
   return (
@@ -438,8 +565,11 @@ export default function Home() {
     <>
       <HeroSection />
       <CategoriesSection />
+      <FeaturedBooks/>
       <DonateSection />
       <CTASection />
     </>
   );
 }
+
+    
