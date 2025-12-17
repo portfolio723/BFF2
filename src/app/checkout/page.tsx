@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -29,7 +29,8 @@ import {
   ArrowRight,
   Home,
   Briefcase,
-  Plus
+  Plus,
+  Loader2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/context/AppProvider";
@@ -46,7 +47,7 @@ const steps = [
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { items, getSubtotal, getDeliveryCharge, getTotal, clearCart } = useCart();
+  const { items, getSubtotal, getDeliveryCharge, getTotal, clearCart, loading: cartLoading } = useCart();
   const { addresses } = useAddress();
 
   const [currentStep, setCurrentStep] = useState(1);
@@ -55,6 +56,14 @@ export default function CheckoutPage() {
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
   const [showNewAddressForm, setShowNewAddressForm] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    if(addresses.length > 0) {
+      setSelectedAddress(addresses[0]);
+    }
+  }, [addresses]);
 
   const subtotal = getSubtotal();
   const delivery = getDeliveryCharge();
@@ -83,6 +92,14 @@ export default function CheckoutPage() {
   const handleNewAddressSaved = (newAddress: Address) => {
     setSelectedAddress(newAddress);
     setShowNewAddressForm(false);
+  }
+
+  if (!isMounted || cartLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-[60vh]">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    );
   }
 
   if (items.length === 0 && !orderPlaced) {
@@ -538,5 +555,3 @@ export default function CheckoutPage() {
     </section>
   );
 };
-
-    
