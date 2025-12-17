@@ -18,7 +18,7 @@ export default {
     extend: {
       fontFamily: {
         body: ['var(--font-body)', 'sans-serif'],
-        heading: ['var(--font-heading)', 'sans-serif'],
+        heading: ["'Inter Variable'", 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
