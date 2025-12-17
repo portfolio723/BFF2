@@ -17,7 +17,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useStore } from "@/context/AppProvider";
+import { useStore as useCartStore } from "@/context/AppProvider";
+import { useWishlist } from "@/context/WishlistContext";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -31,13 +32,12 @@ export function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const { cartCount, wishlistCount } = useStore();
+  const { cartCount } = useCartStore();
+  const { wishlistCount } = useWishlist();
   
-  // Mock user state since Firebase is removed
   const [user, setUser] = useState<{displayName: string} | null>(null);
 
   const handleSignIn = () => {
-    // In a real app, this would be your auth logic
     setUser({ displayName: "Book Lover" });
     router.push('/');
   }

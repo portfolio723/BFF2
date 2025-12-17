@@ -10,7 +10,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Heart, ShoppingCart } from "lucide-react";
-import { useStore } from "@/context/AppProvider";
+import { useStore as useCart } from "@/context/AppProvider";
+import { useWishlist } from "@/context/WishlistContext";
 import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
@@ -19,26 +20,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/hooks/use-toast";
-import type { AppUser } from "@/lib/types";
 
 interface BookCardProps {
   book: Book;
 }
 
 export function BookCard({ book }: BookCardProps) {
-  const {
-    addToCart,
-    addToWishlist,
-    isBookInWishlist,
-    isBookInCart,
-  } = useStore();
+  const { addToCart, isBookInCart } = useCart();
+  const { addToWishlist, isInWishlist } = useWishlist();
   const { toast } = useToast();
   
-  const inWishlist = isBookInWishlist(book.id);
+  const inWishlist = isInWishlist(book.id);
   const inCart = isBookInCart(book.id);
   
-  // In a non-Firebase app, user state would be managed differently.
-  // We'll simulate a logged-in user for KYC checks.
   const user = { isKycVerified: false }; 
 
   const handleAddToCart = (type: 'buy' | 'rent') => {
@@ -52,7 +46,19 @@ export function BookCard({ book }: BookCardProps) {
   }
   
   const handleAddToWishlist = () => {
-    addToWishlist(book);
+    if (!inWishlist) {
+        addToWishlist({
+            id: book.id,
+            title: book.title,
+            author: book.author,
+            coverImage: book.coverImage,
+            price: book.price,
+            rentalPrice: book.rentalPrice,
+            availability: book.availability,
+            genre: book.genre,
+            description: book.description,
+        });
+    }
   }
 
   return (

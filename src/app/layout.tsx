@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AppProvider } from "@/context/AppProvider";
+import { WishlistProvider } from "@/context/WishlistContext";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/toaster";
@@ -22,10 +23,12 @@ export default function RootLayout({
       </head>
       <body className={cn("antialiased flex flex-col min-h-screen")}>
         <AppProvider>
-          <Header />
-          <main className="flex-grow">{children}</main>
-          <Footer />
-          <Toaster />
+          <WishlistProvider>
+            <Header />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+            <Toaster />
+          </WishlistProvider>
         </AppProvider>
       </body>
     </html>
