@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BookOpen, Gift, Users } from "lucide-react";
+import { ArrowRight, BookOpen, Gift, Users, Package, CheckCircle, Truck } from "lucide-react";
 import { motion } from "framer-motion";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 
@@ -162,6 +162,213 @@ const HeroSection = () => {
   );
 };
 
+const CategoriesSection = () => {
+  const categories = [
+    { name: "Fiction", count: 2340, imageId: "fiction-category" },
+    { name: "Non-Fiction", count: 1890, imageId: "non-fiction-category" },
+    { name: "Science", count: 1250, imageId: "science-category" },
+    { name: "Self-Help", count: 980, imageId: "self-help-category" },
+    { name: "Children", count: 1560, imageId: "children-category" },
+    { name: "Academic", count: 2100, imageId: "academic-category" },
+  ];
+
+  return (
+    <section className="py-20 lg:py-28 bg-secondary/30">
+      <div className="container-custom">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center max-w-2xl mx-auto mb-14"
+        >
+          <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+            Browse by Category
+          </span>
+          <h2 className="font-heading text-3xl lg:text-4xl font-semibold mt-3">
+            Explore Genres
+          </h2>
+        </motion.div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-6">
+          {categories.map((category, index) => {
+            const image = PlaceHolderImages.find(img => img.id === category.imageId);
+            if (!image) return null;
+
+            return (
+              <motion.div
+                key={category.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
+              >
+                <Link 
+                  href={`/books?category=${category.name.toLowerCase()}`}
+                  className="group block relative aspect-[4/5] rounded-xl overflow-hidden"
+                >
+                  <Image 
+                    src={image.imageUrl} 
+                    alt={category.name}
+                    data-ai-hint={image.imageHint}
+                    fill
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/30 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="font-heading text-lg font-medium text-background">
+                      {category.name}
+                    </h3>
+                    <p className="text-sm text-background/70 mt-0.5">
+                      {category.count.toLocaleString()} books
+                    </p>
+                  </div>
+                  <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                    <ArrowRight className="w-4 h-4 text-background" />
+                  </div>
+                </Link>
+              </motion.div>
+            )
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
+const DonateSection = () => {
+  const steps = [
+    {
+      icon: Package,
+      step: "01",
+      title: "Pack Your Books",
+      description: "Gather the books you'd like to donate. Any genre, any condition – all are welcome.",
+    },
+    {
+      icon: CheckCircle,
+      step: "02",
+      title: "Fill the Form",
+      description: "Submit details about your books through our simple step-by-step process.",
+    },
+    {
+      icon: Truck,
+      step: "03",
+      title: "We Pick Up",
+      description: "Schedule a free pickup from your doorstep. We handle the rest!",
+    },
+  ];
+  const donateImage = PlaceHolderImages.find(img => img.id === 'donate-books');
+
+
+  return (
+    <section className="py-20 lg:py-28">
+      <div className="container-custom">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary text-sm font-medium mb-6">
+              <Gift className="w-4 h-4" />
+              Give Back to Community
+            </span>
+            
+            <h2 className="font-heading text-3xl lg:text-4xl xl:text-5xl font-semibold leading-tight">
+              Donate Books,<br />
+              <span className="text-muted-foreground">Change Lives</span>
+            </h2>
+            
+            <p className="mt-6 text-muted-foreground max-w-md">
+              Your pre-loved books can ignite a passion for reading in someone else. 
+              Join our mission to make books accessible to everyone.
+            </p>
+            
+            <div className="mt-10 space-y-6">
+              {steps.map((item, index) => (
+                <motion.div
+                  key={item.step}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="flex gap-4"
+                >
+                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-secondary flex items-center justify-center">
+                    <item.icon className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-medium text-muted-foreground">
+                        Step {item.step}
+                      </span>
+                    </div>
+                    <h4 className="font-heading text-lg font-medium mt-1">
+                      {item.title}
+                    </h4>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {item.description}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="mt-10"
+            >
+              <Button asChild size="lg" className="rounded-full px-8 gap-2 group">
+                <Link href="/donate">
+                  Start Donating
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Button>
+            </motion.div>
+          </motion.div>
+          
+          {/* Image */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <div className="aspect-[4/5] rounded-2xl overflow-hidden bg-secondary">
+              {donateImage && (
+                <Image 
+                  src={donateImage.imageUrl} 
+                  alt={donateImage.description}
+                  data-ai-hint={donateImage.imageHint}
+                  width={600}
+                  height={750}
+                  className="w-full h-full object-cover"
+                />
+              )}
+            </div>
+            
+            {/* Floating Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="absolute -bottom-6 -left-6 lg:-left-12 bg-card rounded-xl p-5 shadow-hover border border-border"
+            >
+              <p className="font-heading text-3xl font-semibold">2,500+</p>
+              <p className="text-sm text-muted-foreground mt-1">Books donated this month</p>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 
 const CTASection = () => {
   return (
@@ -226,84 +433,12 @@ const CTASection = () => {
   );
 };
 
-const categories = [
-  { name: "Fiction", count: 2340, imageId: "fiction-category" },
-  { name: "Non-Fiction", count: 1890, imageId: "non-fiction-category" },
-  { name: "Science", count: 1250, imageId: "science-category" },
-  { name: "Self-Help", count: 980, imageId: "self-help-category" },
-  { name: "Children", count: 1560, imageId: "children-category" },
-  { name: "Academic", count: 2100, imageId: "academic-category" },
-];
-
-const CategoriesSection = () => {
-  return (
-    <section className="py-20 lg:py-28 bg-secondary/30">
-      <div className="container-custom">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center max-w-2xl mx-auto mb-14"
-        >
-          <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-            Browse by Category
-          </span>
-          <h2 className="font-heading text-3xl lg:text-4xl font-semibold mt-3">
-            Explore Genres
-          </h2>
-        </motion.div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-6">
-          {categories.map((category, index) => {
-            const image = PlaceHolderImages.find(img => img.id === category.imageId);
-            if (!image) return null;
-
-            return (
-              <motion.div
-                key={category.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-              >
-                <Link 
-                  href={`/books?category=${category.name.toLowerCase()}`}
-                  className="group block relative aspect-[4/5] rounded-xl overflow-hidden"
-                >
-                  <Image 
-                    src={image.imageUrl} 
-                    alt={category.name}
-                    data-ai-hint={image.imageHint}
-                    fill
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/30 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="font-heading text-lg font-medium text-background">
-                      {category.name}
-                    </h3>
-                    <p className="text-sm text-background/70 mt-0.5">
-                      {category.count.toLocaleString()} books
-                    </p>
-                  </div>
-                  <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                    <ArrowRight className="w-4 h-4 text-background" />
-                  </div>
-                </Link>
-              </motion.div>
-            )
-          })}
-        </div>
-      </div>
-    </section>
-  );
-};
-
 export default function Home() {
   return (
     <>
       <HeroSection />
       <CategoriesSection />
+      <DonateSection />
       <CTASection />
     </>
   );

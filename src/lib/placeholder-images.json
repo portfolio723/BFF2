@@ -119,6 +119,12 @@
       "description": "Academic books category",
       "imageUrl": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&q=80",
       "imageHint": "academic books"
+    },
+    {
+      "id": "donate-books",
+      "description": "A person holding out a stack of books to donate.",
+      "imageUrl": "https://images.unsplash.com/photo-1529473814998-077b4fec6770?w=600&q=80",
+      "imageHint": "donate books"
     }
   ]
 }
