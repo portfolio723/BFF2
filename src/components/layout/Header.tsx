@@ -102,7 +102,7 @@ export function Header() {
               variant="ghost"
               size="icon"
               onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className="text-muted-foreground hover:text-foreground"
+              className="text-muted-foreground"
               aria-label="Search"
             >
               <Search className="w-5 h-5" />
@@ -112,7 +112,7 @@ export function Header() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="text-muted-foreground hover:text-foreground relative"
+                className="text-muted-foreground relative"
                 aria-label="Wishlist"
               >
                 <Heart className="w-5 h-5" />
@@ -128,7 +128,7 @@ export function Header() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="text-muted-foreground hover:text-foreground relative"
+                className="text-muted-foreground relative"
                 aria-label="Cart"
               >
                 <ShoppingCart className="w-5 h-5" />
@@ -156,7 +156,7 @@ export function Header() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="text-muted-foreground hover:text-foreground relative"
+                className="text-muted-foreground relative"
                  aria-label="Cart"
               >
                 <ShoppingCart className="w-5 h-5" />
