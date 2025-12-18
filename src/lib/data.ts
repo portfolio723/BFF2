@@ -1,3 +1,4 @@
+
 import type { Book, Author, Genre, CommunityPost, Pdf } from '@/lib/types';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
@@ -50,7 +51,7 @@ export const books: Book[] = [
     genre: genres[0],
     price: 399,
     rentalPrice: 99,
-    coverImage: getImage('book-cover-1'),
+    coverImage: getImage('book-cover-5'),
     description: 'A story about the childhood experiences of fraternal twins whose lives are destroyed by the "Love Laws" that lay down "who should be loved, and how. And how much."',
     availability: 'in-stock',
   },
@@ -61,7 +62,7 @@ export const books: Book[] = [
     genre: genres[0],
     price: 899,
     rentalPrice: 199,
-    coverImage: getImage('book-cover-2'),
+    coverImage: getImage('book-cover-6'),
     description: 'Set in a newly independent India, the novel follows the story of four families over a period of 18 months, and centers on Mrs. Rupa Mehra\'s efforts to arrange the marriage of her younger daughter, Lata, to a "suitable boy".',
     availability: 'in-stock',
   },
@@ -71,7 +72,7 @@ export const books: Book[] = [
     author: authors[2],
     genre: genres[1],
     price: 599,
-    coverImage: getImage('book-cover-3'),
+    coverImage: getImage('book-cover-7'),
     description: 'The novel is set in Burma, Bengal, India, and Malaya, spans a century from the fall of the Konbaung Dynasty in Mandalay, to the modern era.',
     availability: 'out-of-stock',
   },
@@ -82,7 +83,7 @@ export const books: Book[] = [
     genre: genres[0],
     price: 450,
     rentalPrice: 120,
-    coverImage: getImage('book-cover-4'),
+    coverImage: getImage('book-cover-8'),
     description: 'The novel examines the intricacies of immigrant life, the conflicts of assimilation, and the tangled ties between generations.',
     availability: 'in-stock',
   },
