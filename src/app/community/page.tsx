@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -18,10 +19,15 @@ import {
   Bookmark,
   TrendingUp,
   Clock,
-  Filter
+  Filter,
+  LogIn
 } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import { toast } from "sonner";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-const discussions = [
+const initialDiscussions = [
   {
     id: 1,
     title: "What are your top 5 book recommendations for beginners in investing?",
@@ -89,6 +95,42 @@ const trendingTopics = [
 ];
 
 export default function CommunityPage() {
+  const { user } = useAuth();
+  const pathname = usePathname();
+
+  const [discussions, setDiscussions] = useState(initialDiscussions);
+  const [newPostTitle, setNewPostTitle] = useState("");
+  const [newPostContent, setNewPostContent] = useState("");
+
+  const handlePostDiscussion = () => {
+    if (!user) {
+      toast.error("Please sign in to start a discussion.");
+      return;
+    }
+
+    if (!newPostTitle.trim() || !newPostContent.trim()) {
+      toast.error("Both title and content are required.");
+      return;
+    }
+
+    const newPost = {
+      id: Date.now(),
+      title: newPostTitle,
+      author: user.displayName || "Anonymous",
+      avatar: user.photoURL || "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80",
+      category: "General",
+      replies: 0,
+      likes: 0,
+      time: "Just now",
+      preview: newPostContent,
+    };
+
+    setDiscussions([newPost, ...discussions]);
+    setNewPostTitle("");
+    setNewPostContent("");
+    toast.success("Your discussion has been posted!");
+  };
+
   return (
     <section className="pb-20">
       <div className="container-custom">
@@ -257,14 +299,34 @@ export default function CommunityPage() {
               <h3 className="font-heading text-lg font-semibold mb-4">
                 Start a Discussion
               </h3>
-              <Textarea 
-                placeholder="What's on your mind?" 
-                className="mb-4"
-              />
-              <Button className="w-full rounded-full gap-2">
-                <MessageSquare className="w-4 h-4" />
-                Post Discussion
-              </Button>
+              <div className="space-y-4">
+                <Input
+                  placeholder="Discussion Title"
+                  value={newPostTitle}
+                  onChange={(e) => setNewPostTitle(e.target.value)}
+                  disabled={!user}
+                />
+                <Textarea 
+                  placeholder="What's on your mind?"
+                  value={newPostContent}
+                  onChange={(e) => setNewPostContent(e.target.value)}
+                  disabled={!user}
+                />
+              </div>
+
+              {user ? (
+                <Button className="w-full rounded-full gap-2 mt-4" onClick={handlePostDiscussion}>
+                  <MessageSquare className="w-4 h-4" />
+                  Post Discussion
+                </Button>
+              ) : (
+                <Button asChild className="w-full rounded-full gap-2 mt-4">
+                  <Link href={`/auth?redirect=${pathname}`}>
+                    <LogIn className="w-4 h-4" />
+                    Sign in to Post
+                  </Link>
+                </Button>
+              )}
             </motion.div>
 
             {/* Trending Topics */}
