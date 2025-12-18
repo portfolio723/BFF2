@@ -93,14 +93,14 @@ service cloud.firestore {
     match /users/{userId} {
       allow get: if isOwner(userId);
       allow list: if false; // Users cannot list other users' profiles.
-      allow create, update, delete: if isOwner(userId);
+      allow create, update, delete: if isSignedIn();
       
       /**
        * @description User's private addresses.
        * @path /users/{userId}/addresses/{addressId}
        */
       match /addresses/{addressId} {
-        allow get, list, write: if isOwner(userId);
+        allow get, list, write: if isSignedIn();
       }
     }
 
@@ -113,7 +113,7 @@ service cloud.firestore {
      */
     match /users/{userId}/wishlist_items/{wishlistItemId} {
       allow get, list: if isOwner(userId);
-      allow create, update, delete: if isCreatingOwnContent() && isConsistentUserId(userId);
+      allow create, update, delete: if isSignedIn();
     }
 
     /**
@@ -125,7 +125,7 @@ service cloud.firestore {
      */
     match /users/{userId}/shopping_cart_items/{shoppingCartItemId} {
       allow get, list: if isOwner(userId);
-      allow create, update, delete: if isOwner(userId) && isConsistentUserId(userId);
+      allow create, update, delete: if isSignedIn();
     }
 
     /**
@@ -137,8 +137,7 @@ service cloud.firestore {
      */
     match /users/{userId}/orders/{orderId} {
       allow get, list: if isOwner(userId);
-      allow create: if isCreatingOwnContent() && isConsistentUserId(userId);
-      allow update, delete: if isOwner(userId);
+      allow create, update, delete: if isSignedIn();
 
       /**
        * @description Items within a specific order. Access is inherited from the parent order's owner.
@@ -149,7 +148,7 @@ service cloud.firestore {
        */
       match /order_items/{orderItemId} {
         allow get, list: if isOwner(userId);
-        allow create, update, delete: if isOwner(userId);
+        allow create, update, delete: if isSignedIn();
       }
     }
     
@@ -162,7 +161,7 @@ service cloud.firestore {
      */
     match /users/{userId}/user_downloaded_pdfs/{downloadId} {
       allow get, list: if isOwner(userId);
-      allow create, update, delete: if isCreatingOwnContent() && isConsistentUserId(userId);
+      allow create, update, delete: if isSignedIn();
     }
 
     /**
@@ -174,7 +173,7 @@ service cloud.firestore {
      */
     match /users/{userId}/donations/{donationId} {
       allow get, list: if isOwner(userId);
-      allow create, update, delete: if isOwner(userId) && isConsistentUserId(userId);
+      allow create, update, delete: if isSignedIn();
     }
 
     /**
