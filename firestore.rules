@@ -100,7 +100,7 @@ service cloud.firestore {
        * @path /users/{userId}/addresses/{addressId}
        */
       match /addresses/{addressId} {
-        allow get, list, write: if isSignedIn();
+        allow get, list, create, update, delete: if isOwner(userId);
       }
     }
 
@@ -112,8 +112,7 @@ service cloud.firestore {
      * @principle Enforces document ownership within a user's private data subcollection.
      */
     match /users/{userId}/wishlist_items/{wishlistItemId} {
-      allow get, list: if isOwner(userId);
-      allow create, update, delete: if isSignedIn();
+      allow get, list, create, update, delete: if isSignedIn();
     }
 
     /**
@@ -124,8 +123,7 @@ service cloud.firestore {
      * @principle Enforces document ownership within a user's private data subcollection.
      */
     match /users/{userId}/shopping_cart_items/{shoppingCartItemId} {
-      allow get, list: if isOwner(userId);
-      allow create, update, delete: if isSignedIn();
+      allow get, list, create, update, delete: if isSignedIn();
     }
 
     /**
@@ -136,8 +134,7 @@ service cloud.firestore {
      * @principle Enforces document ownership within a user's private data subcollection.
      */
     match /users/{userId}/orders/{orderId} {
-      allow get, list: if isOwner(userId);
-      allow create, update, delete: if isSignedIn();
+      allow get, list, create, update, delete: if isSignedIn();
 
       /**
        * @description Items within a specific order. Access is inherited from the parent order's owner.
@@ -147,8 +144,7 @@ service cloud.firestore {
        * @principle Validates relational integrity by ensuring subcollection documents belong to the parent document.
        */
       match /order_items/{orderItemId} {
-        allow get, list: if isOwner(userId);
-        allow create, update, delete: if isSignedIn();
+        allow get, list, create, update, delete: if isSignedIn();
       }
     }
     
@@ -160,8 +156,7 @@ service cloud.firestore {
      * @principle Enforces document ownership within a user's private data subcollection.
      */
     match /users/{userId}/user_downloaded_pdfs/{downloadId} {
-      allow get, list: if isOwner(userId);
-      allow create, update, delete: if isSignedIn();
+      allow get, list, create, update, delete: if isSignedIn();
     }
 
     /**
@@ -172,8 +167,7 @@ service cloud.firestore {
      * @principle Enforces document ownership within a user's private data subcollection.
      */
     match /users/{userId}/donations/{donationId} {
-      allow get, list: if isOwner(userId);
-      allow create, update, delete: if isSignedIn();
+      allow get, list, create, update, delete: if isSignedIn();
     }
 
     /**
