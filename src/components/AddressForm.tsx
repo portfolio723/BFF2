@@ -139,7 +139,7 @@ export function AddressForm({ onSave, existingAddress }: AddressFormProps) {
         />
       </div>
 
-      <div className="grid sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <Label htmlFor="firstName">First Name</Label>
           <Input id="firstName" {...register("firstName")} />
@@ -169,7 +169,7 @@ export function AddressForm({ onSave, existingAddress }: AddressFormProps) {
         <Input id="address2" {...register("address2")} />
       </div>
 
-      <div className="grid sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
           <Label htmlFor="city">City</Label>
           <Input id="city" {...register("city")} />
