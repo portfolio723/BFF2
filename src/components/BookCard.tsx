@@ -58,7 +58,7 @@ export function BookCard({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4 }}
-        className="cursor-pointer bg-card rounded-xl border border-border overflow-hidden transition-shadow hover:shadow-lg"
+        className="cursor-pointer bg-card rounded-xl border border-border overflow-hidden transition-shadow hover:shadow-lg h-full flex flex-col"
       >
         <div className="relative aspect-[3/4] overflow-hidden bg-secondary">
           <Image
@@ -100,7 +100,7 @@ export function BookCard({
           </div>
         </div>
         
-        <div className="p-4">
+        <div className="p-3 flex flex-col flex-grow">
           <span className="text-xs text-muted-foreground uppercase tracking-wider">
             {genre.name}
           </span>
@@ -110,33 +110,38 @@ export function BookCard({
           <p className="text-sm text-muted-foreground mt-0.5">
             by {author.name}
           </p>
-          <div className="flex items-center justify-between mt-3 pt-3 border-t border-border">
-             <div className="text-center">
-                <p className="text-xs text-muted-foreground">Rent from</p>
-                <p className="font-semibold text-sm">₹{rentalPrice || 'N/A'}</p>
-             </div>
-             <div className="text-center">
-                <p className="text-xs text-muted-foreground">Buy for</p>
-                <p className="font-semibold text-sm">₹{price}</p>
-             </div>
-          </div>
-          <div className="flex gap-2 mt-3">
-             <Button
-                variant="outline"
-                className="flex-1 rounded-full text-xs"
-                onClick={(e) => handleAddToCart(e, 'rent')}
-                disabled={availability === 'out-of-stock' || !rentalPrice}
-              >
-                Rent
-              </Button>
-              <Button
-                className="flex-1 rounded-full text-xs"
-                onClick={(e) => handleAddToCart(e, 'buy')}
-                disabled={availability === 'out-of-stock'}
-              >
-                <ShoppingCart className="w-3 h-3 mr-1"/>
-                Buy
-              </Button>
+          
+          <div className="mt-auto pt-3">
+              <div className="flex items-center justify-between mt-3 pt-3 border-t border-border">
+                 <div className="text-center">
+                    <p className="text-xs text-muted-foreground">Rent</p>
+                    <p className="font-semibold text-sm">₹{rentalPrice || 'N/A'}</p>
+                 </div>
+                 <div className="text-center">
+                    <p className="text-xs text-muted-foreground">Buy</p>
+                    <p className="font-semibold text-sm">₹{price}</p>
+                 </div>
+              </div>
+              <div className="flex gap-2 mt-3">
+                 <Button
+                    size="sm"
+                    variant="outline"
+                    className="flex-1 rounded-full text-xs h-9"
+                    onClick={(e) => handleAddToCart(e, 'rent')}
+                    disabled={availability === 'out-of-stock' || !rentalPrice}
+                  >
+                    Rent
+                  </Button>
+                  <Button
+                    size="sm"
+                    className="flex-1 rounded-full text-xs h-9"
+                    onClick={(e) => handleAddToCart(e, 'buy')}
+                    disabled={availability === 'out-of-stock'}
+                  >
+                    <ShoppingCart className="w-3 h-3 mr-1"/>
+                    Buy
+                  </Button>
+              </div>
           </div>
         </div>
       </motion.div>

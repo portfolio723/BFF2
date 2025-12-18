@@ -25,7 +25,7 @@ export function PdfCard({ pdf }: PdfCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4 }}
-      className="cursor-pointer bg-card rounded-xl border border-border overflow-hidden transition-shadow hover:shadow-lg group"
+      className="cursor-pointer bg-card rounded-xl border border-border overflow-hidden transition-shadow hover:shadow-lg group h-full flex flex-col"
     >
       <div className="relative aspect-[3/4] overflow-hidden bg-secondary">
         <Image
@@ -37,7 +37,7 @@ export function PdfCard({ pdf }: PdfCardProps) {
         />
       </div>
       
-      <div className="p-4">
+      <div className="p-3 flex flex-col flex-grow">
         <span className="text-xs text-muted-foreground uppercase tracking-wider">
           {category}
         </span>
@@ -47,11 +47,12 @@ export function PdfCard({ pdf }: PdfCardProps) {
         <p className="text-sm text-muted-foreground mt-0.5">
           by {author}
         </p>
-        <div className="mt-4">
+        <div className="mt-auto pt-3">
           {user ? (
             <Button
               asChild
-              className="w-full rounded-full"
+              className="w-full rounded-full h-9"
+              size="sm"
             >
               <a href={downloadUrl} download>
                 <Download className="w-4 h-4 mr-2"/>
@@ -61,8 +62,9 @@ export function PdfCard({ pdf }: PdfCardProps) {
           ) : (
              <Button
               asChild
-              className="w-full rounded-full"
+              className="w-full rounded-full h-9"
               variant="secondary"
+              size="sm"
             >
               <Link href={`/auth?redirect=${pathname}`}>
                 <LogIn className="w-4 h-4 mr-2"/>
