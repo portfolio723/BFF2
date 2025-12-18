@@ -70,8 +70,9 @@ export default function ProfilePage() {
   const [isSeeding, setIsSeeding] = useState(false);
 
   useEffect(() => {
+    // Wait until the loading is complete before checking for the user
     if (!isUserLoading && !user) {
-      router.push('/auth');
+      router.push('/auth?redirect=/profile');
     }
   }, [user, isUserLoading, router]);
 
@@ -108,6 +109,7 @@ export default function ProfilePage() {
     setIsFormOpen(false);
   }
 
+  // Display a loader while the user state is being determined
   if (isUserLoading || !user) {
     return (
       <div className="flex justify-center items-center min-h-screen">
