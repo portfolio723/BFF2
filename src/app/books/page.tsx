@@ -1,7 +1,8 @@
+
 "use client";
 import { useState, useMemo } from "react";
 import { BookCard } from "@/components/BookCard";
-import { books, genres } from "@/lib/data";
+import { genres } from "@/lib/data";
 import {
   Select,
   SelectContent,
@@ -11,8 +12,10 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import type { Book } from "@/lib/types";
-import { Search, LayoutGrid, List } from "lucide-react";
+import { Search, LayoutGrid, List, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCollection, useFirestore, useMemoFirebase } from "@/firebase";
+import { collection, query } from "firebase/firestore";
 
 export default function BooksPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -20,7 +23,15 @@ export default function BooksPage() {
   const [sortBy, setSortBy] = useState("newest");
   const [view, setView] = useState("grid");
 
+  const firestore = useFirestore();
+  const booksRef = useMemoFirebase(() => collection(firestore, 'books'), [firestore]);
+  const booksQuery = useMemoFirebase(() => query(booksRef), [booksRef]);
+  
+  const { data: books, isLoading } = useCollection<Book>(booksQuery);
+
   const filteredBooks = useMemo(() => {
+    if (!books) return [];
+
     let filtered = books.filter((book) => {
       const searchMatch =
         book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -37,7 +48,7 @@ export default function BooksPage() {
     // "newest" is default, no specific sorting logic for now.
 
     return filtered;
-  }, [searchTerm, genre, sortBy]);
+  }, [searchTerm, genre, sortBy, books]);
 
   return (
     <div className="container-custom">
@@ -95,11 +106,15 @@ export default function BooksPage() {
               </div>
             </div>
         </div>
-        <p className="text-sm text-muted-foreground mt-4">Showing {filteredBooks.length} books</p>
+        {!isLoading && <p className="text-sm text-muted-foreground mt-4">Showing {filteredBooks.length} books</p>}
       </div>
 
       <main className="mb-20">
-        {filteredBooks.length > 0 ? (
+        {isLoading ? (
+          <div className="flex justify-center items-center h-64">
+            <Loader2 className="w-8 h-8 animate-spin" />
+          </div>
+        ) : filteredBooks.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
             {filteredBooks.map((book, index) => (
               <BookCard 
@@ -114,7 +129,7 @@ export default function BooksPage() {
           <div className="text-center py-20 lg:py-32 bg-card rounded-2xl border border-dashed">
             <h2 className="text-2xl font-bold font-heading">No Books Found</h2>
             <p className="text-muted-foreground mt-2">
-              Try adjusting your filters to find what you're looking for.
+              Try adjusting your filters to find what you're looking for, or seed the database from your profile page.
             </p>
           </div>
         )}

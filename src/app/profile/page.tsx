@@ -26,10 +26,11 @@ import {
   Briefcase,
   Edit,
   Trash2,
+  Database,
 } from "lucide-react";
 import type { Address } from "@/lib/types";
 import { useAddress } from "@/context/AddressContext";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth, useFirestore } from "@/firebase";
 import { AddressForm } from "@/components/AddressForm";
 import {
   Dialog,
@@ -38,6 +39,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { seedDatabase } from "@/lib/seed";
+import { toast } from "sonner";
+
 
 const AddressIcon = ({ type }: { type: Address["type"] }) => {
   switch (type) {
@@ -54,6 +58,7 @@ export default function ProfilePage() {
   const router = useRouter();
   const { addresses, removeAddress } = useAddress();
   const { user, isUserLoading } = useAuth();
+  const firestore = useFirestore();
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingAddress, setEditingAddress] = useState<Address | null>(null);
@@ -61,6 +66,7 @@ export default function ProfilePage() {
   // Mock orders data
   const [orders] = useState<any[]>([]);
   const [loadingOrders] = useState(false);
+  const [isSeeding, setIsSeeding] = useState(false);
 
   useEffect(() => {
     if (!isUserLoading && !user) {
@@ -68,6 +74,19 @@ export default function ProfilePage() {
     }
   }, [user, isUserLoading, router]);
 
+  const handleSeedDb = async () => {
+    setIsSeeding(true);
+    try {
+        await seedDatabase(firestore);
+        toast.success("Database seeded successfully!");
+    } catch (error: any) {
+        toast.error("Database seeding failed", {
+            description: error.message
+        });
+    } finally {
+        setIsSeeding(false);
+    }
+  }
 
   const handleEditAddress = (address: Address) => {
     setEditingAddress(address);
@@ -136,6 +155,21 @@ export default function ProfilePage() {
               </div>
             </CardContent>
           </Card>
+           <Card className="mt-8">
+            <CardHeader>
+                <CardTitle>Developer</CardTitle>
+                <CardDescription>Actions for development.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Button onClick={handleSeedDb} disabled={isSeeding} className="w-full">
+                    {isSeeding ? <Loader2 className="animate-spin mr-2" /> : <Database className="mr-2"/>}
+                    {isSeeding ? "Seeding..." : "Seed Database"}
+                </Button>
+                 <p className="text-xs text-muted-foreground mt-2">
+                    This will populate the 'books' collection in Firestore with initial data.
+                 </p>
+            </CardContent>
+           </Card>
         </div>
         <div className="md:col-span-2 space-y-8">
           <Card>
@@ -239,5 +273,3 @@ export default function ProfilePage() {
     </div>
   );
 }
-
-    

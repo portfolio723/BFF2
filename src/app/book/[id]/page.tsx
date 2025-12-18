@@ -3,9 +3,8 @@
 
 import { useParams, notFound, useRouter } from "next/navigation";
 import Image from "next/image";
-import { books } from "@/lib/data";
 import { Button } from "@/components/ui/button";
-import { Heart, Star, Share2, ChevronRight, Award, Tag, Truck, ShieldCheck, Undo2 } from "lucide-react";
+import { Heart, Star, Share2, ChevronRight, Award, Tag, Truck, ShieldCheck, Undo2, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/context/AppProvider";
 import { useWishlist } from "@/context/WishlistContext";
@@ -15,13 +14,22 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useDoc, useFirestore, useMemoFirebase } from "@/firebase";
+import { doc, collection } from "firebase/firestore";
+import type { Book } from "@/lib/types";
 
 export default function BookDetailPage() {
   const params = useParams();
   const router = useRouter();
   const id = params.id as string;
   
-  const book = books.find((b) => b.id === id);
+  const firestore = useFirestore();
+  const bookRef = useMemoFirebase(() => doc(firestore, 'books', id), [firestore, id]);
+  const { data: book, isLoading: isBookLoading } = useDoc<Book>(bookRef);
+
+  // For related books, we'll just use the mock data for now.
+  // A proper implementation would fetch this from Firestore based on genre.
+  const [relatedBooks, setRelatedBooks] = useState<Book[]>([]);
 
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
@@ -33,29 +41,36 @@ export default function BookDetailPage() {
     setIsMounted(true);
   }, []);
 
-  if (!book) {
+  if (isBookLoading) {
+    return (
+        <div className="min-h-screen flex items-center justify-center">
+            <Loader2 className="w-10 h-10 animate-spin" />
+        </div>
+    )
+  }
+
+  if (!book && !isBookLoading) {
     notFound();
   }
   
-  const inWishlist = isMounted ? isInWishlist(id) : false;
+  const inWishlist = isMounted && book ? isInWishlist(book.id) : false;
 
   const handleToggleWishlist = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    if (!book) return;
     if (inWishlist) {
-      removeFromWishlist(id);
+      removeFromWishlist(book.id);
     } else {
       addToWishlist(book);
     }
   };
 
   const handleAddToCart = () => {
-    addToCart(book, purchaseOption);
+    if (book) {
+        addToCart(book, purchaseOption);
+    }
   };
-
-  const relatedBooks = books
-    .filter((b) => b.genre.id === book.genre.id && b.id !== book.id)
-    .slice(0, 4);
 
   return (
     <section className="py-12 lg:py-16">
@@ -70,7 +85,7 @@ export default function BookDetailPage() {
           <ChevronRight className="w-4 h-4"/>
           <Link href="/books" className="hover:text-foreground">Explore</Link>
           <ChevronRight className="w-4 h-4"/>
-          <span className="text-foreground font-medium line-clamp-1">{book.title}</span>
+          <span className="text-foreground font-medium line-clamp-1">{book?.title}</span>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
@@ -82,14 +97,14 @@ export default function BookDetailPage() {
             className="space-y-8"
           >
             <div className="relative aspect-[3/4] max-w-md mx-auto bg-secondary rounded-2xl shadow-lg overflow-hidden">
-               <Image
+               {book?.coverImage && <Image
                 src={book.coverImage.url}
                 alt={book.title}
                 data-ai-hint={book.coverImage.hint}
                 fill
                 className="object-cover"
-              />
-              {book.availability === 'out-of-stock' && (
+              />}
+              {book?.availability === 'out-of-stock' && (
                 <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
                     <Badge variant="destructive" className="text-base px-4 py-2">Out of Stock</Badge>
                 </div>
@@ -118,12 +133,12 @@ export default function BookDetailPage() {
              transition={{ duration: 0.5, delay: 0.1 }}
              className="flex flex-col"
           >
-              <Badge variant="secondary" className="mb-3 w-fit">{book.genre.name}</Badge>
+              <Badge variant="secondary" className="mb-3 w-fit">{book?.genre.name}</Badge>
               <h1 className="font-heading text-3xl lg:text-4xl xl:text-5xl font-semibold">
-                {book.title}
+                {book?.title}
               </h1>
               <p className="mt-3 text-lg text-muted-foreground">
-                by <Link href="#" className="text-foreground font-medium hover:underline">{book.author.name}</Link>
+                by <Link href="#" className="text-foreground font-medium hover:underline">{book?.author.name}</Link>
               </p>
 
               <div className="flex items-center gap-4 mt-4">
@@ -137,13 +152,13 @@ export default function BookDetailPage() {
               </div>
               
               <p className="leading-relaxed text-muted-foreground mt-6 text-sm">
-                {book.description}
+                {book?.description}
               </p>
               
               <div className="mt-8">
                 <h3 className="font-medium mb-3">Choose Option</h3>
                 <div className="grid grid-cols-2 gap-3">
-                  {book.rentalPrice && (
+                  {book?.rentalPrice && (
                     <button 
                       className={cn(
                         "p-4 rounded-xl border-2 text-left transition-all",
@@ -156,7 +171,7 @@ export default function BookDetailPage() {
                       <p className="text-xs text-muted-foreground">+ delivery</p>
                     </button>
                   )}
-                   <button 
+                   {book && <button 
                       className={cn(
                         "p-4 rounded-xl border-2 text-left transition-all",
                         purchaseOption === 'buy' ? "border-foreground bg-secondary" : "border-border"
@@ -166,7 +181,7 @@ export default function BookDetailPage() {
                       <p className="text-sm">Buy to own</p>
                       <p className="font-heading text-2xl font-semibold">₹{book.price}</p>
                       <p className="text-xs text-muted-foreground line-through">₹{Math.round(book.price * 1.2)}</p>
-                   </button>
+                   </button>}
                 </div>
                  <p className="text-sm text-green-600 mt-3">In Stock - 5 copies available</p>
               </div>
@@ -176,7 +191,7 @@ export default function BookDetailPage() {
                   size="lg"
                   className="flex-1 rounded-full h-14 text-base"
                   onClick={handleAddToCart}
-                  disabled={book.availability === 'out-of-stock'}
+                  disabled={book?.availability === 'out-of-stock'}
                 >
                   {purchaseOption === 'rent' ? 'Rent Now' : 'Buy Now'}
                 </Button>
@@ -257,6 +272,3 @@ export default function BookDetailPage() {
     </section>
   );
 }
-
-
-    
