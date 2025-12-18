@@ -35,7 +35,7 @@ export function Header() {
   const router = useRouter();
   const { cartCount } = useCart();
   const { wishlistCount } = useWishlist();
-  const { user, signOut, isLoading } = useAuth();
+  const { user, signOut, isUserLoading } = useAuth();
   
   const [isMounted, setIsMounted] = useState(false);
 
@@ -141,7 +141,7 @@ export function Header() {
               </Button>
             </Link>
             
-            {!isLoading && (
+            {!isUserLoading && (
               user ? (
                 <Button onClick={handleSignOut} variant="secondary" size="sm" className="rounded-full px-5">
                    Sign Out
@@ -195,10 +195,10 @@ export function Header() {
                   <div className="px-4 pb-4 mb-2 border-b border-border">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-foreground text-background flex items-center justify-center text-lg font-semibold">
-                        {user.user_metadata.full_name?.charAt(0) || 'U'}
+                        {user.displayName?.charAt(0) || 'U'}
                       </div>
                       <div>
-                        <p className="font-medium">{user.user_metadata.full_name}</p>
+                        <p className="font-medium">{user.displayName}</p>
                       </div>
                     </div>
                   </div>

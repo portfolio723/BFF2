@@ -62,7 +62,7 @@ export default function AuthPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") || "/";
-  const { signIn, signUp } = useAuth();
+  const { user, signIn, signUp } = useAuth();
 
   const authBgImage = PlaceHolderImages.find((img) => img.id === "book-cover-2");
 
@@ -78,27 +78,31 @@ export default function AuthPage() {
 
   const handleSignIn = async (values: z.infer<typeof signInSchema>) => {
     setLoading(true);
-    const { error } = await signIn(values.email, values.password);
-    if (error) {
-      toast.error("Sign In Failed", { description: error.message });
-    } else {
+    try {
+      await signIn(values.email, values.password);
       toast.success("Signed in successfully!");
       router.push(redirect);
+    } catch (error: any) {
+      toast.error("Sign In Failed", { description: error.message });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const handleSignUp = async (values: z.infer<typeof signUpSchema>) => {
     setLoading(true);
-    const { error } = await signUp(values.email, values.password, values.fullName, values.phone);
-    if (error) {
-      toast.error("Sign Up Failed", { description: error.message });
-       setLoading(false);
-    } else {
+    try {
+      await signUp(values.email, values.password, {
+        displayName: values.fullName,
+        phone: values.phone,
+      });
       toast.success("Account created successfully!", {
         description: "Please check your email to verify your account.",
       });
       setAuthStep("kyc");
+    } catch (error: any) {
+      toast.error("Sign Up Failed", { description: error.message });
+    } finally {
       setLoading(false);
     }
   };
@@ -383,9 +387,8 @@ export default function AuthPage() {
         <Image
           src={authBgImage?.imageUrl || "https://picsum.photos/seed/auth/1080/1920"}
           alt="Bookshelf"
-          layout="fill"
-          objectFit="cover"
-          className="opacity-90"
+          fill
+          className="object-cover opacity-90"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent"></div>
         <div className="absolute bottom-10 left-10 right-10 p-6 bg-background/80 backdrop-blur-sm rounded-lg">

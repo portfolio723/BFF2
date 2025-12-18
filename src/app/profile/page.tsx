@@ -57,7 +57,7 @@ export default function ProfilePage() {
   const { toast } = useToast();
   const router = useRouter();
   const { addresses, removeAddress } = useAddress();
-  const { user, isLoading: userLoading, isKycVerified, setKycVerified } = useAuth();
+  const { user, isUserLoading, isKycVerified, setKycVerified } = useAuth();
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingAddress, setEditingAddress] = useState<Address | null>(null);
@@ -67,10 +67,10 @@ export default function ProfilePage() {
   const [loadingOrders] = useState(false);
 
   useEffect(() => {
-    if (!userLoading && !user) {
+    if (!isUserLoading && !user) {
       router.push('/auth');
     }
-  }, [user, userLoading, router]);
+  }, [user, isUserLoading, router]);
 
   const handleKycVerification = () => {
     toast({
@@ -102,7 +102,7 @@ export default function ProfilePage() {
     setIsFormOpen(false);
   }
 
-  if (userLoading || !user) {
+  if (isUserLoading || !user) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <Loader2 className="h-8 w-8 animate-spin" />
@@ -111,7 +111,7 @@ export default function ProfilePage() {
   }
 
   const userInitial =
-    user.user_metadata.full_name?.charAt(0).toUpperCase() ||
+    user.displayName?.charAt(0).toUpperCase() ||
     user.email?.charAt(0).toUpperCase() ||
     "U";
 
@@ -132,12 +132,12 @@ export default function ProfilePage() {
             <CardContent className="pt-6 flex flex-col items-center text-center">
               <Avatar className="w-24 h-24 mb-4">
                 <AvatarImage
-                  src={user.user_metadata.avatar_url ?? ""}
-                  alt={user.user_metadata.full_name ?? "User"}
+                  src={user.photoURL ?? ""}
+                  alt={user.displayName ?? "User"}
                 />
                 <AvatarFallback className="text-4xl">{userInitial}</AvatarFallback>
               </Avatar>
-              <h2 className="text-xl font-semibold">{user.user_metadata.full_name || "User"}</h2>
+              <h2 className="text-xl font-semibold">{user.displayName || "User"}</h2>
               <p className="text-sm text-muted-foreground">{user.email}</p>
               <Separator className="my-4" />
               <div className="flex flex-col gap-2 w-full">
@@ -184,7 +184,7 @@ export default function ProfilePage() {
                 <User className="h-5 w-5 mr-3 text-muted-foreground" />
                 <div>
                   <p className="text-sm text-muted-foreground">Full Name</p>
-                  <p className="font-medium">{user.user_metadata.full_name || "Not provided"}</p>
+                  <p className="font-medium">{user.displayName || "Not provided"}</p>
                 </div>
               </div>
               <div className="flex items-center">

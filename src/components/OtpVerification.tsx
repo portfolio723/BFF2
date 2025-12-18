@@ -20,7 +20,7 @@ const OtpVerification = ({ onSuccess, onBack }: OtpVerificationProps) => {
   const [otp, setOtp] = useState("");
   const [step, setStep] = useState<"email" | "otp">("email");
   const [isLoading, setIsLoading] = useState(false);
-  const { signInWithOtp, verifyOtp } = useAuth();
+  const { signInWithOtp } = useAuth();
 
   const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,33 +30,18 @@ const OtpVerification = ({ onSuccess, onBack }: OtpVerificationProps) => {
     }
 
     setIsLoading(true);
-    const { error } = await signInWithOtp(email);
-    setIsLoading(false);
-
-    if (error) {
-      toast.error(error.message || "Failed to send OTP");
-      return;
+    try {
+      await signInWithOtp(email);
+      toast.success("A sign-in link has been sent to your email!");
+      // In a real OTP flow you might go to an OTP step.
+      // With Firebase email link, the user is directed away.
+      // We can just inform them.
+      // setStep("otp"); 
+    } catch(error: any) {
+       toast.error(error.message || "Failed to send verification link");
+    } finally {
+        setIsLoading(false);
     }
-
-    toast.success("A magic link has been sent to your email!");
-    setStep("otp");
-  };
-
-  const handleVerifyOtp = async () => {
-    if (otp.length !== 6) {
-      toast.error("Please enter a valid 6-digit OTP");
-      return;
-    }
-
-    setIsLoading(true);
-    // In a real app with OTPs, you would use verifyOtp. 
-    // Since Supabase sends a magic link, we can just let the user know to check their email.
-    // The actual sign-in happens when they click the link.
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setIsLoading(false);
-    
-    toast.success("Sign-in link sent! Please check your email to log in.");
-    onSuccess();
   };
 
   return (
@@ -81,42 +66,38 @@ const OtpVerification = ({ onSuccess, onBack }: OtpVerificationProps) => {
           Passwordless Sign-In
         </h2>
         <p className="text-muted-foreground mt-2">
-          {step === "email"
-            ? "Enter your email to receive a magic sign-in link."
-            : "A sign-in link has been sent to your email. You can close this window."}
+          Enter your email to receive a magic sign-in link.
         </p>
       </div>
 
-      {step === "email" && (
-        <form onSubmit={handleSendOtp} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="otp-email">Email Address</Label>
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input
-                id="otp-email"
-                type="email"
-                placeholder="you@example.com"
-                className="pl-10 h-12"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={isLoading}
-              />
-            </div>
+      <form onSubmit={handleSendOtp} className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="otp-email">Email Address</Label>
+          <div className="relative">
+            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Input
+              id="otp-email"
+              type="email"
+              placeholder="you@example.com"
+              className="pl-10 h-12"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={isLoading}
+            />
           </div>
+        </div>
 
-          <Button type="submit" className="w-full rounded-full h-12 gap-2" disabled={isLoading}>
-            {isLoading ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
-            ) : (
-              <>
-                Send Magic Link
-                <ArrowRight className="w-4 h-4" />
-              </>
-            )}
-          </Button>
-        </form>
-      )}
+        <Button type="submit" className="w-full rounded-full h-12 gap-2" disabled={isLoading}>
+          {isLoading ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <>
+              Send Magic Link
+              <ArrowRight className="w-4 h-4" />
+            </>
+          )}
+        </Button>
+      </form>
     </motion.div>
   );
 };

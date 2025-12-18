@@ -11,6 +11,7 @@ import { Toaster as LegacyToaster } from "@/components/ui/toaster";
 import { Toaster } from "sonner";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { FirebaseClientProvider } from "@/firebase";
 
 // This component can't be a server component because of the providers
 export default function RootLayout({
@@ -26,22 +27,22 @@ export default function RootLayout({
           <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body className={cn("antialiased flex flex-col min-h-screen")}>
-        <AuthProvider>
-          <AppProvider>
-            <WishlistProvider>
-              <AddressProvider>
-                <Header />
-                <main className="flex-grow">{children}</main>
-                <Footer />
-                <LegacyToaster />
-                <Toaster richColors />
-              </AddressProvider>
-            </WishlistProvider>
-          </AppProvider>
-        </AuthProvider>
+        <FirebaseClientProvider>
+          <AuthProvider>
+            <AppProvider>
+              <WishlistProvider>
+                <AddressProvider>
+                  <Header />
+                  <main className="flex-grow">{children}</main>
+                  <Footer />
+                  <LegacyToaster />
+                  <Toaster richColors />
+                </AddressProvider>
+              </WishlistProvider>
+            </AppProvider>
+          </AuthProvider>
+        </FirebaseClientProvider>
       </body>
     </html>
   );
 }
-
-    
