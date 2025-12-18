@@ -1,0 +1,121 @@
+"use client";
+import { useState, useMemo } from "react";
+import { PdfCard } from "@/components/PdfCard";
+import { pdfs } from "@/lib/data";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Search, FileText } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+export default function PdfsPage() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [category, setCategory] = useState("all");
+  const [sortBy, setSortBy] = useState("newest");
+
+  const categories = useMemo(() => {
+    const allCategories = pdfs.map(p => p.category);
+    return [...new Set(allCategories)];
+  }, []);
+
+  const filteredPdfs = useMemo(() => {
+    let filtered = pdfs.filter((pdf) => {
+      const searchMatch =
+        pdf.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        pdf.author.toLowerCase().includes(searchTerm.toLowerCase());
+      const categoryMatch = category === "all" || pdf.category === category;
+      return searchMatch && categoryMatch;
+    });
+
+    if (sortBy === 'title-asc') {
+        filtered.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortBy === 'title-desc') {
+        filtered.sort((a, b) => b.title.localeCompare(a.title));
+    }
+    // "newest" is default, no specific sorting logic for now.
+
+    return filtered;
+  }, [searchTerm, category, sortBy]);
+
+  return (
+    <div className="container-custom">
+      <header className="py-12 md:py-16">
+        <h1 className="font-heading text-4xl lg:text-5xl font-bold tracking-tight">
+          Free PDF Library
+        </h1>
+        <p className="text-muted-foreground mt-3 max-w-xl">
+          Explore a collection of classic literature and important texts, free to download.
+        </p>
+      </header>
+
+      <div className="mb-8">
+        <div className="flex flex-col md:flex-row gap-4 justify-between">
+           <div className="flex-1 relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input
+                placeholder="Search by title or author..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-11 h-12 w-full bg-secondary border-0"
+              />
+            </div>
+            <div className="flex gap-4">
+              <Select value={category} onValueChange={setCategory}>
+                  <SelectTrigger className="w-full md:w-[180px] h-12 bg-secondary border-0">
+                      <SelectValue placeholder="All Categories" />
+                  </SelectTrigger>
+                  <SelectContent>
+                      <SelectItem value="all">All Categories</SelectItem>
+                      {categories.map((c) => (
+                      <SelectItem key={c} value={c}>
+                          {c}
+                      </SelectItem>
+                      ))}
+                  </SelectContent>
+              </Select>
+               <Select value={sortBy} onValueChange={setSortBy}>
+                  <SelectTrigger className="w-full md:w-[180px] h-12 bg-secondary border-0">
+                      <SelectValue placeholder="Sort by" />
+                  </SelectTrigger>
+                  <SelectContent>
+                      <SelectItem value="newest">Newest First</SelectItem>
+                      <SelectItem value="title-asc">Title: A to Z</SelectItem>
+                      <SelectItem value="title-desc">Title: Z to A</SelectItem>
+                  </SelectContent>
+              </Select>
+            </div>
+        </div>
+        <p className="text-sm text-muted-foreground mt-4">Showing {filteredPdfs.length} PDFs</p>
+      </div>
+
+      <main className="mb-20">
+        {filteredPdfs.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
+            {filteredPdfs.map((pdf) => (
+              <PdfCard 
+                key={pdf.id} 
+                pdf={pdf}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-20 lg:py-32 bg-card rounded-2xl border border-dashed">
+            <h2 className="text-2xl font-bold font-heading">No PDFs Found</h2>
+            <p className="text-muted-foreground mt-2">
+              Try adjusting your filters to find what you're looking for.
+            </p>
+          </div>
+        )}
+      </main>
+
+       <div className="text-center mb-20">
+          <Button variant="outline" className="px-8 h-12 rounded-full">Load More PDFs</Button>
+        </div>
+    </div>
+  );
+}

@@ -1,4 +1,4 @@
-import type { Book, Author, Genre, CommunityPost } from '@/lib/types';
+import type { Book, Author, Genre, CommunityPost, Pdf } from '@/lib/types';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const getImage = (id: string) => {
@@ -113,6 +113,46 @@ export const books: Book[] = [
     availability: 'in-stock',
   }
 ];
+
+export const pdfs: Pdf[] = [
+  {
+    id: 'pdf-1',
+    title: 'The Great Gatsby',
+    author: 'F. Scott Fitzgerald',
+    category: 'Classic Literature',
+    description: 'A novel about the American dream, decadence, and the roaring twenties.',
+    coverImage: getImage('pdf-cover-1'),
+    downloadUrl: '/pdfs/the-great-gatsby.pdf',
+  },
+  {
+    id: 'pdf-2',
+    title: 'Pride and Prejudice',
+    author: 'Jane Austen',
+    category: 'Classic Romance',
+    description: 'A romantic novel of manners that satirizes the societal expectations of women.',
+    coverImage: getImage('pdf-cover-2'),
+    downloadUrl: '/pdfs/pride-and-prejudice.pdf',
+  },
+  {
+    id: 'pdf-3',
+    title: 'The Art of War',
+    author: 'Sun Tzu',
+    category: 'Strategy & Philosophy',
+    description: 'An ancient Chinese military treatise applicable to many fields.',
+    coverImage: getImage('pdf-cover-3'),
+    downloadUrl: '/pdfs/the-art-of-war.pdf',
+  },
+    {
+    id: 'pdf-4',
+    title: 'A Tale of Two Cities',
+    author: 'Charles Dickens',
+    category: 'Historical Fiction',
+    description: 'A historical novel set in London and Paris before and during the French Revolution.',
+    coverImage: getImage('pdf-cover-4'),
+    downloadUrl: '/pdfs/a-tale-of-two-cities.pdf',
+  },
+];
+
 
 export const communityPosts: CommunityPost[] = [
   {

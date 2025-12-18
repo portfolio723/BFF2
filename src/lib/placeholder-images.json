@@ -49,6 +49,30 @@
       "imageHint": "science fiction"
     },
     {
+      "id": "pdf-cover-1",
+      "description": "The Great Gatsby PDF cover",
+      "imageUrl": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&q=80",
+      "imageHint": "classic book"
+    },
+    {
+      "id": "pdf-cover-2",
+      "description": "Pride and Prejudice PDF cover",
+      "imageUrl": "https://images.unsplash.com/photo-1600304595499-53e7f4fb6c1a?w=600&q=80",
+      "imageHint": "vintage book"
+    },
+    {
+      "id": "pdf-cover-3",
+      "description": "The Art of War PDF cover",
+      "imageUrl": "https://images.unsplash.com/photo-1589998059171-988d887df646?w=600&q=80",
+      "imageHint": "old book"
+    },
+    {
+      "id": "pdf-cover-4",
+      "description": "A Tale of Two Cities PDF cover",
+      "imageUrl": "https://images.unsplash.com/photo-1588666307593-70dc3a6764e2?w=600&q=80",
+      "imageHint": "history book"
+    },
+    {
       "id": "hero-1",
       "description": "Stack of books",
       "imageUrl": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&q=80",

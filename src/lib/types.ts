@@ -2,6 +2,7 @@
 
 
 
+
 export type Author = {
   id: string;
   name: string;
@@ -57,7 +58,7 @@ export interface AppUser {
 }
 
 export type Address = {
-  id: string;
+  id:string;
   type: 'Home' | 'Work' | 'Other';
   firstName: string;
   lastName: string;
@@ -69,4 +70,16 @@ export type Address = {
   phone: string;
 };
 
+export type Pdf = {
+  id: string;
+  title: string;
+  author: string;
+  category: string;
+  description: string;
+  coverImage: {
+    url: string;
+    hint: string;
+  };
+  downloadUrl: string;
+};
     

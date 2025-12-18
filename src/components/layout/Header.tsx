@@ -24,6 +24,7 @@ import { cn } from "@/lib/utils";
 
 const navLinks = [
   { name: "Explore", href: "/books" },
+  { name: "PDFs", href: "/pdfs" },
   { name: "Donate", href: "/donate" },
   { name: "Community", href: "/community" },
 ];

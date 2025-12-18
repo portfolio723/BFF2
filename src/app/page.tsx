@@ -4,11 +4,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BookOpen, Gift, Users, Package, CheckCircle, Truck, CreditCard, Shield, Star, Quote } from "lucide-react";
+import { ArrowRight, BookOpen, Gift, Users, Package, CheckCircle, Truck, CreditCard, Shield, Star, Quote, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { BookCard } from "@/components/BookCard";
-import { books } from "@/lib/data";
+import { books, pdfs } from "@/lib/data";
+import { PdfCard } from "@/components/PdfCard";
 
 const HeroSection = () => {
   const heroImage1 = PlaceHolderImages.find(img => img.id === 'hero-1');
@@ -589,6 +590,51 @@ const FeaturedBooks = () => {
   );
 };
 
+const FeaturedPdfs = () => {
+  const featuredPdfs = pdfs.slice(0, 4);
+
+  return (
+    <section className="py-20 lg:py-28 bg-secondary/30">
+      <div className="container-custom">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+              Classic Collection
+            </span>
+            <h2 className="font-heading text-3xl lg:text-4xl font-semibold mt-3">
+              Free Reads
+            </h2>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            <Button asChild variant="ghost" className="gap-2 group">
+                <Link href="/pdfs">
+                  View All PDFs
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+            </Button>
+          </motion.div>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {featuredPdfs.map((pdf) => (
+            <PdfCard key={pdf.id} pdf={pdf} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 
 const CTASection = () => {
   return (
@@ -658,6 +704,7 @@ export default function Home() {
     <>
       <HeroSection />
       <FeaturedBooks/>
+      <FeaturedPdfs />
       <CategoriesSection />
       <FeaturesSection />
       <DonateSection />
@@ -666,7 +713,3 @@ export default function Home() {
     </>
   );
 }
-
-    
-
-    
