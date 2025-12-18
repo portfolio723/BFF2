@@ -31,7 +31,8 @@ import {
 } from "lucide-react";
 import type { Address } from "@/lib/types";
 import { useAddress } from "@/context/AddressContext";
-import { useAuth, useFirestore } from "@/firebase";
+import { useAuth } from "@/context/AuthContext";
+import { useFirestore } from "@/firebase";
 import { AddressForm } from "@/components/AddressForm";
 import {
   Dialog,
@@ -70,7 +71,8 @@ export default function ProfilePage() {
   const [isSeeding, setIsSeeding] = useState(false);
 
   useEffect(() => {
-    // Wait until the loading is complete before checking for the user
+    // Wait until the loading is complete before checking for the user.
+    // If loading is finished and there's still no user, then redirect.
     if (!isUserLoading && !user) {
       router.push('/auth?redirect=/profile');
     }
@@ -109,7 +111,8 @@ export default function ProfilePage() {
     setIsFormOpen(false);
   }
 
-  // Display a loader while the user state is being determined
+  // Display a loader while the user state is being determined.
+  // This prevents the redirect logic from firing prematurely.
   if (isUserLoading || !user) {
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -287,3 +290,5 @@ export default function ProfilePage() {
     </div>
   );
 }
+
+    
