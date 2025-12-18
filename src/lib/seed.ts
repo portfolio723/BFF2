@@ -23,7 +23,8 @@ export async function seedDatabase(db: Firestore) {
       id: book.id,
       title: book.title,
       price: book.price,
-      rentalPrice: book.rentalPrice,
+      // Ensure rentalPrice is null if undefined, as Firestore doesn't support 'undefined'
+      rentalPrice: book.rentalPrice ?? null,
       description: book.description,
       availability: book.availability,
       coverImageUrl: book.coverImage.url,
