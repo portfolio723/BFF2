@@ -35,11 +35,17 @@ import { useAuth } from "@/context/AuthContext";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { AnimatePresence, motion } from "framer-motion";
 
+const passwordValidation = new RegExp(
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+);
+
 const signUpSchema = z.object({
   fullName: z.string().min(1, "Full name is required."),
   email: z.string().email("Invalid email address."),
   phoneNumber: z.string().min(10, "Phone number must be at least 10 digits."),
-  password: z.string().min(6, "Password must be at least 6 characters."),
+  password: z.string().refine((val) => passwordValidation.test(val), {
+    message: "Password must be at least 8 characters long and contain an uppercase letter, a lowercase letter, a number, and a special character.",
+  }),
   terms: z.boolean().refine((val) => val === true, {
     message: "You must accept the terms and conditions.",
   }),
@@ -79,7 +85,13 @@ export default function AuthForm() {
       toast.success("Signed in successfully!");
       router.push(redirect);
     } catch (error: any) {
-      toast.error("Sign In Failed", { description: error.message });
+      let errorMessage = "An unexpected error occurred. Please try again.";
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+        errorMessage = "Invalid email or password. Please check your credentials.";
+      } else if (error.code === 'auth/invalid-credential') {
+        errorMessage = "Invalid credentials provided.";
+      }
+      toast.error("Sign In Failed", { description: errorMessage });
     } finally {
       setLoading(false);
     }
@@ -97,7 +109,13 @@ export default function AuthForm() {
       });
       router.push('/');
     } catch (error: any) {
-      toast.error("Sign Up Failed", { description: error.message });
+      let errorMessage = "An unexpected error occurred. Please try again.";
+      if (error.code === 'auth/email-already-in-use') {
+          errorMessage = "This email address is already in use. Please sign in or use a different email.";
+      } else if (error.code === 'auth/weak-password') {
+          errorMessage = "The password is too weak. Please choose a stronger password.";
+      }
+      toast.error("Sign Up Failed", { description: errorMessage });
     } finally {
       setLoading(false);
     }
@@ -355,3 +373,5 @@ export default function AuthForm() {
     </div>
   );
 }
+
+    
