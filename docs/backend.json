@@ -1,53 +1,568 @@
-export type Author = {
-  id: string;
-  name: string;
-};
-
-export type Genre = {
-  id: string;
-  name: string;
-};
-
-export type Book = {
-  id: string;
-  title: string;
-  author: Author;
-  genre: Genre;
-  price: number;
-  coverImage: {
-    url: string;
-    hint: string;
-  };
-  description: string;
-  availability: 'in-stock' | 'out-of-stock';
-  rentalPrice?: number;
-};
-
-export type CommunityPost = {
-  id: string;
-  title: string;
-  author: {
-    name: string;
-    avatar: {
-      url: string;
-      hint: string;
-    };
-  };
-  content: string;
-  timestamp: string;
-  replies: number;
-};
-
-export type CartItem = {
-  book: Book;
-  type: 'buy' | 'rent';
-};
-
-// This can be simplified as we are no longer extending the Firebase user
-export interface AppUser {
-  displayName?: string | null;
-  email?: string | null;
-  photoURL?: string | null;
-  uid: string;
-  isKycVerified?: boolean;
+{
+  "entities": {
+    "Book": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Book",
+      "type": "object",
+      "description": "Represents a book available for rent, purchase, or donation.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Book entity."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the book."
+        },
+        "author": {
+          "type": "string",
+          "description": "The author of the book."
+        },
+        "genre": {
+          "type": "string",
+          "description": "The genre of the book."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief summary or description of the book."
+        },
+        "isbn": {
+          "type": "string",
+          "description": "International Standard Book Number."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the book's cover image.",
+          "format": "uri"
+        },
+        "availability": {
+          "type": "string",
+          "description": "Indicates if the book is available for rent or purchase.  Values may be: 'available', 'rented', 'sold', 'donated'."
+        },
+        "rentalPrice": {
+          "type": "number",
+          "description": "The price to rent the book."
+        },
+        "purchasePrice": {
+          "type": "number",
+          "description": "The price to purchase the book."
+        },
+        "condition": {
+          "type": "string",
+          "description": "The condition of the book, e.g., 'new', 'used', 'good'."
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "author",
+        "genre",
+        "description",
+        "isbn",
+        "imageUrl",
+        "availability"
+      ]
+    },
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user of the application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the User entity."
+        },
+        "userName": {
+          "type": "string",
+          "description": "The username of the user."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the user.",
+          "format": "email"
+        },
+        "firstName": {
+          "type": "string",
+          "description": "The first name of the user."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "The last name of the user."
+        },
+        "address": {
+          "type": "string",
+          "description": "The address of the user."
+        },
+        "city": {
+          "type": "string",
+          "description": "The city of the user."
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "The phone number of the user."
+        }
+      },
+      "required": [
+        "id",
+        "userName",
+        "email",
+        "firstName",
+        "lastName"
+      ]
+    },
+    "WishlistItem": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "WishlistItem",
+      "type": "object",
+      "description": "Represents an item in a user's wishlist.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the WishlistItem entity."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N WishlistItem)"
+        },
+        "bookId": {
+          "type": "string",
+          "description": "Reference to Book. (Relationship: Book 1:N WishlistItem)"
+        },
+        "addedDate": {
+          "type": "string",
+          "description": "The date the item was added to the wishlist.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "bookId",
+        "addedDate"
+      ]
+    },
+    "ShoppingCartItem": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ShoppingCartItem",
+      "type": "object",
+      "description": "Represents an item in a user's shopping cart.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the ShoppingCartItem entity."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N ShoppingCartItem)"
+        },
+        "bookId": {
+          "type": "string",
+          "description": "Reference to Book. (Relationship: Book 1:N ShoppingCartItem)"
+        },
+        "quantity": {
+          "type": "number",
+          "description": "The quantity of the book in the cart."
+        },
+        "addedDate": {
+          "type": "string",
+          "description": "The date the item was added to the cart.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "bookId",
+        "quantity",
+        "addedDate"
+      ]
+    },
+    "Order": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Order",
+      "type": "object",
+      "description": "Represents a user's order for books (either for purchase or rental).",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Order entity."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N Order)"
+        },
+        "orderDate": {
+          "type": "string",
+          "description": "The date the order was placed.",
+          "format": "date-time"
+        },
+        "totalAmount": {
+          "type": "number",
+          "description": "The total amount of the order."
+        },
+        "deliveryAddress": {
+          "type": "string",
+          "description": "The delivery address for the order."
+        },
+        "status": {
+          "type": "string",
+          "description": "The status of the order (e.g., 'pending', 'shipped', 'delivered')."
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "orderDate",
+        "totalAmount",
+        "deliveryAddress",
+        "status"
+      ]
+    },
+    "OrderItem": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "OrderItem",
+      "type": "object",
+      "description": "Represents a specific book within an order.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the OrderItem entity."
+        },
+        "orderId": {
+          "type": "string",
+          "description": "Reference to Order. (Relationship: Order 1:N OrderItem)"
+        },
+        "bookId": {
+          "type": "string",
+          "description": "Reference to Book. (Relationship: Book 1:N OrderItem)"
+        },
+        "quantity": {
+          "type": "number",
+          "description": "The quantity of the book in the order."
+        },
+        "price": {
+          "type": "number",
+          "description": "The price of the book at the time of the order."
+        }
+      },
+      "required": [
+        "id",
+        "orderId",
+        "bookId",
+        "quantity",
+        "price"
+      ]
+    },
+    "Donation": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Donation",
+      "type": "object",
+      "description": "Represents a book donation.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Donation entity."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N Donation)"
+        },
+        "bookId": {
+          "type": "string",
+          "description": "Reference to Book. (Relationship: Book 1:N Donation)"
+        },
+        "donationDate": {
+          "type": "string",
+          "description": "The date of the donation.",
+          "format": "date-time"
+        },
+        "condition": {
+          "type": "string",
+          "description": "The condition of the donated book."
+        },
+        "pickupAddress": {
+          "type": "string",
+          "description": "The address where the book should be picked up."
+        },
+        "deliveryCharge": {
+          "type": "number",
+          "description": "The delivery charge for picking up the donation."
+        },
+        "status": {
+          "type": "string",
+          "description": "The status of the donation (e.g., 'pending pickup', 'picked up', 'received')."
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "bookId",
+        "donationDate",
+        "condition",
+        "pickupAddress",
+        "deliveryCharge",
+        "status"
+      ]
+    },
+    "CommunityPost": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "CommunityPost",
+      "type": "object",
+      "description": "Represents a post in the community discussion forum.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the CommunityPost entity."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N CommunityPost)"
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the community post."
+        },
+        "content": {
+          "type": "string",
+          "description": "The content of the community post."
+        },
+        "postDate": {
+          "type": "string",
+          "description": "The date the post was created.",
+          "format": "date-time"
+        },
+        "bookId": {
+          "type": "string",
+          "description": "Reference to Book. (Optional reference to the book being discussed.) (Relationship: Book 1:N CommunityPost)"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "title",
+        "content",
+        "postDate"
+      ]
+    },
+    "CommunityComment": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "CommunityComment",
+      "type": "object",
+      "description": "Represents a comment on a community post.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the CommunityComment entity."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N CommunityComment)"
+        },
+        "postId": {
+          "type": "string",
+          "description": "Reference to CommunityPost. (Relationship: CommunityPost 1:N CommunityComment)"
+        },
+        "commentDate": {
+          "type": "string",
+          "description": "The date the comment was created.",
+          "format": "date-time"
+        },
+        "commentText": {
+          "type": "string",
+          "description": "The text of the comment."
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "postId",
+        "commentDate",
+        "commentText"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/books/{bookId}",
+        "definition": {
+          "entityName": "Book",
+          "schema": {
+            "$ref": "#/backend/entities/Book"
+          },
+          "description": "Stores book data.  Accessible to all users for browsing. Availability status determines if the book is available for rent, purchase, or donation.",
+          "params": [
+            {
+              "name": "bookId",
+              "description": "The unique identifier for the book."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores user profile data.  Only the user can read/write their own profile.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/wishlist_items/{wishlistItemId}",
+        "definition": {
+          "entityName": "WishlistItem",
+          "schema": {
+            "$ref": "#/backend/entities/WishlistItem"
+          },
+          "description": "Stores wishlist items for a specific user. Only the user can read/write their own wishlist.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "wishlistItemId",
+              "description": "The unique identifier for the wishlist item."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/shopping_cart_items/{shoppingCartItemId}",
+        "definition": {
+          "entityName": "ShoppingCartItem",
+          "schema": {
+            "$ref": "#/backend/entities/ShoppingCartItem"
+          },
+          "description": "Stores shopping cart items for a specific user. Only the user can read/write their own shopping cart.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "shoppingCartItemId",
+              "description": "The unique identifier for the shopping cart item."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/orders/{orderId}",
+        "definition": {
+          "entityName": "Order",
+          "schema": {
+            "$ref": "#/backend/entities/Order"
+          },
+          "description": "Stores order data for a specific user. Only the user can read their own order information.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "orderId",
+              "description": "The unique identifier for the order."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/orders/{orderId}/order_items/{orderItemId}",
+        "definition": {
+          "entityName": "OrderItem",
+          "schema": {
+            "$ref": "#/backend/entities/OrderItem"
+          },
+          "description": "Stores order items for a specific order. This is a subcollection of the orders collection.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "orderId",
+              "description": "The unique identifier for the order."
+            },
+            {
+              "name": "orderItemId",
+              "description": "The unique identifier for the order item."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/donations/{donationId}",
+        "definition": {
+          "entityName": "Donation",
+          "schema": {
+            "$ref": "#/backend/entities/Donation"
+          },
+          "description": "Stores donation data for a specific user. Only the user can manage their own donations.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "donationId",
+              "description": "The unique identifier for the donation."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/community_posts/{postId}",
+        "definition": {
+          "entityName": "CommunityPost",
+          "schema": {
+            "$ref": "#/backend/entities/CommunityPost"
+          },
+          "description": "Stores community posts. All users can read posts, but only the creator can edit/delete them.",
+          "params": [
+            {
+              "name": "postId",
+              "description": "The unique identifier for the community post."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/community_posts/{postId}/community_comments/{commentId}",
+        "definition": {
+          "entityName": "CommunityComment",
+          "schema": {
+            "$ref": "#/backend/entities/CommunityComment"
+          },
+          "description": "Stores comments for a specific community post.",
+          "params": [
+            {
+              "name": "postId",
+              "description": "The unique identifier for the community post."
+            },
+            {
+              "name": "commentId",
+              "description": "The unique identifier for the community comment."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore data structure is designed to support the core features of the Hyderabad Reads application, focusing on book rentals/purchases, wishlists, shopping carts, donations, and community discussions. The structure prioritizes Authorization Independence and QAPs (Rules are not Filters) via denormalization and structural segregation.\n\n**Authorization Independence:**\nPath-based ownership (`/users/{userId}/wishlist_items/{wishlistItemId}`) is employed where possible, automatically granting the user access to their own data. Collaborative data, such as CommunityPosts, relies on the user's `userId`, which can be checked against the currently authenticated user.  No `get()` calls are required in security rules for basic operations on user-owned resources.\n\n**Structural Segregation:**\nThe database separates user-specific data (wishlists, shopping carts, orders, donations) under `/users/{userId}`.  Books are stored in a top-level `/books` collection. This segregation ensures that security rules can be applied consistently and efficiently.\n\n**QAPs (Rules are not Filters):**\nListing books for browsing is handled by the `/books` collection, where rules can ensure that only 'available' books are visible. User-specific data like wishlists and shopping carts are secured under `/users/{userId}`, allowing secure list operations for each user's resources.\n\n**Global Roles (DBAC):**\nNo global roles are used at this time. All data access is managed via path-based ownership and user-specific collections."
+  }
 }

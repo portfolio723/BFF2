@@ -1,0 +1,199 @@
+/**
+ * Core Philosophy: This ruleset enforces a strict user-ownership model for all personal data,
+ * while allowing for public, read-only access to shared content like books and community posts.
+ * The primary goal is to ensure users can only access and modify their own information,
+ * preventing unauthorized access to other users' data.
+ *
+ * Data Structure: The data is segregated into two main categories:
+ * 1. User-Private Data: All data specific to a user (profile, wishlist, cart, orders, donations)
+ *    is nested under the `/users/{userId}` path. This structure inherently links the data to
+ *    its owner, simplifying security rules.
+ * 2. Public Content: Shared data like the book catalog (`/books`) and community forums
+ *    (`/community_posts`) are stored in top-level collections.
+ *
+ * Key Security Decisions:
+ * - User Isolation: Users are strictly forbidden from reading or writing data belonging to another user.
+ *   There is no functionality for listing all users in the database.
+ * - Public Read, Private Write: Collections like `/community_posts` are publicly readable by anyone,
+ *   but write operations (create, update, delete) are restricted to the original author of the content.
+ * - Secure Default for Catalog: The `/books` collection is publicly readable, but write access is
+ *   currently denied by default, awaiting a clear administrative or content management strategy.
+ *
+ * Denormalization for Authorization: To ensure fast and secure authorization checks, documents that
+ * can be modified by their creator (e.g., CommunityPost, CommunityComment) contain a `userId` field.
+ * This denormalized field is checked directly against the authenticated user's ID, avoiding costly
+ * and complex lookups to other documents.
+ *
+ * Structural Segregation: User-private data (`/users/{userId}/...`) is kept entirely separate
+ * from public data (`/books`, `/community_posts`). This separation allows for simple, performant
+ * rules that grant broad access to public collections while enforcing strict ownership on private ones.
+ */
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper Functions
+    
+    // Verifies the user is authenticated.
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Verifies the authenticated user's UID matches the provided userId.
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // Checks that a document already exists for update/delete operations.
+    function isExistingDoc() {
+      return resource != null;
+    }
+
+    // Combines ownership and existence checks for state-changing operations like update and delete.
+    function isExistingOwner(userId) {
+      return isOwner(userId) && isExistingDoc();
+    }
+    
+    // Validates that the creator of a new document is the currently signed-in user via a 'userId' field.
+    function isCreatingOwnContent() {
+      return isSignedIn() && request.resource.data.userId == request.auth.uid;
+    }
+    
+    // Validates that the incoming document's 'userId' field matches the user ID in the path.
+    function isConsistentUserId(userId) {
+      return request.resource.data.userId == userId;
+    }
+    
+    // Enforces immutability of a specific field during an update operation.
+    function isImmutable(field) {
+      return request.resource.data[field] == resource.data[field];
+    }
+
+    /**
+     * @description Publicly readable book catalog. Write access is disabled pending an admin implementation.
+     * @path /books/{bookId}
+     * @allow (get) Any user, signed in or not, can view a specific book's details.
+     * @deny (create) No user can currently add a new book to the catalog.
+     * @principle Publicly readable data with a secure-by-default write posture.
+     */
+    match /books/{bookId} {
+      allow get, list: if true;
+      // CRITICAL: Cannot implement owner-only writes. The 'Book' entity is missing an 'ownerId' or 'authorId' field.
+      allow create, update, delete: if false; // TODO: Add admin or owner validation once the schema is updated with an ownership field.
+    }
+
+    /**
+     * @description Manages user profile documents. Users can only access their own document.
+     * @path /users/{userId}
+     * @allow (create) A new user can create their own profile document if their auth UID matches the document ID.
+     * @deny (get) A user `user_abc` cannot read the profile of `user_xyz`.
+     * @principle Restricts access to a user's own data tree and enforces self-creation.
+     */
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false; // Users cannot list other users' profiles.
+      allow create: if isOwner(userId) && request.resource.data.id == userId;
+      allow update: if isExistingOwner(userId) && isImmutable('id');
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description User's private wishlist. Only the owner can manage their wishlist items.
+     * @path /users/{userId}/wishlist_items/{wishlistItemId}
+     * @allow (create) A user can add a new item to their own wishlist.
+     * @deny (list) User `user_abc` cannot list the wishlist items of `user_xyz`.
+     * @principle Enforces document ownership within a user's private data subcollection.
+     */
+    match /users/{userId}/wishlist_items/{wishlistItemId} {
+      allow get, list: if isOwner(userId);
+      allow create: if isOwner(userId) && isConsistentUserId(userId);
+      allow update: if isExistingOwner(userId) && isImmutable('userId');
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description User's private shopping cart. Only the owner can manage their cart items.
+     * @path /users/{userId}/shopping_cart_items/{shoppingCartItemId}
+     * @allow (create) A user can add a new item to their own shopping cart.
+     * @deny (get) User `user_abc` cannot get a shopping cart item of `user_xyz`.
+     * @principle Enforces document ownership within a user's private data subcollection.
+     */
+    match /users/{userId}/shopping_cart_items/{shoppingCartItemId} {
+      allow get, list: if isOwner(userId);
+      allow create: if isOwner(userId) && isConsistentUserId(userId);
+      allow update: if isExistingOwner(userId) && isImmutable('userId');
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description User's private order history. Only the owner can view and manage their orders.
+     * @path /users/{userId}/orders/{orderId}
+     * @allow (list) A user can list their own past orders.
+     * @deny (update) User `user_abc` cannot update an order belonging to `user_xyz`.
+     * @principle Enforces document ownership within a user's private data subcollection.
+     */
+    match /users/{userId}/orders/{orderId} {
+      allow get, list: if isOwner(userId);
+      allow create: if isOwner(userId) && isConsistentUserId(userId);
+      allow update: if isExistingOwner(userId) && isImmutable('userId');
+      allow delete: if isExistingOwner(userId);
+
+      /**
+       * @description Items within a specific order. Access is inherited from the parent order's owner.
+       * @path /users/{userId}/orders/{orderId}/order_items/{orderItemId}
+       * @allow (create) A user can create order items for an order they are creating.
+       * @deny (delete) A user cannot delete order items from another user's order.
+       * @principle Validates relational integrity by ensuring subcollection documents belong to the parent document.
+       */
+      match /order_items/{orderItemId} {
+        allow get, list: if isOwner(userId);
+        allow create: if isOwner(userId) && request.resource.data.orderId == orderId;
+        allow update: if isExistingOwner(userId) && isImmutable('orderId');
+        allow delete: if isExistingOwner(userId);
+      }
+    }
+
+    /**
+     * @description User's private donation history. Only the owner can manage their donations.
+     * @path /users/{userId}/donations/{donationId}
+     * @allow (create) A user can create a donation record for themselves.
+     * @deny (get) User `user_abc` cannot view a donation record from `user_xyz`.
+     * @principle Enforces document ownership within a user's private data subcollection.
+     */
+    match /users/{userId}/donations/{donationId} {
+      allow get, list: if isOwner(userId);
+      allow create: if isOwner(userId) && isConsistentUserId(userId);
+      allow update: if isExistingOwner(userId) && isImmutable('userId');
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Publicly readable community posts. Only the author can create, update, or delete their own posts.
+     * @path /community_posts/{postId}
+     * @allow (create) Any signed-in user can create a new post and set themselves as the author.
+     * @deny (update) User `user_abc` cannot edit a post created by `user_xyz`.
+     * @principle Public read access with owner-only writes, enforced via a `userId` field on the document.
+     */
+    match /community_posts/{postId} {
+      allow get, list: if true;
+      allow create: if isCreatingOwnContent();
+      allow update: if isExistingOwner(resource.data.userId) && isImmutable('userId');
+      allow delete: if isExistingOwner(resource.data.userId);
+
+      /**
+       * @description Comments on a community post. Publicly readable, but only the comment author can modify their own comments.
+       * @path /community_posts/{postId}/community_comments/{commentId}
+       * @allow (create) Any signed-in user can add a comment to a post.
+       * @deny (delete) User `user_abc` cannot delete a comment left by `user_xyz`.
+       * @principle Public read access with owner-only writes, enforced via a `userId` field on the document.
+       */
+      match /community_comments/{commentId} {
+        allow get, list: if true;
+        allow create: if isCreatingOwnContent() && request.resource.data.postId == postId;
+        allow update: if isExistingOwner(resource.data.userId) && isImmutable('userId') && isImmutable('postId');
+        allow delete: if isExistingOwner(resource.data.userId);
+      }
+    }
+  }
+}
