@@ -3,7 +3,6 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import type { Book } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Heart, ShoppingCart } from "lucide-react";
@@ -52,99 +51,97 @@ export function BookCard({
   };
 
   return (
-    <Link href={`/book/${id}`} className="block group">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4 }}
-        className="cursor-pointer bg-card rounded-xl border border-border overflow-hidden transition-shadow hover:shadow-lg h-full flex flex-col"
-      >
-        <div className="relative aspect-[3/4] overflow-hidden bg-secondary">
-          <Image
-            src={coverImage.url}
-            alt={title}
-            data-ai-hint={coverImage.hint}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-          <div className="absolute top-3 left-3 flex flex-col gap-2">
-            {isFeatured && (
-              <Badge className="bg-yellow-400 text-yellow-900 hover:bg-yellow-400/90 text-xs">
-                Featured
-              </Badge>
-            )}
-            {isNew && (
-              <Badge className="bg-foreground text-background hover:bg-foreground text-xs">
-                New
-              </Badge>
-            )}
-             {availability === 'out-of-stock' && (
-                <Badge variant="destructive">Out of Stock</Badge>
-            )}
-          </div>
-          <div className="absolute top-3 right-3">
-            <Button
-              size="icon"
-              variant="secondary"
-              className={cn(
-                "w-9 h-9 rounded-full bg-background/60 backdrop-blur-sm hover:bg-background text-foreground border-none transition-all",
-                inWishlist && "bg-foreground text-background hover:bg-foreground/90"
-              )}
-              onClick={handleToggleWishlist}
-              disabled={!isMounted}
-              aria-label="Toggle Wishlist"
-            >
-              <Heart className={cn("w-4 h-4", inWishlist && "fill-current")} />
-            </Button>
-          </div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4 }}
+      className="group bg-card rounded-xl border border-border overflow-hidden transition-shadow hover:shadow-lg h-full flex flex-col"
+    >
+      <div className="relative aspect-[3/4] overflow-hidden bg-secondary">
+        <Image
+          src={coverImage.url}
+          alt={title}
+          data-ai-hint={coverImage.hint}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <div className="absolute top-3 left-3 flex flex-col gap-2">
+          {isFeatured && (
+            <Badge className="bg-yellow-400 text-yellow-900 hover:bg-yellow-400/90 text-xs">
+              Featured
+            </Badge>
+          )}
+          {isNew && (
+            <Badge className="bg-foreground text-background hover:bg-foreground text-xs">
+              New
+            </Badge>
+          )}
+           {availability === 'out-of-stock' && (
+              <Badge variant="destructive">Out of Stock</Badge>
+          )}
         </div>
+        <div className="absolute top-3 right-3">
+          <Button
+            size="icon"
+            variant="secondary"
+            className={cn(
+              "w-9 h-9 rounded-full bg-background/60 backdrop-blur-sm hover:bg-background text-foreground border-none transition-all",
+              inWishlist && "bg-foreground text-background hover:bg-foreground/90"
+            )}
+            onClick={handleToggleWishlist}
+            disabled={!isMounted}
+            aria-label="Toggle Wishlist"
+          >
+            <Heart className={cn("w-4 h-4", inWishlist && "fill-current")} />
+          </Button>
+        </div>
+      </div>
+      
+      <div className="p-3 flex flex-col flex-grow">
+        <span className="text-xs text-muted-foreground uppercase tracking-wider">
+          {genre.name}
+        </span>
+        <h3 className="font-heading text-base font-medium mt-1 line-clamp-1 group-hover:text-muted-foreground transition-colors">
+          {title}
+        </h3>
+        <p className="text-sm text-muted-foreground mt-0.5">
+          by {author.name}
+        </p>
         
-        <div className="p-3 flex flex-col flex-grow">
-          <span className="text-xs text-muted-foreground uppercase tracking-wider">
-            {genre.name}
-          </span>
-          <h3 className="font-heading text-base font-medium mt-1 line-clamp-1 group-hover:text-muted-foreground transition-colors">
-            {title}
-          </h3>
-          <p className="text-sm text-muted-foreground mt-0.5">
-            by {author.name}
-          </p>
-          
-          <div className="mt-auto pt-3">
-              <div className="flex items-center justify-between mt-3 pt-3 border-t border-border">
-                 <div className="text-center">
-                    <p className="text-xs text-muted-foreground">Rent</p>
-                    <p className="font-semibold text-sm">₹{rentalPrice || 'N/A'}</p>
-                 </div>
-                 <div className="text-center">
-                    <p className="text-xs text-muted-foreground">Buy</p>
-                    <p className="font-semibold text-sm">₹{price}</p>
-                 </div>
-              </div>
-              <div className="flex gap-2 mt-3">
-                 <Button
-                    size="sm"
-                    variant="outline"
-                    className="flex-1 rounded-full text-xs h-9"
-                    onClick={(e) => handleAddToCart(e, 'rent')}
-                    disabled={availability === 'out-of-stock' || !rentalPrice}
-                  >
-                    Rent
-                  </Button>
-                  <Button
-                    size="sm"
-                    className="flex-1 rounded-full text-xs h-9"
-                    onClick={(e) => handleAddToCart(e, 'buy')}
-                    disabled={availability === 'out-of-stock'}
-                  >
-                    <ShoppingCart className="w-3 h-3 mr-1"/>
-                    Buy
-                  </Button>
-              </div>
-          </div>
+        <div className="mt-auto pt-3">
+            <div className="flex items-center justify-between mt-3 pt-3 border-t border-border">
+               <div className="text-center">
+                  <p className="text-xs text-muted-foreground">Rent</p>
+                  <p className="font-semibold text-sm">₹{rentalPrice || 'N/A'}</p>
+               </div>
+               <div className="text-center">
+                  <p className="text-xs text-muted-foreground">Buy</p>
+                  <p className="font-semibold text-sm">₹{price}</p>
+               </div>
+            </div>
+            <div className="flex gap-2 mt-3">
+               <Button
+                  size="sm"
+                  variant="outline"
+                  className="flex-1 rounded-full text-xs h-9"
+                  onClick={(e) => handleAddToCart(e, 'rent')}
+                  disabled={availability === 'out-of-stock' || !rentalPrice}
+                >
+                  Rent
+                </Button>
+                <Button
+                  size="sm"
+                  className="flex-1 rounded-full text-xs h-9"
+                  onClick={(e) => handleAddToCart(e, 'buy')}
+                  disabled={availability === 'out-of-stock'}
+                >
+                  <ShoppingCart className="w-3 h-3 mr-1"/>
+                  Buy
+                </Button>
+            </div>
         </div>
-      </motion.div>
-    </Link>
+      </div>
+    </motion.div>
   );
 };
