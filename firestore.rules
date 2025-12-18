@@ -100,7 +100,7 @@ service cloud.firestore {
        * @path /users/{userId}/addresses/{addressId}
        */
       match /addresses/{addressId} {
-        allow read, write: if isOwner(userId);
+        allow get, list, write: if isOwner(userId);
       }
     }
 
