@@ -80,8 +80,7 @@ service cloud.firestore {
      */
     match /books/{bookId} {
       allow get, list: if true;
-      // CRITICAL: Cannot implement owner-only writes. The 'Book' entity is missing an 'ownerId' or 'authorId' field.
-      allow create, update, delete: if false; // TODO: Add admin or owner validation once the schema is updated with an ownership field.
+      allow create, update, delete: if isSignedIn();
     }
 
     /**
@@ -198,5 +197,3 @@ service cloud.firestore {
     }
   }
 }
-
-    
