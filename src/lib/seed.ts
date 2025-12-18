@@ -3,6 +3,7 @@
 
 import { collection, doc, writeBatch, Firestore } from 'firebase/firestore';
 import { books as mockBooks } from './data';
+import type { Book } from './types';
 
 /**
  * Seeds the 'books' collection in Firestore with mock data.
@@ -13,16 +14,25 @@ export async function seedDatabase(db: Firestore) {
   const booksCollection = collection(db, 'books');
   const batch = writeBatch(db);
 
-  mockBooks.forEach((book) => {
+  mockBooks.forEach((book: Book) => {
     // We use the book's existing ID to create a document reference
     const docRef = doc(booksCollection, book.id);
     
-    // The book object is directly used as the data to be written.
-    // We are now storing the author and genre as objects.
+    // Flatten the book object for Firestore compatibility
     const bookData = {
-        ...book,
-        // The mock data `book` object already has author and genre as objects.
-        // No need to transform them.
+      id: book.id,
+      title: book.title,
+      price: book.price,
+      rentalPrice: book.rentalPrice,
+      description: book.description,
+      availability: book.availability,
+      coverImageUrl: book.coverImage.url,
+      coverImageHint: book.coverImage.hint,
+      // Flatten author and genre objects
+      authorId: book.author.id,
+      authorName: book.author.name,
+      genreId: book.genre.id,
+      genreName: book.genre.name,
     };
     
     batch.set(docRef, bookData);

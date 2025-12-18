@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import type { Book } from "@/lib/types";
+import type { FirestoreBook } from "@/lib/types";
 import { Search, LayoutGrid, List, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCollection, useFirestore, useMemoFirebase } from "@/firebase";
@@ -24,10 +24,10 @@ export default function BooksPage() {
   const [view, setView] = useState("grid");
 
   const firestore = useFirestore();
-  const booksRef = useMemoFirebase(() => collection(firestore, 'books'), [firestore]);
-  const booksQuery = useMemoFirebase(() => query(booksRef), [booksRef]);
+  const booksRef = useMemoFirebase(() => firestore ? collection(firestore, 'books') : null, [firestore]);
+  const booksQuery = useMemoFirebase(() => booksRef ? query(booksRef) : null, [booksRef]);
   
-  const { data: books, isLoading } = useCollection<Book>(booksQuery);
+  const { data: books, isLoading } = useCollection<FirestoreBook>(booksQuery);
 
   const filteredBooks = useMemo(() => {
     if (!books) return [];
@@ -35,15 +35,15 @@ export default function BooksPage() {
     let filtered = books.filter((book) => {
       const searchMatch =
         book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        book.author.name.toLowerCase().includes(searchTerm.toLowerCase());
-      const genreMatch = genre === "all" || book.genre.id === genre;
+        book.authorName.toLowerCase().includes(searchTerm.toLowerCase());
+      const genreMatch = genre === "all" || book.genreId === genre;
       return searchMatch && genreMatch;
     });
 
     if (sortBy === 'price-asc') {
-        filtered.sort((a, b) => a.price - b.price);
+        filtered.sort((a, b) => (a.price || 0) - (b.price || 0));
     } else if (sortBy === 'price-desc') {
-        filtered.sort((a, b) => b.price - a.price);
+        filtered.sort((a, b) => (b.price || 0) - (a.price || 0));
     }
     // "newest" is default, no specific sorting logic for now.
 

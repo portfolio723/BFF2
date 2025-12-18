@@ -24,6 +24,21 @@ export type Book = {
   rentalPrice?: number;
 };
 
+export type FirestoreBook = {
+  id: string;
+  title: string;
+  price: number;
+  description: string;
+  availability: 'in-stock' | 'out-of-stock';
+  coverImageUrl: string;
+  coverImageHint: string;
+  authorId: string;
+  authorName: string;
+  genreId: string;
+  genreName: string;
+  rentalPrice?: number;
+}
+
 export type CommunityPost = {
   id: string;
   title: string;

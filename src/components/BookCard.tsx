@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import type { Book } from "@/lib/types";
+import type { Book, FirestoreBook } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Heart, ShoppingCart } from "lucide-react";
 import { useCart } from "@/context/AppProvider";
@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface BookCardProps {
-  book: Book;
+  book: FirestoreBook;
   isNew?: boolean;
   isFeatured?: boolean;
 }
@@ -23,7 +23,7 @@ export function BookCard({
   isNew = false,
   isFeatured = false,
 }: BookCardProps) {
-  const { id, title, author, coverImage, price, rentalPrice, genre, availability } = book;
+  const { id, title, authorName, coverImageUrl, coverImageHint, price, rentalPrice, genreName, availability } = book;
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
@@ -33,11 +33,25 @@ export function BookCard({
   }, []);
 
   const inWishlist = isMounted ? isInWishlist(id) : false;
+  
+  // Reconstruct the Book object for cart/wishlist context
+  const fullBookObject: Book = {
+      id,
+      title,
+      price,
+      rentalPrice,
+      availability,
+      coverImage: { url: coverImageUrl, hint: coverImageHint },
+      author: { id: book.authorId, name: authorName },
+      genre: { id: book.genreId, name: genreName },
+      description: book.description,
+  };
+
 
   const handleAddToCart = (e: React.MouseEvent, type: 'buy' | 'rent') => {
     e.preventDefault();
     e.stopPropagation();
-    addToCart(book, type);
+    addToCart(fullBookObject, type);
   };
 
   const handleToggleWishlist = (e: React.MouseEvent) => {
@@ -46,7 +60,7 @@ export function BookCard({
     if (inWishlist) {
       removeFromWishlist(id);
     } else {
-      addToWishlist(book);
+      addToWishlist(fullBookObject);
     }
   };
 
@@ -60,9 +74,9 @@ export function BookCard({
     >
       <div className="relative aspect-[3/4] overflow-hidden bg-secondary">
         <Image
-          src={coverImage.url}
+          src={coverImageUrl}
           alt={title}
-          data-ai-hint={coverImage.hint}
+          data-ai-hint={coverImageHint}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
@@ -100,13 +114,13 @@ export function BookCard({
       
       <div className="p-3 flex flex-col flex-grow">
         <span className="text-xs text-muted-foreground uppercase tracking-wider">
-          {genre.name}
+          {genreName}
         </span>
         <h3 className="font-heading text-base font-medium mt-1 line-clamp-1 group-hover:text-muted-foreground transition-colors">
           {title}
         </h3>
         <p className="text-sm text-muted-foreground mt-0.5">
-          by {author.name}
+          by {authorName}
         </p>
         
         <div className="mt-auto pt-3">

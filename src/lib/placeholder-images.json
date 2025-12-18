@@ -50,27 +50,27 @@
     },
     {
       "id": "pdf-cover-1",
-      "description": "The Great Gatsby PDF cover",
-      "imageUrl": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&q=80",
-      "imageHint": "classic book"
+      "description": "The Great Gatsby book cover with Art Deco design.",
+      "imageUrl": "https://images.unsplash.com/photo-1621847412528-919a79fa1216?w=600&q=80",
+      "imageHint": "art deco"
     },
     {
       "id": "pdf-cover-2",
-      "description": "Pride and Prejudice PDF cover",
-      "imageUrl": "https://images.unsplash.com/photo-1600304595499-53e7f4fb6c1a?w=600&q=80",
-      "imageHint": "vintage book"
+      "description": "Pride and Prejudice book cover with floral illustrations.",
+      "imageUrl": "https://images.unsplash.com/photo-1590483848373-10f823288a6c?w=600&q=80",
+      "imageHint": "floral illustration"
     },
     {
       "id": "pdf-cover-3",
-      "description": "The Art of War PDF cover",
-      "imageUrl": "https://images.unsplash.com/photo-1589998059171-988d887df646?w=600&q=80",
-      "imageHint": "old book"
+      "description": "The Art of War book cover with Chinese calligraphy.",
+      "imageUrl": "https://images.unsplash.com/photo-1549675239-342299a4a7a8?w=600&q=80",
+      "imageHint": "calligraphy art"
     },
     {
       "id": "pdf-cover-4",
-      "description": "A Tale of Two Cities PDF cover",
-      "imageUrl": "https://images.unsplash.com/photo-1588666307593-70dc3a6764e2?w=600&q=80",
-      "imageHint": "history book"
+      "description": "A Tale of Two Cities book cover showing London and Paris skylines.",
+      "imageUrl": "https://images.unsplash.com/photo-1581683701509-110a7a7a403d?w=600&q=80",
+      "imageHint": "city skyline"
     },
     {
       "id": "hero-1",
