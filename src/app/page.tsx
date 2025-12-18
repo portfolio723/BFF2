@@ -23,7 +23,7 @@ const HeroSection = () => {
       <div className="container-custom relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Content */}
-          <div className="order-2 lg:order-1">
+          <div className="lg:order-1">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -96,7 +96,7 @@ const HeroSection = () => {
           </div>
           
           {/* Hero Image */}
-          <div className="order-1 lg:order-2">
+          <div className="lg:order-2">
              <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
