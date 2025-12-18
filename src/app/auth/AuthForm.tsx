@@ -133,10 +133,6 @@ export default function AuthForm() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
               >
-                <Link href="/" className="flex items-center gap-2 mb-8">
-                  <BookOpen className="w-6 h-6" />
-                  <span className="font-semibold text-xl">Hyderabad Reads</span>
-                </Link>
 
                 <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                   <TabsList className="grid w-full grid-cols-2">
@@ -381,5 +377,3 @@ export default function AuthForm() {
     </div>
   );
 }
-
-    
