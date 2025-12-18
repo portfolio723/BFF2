@@ -12,9 +12,7 @@ import { books, pdfs } from "@/lib/data";
 import { PdfCard } from "@/components/PdfCard";
 
 const HeroSection = () => {
-  const heroImage1 = PlaceHolderImages.find(img => img.id === 'hero-1');
-  const heroImage2 = PlaceHolderImages.find(img => img.id === 'hero-2');
-  const heroImage3 = PlaceHolderImages.find(img => img.id === 'hero-3');
+  const heroImage = PlaceHolderImages.find(img => img.id === 'hero-2');
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
@@ -98,68 +96,27 @@ const HeroSection = () => {
           </div>
           
           {/* Hero Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="order-1 lg:order-2 relative"
-          >
-            <div className="relative aspect-square max-w-lg mx-auto">
-              {/* Floating Books */}
-              {heroImage1 && (
-                <motion.div
-                  animate={{ y: [0, -15, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute top-0 left-0 w-48 h-64 bg-secondary rounded-lg shadow-hover overflow-hidden z-20"
-                >
-                  <Image 
-                    src={heroImage1.imageUrl} 
-                    alt={heroImage1.description}
-                    data-ai-hint={heroImage1.imageHint}
-                    fill
-                    className="object-cover"
-                  />
-                </motion.div>
+          <div className="order-1 lg:order-2">
+             <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                className="relative aspect-square max-w-md mx-auto"
+              >
+              {heroImage && (
+                  <div className="w-full h-full bg-secondary rounded-2xl shadow-lg overflow-hidden">
+                    <Image 
+                      src={heroImage.imageUrl} 
+                      alt={heroImage.description}
+                      data-ai-hint={heroImage.imageHint}
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                  </div>
               )}
-              
-              {heroImage2 && (
-                <motion.div
-                  animate={{ y: [0, 15, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute top-20 right-0 w-44 h-60 bg-secondary rounded-lg shadow-hover overflow-hidden z-30"
-                >
-                  <Image 
-                    src={heroImage2.imageUrl} 
-                    alt={heroImage2.description}
-                    data-ai-hint={heroImage2.imageHint}
-                    fill
-                    className="w-full h-full object-cover"
-                  />
-                </motion.div>
-              )}
-              
-              {heroImage3 && (
-                <motion.div
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  className="absolute bottom-10 left-10 w-40 h-56 bg-secondary rounded-lg shadow-hover overflow-hidden z-10"
-                >
-                  <Image 
-                    src={heroImage3.imageUrl} 
-                    alt={heroImage3.description}
-                    data-ai-hint={heroImage3.imageHint}
-                    fill
-                    className="w-full h-full object-cover"
-                  />
-                </motion.div>
-              )}
-              
-              {/* Decorative Circle */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-72 h-72 rounded-full border-2 border-dashed border-border opacity-50" />
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
