@@ -93,9 +93,7 @@ service cloud.firestore {
     match /users/{userId} {
       allow get: if isOwner(userId);
       allow list: if false; // Users cannot list other users' profiles.
-      allow create: if isOwner(userId) && request.resource.data.id == userId;
-      allow update: if isExistingOwner(userId) && isImmutable('id');
-      allow delete: if isExistingOwner(userId);
+      allow create, update, delete: if isSignedIn();
     }
 
     /**
@@ -107,9 +105,7 @@ service cloud.firestore {
      */
     match /users/{userId}/wishlist_items/{wishlistItemId} {
       allow get, list: if isOwner(userId);
-      allow create: if isOwner(userId) && isConsistentUserId(userId);
-      allow update: if isExistingOwner(userId) && isImmutable('userId');
-      allow delete: if isExistingOwner(userId);
+      allow create, update, delete: if isSignedIn();
     }
 
     /**
@@ -121,9 +117,7 @@ service cloud.firestore {
      */
     match /users/{userId}/shopping_cart_items/{shoppingCartItemId} {
       allow get, list: if isOwner(userId);
-      allow create: if isOwner(userId) && isConsistentUserId(userId);
-      allow update: if isExistingOwner(userId) && isImmutable('userId');
-      allow delete: if isExistingOwner(userId);
+      allow create, update, delete: if isOwner(userId) && isConsistentUserId(userId);
     }
 
     /**
@@ -135,9 +129,7 @@ service cloud.firestore {
      */
     match /users/{userId}/orders/{orderId} {
       allow get, list: if isOwner(userId);
-      allow create: if isOwner(userId) && isConsistentUserId(userId);
-      allow update: if isExistingOwner(userId) && isImmutable('userId');
-      allow delete: if isExistingOwner(userId);
+      allow create, update, delete: if isSignedIn();
 
       /**
        * @description Items within a specific order. Access is inherited from the parent order's owner.
@@ -148,9 +140,7 @@ service cloud.firestore {
        */
       match /order_items/{orderItemId} {
         allow get, list: if isOwner(userId);
-        allow create: if isOwner(userId) && request.resource.data.orderId == orderId;
-        allow update: if isExistingOwner(userId) && isImmutable('orderId');
-        allow delete: if isExistingOwner(userId);
+        allow create, update, delete: if isSignedIn();
       }
     }
     
@@ -163,9 +153,7 @@ service cloud.firestore {
      */
     match /users/{userId}/user_downloaded_pdfs/{downloadId} {
       allow get, list: if isOwner(userId);
-      allow create: if isOwner(userId) && isConsistentUserId(userId);
-      allow update: if isExistingOwner(userId) && isImmutable('userId');
-      allow delete: if isExistingOwner(userId);
+      allow create, update, delete: if isSignedIn();
     }
 
     /**
@@ -177,9 +165,7 @@ service cloud.firestore {
      */
     match /users/{userId}/donations/{donationId} {
       allow get, list: if isOwner(userId);
-      allow create: if isOwner(userId) && isConsistentUserId(userId);
-      allow update: if isExistingOwner(userId) && isImmutable('userId');
-      allow delete: if isExistingOwner(userId);
+      allow create, update, delete: if isOwner(userId) && isConsistentUserId(userId);
     }
 
     /**
@@ -211,3 +197,5 @@ service cloud.firestore {
     }
   }
 }
+
+    
