@@ -84,7 +84,7 @@ const HeroSection = () => {
             >
               {[
                 { value: "1000+", label: "Books Available" },
-                { value: "5K+", label: "Happy Readers" },
+                { value: "100+", label: "Happy Readers" },
                 { value: "2K+", label: "Books Donated" },
               ].map((stat, index) => (
                 <div key={index}>
