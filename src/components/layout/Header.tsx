@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -11,16 +12,26 @@ import {
   Heart,
   Search,
   BookOpen,
-  Users,
   LogOut,
   User,
+  ChevronDown
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+  DropdownMenuLabel,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useCart } from "@/context/AppProvider";
 import { useWishlist } from "@/context/WishlistContext";
 import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
+import { Separator } from "@/components/ui/separator";
 
 const navLinks = [
   { name: "Explore", href: "/books" },
@@ -48,6 +59,8 @@ export function Header() {
     await signOut();
     router.push("/");
   };
+  
+  const userInitial = user?.displayName?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U';
 
 
   return (
@@ -142,11 +155,40 @@ export function Header() {
               </Button>
             </Link>
             
+            <Separator orientation="vertical" className="h-6" />
+
             {!isUserLoading && (
               user ? (
-                <Button onClick={handleSignOut} variant="secondary" size="sm" className="rounded-full px-5">
-                   Sign Out
-                 </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="flex items-center gap-2 rounded-full">
+                      <Avatar className="w-8 h-8">
+                        <AvatarImage src={user.photoURL ?? ''} alt={user.displayName ?? ''} />
+                        <AvatarFallback>{userInitial}</AvatarFallback>
+                      </Avatar>
+                       <span className="hidden md:inline">{user.displayName}</span>
+                       <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <DropdownMenuLabel>
+                        <p className="font-semibold">{user.displayName}</p>
+                        <p className="text-xs text-muted-foreground font-normal">{user.email}</p>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                        <Link href="/profile">
+                          <User className="mr-2" />
+                          <span>Profile</span>
+                        </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleSignOut} className="text-destructive">
+                      <LogOut className="mr-2" />
+                      <span>Sign Out</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
              ) : (
                  <Button asChild variant="default" size="sm" className="rounded-full px-5">
                    <Link href="/auth">Sign In</Link>
@@ -195,9 +237,10 @@ export function Header() {
                  {user && (
                   <div className="px-4 pb-4 mb-2 border-b border-border">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-foreground text-background flex items-center justify-center text-lg font-semibold">
-                        {user.displayName?.charAt(0) || 'U'}
-                      </div>
+                      <Avatar className="w-10 h-10">
+                        <AvatarImage src={user.photoURL ?? ''} alt={user.displayName ?? ''} />
+                        <AvatarFallback>{userInitial}</AvatarFallback>
+                      </Avatar>
                       <div>
                         <p className="font-medium">{user.displayName}</p>
                       </div>
@@ -267,7 +310,7 @@ export function Header() {
                   ) : (
                       <Button asChild variant="default" className="w-full justify-start gap-3">
                         <Link href="/auth" onClick={() => setIsOpen(false)}>
-                          <Users className="w-4 h-4" />
+                          <User className="w-4 h-4" />
                           Sign In
                         </Link>
                       </Button>

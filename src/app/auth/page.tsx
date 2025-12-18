@@ -92,9 +92,7 @@ export default function AuthPage() {
       toast.success("Account created successfully!", {
         description: "Please check your email to verify your account.",
       });
-      // After sign-up, switch to sign-in tab and pre-fill email
-      setActiveTab("signin");
-      signInForm.setValue("email", values.email);
+      router.push('/');
     } catch (error: any) {
       toast.error("Sign Up Failed", { description: error.message });
     } finally {
@@ -338,5 +336,3 @@ export default function AuthPage() {
     </div>
   );
 }
-
-    

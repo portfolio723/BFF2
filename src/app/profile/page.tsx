@@ -27,6 +27,7 @@ import {
   Edit,
   Trash2,
   Database,
+  Phone,
 } from "lucide-react";
 import type { Address } from "@/lib/types";
 import { useAddress } from "@/context/AddressContext";
@@ -77,8 +78,12 @@ export default function ProfilePage() {
   const handleSeedDb = async () => {
     setIsSeeding(true);
     try {
-        await seedDatabase(firestore);
-        toast.success("Database seeded successfully!");
+        if (firestore) {
+            await seedDatabase(firestore);
+            toast.success("Database seeded successfully!");
+        } else {
+            toast.error("Firestore is not initialized.");
+        }
     } catch (error: any) {
         toast.error("Database seeding failed", {
             description: error.message
@@ -161,7 +166,7 @@ export default function ProfilePage() {
                 <CardDescription>Actions for development.</CardDescription>
             </CardHeader>
             <CardContent>
-                <Button onClick={handleSeedDb} disabled={isSeeding} className="w-full">
+                <Button onClick={handleSeedDb} disabled={isSeeding || !firestore} className="w-full">
                     {isSeeding ? <Loader2 className="animate-spin mr-2" /> : <Database className="mr-2"/>}
                     {isSeeding ? "Seeding..." : "Seed Database"}
                 </Button>
@@ -190,6 +195,13 @@ export default function ProfilePage() {
                 <div>
                   <p className="text-sm text-muted-foreground">Email Address</p>
                   <p className="font-medium">{user.email}</p>
+                </div>
+              </div>
+              <div className="flex items-center">
+                <Phone className="h-5 w-5 mr-3 text-muted-foreground" />
+                <div>
+                  <p className="text-sm text-muted-foreground">Phone Number</p>
+                  <p className="font-medium">{user.phoneNumber || "Not provided"}</p>
                 </div>
               </div>
             </CardContent>
