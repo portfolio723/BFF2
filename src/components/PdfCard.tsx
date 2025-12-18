@@ -1,11 +1,14 @@
+
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import type { Pdf } from "@/lib/types";
 import { Button } from "@/components/ui/button";
-import { Download } from "lucide-react";
+import { Download, LogIn } from "lucide-react";
 import { motion } from "framer-motion";
+import { useAuth } from "@/context/AuthContext";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface PdfCardProps {
   pdf: Pdf;
@@ -13,6 +16,8 @@ interface PdfCardProps {
 
 export function PdfCard({ pdf }: PdfCardProps) {
   const { id, title, author, coverImage, category, downloadUrl } = pdf;
+  const { user } = useAuth();
+  const pathname = usePathname();
 
   return (
     <motion.div
@@ -43,15 +48,28 @@ export function PdfCard({ pdf }: PdfCardProps) {
           by {author}
         </p>
         <div className="mt-4">
-          <Button
-            asChild
-            className="w-full rounded-full"
-          >
-            <a href={downloadUrl} download>
-              <Download className="w-4 h-4 mr-2"/>
-              Download PDF
-            </a>
-          </Button>
+          {user ? (
+            <Button
+              asChild
+              className="w-full rounded-full"
+            >
+              <a href={downloadUrl} download>
+                <Download className="w-4 h-4 mr-2"/>
+                Download PDF
+              </a>
+            </Button>
+          ) : (
+             <Button
+              asChild
+              className="w-full rounded-full"
+              variant="secondary"
+            >
+              <Link href={`/auth?redirect=${pathname}`}>
+                <LogIn className="w-4 h-4 mr-2"/>
+                Sign in to Download
+              </Link>
+            </Button>
+          )}
         </div>
       </div>
     </motion.div>
