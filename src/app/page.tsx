@@ -164,7 +164,7 @@ const CategoriesSection = () => {
                 transition={{ delay: index * 0.05 }}
               >
                 <Link 
-                  href={`/books?category=${category.name.toLowerCase()}`}
+                  href={`/genre/${category.name.toLowerCase().replace(/ /g, '-')}`}
                   className="group block relative aspect-[4/5] rounded-xl overflow-hidden"
                 >
                   <Image 
