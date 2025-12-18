@@ -23,7 +23,7 @@ const HeroSection = () => {
       <div className="container-custom relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Content */}
-          <div className="lg:order-1">
+          <div className="lg:order-1 text-center lg:text-left">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -49,7 +49,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-6 text-lg text-muted-foreground max-w-lg"
+              className="mt-6 text-lg text-muted-foreground max-w-lg mx-auto lg:mx-0"
             >
               Join our community of book lovers. Rent books for just delivery charges, 
               buy at affordable prices, or donate to make knowledge accessible to all.
@@ -59,7 +59,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="mt-8 flex flex-wrap gap-4"
+              className="mt-8 flex flex-wrap gap-4 justify-center lg:justify-start"
             >
               <Button asChild size="lg" className="rounded-full px-8 gap-2 group">
                 <Link href="/books">
@@ -83,7 +83,7 @@ const HeroSection = () => {
               className="mt-12 grid grid-cols-3 gap-6"
             >
               {[
-                { value: "10K+", label: "Books Available" },
+                { value: "1000+", label: "Books Available" },
                 { value: "5K+", label: "Happy Readers" },
                 { value: "2K+", label: "Books Donated" },
               ].map((stat, index) => (
@@ -96,12 +96,12 @@ const HeroSection = () => {
           </div>
           
           {/* Hero Image */}
-          <div className="lg:order-2">
+          <div className="lg:order-2 mt-12 lg:mt-0">
              <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                className="relative aspect-square max-w-md mx-auto"
+                className="relative aspect-[4/5] max-w-md mx-auto"
               >
               {heroImage && (
                   <div className="w-full h-full bg-secondary rounded-2xl shadow-lg overflow-hidden">
