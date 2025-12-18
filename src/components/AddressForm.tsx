@@ -17,7 +17,8 @@ import {
 } from "@/components/ui/select";
 import { useAddress } from "@/context/AddressContext";
 import type { Address } from "@/lib/types";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Loader2 } from "lucide-react";
 
 const indianStates = [
   "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
@@ -48,6 +49,8 @@ interface AddressFormProps {
 
 export function AddressForm({ onSave, existingAddress }: AddressFormProps) {
   const { addAddress, updateAddress } = useAddress();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const {
     register,
     handleSubmit,
@@ -87,16 +90,23 @@ export function AddressForm({ onSave, existingAddress }: AddressFormProps) {
     }
   }, [existingAddress, reset]);
 
-  const onSubmit = (data: AddressFormValues) => {
-    if (existingAddress) {
-      const updatedAddress = { ...existingAddress, ...data };
-      updateAddress(updatedAddress);
-      onSave(updatedAddress);
-    } else {
-      const newAddress = addAddress(data);
-      onSave(newAddress);
+  const onSubmit = async (data: AddressFormValues) => {
+    setIsSubmitting(true);
+    try {
+      if (existingAddress) {
+        const updatedAddress = { ...existingAddress, ...data };
+        await updateAddress(updatedAddress);
+        onSave(updatedAddress);
+      } else {
+        const newAddress = await addAddress(data);
+        onSave(newAddress);
+      }
+      reset();
+    } catch (error) {
+      console.error("Failed to save address", error);
+    } finally {
+      setIsSubmitting(false);
     }
-    reset();
   };
 
   return (
@@ -194,9 +204,10 @@ export function AddressForm({ onSave, existingAddress }: AddressFormProps) {
         </div>
       </div>
 
-      <Button type="submit" className="w-full">{existingAddress ? 'Save Changes' : 'Save Address'}</Button>
+      <Button type="submit" className="w-full" disabled={isSubmitting}>
+        {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+        {existingAddress ? 'Save Changes' : 'Save Address'}
+      </Button>
     </form>
   );
 }
-
-    

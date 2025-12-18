@@ -20,7 +20,6 @@ import {
   ChevronRight,
   MapPin,
   CreditCard,
-  Truck,
   Check,
   Phone,
   Mail,
@@ -38,6 +37,10 @@ import { useAddress } from "@/context/AddressContext";
 import Image from "next/image";
 import { AddressForm } from "@/components/AddressForm";
 import type { Address } from "@/lib/types";
+import { useAuth } from "@/context/AuthContext";
+import { useFirestore } from "@/firebase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { toast } from "sonner";
 
 const steps = [
   { id: 1, name: "Address", icon: MapPin },
@@ -47,39 +50,84 @@ const steps = [
 
 export default function CheckoutPage() {
   const router = useRouter();
+  const { user, isUserLoading } = useAuth();
+  const firestore = useFirestore();
   const { items, getSubtotal, getDeliveryCharge, getTotal, clearCart, loading: cartLoading } = useCart();
-  const { addresses } = useAddress();
+  const { addresses, loading: addressLoading } = useAddress();
 
   const [currentStep, setCurrentStep] = useState(1);
   const [paymentMethod, setPaymentMethod] = useState("upi");
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [orderId, setOrderId] = useState<string | null>(null);
   const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
   const [showNewAddressForm, setShowNewAddressForm] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
-    if(addresses.length > 0) {
+  }, []);
+
+  useEffect(() => {
+    if (!isUserLoading && !user) {
+      router.push('/auth?redirect=/checkout');
+    }
+  }, [user, isUserLoading, router]);
+
+  useEffect(() => {
+    if (addresses.length > 0 && !selectedAddress) {
       setSelectedAddress(addresses[0]);
     }
-  }, [addresses]);
+    if (addresses.length === 0) {
+      setShowNewAddressForm(true);
+    }
+  }, [addresses, selectedAddress]);
 
   const subtotal = getSubtotal();
   const delivery = getDeliveryCharge();
   const total = getTotal();
 
-  const handlePlaceOrder = () => {
-    if (!selectedAddress) {
-      // Maybe show a toast message
+  const handlePlaceOrder = async () => {
+    if (!selectedAddress || !user || !firestore) {
+      toast.error("An error occurred. Please try again.");
       return;
     }
     setIsProcessing(true);
-    setTimeout(() => {
+    try {
+      const orderData = {
+        userId: user.uid,
+        orderDate: serverTimestamp(),
+        totalAmount: total,
+        status: 'Pending',
+        deliveryAddress: selectedAddress,
+        items: items.map(item => ({
+          id: item.id,
+          bookId: item.id,
+          title: item.title,
+          author: item.author.name,
+          coverImage: item.coverImage.url,
+          quantity: item.quantity,
+          price: item.type === 'rent' ? item.rentalPrice : item.price,
+          type: item.type,
+        })),
+      };
+
+      const docRef = await addDoc(collection(firestore, 'users', user.uid, 'orders'), orderData);
+      
+      // In a real app, you would initiate Razorpay payment here
+      // and only proceed if payment is successful.
+      
+      setOrderId(docRef.id);
       setIsProcessing(false);
       setOrderPlaced(true);
       clearCart();
-    }, 2000);
+
+    } catch (error: any) {
+      setIsProcessing(false);
+      toast.error("Failed to place order", {
+        description: error.message || "Please check your connection and try again.",
+      });
+    }
   };
   
   const handleAddressSelect = (addressId: string) => {
@@ -94,12 +142,22 @@ export default function CheckoutPage() {
     setShowNewAddressForm(false);
   }
 
-  if (!isMounted || cartLoading) {
+  const isLoading = !isMounted || cartLoading || addressLoading || isUserLoading;
+
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-[60vh]">
         <Loader2 className="h-8 w-8 animate-spin" />
       </div>
     );
+  }
+  
+  if (!user) {
+    return (
+      <div className="flex justify-center items-center min-h-[60vh]">
+        <p>Redirecting to login...</p>
+      </div>
+    )
   }
 
   if (items.length === 0 && !orderPlaced) {
@@ -157,7 +215,7 @@ export default function CheckoutPage() {
                 Thank you for your order. Your order ID is:
               </p>
               <p className="font-mono text-xl font-semibold mb-8">
-                #BFF{Date.now().toString().slice(-8)}
+                #{orderId}
               </p>
               
               <div className="bg-secondary/50 rounded-xl p-6 mb-8 text-left">
@@ -275,29 +333,31 @@ export default function CheckoutPage() {
                 >
                   <h2 className="font-heading text-xl font-semibold mb-6">Select Delivery Address</h2>
                   
-                  <RadioGroup value={selectedAddress?.id} onValueChange={handleAddressSelect} className="space-y-4 mb-6">
-                    {addresses.map(address => (
-                      <div key={address.id} className={cn(
-                        "flex items-start gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all",
-                        selectedAddress?.id === address.id ? "border-foreground bg-secondary" : "border-border"
-                      )}>
-                        <RadioGroupItem value={address.id} id={address.id} className="mt-1"/>
-                        <Label htmlFor={address.id} className="flex-1 cursor-pointer">
-                            <div className="flex items-center gap-2 font-medium">
-                                {address.type === 'Home' && <Home className="w-4 h-4"/>}
-                                {address.type === 'Work' && <Briefcase className="w-4 h-4"/>}
-                                {address.firstName} {address.lastName}
-                                <Badge variant="outline" className="text-xs">{address.type}</Badge>
-                            </div>
-                            <div className="text-sm text-muted-foreground mt-1">
-                                <p>{address.address}, {address.address2}</p>
-                                <p>{address.city}, {address.state} - {address.pincode}</p>
-                                <p>Phone: {address.phone}</p>
-                            </div>
-                        </Label>
-                      </div>
-                    ))}
-                  </RadioGroup>
+                  {addresses.length > 0 && (
+                    <RadioGroup value={selectedAddress?.id} onValueChange={handleAddressSelect} className="space-y-4 mb-6">
+                      {addresses.map(address => (
+                        <div key={address.id} className={cn(
+                          "flex items-start gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all",
+                          selectedAddress?.id === address.id ? "border-foreground bg-secondary" : "border-border"
+                        )}>
+                          <RadioGroupItem value={address.id} id={address.id} className="mt-1"/>
+                          <Label htmlFor={address.id} className="flex-1 cursor-pointer">
+                              <div className="flex items-center gap-2 font-medium">
+                                  {address.type === 'Home' && <Home className="w-4 h-4"/>}
+                                  {address.type === 'Work' && <Briefcase className="w-4 h-4"/>}
+                                  {address.firstName} {address.lastName}
+                                  <Badge variant="outline" className="text-xs">{address.type}</Badge>
+                              </div>
+                              <div className="text-sm text-muted-foreground mt-1">
+                                  <p>{address.address}, {address.address2}</p>
+                                  <p>{address.city}, {address.state} - {address.pincode}</p>
+                                  <p>Phone: {address.phone}</p>
+                              </div>
+                          </Label>
+                        </div>
+                      ))}
+                    </RadioGroup>
+                  )}
 
                    <motion.div>
                     <Button variant="outline" onClick={() => setShowNewAddressForm(!showNewAddressForm)} className="w-full">
@@ -351,7 +411,7 @@ export default function CheckoutPage() {
                     )}>
                       <RadioGroupItem value="upi" id="upi" />
                       <Label htmlFor="upi" className="flex-1 cursor-pointer">
-                        <div className="font-medium">UPI</div>
+                        <div className="font-medium">UPI / Razorpay</div>
                         <div className="text-sm text-muted-foreground">Pay using GPay, PhonePe, Paytm, etc.</div>
                       </Label>
                     </div>
@@ -465,8 +525,8 @@ export default function CheckoutPage() {
                             />
                             <div className="flex-1">
                               <p className="font-medium line-clamp-1">{item.title}</p>
-                              <p className="text-sm text-muted-foreground">
-                                {item.type === "rent" ? "Rent" : "Buy"}
+                              <p className="text-sm text-muted-foreground capitalize">
+                                {item.type}
                               </p>
                             </div>
                             <p className="font-semibold">
@@ -493,7 +553,7 @@ export default function CheckoutPage() {
                       onClick={handlePlaceOrder}
                       disabled={isProcessing}
                     >
-                      {isProcessing ? "Processing..." : "Place Order"}
+                      {isProcessing ? <Loader2 className="animate-spin" /> : `Pay ₹${total.toFixed(2)}`}
                     </Button>
                   </div>
                 </motion.div>
@@ -511,7 +571,7 @@ export default function CheckoutPage() {
             <div className="bg-card border border-border rounded-2xl p-6 sticky top-24">
               <h3 className="font-heading text-lg font-semibold mb-6">Order Summary</h3>
               
-              <div className="space-y-3 mb-6">
+              <div className="space-y-3 mb-6 max-h-60 overflow-y-auto">
                 {items.map((item) => (
                   <div key={`${item.id}-${item.type}`} className="flex gap-3">
                     <Image 
@@ -523,8 +583,8 @@ export default function CheckoutPage() {
                     />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium line-clamp-1">{item.title}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {item.type === "rent" ? "Rent" : "Buy"}
+                      <p className="text-xs text-muted-foreground capitalize">
+                        {item.type}
                       </p>
                     </div>
                     <p className="text-sm font-medium">

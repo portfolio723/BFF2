@@ -100,8 +100,7 @@ export type WishlistItem = {
   id: string;
   userId: string;
   bookId: string;
-  addedDate: string; 
-  // You can include book details here if you denormalize
+  addedDate: any; 
   bookTitle: string;
   bookAuthor: string;
   bookCoverImage: string;
@@ -121,7 +120,7 @@ export type OrderItem = {
 export type Order = {
   id: string;
   userId: string;
-  orderDate: string; // ISO string
+  orderDate: any; 
   totalAmount: number;
   status: 'Pending' | 'Shipped' | 'Delivered' | 'Cancelled';
   items: OrderItem[];
@@ -133,5 +132,5 @@ export type UserDownloadedPdf = {
   userId: string;
   pdfId: string;
   pdfTitle: string;
-  downloadDate: string; // ISO string
+  downloadDate: any;
 };

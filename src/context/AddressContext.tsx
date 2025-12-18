@@ -3,73 +3,70 @@
 
 import React, { createContext, useState, useContext, useEffect, ReactNode } from "react";
 import type { Address } from "@/lib/types";
-import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "./AuthContext";
+import { useFirestore, useCollection, useMemoFirebase } from "@/firebase";
+import { collection, addDoc, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { toast } from "sonner";
+
 
 interface AddressContextType {
   addresses: Address[];
-  addAddress: (address: Omit<Address, 'id'>) => Address;
-  updateAddress: (address: Address) => void;
-  removeAddress: (id: string) => void;
+  addAddress: (address: Omit<Address, 'id'>) => Promise<Address>;
+  updateAddress: (address: Address) => Promise<void>;
+  removeAddress: (id: string) => Promise<void>;
   getAddress: (id: string) => Address | undefined;
+  loading: boolean;
 }
 
 const AddressContext = createContext<AddressContextType | undefined>(undefined);
 
-const ADDRESS_STORAGE_KEY = "hyderabad-reads-addresses";
-
 export const AddressProvider = ({ children }: { children: ReactNode }) => {
-  const { toast } = useToast();
+  const { user } = useAuth();
+  const firestore = useFirestore();
+
+  const addressesRef = useMemoFirebase(
+    () => (firestore && user ? collection(firestore, 'users', user.uid, 'addresses') : null),
+    [firestore, user]
+  );
   
-  const [addresses, setAddresses] = useState<Address[]>(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem(ADDRESS_STORAGE_KEY);
-      // Sample address for demo
-      const sampleAddress = {
-          id: '1',
-          type: 'Home' as const,
-          firstName: 'John',
-          lastName: 'Doe',
-          address: '123, Jubilee Hills',
-          city: 'Hyderabad',
-          state: 'Telangana',
-          pincode: '500033',
-          phone: '9876543210'
-      };
-      return stored ? JSON.parse(stored) : [sampleAddress];
-    }
-    return [];
-  });
+  const { data: addresses, isLoading } = useCollection<Address>(addressesRef);
 
-  useEffect(() => {
-    localStorage.setItem(ADDRESS_STORAGE_KEY, JSON.stringify(addresses));
-  }, [addresses]);
-
-  const addAddress = (addressData: Omit<Address, 'id'>): Address => {
-    const newAddress = { ...addressData, id: crypto.randomUUID() };
-    setAddresses((prev) => [...prev, newAddress]);
+  const addAddress = async (addressData: Omit<Address, 'id'>): Promise<Address> => {
+    if (!addressesRef) throw new Error("Addresses collection not available.");
+    const docRef = await addDoc(addressesRef, addressData);
+    const newAddress = { ...addressData, id: docRef.id };
     toast({ title: "Address added successfully!" });
     return newAddress;
   };
 
-  const updateAddress = (updatedAddress: Address) => {
-    setAddresses((prev) => 
-      prev.map(addr => addr.id === updatedAddress.id ? updatedAddress : addr)
-    );
+  const updateAddress = async (updatedAddress: Address) => {
+    if (!firestore || !user) return;
+    const addressDoc = doc(firestore, 'users', user.uid, 'addresses', updatedAddress.id);
+    await updateDoc(addressDoc, updatedAddress);
     toast({ title: "Address updated successfully!" });
   };
 
-  const removeAddress = (id: string) => {
-    setAddresses((prev) => prev.filter(addr => addr.id !== id));
+  const removeAddress = async (id: string) => {
+    if (!firestore || !user) return;
+    const addressDoc = doc(firestore, 'users', user.uid, 'addresses', id);
+    await deleteDoc(addressDoc);
     toast({ title: "Address removed." });
   };
   
   const getAddress = (id: string) => {
-    return addresses.find(addr => addr.id === id);
+    return addresses?.find(addr => addr.id === id);
   }
 
   return (
     <AddressContext.Provider
-      value={{ addresses, addAddress, updateAddress, removeAddress, getAddress }}
+      value={{ 
+        addresses: addresses || [], 
+        addAddress, 
+        updateAddress, 
+        removeAddress, 
+        getAddress,
+        loading: isLoading 
+      }}
     >
       {children}
     </AddressContext.Provider>
@@ -83,5 +80,3 @@ export const useAddress = () => {
   }
   return context;
 };
-
-    

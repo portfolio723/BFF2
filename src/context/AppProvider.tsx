@@ -37,8 +37,13 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   
   const [cart, setCart] = useState<CartItem[]>(() => {
     if (typeof window !== "undefined") {
-      const stored = localStorage.getItem(CART_STORAGE_KEY);
-      return stored ? JSON.parse(stored) : [];
+      try {
+        const stored = localStorage.getItem(CART_STORAGE_KEY);
+        return stored ? JSON.parse(stored) : [];
+      } catch (error) {
+        console.error("Failed to parse cart from localStorage", error);
+        return [];
+      }
     }
     return [];
   });
@@ -46,7 +51,11 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    try {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    } catch (error) {
+      console.error("Failed to save cart to localStorage", error);
+    }
     setLoading(false);
   }, [cart]);
 
@@ -165,5 +174,3 @@ export const useStore = () => {
     }
     return context;
 }
-
-    
