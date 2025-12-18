@@ -42,7 +42,7 @@ const passwordValidation = new RegExp(
 const signUpSchema = z.object({
   fullName: z.string().min(1, "Full name is required."),
   email: z.string().email("Invalid email address."),
-  phoneNumber: z.string().min(10, "Phone number must be at least 10 digits."),
+  phoneNumber: z.string().length(10, "Phone number must be 10 digits."),
   password: z.string().refine((val) => passwordValidation.test(val), {
     message: "Password must be at least 8 characters long and contain an uppercase letter, a lowercase letter, a number, and a special character.",
   }),
@@ -100,9 +100,10 @@ export default function AuthForm() {
   const handleSignUp = async (values: z.infer<typeof signUpSchema>) => {
     setLoading(true);
     try {
+      const fullPhoneNumber = `+91${values.phoneNumber}`;
       await signUp(values.email, values.password, {
         displayName: values.fullName,
-        phoneNumber: values.phoneNumber,
+        phoneNumber: fullPhoneNumber,
       });
       toast.success("Account created successfully!", {
         description: "Please check your email to verify your account.",
@@ -283,9 +284,16 @@ export default function AuthForm() {
                             <FormItem>
                               <FormLabel>Phone Number</FormLabel>
                               <FormControl>
-                                <div className="relative">
-                                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                                  <Input placeholder="+91 98765 43210" {...field} type="tel" className="pl-10"/>
+                                <div className="flex items-center">
+                                  <div className="flex items-center justify-center h-10 px-3 rounded-l-md border border-r-0 border-input bg-secondary">
+                                      <span className="text-sm font-medium text-muted-foreground">+91</span>
+                                  </div>
+                                  <Input 
+                                      {...field}
+                                      type="tel" 
+                                      placeholder="98765 43210" 
+                                      className="rounded-l-none"
+                                  />
                                 </div>
                               </FormControl>
                               <FormMessage />
