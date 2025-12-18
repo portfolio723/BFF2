@@ -24,12 +24,8 @@ export default function BookDetailPage() {
   const id = params.id as string;
   
   const firestore = useFirestore();
-  const bookRef = useMemoFirebase(() => doc(firestore, 'books', id), [firestore, id]);
+  const bookRef = useMemoFirebase(() => firestore ? doc(firestore, 'books', id) : null, [firestore, id]);
   const { data: book, isLoading: isBookLoading } = useDoc<Book>(bookRef);
-
-  // For related books, we'll just use the mock data for now.
-  // A proper implementation would fetch this from Firestore based on genre.
-  const [relatedBooks, setRelatedBooks] = useState<Book[]>([]);
 
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
@@ -133,7 +129,7 @@ export default function BookDetailPage() {
              transition={{ duration: 0.5, delay: 0.1 }}
              className="flex flex-col"
           >
-              <Badge variant="secondary" className="mb-3 w-fit">{book?.genre.name}</Badge>
+              {book?.genre?.name && <Badge variant="secondary" className="mb-3 w-fit">{book?.genre.name}</Badge>}
               <h1 className="font-heading text-3xl lg:text-4xl xl:text-5xl font-semibold">
                 {book?.title}
               </h1>
@@ -249,26 +245,8 @@ export default function BookDetailPage() {
                 </TabsContent>
             </Tabs>
         </div>
-        
-        {/* Related Books */}
-        {relatedBooks.length > 0 && (
-            <div className="mt-20 lg:mt-28">
-                <div className="flex justify-between items-center mb-8">
-                    <h2 className="font-heading text-2xl lg:text-3xl font-semibold">
-                        You May Also Like
-                    </h2>
-                    <Link href="/books">
-                        <Button variant="ghost">View All <ChevronRight className="w-4 h-4 ml-1" /></Button>
-                    </Link>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
-                    {relatedBooks.map((relatedBook) => (
-                       <BookCard key={relatedBook.id} book={relatedBook} />
-                    ))}
-                </div>
-            </div>
-        )}
       </div>
     </section>
   );
 }
+
