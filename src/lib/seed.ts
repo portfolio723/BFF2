@@ -79,6 +79,7 @@ export async function seedDatabase(db: Firestore) {
   const downloadedPdf = mockPdfs[0];
   const downloadedPdfRef = doc(downloadedPdfsCollection);
   batch.set(downloadedPdfRef, {
+      id: downloadedPdfRef.id,
       userId: DUMMY_USER_ID,
       pdfId: downloadedPdf.id,
       pdfTitle: downloadedPdf.title,
@@ -115,7 +116,7 @@ export async function seedDatabase(db: Firestore) {
           author: orderBook2.author.name,
           coverImage: orderBook2.coverImage.url,
           quantity: 1,
-          price: orderBook2.rentalPrice,
+          price: orderBook2.rentalPrice ?? null,
           type: 'rent'
         }
       ]
