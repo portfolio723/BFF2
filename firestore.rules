@@ -153,6 +153,20 @@ service cloud.firestore {
         allow delete: if isExistingOwner(userId);
       }
     }
+    
+     /**
+     * @description User's private downloaded PDFs history. Only the owner can manage their downloaded PDFs.
+     * @path /users/{userId}/user_downloaded_pdfs/{downloadId}
+     * @allow (create) A user can create a download record for themselves.
+     * @deny (get) User `user_abc` cannot view a download record from `user_xyz`.
+     * @principle Enforces document ownership within a user's private data subcollection.
+     */
+    match /users/{userId}/user_downloaded_pdfs/{downloadId} {
+      allow get, list: if isOwner(userId);
+      allow create: if isOwner(userId) && isConsistentUserId(userId);
+      allow update: if isExistingOwner(userId) && isImmutable('userId');
+      allow delete: if isExistingOwner(userId);
+    }
 
     /**
      * @description User's private donation history. Only the owner can manage their donations.

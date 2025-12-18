@@ -36,7 +36,7 @@ export type FirestoreBook = {
   authorName: string;
   genreId: string;
   genreName: string;
-  rentalPrice?: number;
+  rentalPrice: number | null;
 }
 
 export type CommunityPost = {
@@ -94,4 +94,44 @@ export type Pdf = {
     hint: string;
   };
   downloadUrl: string;
+};
+
+export type WishlistItem = {
+  id: string;
+  userId: string;
+  bookId: string;
+  addedDate: string; 
+  // You can include book details here if you denormalize
+  bookTitle: string;
+  bookAuthor: string;
+  bookCoverImage: string;
+};
+
+export type OrderItem = {
+  id: string;
+  bookId: string;
+  title: string;
+  author: string;
+  coverImage: string;
+  quantity: number;
+  price: number;
+  type: 'rent' | 'buy';
+};
+
+export type Order = {
+  id: string;
+  userId: string;
+  orderDate: string; // ISO string
+  totalAmount: number;
+  status: 'Pending' | 'Shipped' | 'Delivered' | 'Cancelled';
+  items: OrderItem[];
+  deliveryAddress: Address;
+};
+
+export type UserDownloadedPdf = {
+  id: string;
+  userId: string;
+  pdfId: string;
+  pdfTitle: string;
+  downloadDate: string; // ISO string
 };

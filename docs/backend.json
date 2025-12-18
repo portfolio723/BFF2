@@ -381,6 +381,42 @@
         "commentDate",
         "commentText"
       ]
+    },
+    "UserDownloadedPdf": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserDownloadedPdf",
+      "type": "object",
+      "description": "Represents a PDF that a user has downloaded.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the download record."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to the User."
+        },
+        "pdfId": {
+          "type": "string",
+          "description": "Reference to the PDF."
+        },
+        "pdfTitle": {
+          "type": "string",
+          "description": "The title of the downloaded PDF."
+        },
+        "downloadDate": {
+          "type": "string",
+          "description": "The date the PDF was downloaded.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "pdfId",
+        "pdfTitle",
+        "downloadDate"
+      ]
     }
   },
   "auth": {
@@ -528,6 +564,26 @@
         }
       },
       {
+        "path": "/users/{userId}/user_downloaded_pdfs/{downloadId}",
+        "definition": {
+          "entityName": "UserDownloadedPdf",
+          "schema": {
+            "$ref": "#/backend/entities/UserDownloadedPdf"
+          },
+          "description": "Stores records of PDFs downloaded by a specific user. Only the user can read their own download history.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "downloadId",
+              "description": "The unique identifier for the download record."
+            }
+          ]
+        }
+      },
+      {
         "path": "/community_posts/{postId}",
         "definition": {
           "entityName": "CommunityPost",
@@ -564,8 +620,6 @@
         }
       }
     ],
-    "reasoning": "The Firestore data structure is designed to support the core features of the Hyderabad Reads application, focusing on book rentals/purchases, wishlists, shopping carts, donations, and community discussions. The structure prioritizes Authorization Independence and QAPs (Rules are not Filters) via denormalization and structural segregation.\n\n**Authorization Independence:**\nPath-based ownership (`/users/{userId}/wishlist_items/{wishlistItemId}`) is employed where possible, automatically granting the user access to their own data. Collaborative data, such as CommunityPosts, relies on the user's `userId`, which can be checked against the currently authenticated user.  No `get()` calls are required in security rules for basic operations on user-owned resources.\n\n**Structural Segregation:**\nThe database separates user-specific data (wishlists, shopping carts, orders, donations) under `/users/{userId}`.  Books are stored in a top-level `/books` collection. This segregation ensures that security rules can be applied consistently and efficiently.\n\n**QAPs (Rules are not Filters):**\nListing books for browsing is handled by the `/books` collection, where rules can ensure that only 'available' books are visible. User-specific data like wishlists and shopping carts are secured under `/users/{userId}`, allowing secure list operations for each user's resources.\n\n**Global Roles (DBAC):**\nNo global roles are used at this time. All data access is managed via path-based ownership and user-specific collections."
+    "reasoning": "The Firestore data structure is designed to support the core features of the Hyderabad Reads application, focusing on book rentals/purchases, wishlists, shopping carts, donations, and community discussions. The structure prioritizes Authorization Independence and QAPs (Rules are not Filters) via denormalization and structural segregation.\n\n**Authorization Independence:**\nPath-based ownership (`/users/{userId}/wishlist_items/{wishlistItemId}`) is employed where possible, automatically granting the user access to their own data. Collaborative data, such as CommunityPosts, relies on the user's `userId`, which can be checked against the currently authenticated user.  No `get()` calls are required in security rules for basic operations on user-owned resources.\n\n**Structural Segregation:**\nThe database separates user-specific data (wishlists, shopping carts, orders, donations, downloaded PDFs) under `/users/{userId}`.  Books are stored in a top-level `/books` collection. This segregation ensures that security rules can be applied consistently and efficiently.\n\n**QAPs (Rules are not Filters):**\nListing books for browsing is handled by the `/books` collection, where rules can ensure that only 'available' books are visible. User-specific data like wishlists and shopping carts are secured under `/users/{userId}`, allowing secure list operations for each user's resources.\n\n**Global Roles (DBAC):**\nNo global roles are used at this time. All data access is managed via path-based ownership and user-specific collections."
   }
 }
-
-    

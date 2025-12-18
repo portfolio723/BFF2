@@ -28,11 +28,13 @@ import {
   Trash2,
   Database,
   Phone,
+  Heart,
+  Download,
 } from "lucide-react";
-import type { Address } from "@/lib/types";
+import type { Address, Order, WishlistItem, UserDownloadedPdf } from "@/lib/types";
 import { useAddress } from "@/context/AddressContext";
 import { useAuth } from "@/context/AuthContext";
-import { useFirestore, useDoc, useMemoFirebase } from "@/firebase";
+import { useFirestore, useDoc, useCollection, useMemoFirebase } from "@/firebase";
 import { AddressForm } from "@/components/AddressForm";
 import {
   Dialog,
@@ -43,8 +45,10 @@ import {
 } from "@/components/ui/dialog";
 import { seedDatabase } from "@/lib/seed";
 import { toast } from "sonner";
-import { doc } from 'firebase/firestore';
+import { doc, collection, query } from 'firebase/firestore';
 import type { User as AppUser } from '@/lib/types';
+import { format } from "date-fns";
+import Image from "next/image";
 
 
 const AddressIcon = ({ type }: { type: Address["type"] }) => {
@@ -70,12 +74,18 @@ export default function ProfilePage() {
   );
   const { data: userProfile, isLoading: isProfileLoading } = useDoc<AppUser>(userDocRef);
 
+  const ordersRef = useMemoFirebase(() => (firestore && authUser) ? collection(firestore, 'users', authUser.uid, 'orders') : null, [firestore, authUser]);
+  const { data: orders, isLoading: loadingOrders } = useCollection<Order>(ordersRef);
+
+  const wishlistRef = useMemoFirebase(() => (firestore && authUser) ? collection(firestore, 'users', authUser.uid, 'wishlist_items') : null, [firestore, authUser]);
+  const { data: wishlistItems, isLoading: loadingWishlist } = useCollection<WishlistItem>(wishlistRef);
+
+  const downloadsRef = useMemoFirebase(() => (firestore && authUser) ? collection(firestore, 'users', authUser.uid, 'user_downloaded_pdfs') : null, [firestore, authUser]);
+  const { data: downloadedPdfs, isLoading: loadingDownloads } = useCollection<UserDownloadedPdf>(downloadsRef);
+
+
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingAddress, setEditingAddress] = useState<Address | null>(null);
-
-  // Mock orders data
-  const [orders] = useState<any[]>([]);
-  const [loadingOrders] = useState(false);
   const [isSeeding, setIsSeeding] = useState(false);
 
   useEffect(() => {
@@ -188,7 +198,7 @@ export default function ProfilePage() {
                     {isSeeding ? "Seeding..." : "Seed Database"}
                 </Button>
                  <p className="text-xs text-muted-foreground mt-2">
-                    This will populate the 'books' collection in Firestore with initial data.
+                    This will populate the 'books' and user data in Firestore.
                  </p>
             </CardContent>
            </Card>
@@ -287,12 +297,110 @@ export default function ProfilePage() {
                   <Loader2 className="h-6 w-6 animate-spin mx-auto" />
                   <p className="mt-2">Loading orders...</p>
                 </div>
-              ) : orders.length > 0 ? (
-                <div className="space-y-4">{/* Order mapping here */}</div>
+              ) : orders && orders.length > 0 ? (
+                <div className="space-y-4">
+                  {orders.map(order => (
+                    <div key={order.id} className="border p-4 rounded-lg">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <p className="font-semibold">Order #{order.id}</p>
+                          <p className="text-sm text-muted-foreground">
+                            {format(new Date(order.orderDate), 'PPP')}
+                          </p>
+                        </div>
+                        <Badge>{order.status}</Badge>
+                      </div>
+                      <Separator className="my-3" />
+                      <div className="space-y-2">
+                        {order.items.map(item => (
+                          <div key={item.id} className="flex gap-3 text-sm">
+                            <Image src={item.coverImage} alt={item.title} width={40} height={53} className="rounded-sm" />
+                            <div className="flex-1">
+                              <p className="font-medium">{item.title}</p>
+                              <p className="text-muted-foreground capitalize">{item.type}</p>
+                            </div>
+                            <p className="font-medium">₹{item.price.toFixed(2)}</p>
+                          </div>
+                        ))}
+                      </div>
+                      <Separator className="my-3" />
+                      <div className="flex justify-end">
+                        <p className="font-semibold">Total: ₹{order.totalAmount.toFixed(2)}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               ) : (
                 <div className="text-center py-10 text-muted-foreground">
                   <Package2 className="h-8 w-8 mx-auto mb-2" />
                   <p>You have no past orders.</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+           <Card>
+            <CardHeader>
+              <CardTitle>Wishlist</CardTitle>
+              <CardDescription>Books you've saved for later.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {loadingWishlist ? (
+                <div className="text-center py-10 text-muted-foreground">
+                  <Loader2 className="h-6 w-6 animate-spin mx-auto" />
+                </div>
+              ) : wishlistItems && wishlistItems.length > 0 ? (
+                <div className="space-y-2">
+                  {wishlistItems.map(item => (
+                    <div key={item.id} className="flex gap-3 p-2 rounded-md hover:bg-secondary/50">
+                       <Image src={item.bookCoverImage} alt={item.bookTitle} width={40} height={53} className="rounded-sm" />
+                       <div className="flex-1">
+                          <p className="font-medium text-sm">{item.bookTitle}</p>
+                          <p className="text-xs text-muted-foreground">{item.bookAuthor}</p>
+                       </div>
+                       <Button variant="ghost" asChild>
+                          <Link href={`/book/${item.bookId}`}>View</Link>
+                       </Button>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-10 text-muted-foreground">
+                  <Heart className="h-8 w-8 mx-auto mb-2" />
+                  <p>Your wishlist is empty.</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Downloaded PDFs</CardTitle>
+              <CardDescription>Your collection of free reads.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {loadingDownloads ? (
+                <div className="text-center py-10 text-muted-foreground">
+                  <Loader2 className="h-6 w-6 animate-spin mx-auto" />
+                </div>
+              ) : downloadedPdfs && downloadedPdfs.length > 0 ? (
+                <div className="space-y-2">
+                  {downloadedPdfs.map(pdf => (
+                    <div key={pdf.id} className="flex items-center p-2 rounded-md hover:bg-secondary/50">
+                      <Download className="w-4 h-4 mr-3 text-muted-foreground" />
+                      <div className="flex-1">
+                        <p className="font-medium text-sm">{pdf.pdfTitle}</p>
+                        <p className="text-xs text-muted-foreground">
+                          Downloaded on {format(new Date(pdf.downloadDate), 'PPP')}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-10 text-muted-foreground">
+                  <Download className="h-8 w-8 mx-auto mb-2" />
+                  <p>You haven't downloaded any PDFs yet.</p>
                 </div>
               )}
             </CardContent>
