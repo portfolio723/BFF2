@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -16,11 +17,8 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import {
   Loader2,
-  ShieldCheck,
   User,
   Mail,
-  Upload,
-  AlertCircle,
   Package2,
   Plus,
   MapPin,
@@ -29,7 +27,6 @@ import {
   Edit,
   Trash2,
 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import type { Address } from "@/lib/types";
 import { useAddress } from "@/context/AddressContext";
 import { useAuth } from "@/context/AuthContext";
@@ -54,10 +51,9 @@ const AddressIcon = ({ type }: { type: Address["type"] }) => {
 };
 
 export default function ProfilePage() {
-  const { toast } = useToast();
   const router = useRouter();
   const { addresses, removeAddress } = useAddress();
-  const { user, isUserLoading, isKycVerified, setKycVerified } = useAuth();
+  const { user, isUserLoading } = useAuth();
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingAddress, setEditingAddress] = useState<Address | null>(null);
@@ -72,20 +68,6 @@ export default function ProfilePage() {
     }
   }, [user, isUserLoading, router]);
 
-  const handleKycVerification = () => {
-    toast({
-      title: "KYC Verification",
-      description:
-        "In a real app, this would start the document upload process. For now, we'll simulate a successful verification.",
-    });
-    setTimeout(() => {
-      setKycVerified(true);
-      toast({
-        title: "KYC Verified!",
-        description: "You can now rent books.",
-      });
-    }, 2000);
-  };
 
   const handleEditAddress = (address: Address) => {
     setEditingAddress(address);
@@ -140,34 +122,16 @@ export default function ProfilePage() {
               <h2 className="text-xl font-semibold">{user.displayName || "User"}</h2>
               <p className="text-sm text-muted-foreground">{user.email}</p>
               <Separator className="my-4" />
-              <div className="flex flex-col gap-2 w-full">
-                <h3 className="font-semibold text-left">KYC Status</h3>
-                {isKycVerified ? (
+               <div className="flex flex-col gap-2 w-full">
+                <h3 className="font-semibold text-left">Account Status</h3>
+                {user.emailVerified ? (
                   <Badge className="flex items-center gap-2 w-fit bg-green-100 text-green-800 hover:bg-green-100/80 dark:bg-green-900/50 dark:text-green-300">
-                    <ShieldCheck className="h-4 w-4" />
                     Verified
                   </Badge>
                 ) : (
-                  <Badge variant="destructive" className="flex items-center gap-2 w-fit">
-                    <AlertCircle className="h-4 w-4" />
-                    Not Verified
+                   <Badge variant="destructive" className="flex items-center gap-2 w-fit">
+                    Email Not Verified
                   </Badge>
-                )}
-                {!isKycVerified && (
-                  <div className="text-left mt-2 text-sm text-muted-foreground p-3 bg-secondary rounded-md border">
-                    <p className="mb-2">
-                      You need to complete KYC verification to be able to rent
-                      books from our platform.
-                    </p>
-                    <Button
-                      className="w-full"
-                      size="sm"
-                      onClick={handleKycVerification}
-                    >
-                      <Upload className="mr-2 h-4 w-4" />
-                      Start KYC Verification
-                    </Button>
-                  </div>
                 )}
               </div>
             </CardContent>
@@ -275,3 +239,5 @@ export default function ProfilePage() {
     </div>
   );
 }
+
+    

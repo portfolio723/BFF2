@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
@@ -8,8 +9,7 @@ import {
   sendEmailVerification,
   sendPasswordResetEmail,
   updateProfile,
-  signOut as firebaseSignOut,
-  sendSignInLinkToEmail
+  signOut as firebaseSignOut
 } from 'firebase/auth';
 import { useAuth as useFirebaseAuth, useFirebase } from '@/firebase';
 
@@ -19,9 +19,8 @@ interface AuthContextType {
   userError: Error | null;
   isKycVerified: boolean;
   signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string, profileData?: { displayName?: string, phone?: string }) => Promise<void>;
+  signUp: (email: string, password: string, profileData?: { displayName?: string }) => Promise<void>;
   signOut: () => Promise<void>;
-  signInWithOtp: (email: string) => Promise<void>;
   sendPasswordReset: (email: string) => Promise<void>;
   setKycVerified: (verified: boolean) => void;
 }
@@ -52,7 +51,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     await signInWithEmailAndPassword(auth, email, password);
   };
 
-  const signUp = async (email: string, password: string, profileData?: { displayName?: string, phone?: string }) => {
+  const signUp = async (email: string, password: string, profileData?: { displayName?: string }) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     await sendEmailVerification(userCredential.user);
     if(profileData?.displayName) {
@@ -60,22 +59,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             displayName: profileData.displayName
         })
     }
-    // In a real app you would also save the phone number to your user profile in Firestore
   };
 
   const signOut = async () => {
     await firebaseSignOut(auth);
     setKycVerifiedState(false);
-  };
-
-  const signInWithOtp = async (email: string) => {
-    const actionCodeSettings = {
-        url: `${window.location.origin}/`,
-        handleCodeInApp: true,
-    };
-    await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-    // Store the email locally to use upon return
-    window.localStorage.setItem('emailForSignIn', email);
   };
 
   const sendPasswordReset = async (email: string) => {
@@ -92,7 +80,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         signIn,
         signUp,
         signOut,
-        signInWithOtp,
         sendPasswordReset,
         setKycVerified: setKycVerifiedState,
       }}
@@ -109,3 +96,5 @@ export const useAuth = () => {
   }
   return context;
 };
+
+    
