@@ -74,7 +74,7 @@ export function BookCard({
     >
       <div className="relative aspect-[3/4] overflow-hidden bg-secondary">
         <Image
-          src={coverImageUrl}
+          src={coverImageUrl || "https://picsum.photos/seed/default-book/400/600"}
           alt={title}
           data-ai-hint={coverImageHint}
           fill
