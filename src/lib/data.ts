@@ -122,7 +122,7 @@ export const pdfs: Pdf[] = [
     category: 'Classic Literature',
     description: 'A novel about the American dream, decadence, and the roaring twenties.',
     coverImage: getImage('pdf-cover-1'),
-    downloadUrl: '/pdfs/the-great-gatsby.pdf',
+    downloadUrl: 'https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf',
   },
   {
     id: 'pdf-2',
@@ -131,7 +131,7 @@ export const pdfs: Pdf[] = [
     category: 'Classic Romance',
     description: 'A romantic novel of manners that satirizes the societal expectations of women.',
     coverImage: getImage('pdf-cover-2'),
-    downloadUrl: '/pdfs/pride-and-prejudice.pdf',
+    downloadUrl: 'https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf',
   },
   {
     id: 'pdf-3',
@@ -140,7 +140,7 @@ export const pdfs: Pdf[] = [
     category: 'Strategy & Philosophy',
     description: 'An ancient Chinese military treatise applicable to many fields.',
     coverImage: getImage('pdf-cover-3'),
-    downloadUrl: '/pdfs/the-art-of-war.pdf',
+    downloadUrl: 'https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf',
   },
     {
     id: 'pdf-4',
@@ -149,7 +149,7 @@ export const pdfs: Pdf[] = [
     category: 'Historical Fiction',
     description: 'A historical novel set in London and Paris before and during the French Revolution.',
     coverImage: getImage('pdf-cover-4'),
-    downloadUrl: '/pdfs/a-tale-of-two-cities.pdf',
+    downloadUrl: 'https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf',
   },
 ];
 
