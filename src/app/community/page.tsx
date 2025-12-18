@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -132,7 +131,7 @@ export default function CommunityPage() {
   };
 
   return (
-    <section className="pb-20">
+    <section className="pb-20 pt-12">
       <div className="container-custom">
         {/* Header */}
         <motion.div
