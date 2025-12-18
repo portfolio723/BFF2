@@ -45,11 +45,13 @@ export type CartItem = {
   quantity: number;
 };
 
-export interface AppUser {
-  displayName?: string | null;
-  email?: string | null;
-  photoURL?: string | null;
-  uid: string;
+export interface User {
+  id: string;
+  userName: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber?: string;
   isKycVerified?: boolean;
 }
 

@@ -11,7 +11,8 @@ import {
   updateProfile,
   signOut as firebaseSignOut
 } from 'firebase/auth';
-import { useAuth as useFirebaseAuth, useFirebase } from '@/firebase';
+import { useAuth as useFirebaseAuth, useFirebase, useFirestore } from '@/firebase';
+import { doc, setDoc } from 'firebase/firestore';
 
 interface AuthContextType {
   user: User | null;
@@ -19,7 +20,7 @@ interface AuthContextType {
   userError: Error | null;
   isKycVerified: boolean;
   signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string, profileData?: { displayName?: string }) => Promise<void>;
+  signUp: (email: string, password: string, profileData: { displayName: string; phoneNumber: string; }) => Promise<void>;
   signOut: () => Promise<void>;
   sendPasswordReset: (email: string) => Promise<void>;
   setKycVerified: (verified: boolean) => void;
@@ -32,6 +33,7 @@ const KYC_STORAGE_KEY = 'books-for-fosters-kyc';
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { user, isUserLoading, userError } = useFirebase();
   const auth = useFirebaseAuth();
+  const firestore = useFirestore();
 
   const [isKycVerified, setIsKycVerified] = useState(false);
 
@@ -51,14 +53,26 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     await signInWithEmailAndPassword(auth, email, password);
   };
 
-  const signUp = async (email: string, password: string, profileData?: { displayName?: string }) => {
+  const signUp = async (email: string, password: string, profileData: { displayName: string; phoneNumber: string; }) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    
+    // Update Firebase Auth profile
+    await updateProfile(userCredential.user, {
+        displayName: profileData.displayName
+    });
+
+    // Create user document in Firestore
+    const userDocRef = doc(firestore, "users", userCredential.user.uid);
+    await setDoc(userDocRef, {
+        id: userCredential.user.uid,
+        userName: profileData.displayName,
+        email: userCredential.user.email,
+        phoneNumber: profileData.phoneNumber,
+        firstName: profileData.displayName.split(' ')[0] || '',
+        lastName: profileData.displayName.split(' ')[1] || '',
+    });
+
     await sendEmailVerification(userCredential.user);
-    if(profileData?.displayName) {
-        await updateProfile(userCredential.user, {
-            displayName: profileData.displayName
-        })
-    }
   };
 
   const signOut = async () => {
@@ -96,5 +110,3 @@ export const useAuth = () => {
   }
   return context;
 };
-
-    

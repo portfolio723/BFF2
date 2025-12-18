@@ -32,7 +32,7 @@ import {
 import type { Address } from "@/lib/types";
 import { useAddress } from "@/context/AddressContext";
 import { useAuth } from "@/context/AuthContext";
-import { useFirestore } from "@/firebase";
+import { useFirestore, useDoc, useMemoFirebase } from "@/firebase";
 import { AddressForm } from "@/components/AddressForm";
 import {
   Dialog,
@@ -43,6 +43,8 @@ import {
 } from "@/components/ui/dialog";
 import { seedDatabase } from "@/lib/seed";
 import { toast } from "sonner";
+import { doc } from 'firebase/firestore';
+import type { User as AppUser } from '@/lib/types';
 
 
 const AddressIcon = ({ type }: { type: Address["type"] }) => {
@@ -59,8 +61,14 @@ const AddressIcon = ({ type }: { type: Address["type"] }) => {
 export default function ProfilePage() {
   const router = useRouter();
   const { addresses, removeAddress } = useAddress();
-  const { user, isUserLoading } = useAuth();
+  const { user: authUser, isUserLoading } = useAuth();
   const firestore = useFirestore();
+
+  const userDocRef = useMemoFirebase(
+    () => (firestore && authUser ? doc(firestore, 'users', authUser.uid) : null),
+    [firestore, authUser]
+  );
+  const { data: userProfile, isLoading: isProfileLoading } = useDoc<AppUser>(userDocRef);
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingAddress, setEditingAddress] = useState<Address | null>(null);
@@ -71,12 +79,10 @@ export default function ProfilePage() {
   const [isSeeding, setIsSeeding] = useState(false);
 
   useEffect(() => {
-    // Wait until the loading is complete before checking for the user.
-    // If loading is finished and there's still no user, then redirect.
-    if (!isUserLoading && !user) {
+    if (!isUserLoading && !authUser) {
       router.push('/auth?redirect=/profile');
     }
-  }, [user, isUserLoading, router]);
+  }, [authUser, isUserLoading, router]);
 
   const handleSeedDb = async () => {
     setIsSeeding(true);
@@ -111,9 +117,7 @@ export default function ProfilePage() {
     setIsFormOpen(false);
   }
 
-  // Display a loader while the user state is being determined.
-  // This prevents the redirect logic from firing prematurely.
-  if (isUserLoading || !user) {
+  if (isUserLoading || isProfileLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <Loader2 className="h-8 w-8 animate-spin" />
@@ -121,9 +125,17 @@ export default function ProfilePage() {
     );
   }
 
+  if (!authUser) {
+     return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p>Redirecting to login...</p>
+      </div>
+    );
+  }
+
   const userInitial =
-    user.displayName?.charAt(0).toUpperCase() ||
-    user.email?.charAt(0).toUpperCase() ||
+    authUser.displayName?.charAt(0).toUpperCase() ||
+    authUser.email?.charAt(0).toUpperCase() ||
     "U";
 
   return (
@@ -143,17 +155,17 @@ export default function ProfilePage() {
             <CardContent className="pt-6 flex flex-col items-center text-center">
               <Avatar className="w-24 h-24 mb-4">
                 <AvatarImage
-                  src={user.photoURL ?? ""}
-                  alt={user.displayName ?? "User"}
+                  src={authUser.photoURL ?? ""}
+                  alt={authUser.displayName ?? "User"}
                 />
                 <AvatarFallback className="text-4xl">{userInitial}</AvatarFallback>
               </Avatar>
-              <h2 className="text-xl font-semibold">{user.displayName || "User"}</h2>
-              <p className="text-sm text-muted-foreground">{user.email}</p>
+              <h2 className="text-xl font-semibold">{authUser.displayName || "User"}</h2>
+              <p className="text-sm text-muted-foreground">{authUser.email}</p>
               <Separator className="my-4" />
                <div className="flex flex-col gap-2 w-full">
                 <h3 className="font-semibold text-left">Account Status</h3>
-                {user.emailVerified ? (
+                {authUser.emailVerified ? (
                   <Badge className="flex items-center gap-2 w-fit bg-green-100 text-green-800 hover:bg-green-100/80 dark:bg-green-900/50 dark:text-green-300">
                     Verified
                   </Badge>
@@ -192,21 +204,21 @@ export default function ProfilePage() {
                 <User className="h-5 w-5 mr-3 text-muted-foreground" />
                 <div>
                   <p className="text-sm text-muted-foreground">Full Name</p>
-                  <p className="font-medium">{user.displayName || "Not provided"}</p>
+                  <p className="font-medium">{userProfile?.userName || authUser.displayName || "Not provided"}</p>
                 </div>
               </div>
               <div className="flex items-center">
                 <Mail className="h-5 w-5 mr-3 text-muted-foreground" />
                 <div>
                   <p className="text-sm text-muted-foreground">Email Address</p>
-                  <p className="font-medium">{user.email}</p>
+                  <p className="font-medium">{userProfile?.email || authUser.email}</p>
                 </div>
               </div>
               <div className="flex items-center">
                 <Phone className="h-5 w-5 mr-3 text-muted-foreground" />
                 <div>
                   <p className="text-sm text-muted-foreground">Phone Number</p>
-                  <p className="font-medium">{user.phoneNumber || "Not provided"}</p>
+                  <p className="font-medium">{userProfile?.phoneNumber || "Not provided"}</p>
                 </div>
               </div>
             </CardContent>
@@ -290,5 +302,3 @@ export default function ProfilePage() {
     </div>
   );
 }
-
-    

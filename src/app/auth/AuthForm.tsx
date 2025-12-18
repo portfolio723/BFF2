@@ -29,6 +29,7 @@ import {
   Eye,
   EyeOff,
   User,
+  Phone,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
@@ -37,6 +38,7 @@ import { AnimatePresence, motion } from "framer-motion";
 const signUpSchema = z.object({
   fullName: z.string().min(1, "Full name is required."),
   email: z.string().email("Invalid email address."),
+  phoneNumber: z.string().min(10, "Phone number must be at least 10 digits."),
   password: z.string().min(6, "Password must be at least 6 characters."),
   terms: z.boolean().refine((val) => val === true, {
     message: "You must accept the terms and conditions.",
@@ -67,7 +69,7 @@ export default function AuthForm() {
 
   const signUpForm = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
-    defaultValues: { email: "", password: "", fullName: "", terms: false },
+    defaultValues: { email: "", password: "", fullName: "", phoneNumber: "", terms: false },
   });
 
   const handleSignIn = async (values: z.infer<typeof signInSchema>) => {
@@ -88,6 +90,7 @@ export default function AuthForm() {
     try {
       await signUp(values.email, values.password, {
         displayName: values.fullName,
+        phoneNumber: values.phoneNumber,
       });
       toast.success("Account created successfully!", {
         description: "Please check your email to verify your account.",
@@ -249,6 +252,22 @@ export default function AuthForm() {
                                 <div className="relative">
                                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                                   <Input placeholder="you@example.com" {...field} type="email" className="pl-10"/>
+                                </div>
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                         <FormField
+                          control={signUpForm.control}
+                          name="phoneNumber"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Phone Number</FormLabel>
+                              <FormControl>
+                                <div className="relative">
+                                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                                  <Input placeholder="+91 98765 43210" {...field} type="tel" className="pl-10"/>
                                 </div>
                               </FormControl>
                               <FormMessage />
