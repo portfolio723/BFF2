@@ -3,13 +3,13 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { createClient } from '@/lib/supabase';
-import type { AuthChangeEvent, Session, User, SupabaseClient } from '@supabase/supabase-js';
+import type { AuthChangeEvent, Session, User, SupabaseClient, SignUpWithPasswordCredentials } from '@supabase/supabase-js';
 
 interface AuthContextType {
   user: User | null;
   isUserLoading: boolean;
   signIn: (email: string, password: string) => Promise<any>;
-  signUp: (email: string, password: string, options: { data: { full_name: string; phone_number: string } }) => Promise<any>;
+  signUp: (email: string, password: string, options?: SignUpWithPasswordCredentials['options']) => Promise<any>;
   signOut: () => Promise<void>;
   sendPasswordReset: (email: string) => Promise<void>;
 }
@@ -60,7 +60,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return data;
   };
 
-  const signUp = async (email: string, password: string, options: { data: { full_name: string, phone_number: string }}) => {
+  const signUp = async (email: string, password: string, options?: SignUpWithPasswordCredentials['options']) => {
     const supabase = getSupabase();
     const { data, error } = await supabase.auth.signUp({ email, password, options });
     if (error) throw error;
