@@ -86,9 +86,22 @@ export default function CheckoutPage() {
         if (error) {
           toast.error("Failed to fetch addresses", { description: error.message });
         } else {
-          setAddresses(data.map(d => ({...d, firstName: d.first_name, lastName: d.last_name})));
-          if (data.length > 0) {
-            setSelectedAddress({...data[0], firstName: data[0].first_name, lastName: data[0].last_name});
+          const formattedAddresses: Address[] = data.map((d: any) => ({
+            id: d.id,
+            user_id: d.user_id,
+            type: d.type,
+            firstName: d.first_name,
+            lastName: d.last_name,
+            address: d.address,
+            address2: d.address2,
+            city: d.city,
+            state: d.state,
+            pincode: d.pincode,
+            phone: d.phone,
+          }));
+          setAddresses(formattedAddresses);
+          if (formattedAddresses.length > 0) {
+            setSelectedAddress(formattedAddresses[0]);
           } else {
             setShowNewAddressForm(true);
           }
@@ -681,5 +694,3 @@ export default function CheckoutPage() {
     </section>
   );
 };
-
-    
