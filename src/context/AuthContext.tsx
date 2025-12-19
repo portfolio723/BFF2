@@ -2,17 +2,15 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { 
-  User, 
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  sendEmailVerification,
-  sendPasswordResetEmail,
-  updateProfile,
-  signOut as firebaseSignOut
-} from 'firebase/auth';
-import { useAuth as useFirebaseAuth, useFirebase, useFirestore } from '@/firebase';
-import { doc, setDoc } from 'firebase/firestore';
+
+// Mock User type, similar to Firebase's User but simplified
+export interface User {
+  uid: string;
+  email: string | null;
+  displayName: string | null;
+  photoURL: string | null;
+  emailVerified: boolean;
+}
 
 interface AuthContextType {
   user: User | null;
@@ -30,18 +28,30 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const KYC_STORAGE_KEY = 'books-for-fosters-kyc';
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const { user, isUserLoading, userError } = useFirebase();
-  const auth = useFirebaseAuth();
-  const firestore = useFirestore();
+const MOCK_USER: User = {
+    uid: 'mock-user-123',
+    email: 'demo@example.com',
+    displayName: 'Demo User',
+    photoURL: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&q=80',
+    emailVerified: true
+};
 
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [isUserLoading, setIsUserLoading] = useState(true);
   const [isKycVerified, setIsKycVerified] = useState(false);
 
   useEffect(() => {
+    // Simulate checking auth state on load
+    const authStatus = localStorage.getItem('auth-status');
+    if (authStatus === 'signed-in') {
+      setUser(MOCK_USER);
+    }
     const savedKyc = localStorage.getItem(KYC_STORAGE_KEY);
     if (savedKyc) {
       setIsKycVerified(JSON.parse(savedKyc));
     }
+    setIsUserLoading(false);
   }, []);
 
   const setKycVerifiedState = (verified: boolean) => {
@@ -50,38 +60,39 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const signIn = async (email: string, password: string) => {
-    await signInWithEmailAndPassword(auth, email, password);
+    setIsUserLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 500)); // Simulate network request
+    if (email && password) {
+        setUser(MOCK_USER);
+        localStorage.setItem('auth-status', 'signed-in');
+    }
+    setIsUserLoading(false);
   };
 
   const signUp = async (email: string, password: string, profileData: { displayName: string; phoneNumber: string; }) => {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    
-    // Update Firebase Auth profile
-    await updateProfile(userCredential.user, {
-        displayName: profileData.displayName
+    setIsUserLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 500));
+    setUser({
+        ...MOCK_USER,
+        email,
+        displayName: profileData.displayName,
     });
-
-    // Create user document in Firestore
-    const userDocRef = doc(firestore, "users", userCredential.user.uid);
-    await setDoc(userDocRef, {
-        id: userCredential.user.uid,
-        userName: profileData.displayName,
-        email: userCredential.user.email,
-        phoneNumber: profileData.phoneNumber,
-        firstName: profileData.displayName.split(' ')[0] || '',
-        lastName: profileData.displayName.split(' ')[1] || '',
-    });
-
-    await sendEmailVerification(userCredential.user);
+    localStorage.setItem('auth-status', 'signed-in');
+    setIsUserLoading(false);
   };
 
   const signOut = async () => {
-    await firebaseSignOut(auth);
+    setIsUserLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 500));
+    setUser(null);
     setKycVerifiedState(false);
+    localStorage.removeItem('auth-status');
+    setIsUserLoading(false);
   };
 
   const sendPasswordReset = async (email: string) => {
-    await sendPasswordResetEmail(auth, email);
+    await new Promise(resolve => setTimeout(resolve, 500));
+    console.log(`Password reset email sent to ${email}`);
   };
 
   return (
@@ -89,7 +100,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       value={{
         user,
         isUserLoading,
-        userError,
+        userError: null,
         isKycVerified,
         signIn,
         signUp,

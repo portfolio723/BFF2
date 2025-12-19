@@ -24,6 +24,7 @@ export type Book = {
   rentalPrice?: number;
 };
 
+// This type can be removed or kept for reference, but is no longer sourced from Firestore
 export type FirestoreBook = {
   id: string;
   title: string;

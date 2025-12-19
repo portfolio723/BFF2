@@ -32,9 +32,7 @@ import {
   Download,
 } from "lucide-react";
 import type { Address, Order, WishlistItem, UserDownloadedPdf } from "@/lib/types";
-import { useAddress } from "@/context/AddressContext";
 import { useAuth } from "@/context/AuthContext";
-import { useFirestore, useDoc, useCollection, useMemoFirebase } from "@/firebase";
 import { AddressForm } from "@/components/AddressForm";
 import {
   Dialog,
@@ -43,13 +41,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { seedDatabase } from "@/lib/seed";
 import { toast } from "sonner";
-import { doc, collection, query } from 'firebase/firestore';
-import type { User as AppUser } from '@/lib/types';
 import { format } from "date-fns";
 import Image from "next/image";
-
+import { books as staticBooks, pdfs as staticPdfs } from "@/lib/data";
 
 const AddressIcon = ({ type }: { type: Address["type"] }) => {
   switch (type) {
@@ -62,28 +57,28 @@ const AddressIcon = ({ type }: { type: Address["type"] }) => {
   }
 };
 
+const dummyAddress: Address = {
+    id: 'addr-1',
+    type: 'Home',
+    firstName: 'Demo',
+    lastName: 'User',
+    address: '123, Jubilee Hills',
+    address2: 'Near Film Nagar',
+    city: 'Hyderabad',
+    state: 'Telangana',
+    pincode: '500033',
+    phone: '9876543210',
+};
+
 export default function ProfilePage() {
   const router = useRouter();
-  const { addresses, removeAddress } = useAddress();
   const { user: authUser, isUserLoading } = useAuth();
-  const firestore = useFirestore();
-
-  const userDocRef = useMemoFirebase(
-    () => (firestore && authUser ? doc(firestore, 'users', authUser.uid) : null),
-    [firestore, authUser]
-  );
-  const { data: userProfile, isLoading: isProfileLoading } = useDoc<AppUser>(userDocRef);
-
-  const ordersRef = useMemoFirebase(() => (firestore && authUser) ? collection(firestore, 'users', authUser.uid, 'orders') : null, [firestore, authUser]);
-  const { data: orders, isLoading: loadingOrders } = useCollection<Order>(ordersRef);
-
-  const wishlistRef = useMemoFirebase(() => (firestore && authUser) ? collection(firestore, 'users', authUser.uid, 'wishlist_items') : null, [firestore, authUser]);
-  const { data: wishlistItems, isLoading: loadingWishlist } = useCollection<WishlistItem>(wishlistRef);
-
-  const downloadsRef = useMemoFirebase(() => (firestore && authUser) ? collection(firestore, 'users', authUser.uid, 'user_downloaded_pdfs') : null, [firestore, authUser]);
-  const { data: downloadedPdfs, isLoading: loadingDownloads } = useCollection<UserDownloadedPdf>(downloadsRef);
-
-
+  
+  const [addresses, setAddresses] = useState<Address[]>([dummyAddress]);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
+  const [downloadedPdfs, setDownloadedPdfs] = useState<UserDownloadedPdf[]>([]);
+  
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingAddress, setEditingAddress] = useState<Address | null>(null);
   const [isSeeding, setIsSeeding] = useState(false);
@@ -92,24 +87,69 @@ export default function ProfilePage() {
     if (!isUserLoading && !authUser) {
       router.push('/auth?redirect=/profile');
     }
+    // Mock data fetching
+    if(authUser) {
+        const orderBook1 = staticBooks[1];
+        const orderBook2 = staticBooks[2];
+        setOrders([
+            {
+                id: 'order-1',
+                userId: authUser.uid,
+                orderDate: new Date('2024-05-10T10:00:00Z').toISOString(),
+                totalAmount: (orderBook1.price) + (orderBook2.rentalPrice || 0),
+                status: 'Delivered',
+                deliveryAddress: dummyAddress,
+                items: [
+                  {
+                    id: orderBook1.id,
+                    bookId: orderBook1.id,
+                    title: orderBook1.title,
+                    author: orderBook1.author.name,
+                    coverImage: orderBook1.coverImage.url,
+                    quantity: 1,
+                    price: orderBook1.price,
+                    type: 'buy'
+                  },
+                  {
+                    id: orderBook2.id,
+                    bookId: orderBook2.id,
+                    title: orderBook2.title,
+                    author: orderBook2.author.name,
+                    coverImage: orderBook2.coverImage.url,
+                    quantity: 1,
+                    price: orderBook2.rentalPrice ?? 0,
+                    type: 'rent'
+                  }
+                ]
+            }
+        ]);
+        const wishlistedBook = staticBooks[5];
+        setWishlistItems([{
+            id: wishlistedBook.id,
+            userId: authUser.uid,
+            bookId: wishlistedBook.id,
+            addedDate: new Date().toISOString(),
+            bookTitle: wishlistedBook.title,
+            bookAuthor: wishlistedBook.author.name,
+            bookCoverImage: wishlistedBook.coverImage.url,
+        }]);
+        const downloadedPdf = staticPdfs[0];
+        setDownloadedPdfs([{
+            id: 'download-1',
+            userId: authUser.uid,
+            pdfId: downloadedPdf.id,
+            pdfTitle: downloadedPdf.title,
+            downloadDate: new Date().toISOString(),
+        }])
+    }
   }, [authUser, isUserLoading, router]);
 
   const handleSeedDb = async () => {
     setIsSeeding(true);
-    try {
-        if (firestore) {
-            await seedDatabase(firestore);
-            toast.success("Database seeded successfully!");
-        } else {
-            toast.error("Firestore is not initialized.");
-        }
-    } catch (error: any) {
-        toast.error("Database seeding failed", {
-            description: error.message
-        });
-    } finally {
-        setIsSeeding(false);
-    }
+    toast.info("Database seeding has been removed.", {
+        description: "The application is now using static mock data."
+    });
+    setIsSeeding(false);
   }
 
   const handleEditAddress = (address: Address) => {
@@ -127,7 +167,24 @@ export default function ProfilePage() {
     setIsFormOpen(false);
   }
 
-  if (isUserLoading || isProfileLoading) {
+  const handleSaveAddress = (address: Address) => {
+      if(editingAddress) {
+          setAddresses(prev => prev.map(a => a.id === address.id ? address : a));
+          toast.success("Address updated successfully!");
+      } else {
+          setAddresses(prev => [...prev, { ...address, id: `addr-${Date.now()}` }]);
+          toast.success("Address added successfully!");
+      }
+      handleFormClose();
+  }
+  
+  const removeAddress = (id: string) => {
+      setAddresses(prev => prev.filter(a => a.id !== id));
+      toast.info("Address removed.");
+  }
+
+
+  if (isUserLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <Loader2 className="h-8 w-8 animate-spin" />
@@ -193,7 +250,7 @@ export default function ProfilePage() {
                 <CardDescription>Actions for development.</CardDescription>
             </CardHeader>
             <CardContent>
-                <Button onClick={handleSeedDb} disabled={isSeeding || !firestore} className="w-full">
+                <Button onClick={handleSeedDb} disabled={isSeeding} className="w-full">
                     {isSeeding ? <Loader2 className="animate-spin mr-2" /> : <Database className="mr-2"/>}
                     {isSeeding ? "Seeding..." : "Seed Database"}
                 </Button>
@@ -214,21 +271,21 @@ export default function ProfilePage() {
                 <User className="h-5 w-5 mr-3 text-muted-foreground" />
                 <div>
                   <p className="text-sm text-muted-foreground">Full Name</p>
-                  <p className="font-medium">{userProfile?.userName || authUser.displayName || "Not provided"}</p>
+                  <p className="font-medium">{authUser.displayName || "Not provided"}</p>
                 </div>
               </div>
               <div className="flex items-center">
                 <Mail className="h-5 w-5 mr-3 text-muted-foreground" />
                 <div>
                   <p className="text-sm text-muted-foreground">Email Address</p>
-                  <p className="font-medium">{userProfile?.email || authUser.email}</p>
+                  <p className="font-medium">{authUser.email}</p>
                 </div>
               </div>
               <div className="flex items-center">
                 <Phone className="h-5 w-5 mr-3 text-muted-foreground" />
                 <div>
                   <p className="text-sm text-muted-foreground">Phone Number</p>
-                  <p className="font-medium">{userProfile?.phoneNumber || "Not provided"}</p>
+                  <p className="font-medium">{"Not provided"}</p>
                 </div>
               </div>
             </CardContent>
@@ -251,7 +308,7 @@ export default function ProfilePage() {
                     <DialogHeader>
                         <DialogTitle>{editingAddress ? 'Edit Address' : 'Add New Address'}</DialogTitle>
                     </DialogHeader>
-                    <AddressForm onSave={handleFormClose} existingAddress={editingAddress} />
+                    <AddressForm onSave={handleSaveAddress} existingAddress={editingAddress} />
                  </DialogContent>
               </Dialog>
             </CardHeader>
@@ -292,12 +349,7 @@ export default function ProfilePage() {
               <CardDescription>Your past purchases and rentals.</CardDescription>
             </CardHeader>
             <CardContent>
-              {loadingOrders ? (
-                <div className="text-center py-10 text-muted-foreground">
-                  <Loader2 className="h-6 w-6 animate-spin mx-auto" />
-                  <p className="mt-2">Loading orders...</p>
-                </div>
-              ) : orders && orders.length > 0 ? (
+              {orders && orders.length > 0 ? (
                 <div className="space-y-4">
                   {orders.map(order => (
                     <div key={order.id} className="border p-4 rounded-lg">
@@ -345,11 +397,7 @@ export default function ProfilePage() {
               <CardDescription>Books you've saved for later.</CardDescription>
             </CardHeader>
             <CardContent>
-              {loadingWishlist ? (
-                <div className="text-center py-10 text-muted-foreground">
-                  <Loader2 className="h-6 w-6 animate-spin mx-auto" />
-                </div>
-              ) : wishlistItems && wishlistItems.length > 0 ? (
+              {wishlistItems && wishlistItems.length > 0 ? (
                 <div className="space-y-2">
                   {wishlistItems.map(item => (
                     <div key={item.id} className="flex gap-3 p-2 rounded-md hover:bg-secondary/50">
@@ -379,11 +427,7 @@ export default function ProfilePage() {
               <CardDescription>Your collection of free reads.</CardDescription>
             </CardHeader>
             <CardContent>
-              {loadingDownloads ? (
-                <div className="text-center py-10 text-muted-foreground">
-                  <Loader2 className="h-6 w-6 animate-spin mx-auto" />
-                </div>
-              ) : downloadedPdfs && downloadedPdfs.length > 0 ? (
+              {downloadedPdfs && downloadedPdfs.length > 0 ? (
                 <div className="space-y-2">
                   {downloadedPdfs.map(pdf => (
                     <div key={pdf.id} className="flex items-center p-2 rounded-md hover:bg-secondary/50">

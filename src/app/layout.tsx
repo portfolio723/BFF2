@@ -3,7 +3,6 @@
 
 import { AppProvider } from "@/context/AppProvider";
 import { WishlistProvider } from "@/context/WishlistContext";
-import { AddressProvider } from "@/context/AddressContext";
 import { AuthProvider } from "@/context/AuthContext";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -11,7 +10,6 @@ import { Toaster as LegacyToaster } from "@/components/ui/toaster";
 import { Toaster } from "sonner";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { FirebaseClientProvider } from "@/firebase";
 
 // This component can't be a server component because of the providers
 export default function RootLayout({
@@ -30,21 +28,17 @@ export default function RootLayout({
           <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
       </head>
       <body className={cn("antialiased flex flex-col min-h-screen")}>
-        <FirebaseClientProvider>
-          <AuthProvider>
-            <AppProvider>
-              <WishlistProvider>
-                <AddressProvider>
-                  <Header />
-                  <main className="flex-grow">{children}</main>
-                  <Footer />
-                  <LegacyToaster />
-                  <Toaster richColors />
-                </AddressProvider>
-              </WishlistProvider>
-            </AppProvider>
-          </AuthProvider>
-        </FirebaseClientProvider>
+        <AuthProvider>
+          <AppProvider>
+            <WishlistProvider>
+                <Header />
+                <main className="flex-grow">{children}</main>
+                <Footer />
+                <LegacyToaster />
+                <Toaster richColors />
+            </WishlistProvider>
+          </AppProvider>
+        </AuthProvider>
       </body>
     </html>
   );

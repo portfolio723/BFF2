@@ -15,7 +15,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useAddress } from "@/context/AddressContext";
 import type { Address } from "@/lib/types";
 import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
@@ -48,7 +47,6 @@ interface AddressFormProps {
 }
 
 export function AddressForm({ onSave, existingAddress }: AddressFormProps) {
-  const { addAddress, updateAddress } = useAddress();
   const [isSubmitting, setIsSubmitting] = useState(false);
   
   const {
@@ -92,21 +90,15 @@ export function AddressForm({ onSave, existingAddress }: AddressFormProps) {
 
   const onSubmit = async (data: AddressFormValues) => {
     setIsSubmitting(true);
-    try {
-      if (existingAddress) {
-        const updatedAddress = { ...existingAddress, ...data };
-        await updateAddress(updatedAddress);
-        onSave(updatedAddress);
-      } else {
-        const newAddress = await addAddress(data);
-        onSave(newAddress);
-      }
-      reset();
-    } catch (error) {
-      console.error("Failed to save address", error);
-    } finally {
-      setIsSubmitting(false);
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 500));
+    const addressToSave = {
+        ...data,
+        id: existingAddress?.id || `addr-${Date.now()}`
     }
+    onSave(addressToSave);
+    reset();
+    setIsSubmitting(false);
   };
 
   return (

@@ -2,7 +2,7 @@
 "use client";
 import { useState, useMemo } from "react";
 import { BookCard } from "@/components/BookCard";
-import { genres } from "@/lib/data";
+import { genres, books as staticBooks } from "@/lib/data";
 import {
   Select,
   SelectContent,
@@ -11,11 +11,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import type { FirestoreBook } from "@/lib/types";
+import type { Book as FirestoreBook } from "@/lib/types"; // Using the general Book type now
 import { Search, LayoutGrid, List, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useCollection, useFirestore, useMemoFirebase } from "@/firebase";
-import { collection, query } from "firebase/firestore";
 
 export default function BooksPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -23,11 +21,9 @@ export default function BooksPage() {
   const [sortBy, setSortBy] = useState("newest");
   const [view, setView] = useState("grid");
 
-  const firestore = useFirestore();
-  const booksRef = useMemoFirebase(() => firestore ? collection(firestore, 'books') : null, [firestore]);
-  const booksQuery = useMemoFirebase(() => booksRef ? query(booksRef) : null, [booksRef]);
-  
-  const { data: books, isLoading } = useCollection<FirestoreBook>(booksQuery);
+  // Using static data instead of Firestore
+  const books = staticBooks;
+  const isLoading = false;
 
   const filteredBooks = useMemo(() => {
     if (!books) return [];
@@ -35,8 +31,8 @@ export default function BooksPage() {
     let filtered = books.filter((book) => {
       const searchMatch =
         book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        book.authorName.toLowerCase().includes(searchTerm.toLowerCase());
-      const genreMatch = genre === "all" || book.genreId === genre;
+        book.author.name.toLowerCase().includes(searchTerm.toLowerCase());
+      const genreMatch = genre === "all" || book.genre.id === genre;
       return searchMatch && genreMatch;
     });
 
@@ -129,7 +125,7 @@ export default function BooksPage() {
           <div className="text-center py-20 lg:py-32 bg-card rounded-2xl border border-dashed">
             <h2 className="text-2xl font-bold font-heading">No Books Found</h2>
             <p className="text-muted-foreground mt-2">
-              Try adjusting your filters to find what you're looking for, or seed the database from your profile page.
+              Try adjusting your filters to find what you're looking for.
             </p>
           </div>
         )}

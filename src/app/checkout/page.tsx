@@ -33,13 +33,10 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/context/AppProvider";
-import { useAddress } from "@/context/AddressContext";
 import Image from "next/image";
 import { AddressForm } from "@/components/AddressForm";
 import type { Address } from "@/lib/types";
 import { useAuth } from "@/context/AuthContext";
-import { useFirestore } from "@/firebase";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { toast } from "sonner";
 
 const steps = [
@@ -48,12 +45,28 @@ const steps = [
   { id: 3, name: "Confirm", icon: Check },
 ];
 
+const dummyAddresses: Address[] = [
+    {
+        id: 'addr-1',
+        type: 'Home',
+        firstName: 'Demo',
+        lastName: 'User',
+        address: '123, Jubilee Hills',
+        address2: 'Near Film Nagar',
+        city: 'Hyderabad',
+        state: 'Telangana',
+        pincode: '500033',
+        phone: '9876543210',
+    }
+];
+
 export default function CheckoutPage() {
   const router = useRouter();
   const { user, isUserLoading } = useAuth();
-  const firestore = useFirestore();
   const { items, getSubtotal, getDeliveryCharge, getTotal, clearCart, loading: cartLoading } = useCart();
-  const { addresses, loading: addressLoading } = useAddress();
+  
+  const [addresses, setAddresses] = useState<Address[]>(dummyAddresses);
+  const loadingAddresses = false;
 
   const [currentStep, setCurrentStep] = useState(1);
   const [paymentMethod, setPaymentMethod] = useState("upi");
@@ -88,36 +101,16 @@ export default function CheckoutPage() {
   const total = getTotal();
 
   const handlePlaceOrder = async () => {
-    if (!selectedAddress || !user || !firestore) {
+    if (!selectedAddress || !user) {
       toast.error("An error occurred. Please try again.");
       return;
     }
     setIsProcessing(true);
     try {
-      const orderData = {
-        userId: user.uid,
-        orderDate: serverTimestamp(),
-        totalAmount: total,
-        status: 'Pending',
-        deliveryAddress: selectedAddress,
-        items: items.map(item => ({
-          id: item.id,
-          bookId: item.id,
-          title: item.title,
-          author: item.author.name,
-          coverImage: item.coverImage.url,
-          quantity: item.quantity,
-          price: item.type === 'rent' ? item.rentalPrice : item.price,
-          type: item.type,
-        })),
-      };
-
-      const docRef = await addDoc(collection(firestore, 'users', user.uid, 'orders'), orderData);
+      // Simulate order placement
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // In a real app, you would initiate Razorpay payment here
-      // and only proceed if payment is successful.
-      
-      setOrderId(docRef.id);
+      setOrderId(`mock-${Date.now()}`);
       setIsProcessing(false);
       setOrderPlaced(true);
       clearCart();
@@ -138,11 +131,12 @@ export default function CheckoutPage() {
   };
 
   const handleNewAddressSaved = (newAddress: Address) => {
+    setAddresses(prev => [...prev, { ...newAddress, id: `addr-${Date.now()}` }]);
     setSelectedAddress(newAddress);
     setShowNewAddressForm(false);
   }
 
-  const isLoading = !isMounted || cartLoading || addressLoading || isUserLoading;
+  const isLoading = !isMounted || cartLoading || loadingAddresses || isUserLoading;
 
   if (isLoading) {
     return (
