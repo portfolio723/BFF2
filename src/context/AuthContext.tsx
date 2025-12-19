@@ -19,9 +19,11 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isUserLoading, setIsUserLoading] = useState(true);
-  const supabase = createClient();
+  
+  const getSupabase = () => createClient();
 
   useEffect(() => {
+    const supabase = getSupabase();
     const getSession = async () => {
         const { data: { session } } = await supabase.auth.getSession();
         setUser(session?.user ?? null);
@@ -39,26 +41,30 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return () => {
       authListener?.subscription.unsubscribe();
     };
-  }, [supabase.auth]);
+  }, []);
 
   const signIn = async (email: string, password: string) => {
+    const supabase = getSupabase();
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) throw error;
     return data;
   };
 
   const signUp = async (email: string, password: string, options: { data: { full_name: string, phone_number: string }}) => {
+    const supabase = getSupabase();
     const { data, error } = await supabase.auth.signUp({ email, password, options });
     if (error) throw error;
     return data;
   };
 
   const signOut = async () => {
+    const supabase = getSupabase();
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
   };
 
   const sendPasswordReset = async (email: string) => {
+    const supabase = getSupabase();
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${window.location.origin}/auth/reset-password`,
     });

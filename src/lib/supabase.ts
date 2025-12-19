@@ -1,8 +1,14 @@
 
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 
+let supabaseClient: any = null;
+
 // Re-export createClient to be used in other files
 export const createClient = () => {
+    if (supabaseClient) {
+        return supabaseClient;
+    }
+
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -14,11 +20,6 @@ export const createClient = () => {
     throw new Error("Supabase Anon Key is not defined. Please check your .env.local file.");
     }
     
-    return createSupabaseClient(supabaseUrl, supabaseAnonKey);
+    supabaseClient = createSupabaseClient(supabaseUrl, supabaseAnonKey);
+    return supabaseClient;
 }
-
-// For convenience, you can also export a singleton instance
-// but be mindful of where you import it to avoid server/client issues.
-// This specific instance is what caused the build issue.
-// We are leaving it here commented out as a reference.
-// export const supabase = createClient();
