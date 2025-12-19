@@ -69,13 +69,13 @@ export default function ProfilePage() {
   
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingAddress, setEditingAddress] = useState<Address | null>(null);
-  const supabase = createClient();
-
+  
   useEffect(() => {
     if (!isUserLoading && !authUser) {
       router.push('/auth?redirect=/profile');
     }
     if (authUser) {
+      const supabase = createClient();
       const fetchUserData = async () => {
         setLoadingData(true);
 
@@ -107,7 +107,7 @@ export default function ProfilePage() {
       };
       fetchUserData();
     }
-  }, [authUser, isUserLoading, router, supabase]);
+  }, [authUser, isUserLoading, router]);
 
   const handleEditAddress = (address: Address) => {
     setEditingAddress(address);
@@ -126,6 +126,7 @@ export default function ProfilePage() {
 
   const handleSaveAddress = async (addressData: Omit<Address, 'id' | 'user_id'>) => {
     if (!authUser) return;
+    const supabase = createClient();
 
     if (editingAddress) {
       const { data, error } = await supabase
@@ -158,6 +159,7 @@ export default function ProfilePage() {
   }
   
   const removeAddress = async (id: string) => {
+    const supabase = createClient();
     const { error } = await supabase.from('addresses').delete().eq('id', id);
     if (error) {
       toast.error("Failed to remove address", { description: error.message });
