@@ -25,9 +25,9 @@ export default function BooksPage() {
   const [books, setBooks] = useState<BookType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [genres, setGenres] = useState(staticGenres);
-  const supabase = createClient();
-
+  
   useEffect(() => {
+    const supabase = createClient();
     const fetchBooks = async () => {
       setIsLoading(true);
       const { data, error } = await supabase.from('books').select(`
@@ -75,7 +75,7 @@ export default function BooksPage() {
 
     fetchBooks();
     fetchGenres();
-  }, [supabase]);
+  }, []);
 
   const filteredBooks = useMemo(() => {
     if (!books) return [];
