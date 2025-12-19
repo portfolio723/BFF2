@@ -259,10 +259,40 @@ export default function CheckoutPage() {
     }
   };
 
-  const handleNewAddressSaved = (newAddress: Address) => {
-    setAddresses(prev => [...prev, newAddress]);
-    setSelectedAddress(newAddress);
-    setShowNewAddressForm(false);
+  const handleNewAddressSaved = async (addressData: Omit<Address, 'id' | 'user_id'>) => {
+    if (!user) return;
+    const supabase = createClient();
+    const { data, error } = await supabase
+        .from('addresses')
+        .insert([{ 
+            ...addressData, 
+            user_id: user.id,
+            first_name: addressData.firstName,
+            last_name: addressData.lastName
+        }])
+        .select()
+        .single();
+    if (error) {
+      toast.error("Failed to add address", { description: error.message });
+    } else if (data) {
+       const newAddress: Address = {
+        id: data.id,
+        user_id: data.user_id,
+        type: data.type,
+        firstName: data.first_name,
+        lastName: data.last_name,
+        address: data.address,
+        address2: data.address2,
+        city: data.city,
+        state: data.state,
+        pincode: data.pincode,
+        phone: data.phone,
+      };
+      setAddresses(prev => [...prev, newAddress]);
+      setSelectedAddress(newAddress);
+      setShowNewAddressForm(false);
+      toast.success("Address added successfully!");
+    }
   }
 
   const isLoading = !isMounted || cartLoading || loadingAddresses || isUserLoading;
