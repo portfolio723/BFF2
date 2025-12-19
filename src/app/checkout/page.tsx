@@ -140,7 +140,7 @@ export default function CheckoutPage() {
       // 2. Create the order items
       const orderItemsToInsert = cart.map(item => ({
         order_id: orderData.id,
-        book_id: item.id,
+        book_id: item.id, // Ensure your book object has a valid UUID
         quantity: item.quantity,
         price_at_purchase: item.type === 'rent' ? item.rentalPrice : item.price,
         type: item.type,
@@ -150,20 +150,23 @@ export default function CheckoutPage() {
       if (itemsError) throw itemsError;
 
       // 3. Create payment record
-      const { error: paymentError } = await supabase.from('payments').insert({
-        order_id: orderData.id,
-        user_id: user.id,
-        amount: total,
-        status: status,
-        method: paymentMethod,
-        razorpay_order_id: paymentDetails?.razorpay_order_id,
-        razorpay_payment_id: paymentDetails?.razorpay_payment_id,
-        razorpay_signature: paymentDetails?.razorpay_signature,
-      });
-      if(paymentError) throw paymentError;
+      if (paymentMethod !== 'cod' || paymentDetails) {
+          const { error: paymentError } = await supabase.from('payments').insert({
+            order_id: orderData.id,
+            user_id: user.id,
+            amount: total,
+            status: status,
+            method: paymentMethod,
+            razorpay_order_id: paymentDetails?.razorpay_order_id,
+            razorpay_payment_id: paymentDetails?.razorpay_payment_id,
+            razorpay_signature: paymentDetails?.razorpay_signature,
+          });
+          if(paymentError) throw paymentError;
+      }
       
       setOrderPlaced(orderData);
       clearCart();
+      setCurrentStep(3); // Move to confirmation
       return orderData;
 
     } catch (error: any) {
@@ -200,7 +203,7 @@ export default function CheckoutPage() {
         currency: "INR",
         name: "Books For Fosters",
         description: "Book Purchase",
-        image: "https://example.com/your_logo.jpg", // Replace with your logo
+        image: "/logo.svg", // Replace with your logo
         order_id: razorpayOrder.id,
         handler: async function (response: any) {
            await createOrderInDB(response, 'Delivered'); // Or 'Paid'
@@ -441,27 +444,25 @@ export default function CheckoutPage() {
                   {addresses.length > 0 && (
                     <RadioGroup value={selectedAddress?.id} onValueChange={handleAddressSelect} className="space-y-4 mb-6">
                       {addresses.map(address => (
-                        <div key={address.id}>
-                          <Label htmlFor={address.id} className={cn(
-                            "flex items-start gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all",
-                            selectedAddress?.id === address.id ? "border-foreground bg-secondary" : "border-border"
-                          )}>
-                            <RadioGroupItem value={address.id} id={address.id} className="mt-1"/>
-                            <div className="flex-1">
-                                <div className="flex items-center gap-2 font-medium">
-                                    {address.type === 'Home' && <Home className="w-4 h-4"/>}
-                                    {address.type === 'Work' && <Briefcase className="w-4 h-4"/>}
-                                    {address.firstName} {address.lastName}
-                                    <Badge variant="outline" className="text-xs">{address.type}</Badge>
-                                </div>
-                                <div className="text-sm text-muted-foreground mt-1">
-                                    <p>{address.address}, {address.address2}</p>
-                                    <p>{address.city}, {address.state} - {address.pincode}</p>
-                                    <p>Phone: {address.phone}</p>
-                                </div>
-                            </div>
-                          </Label>
-                        </div>
+                        <Label key={address.id} htmlFor={address.id} className={cn(
+                          "flex items-start gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all",
+                          selectedAddress?.id === address.id ? "border-foreground bg-secondary" : "border-border"
+                        )}>
+                          <RadioGroupItem value={address.id} id={address.id} className="mt-1"/>
+                          <div className="flex-1">
+                              <div className="flex items-center gap-2 font-medium">
+                                  {address.type === 'Home' && <Home className="w-4 h-4"/>}
+                                  {address.type === 'Work' && <Briefcase className="w-4 h-4"/>}
+                                  {address.firstName} {address.lastName}
+                                  <Badge variant="outline" className="text-xs">{address.type}</Badge>
+                              </div>
+                              <div className="text-sm text-muted-foreground mt-1">
+                                  <p>{address.address}, {address.address2}</p>
+                                  <p>{address.city}, {address.state} - {address.pincode}</p>
+                                  <p>Phone: {address.phone}</p>
+                              </div>
+                          </div>
+                        </Label>
                       ))}
                     </RadioGroup>
                   )}
@@ -547,10 +548,10 @@ export default function CheckoutPage() {
                     <Button 
                       size="lg" 
                       className="rounded-full px-8"
-                      onClick={() => setCurrentStep(3)}
+                      onClick={() => handlePlaceOrder()}
+                      disabled={isProcessing}
                     >
-                      Review Order
-                      <ChevronRight className="w-4 h-4 ml-2" />
+                       {isProcessing ? <Loader2 className="animate-spin" /> : (paymentMethod === 'cod' ? 'Place Order' : `Pay ₹${total.toFixed(2)}`)}
                     </Button>
                   </div>
                 </motion.div>
@@ -678,6 +679,3 @@ export default function CheckoutPage() {
     </section>
   );
 };
-
-    
-    
