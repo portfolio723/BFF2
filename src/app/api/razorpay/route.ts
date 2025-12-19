@@ -3,13 +3,24 @@ import { NextResponse } from 'next/server';
 import Razorpay from 'razorpay';
 import { randomBytes } from 'crypto';
 
-const razorpay = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID!,
-    key_secret: process.env.RAZORPAY_KEY_SECRET!,
-});
+// Force the route to be configured for the Node.js runtime
+export const runtime = 'nodejs';
 
 export async function POST(req: Request) {
   try {
+    const key_id = process.env.RAZORPAY_KEY_ID;
+    const key_secret = process.env.RAZORPAY_KEY_SECRET;
+
+    if (!key_id || !key_secret) {
+        throw new Error('Razorpay API keys are not configured in environment variables.');
+    }
+    
+    // Initialize Razorpay client inside the request handler
+    const razorpay = new Razorpay({
+        key_id,
+        key_secret,
+    });
+
     const { amount } = await req.json();
 
     if (!amount || typeof amount !== 'number') {
@@ -28,6 +39,7 @@ export async function POST(req: Request) {
 
   } catch (error) {
     console.error('Error creating Razorpay order:', error);
-    return NextResponse.json({ error: 'Failed to create order' }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : 'Failed to create order';
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
