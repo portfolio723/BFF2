@@ -34,7 +34,6 @@ import {
 import { useAuth } from "@/context/AuthContext";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { AnimatePresence, motion } from "framer-motion";
-import { supabase } from "@/lib/supabase";
 
 const passwordValidation = new RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/

@@ -44,7 +44,7 @@ import {
 import { toast } from "sonner";
 import { format } from "date-fns";
 import Image from "next/image";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase";
 
 const AddressIcon = ({ type }: { type: Address["type"] }) => {
   switch (type) {
@@ -69,6 +69,7 @@ export default function ProfilePage() {
   
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingAddress, setEditingAddress] = useState<Address | null>(null);
+  const supabase = createClient();
 
   useEffect(() => {
     if (!isUserLoading && !authUser) {
@@ -106,7 +107,7 @@ export default function ProfilePage() {
       };
       fetchUserData();
     }
-  }, [authUser, isUserLoading, router]);
+  }, [authUser, isUserLoading, router, supabase]);
 
   const handleEditAddress = (address: Address) => {
     setEditingAddress(address);

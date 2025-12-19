@@ -28,7 +28,7 @@ import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase";
 import type { CommunityPost } from "@/lib/types";
 import { formatDistanceToNow } from "date-fns";
 
@@ -49,6 +49,7 @@ export default function CommunityPage() {
   const [newPostTitle, setNewPostTitle] = useState("");
   const [newPostContent, setNewPostContent] = useState("");
   const [isPosting, setIsPosting] = useState(false);
+  const supabase = createClient();
 
   useEffect(() => {
     const fetchDiscussions = async () => {
@@ -77,7 +78,7 @@ export default function CommunityPage() {
     };
 
     fetchDiscussions();
-  }, []);
+  }, [supabase]);
 
   const handlePostDiscussion = async () => {
     if (!user) {
@@ -365,5 +366,3 @@ export default function CommunityPage() {
     </section>
   );
 };
-
-    

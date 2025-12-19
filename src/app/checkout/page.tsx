@@ -40,7 +40,7 @@ import { AddressForm } from "@/components/AddressForm";
 import type { Address, Order, CartItem as AppCartItem } from "@/lib/types";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase";
 
 const steps = [
   { id: 1, name: "Address", icon: MapPin },
@@ -69,6 +69,7 @@ export default function CheckoutPage() {
   const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
   const [showNewAddressForm, setShowNewAddressForm] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const supabase = createClient();
 
   useEffect(() => {
     setIsMounted(true);
@@ -98,7 +99,7 @@ export default function CheckoutPage() {
     if (user) {
       fetchAddresses();
     }
-  }, [user]);
+  }, [user, supabase]);
 
   const subtotal = getSubtotal();
   const delivery = getDeliveryCharge();

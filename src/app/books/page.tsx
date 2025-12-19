@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import type { Book as BookType } from "@/lib/types"; 
 import { Search, LayoutGrid, List, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase";
 import { toast } from "sonner";
 
 export default function BooksPage() {
@@ -25,6 +25,7 @@ export default function BooksPage() {
   const [books, setBooks] = useState<BookType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [genres, setGenres] = useState(staticGenres);
+  const supabase = createClient();
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -74,7 +75,7 @@ export default function BooksPage() {
 
     fetchBooks();
     fetchGenres();
-  }, []);
+  }, [supabase]);
 
   const filteredBooks = useMemo(() => {
     if (!books) return [];
