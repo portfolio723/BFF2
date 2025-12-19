@@ -1,8 +1,10 @@
+
 "use client";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,6 +16,8 @@ import {
   SelectTrigger, 
   SelectValue 
 } from "@/components/ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
 import { 
   Gift, 
   Package, 
@@ -24,8 +28,9 @@ import {
   Plus,
   Trash2,
   Upload,
-  Calendar
+  Calendar as CalendarIcon
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const steps = [
   { id: 1, title: "Book Details", icon: Package },
@@ -36,6 +41,8 @@ const steps = [
 export default function DonatePage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [books, setBooks] = useState([{ id: 1, title: "", author: "", category: "", condition: "" }]);
+  const [pickupDate, setPickupDate] = useState<Date | undefined>();
+
 
   const addBook = () => {
     setBooks([...books, { id: books.length + 1, title: "", author: "", category: "", condition: "" }]);
@@ -249,6 +256,7 @@ export default function DonatePage() {
                         <SelectItem value="karnataka">Karnataka</SelectItem>
                         <SelectItem value="delhi">Delhi</SelectItem>
                         <SelectItem value="tamil-nadu">Tamil Nadu</SelectItem>
+                        <SelectItem value="telangana">Telangana</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -261,10 +269,28 @@ export default function DonatePage() {
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label>Preferred Pickup Date *</Label>
-                    <div className="relative">
-                      <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                      <Input type="date" className="pl-10" />
-                    </div>
+                     <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-full justify-start text-left font-normal",
+                            !pickupDate && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {pickupDate ? format(pickupDate, "PPP") : <span>Pick a date</span>}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0">
+                        <Calendar
+                          mode="single"
+                          selected={pickupDate}
+                          onSelect={setPickupDate}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
                   </div>
                   <div className="space-y-2">
                     <Label>Preferred Time Slot *</Label>
@@ -314,7 +340,7 @@ export default function DonatePage() {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Pickup Date</span>
-                      <span className="font-medium">Dec 15, 2024</span>
+                      <span className="font-medium">{pickupDate ? format(pickupDate, "PPP") : 'Not Selected'}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Time Slot</span>

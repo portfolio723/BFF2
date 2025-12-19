@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     const key_secret = process.env.RAZORPAY_KEY_SECRET;
 
     if (!key_id || !key_secret) {
-        throw new Error('Razorpay API keys are not configured in environment variables.');
+        return NextResponse.json({ error: 'Razorpay API keys are not configured. Please set RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET in your environment variables.' }, { status: 500 });
     }
     
     // Initialize Razorpay client inside the request handler
