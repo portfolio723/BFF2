@@ -30,14 +30,16 @@ import {
   Briefcase,
   Plus,
   Loader2,
+  Truck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/context/AppProvider";
 import Image from "next/image";
 import { AddressForm } from "@/components/AddressForm";
-import type { Address } from "@/lib/types";
+import type { Address, Order } from "@/lib/types";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
+import { supabase } from "@/lib/supabase";
 
 const steps = [
   { id: 1, name: "Address", icon: MapPin },
@@ -45,28 +47,13 @@ const steps = [
   { id: 3, name: "Confirm", icon: Check },
 ];
 
-const dummyAddresses: Address[] = [
-    {
-        id: 'addr-1',
-        type: 'Home',
-        firstName: 'Demo',
-        lastName: 'User',
-        address: '123, Jubilee Hills',
-        address2: 'Near Film Nagar',
-        city: 'Hyderabad',
-        state: 'Telangana',
-        pincode: '500033',
-        phone: '9876543210',
-    }
-];
-
 export default function CheckoutPage() {
   const router = useRouter();
   const { user, isUserLoading } = useAuth();
-  const { items, getSubtotal, getDeliveryCharge, getTotal, clearCart, loading: cartLoading } = useCart();
+  const { items, getSubtotal, getDeliveryCharge, getTotal, clearCart, cart, loading: cartLoading } = useCart();
   
-  const [addresses, setAddresses] = useState<Address[]>(dummyAddresses);
-  const loadingAddresses = false;
+  const [addresses, setAddresses] = useState<Address[]>([]);
+  const [loadingAddresses, setLoadingAddresses] = useState(true);
 
   const [currentStep, setCurrentStep] = useState(1);
   const [paymentMethod, setPaymentMethod] = useState("upi");
@@ -79,22 +66,31 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     setIsMounted(true);
-  }, []);
-
-  useEffect(() => {
     if (!isUserLoading && !user) {
       router.push('/auth?redirect=/checkout');
     }
   }, [user, isUserLoading, router]);
 
   useEffect(() => {
-    if (addresses.length > 0 && !selectedAddress) {
-      setSelectedAddress(addresses[0]);
-    }
-    if (addresses.length === 0) {
-      setShowNewAddressForm(true);
-    }
-  }, [addresses, selectedAddress]);
+    const fetchAddresses = async () => {
+      if (user) {
+        setLoadingAddresses(true);
+        const { data, error } = await supabase.from('addresses').select('*').eq('user_id', user.id);
+        if (error) {
+          toast.error("Failed to fetch addresses", { description: error.message });
+        } else {
+          setAddresses(data);
+          if (data.length > 0) {
+            setSelectedAddress(data[0]);
+          } else {
+            setShowNewAddressForm(true);
+          }
+        }
+        setLoadingAddresses(false);
+      }
+    };
+    fetchAddresses();
+  }, [user]);
 
   const subtotal = getSubtotal();
   const delivery = getDeliveryCharge();
@@ -102,24 +98,42 @@ export default function CheckoutPage() {
 
   const handlePlaceOrder = async () => {
     if (!selectedAddress || !user) {
-      toast.error("An error occurred. Please try again.");
+      toast.error("An error occurred. Please select an address and ensure you are logged in.");
       return;
     }
     setIsProcessing(true);
     try {
-      // Simulate order placement
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const orderItems = cart.map(item => ({
+        book_id: item.id,
+        quantity: item.quantity,
+        price: item.type === 'rent' ? item.rentalPrice : item.price,
+        type: item.type,
+      }));
+
+      const { data: orderData, error: orderError } = await supabase
+        .from('orders')
+        .insert({
+          user_id: user.id,
+          total_amount: total,
+          delivery_address: selectedAddress.id,
+          status: 'Pending',
+          order_items: orderItems,
+        })
+        .select()
+        .single();
       
-      setOrderId(`mock-${Date.now()}`);
-      setIsProcessing(false);
+      if (orderError) throw orderError;
+      
+      setOrderId(orderData.id);
       setOrderPlaced(true);
       clearCart();
 
     } catch (error: any) {
-      setIsProcessing(false);
       toast.error("Failed to place order", {
         description: error.message || "Please check your connection and try again.",
       });
+    } finally {
+      setIsProcessing(false);
     }
   };
   
@@ -131,7 +145,7 @@ export default function CheckoutPage() {
   };
 
   const handleNewAddressSaved = (newAddress: Address) => {
-    setAddresses(prev => [...prev, { ...newAddress, id: `addr-${Date.now()}` }]);
+    setAddresses(prev => [...prev, newAddress]);
     setSelectedAddress(newAddress);
     setShowNewAddressForm(false);
   }
@@ -510,13 +524,7 @@ export default function CheckoutPage() {
                       <div className="space-y-3">
                         {items.map((item) => (
                           <div key={`${item.id}-${item.type}`} className="flex gap-4 p-3 bg-secondary/30 rounded-lg">
-                            <Image 
-                              src={item.coverImage.url} 
-                              alt={item.title}
-                              width={48}
-                              height={64}
-                              className="w-12 h-16 object-cover rounded"
-                            />
+                            <Image src={item.coverImage.url} alt={item.title} width={48} height={64} className="w-12 h-16 object-cover rounded"/>
                             <div className="flex-1">
                               <p className="font-medium line-clamp-1">{item.title}</p>
                               <p className="text-sm text-muted-foreground capitalize">

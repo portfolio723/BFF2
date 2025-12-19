@@ -42,7 +42,7 @@ const addressSchema = z.object({
 type AddressFormValues = z.infer<typeof addressSchema>;
 
 interface AddressFormProps {
-  onSave: (address: Address) => void;
+  onSave: (address: Omit<Address, 'id'>) => void;
   existingAddress?: Address | null;
 }
 
@@ -90,13 +90,7 @@ export function AddressForm({ onSave, existingAddress }: AddressFormProps) {
 
   const onSubmit = async (data: AddressFormValues) => {
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 500));
-    const addressToSave = {
-        ...data,
-        id: existingAddress?.id || `addr-${Date.now()}`
-    }
-    onSave(addressToSave);
+    await onSave(data);
     reset();
     setIsSubmitting(false);
   };
@@ -124,8 +118,7 @@ export function AddressForm({ onSave, existingAddress }: AddressFormProps) {
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="Other" id="r-other" />
-                <Label htmlFor="r-other">Other</Label>
-              </div>
+                <Label htmlFor="r-other">Other</Label>              </div>
             </RadioGroup>
           )}
         />

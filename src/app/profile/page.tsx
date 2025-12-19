@@ -45,6 +45,7 @@ import { toast } from "sonner";
 import { format } from "date-fns";
 import Image from "next/image";
 import { books as staticBooks, pdfs as staticPdfs } from "@/lib/data";
+import { supabase } from "@/lib/supabase";
 
 const AddressIcon = ({ type }: { type: Address["type"] }) => {
   switch (type) {
@@ -57,100 +58,34 @@ const AddressIcon = ({ type }: { type: Address["type"] }) => {
   }
 };
 
-const dummyAddress: Address = {
-    id: 'addr-1',
-    type: 'Home',
-    firstName: 'Demo',
-    lastName: 'User',
-    address: '123, Jubilee Hills',
-    address2: 'Near Film Nagar',
-    city: 'Hyderabad',
-    state: 'Telangana',
-    pincode: '500033',
-    phone: '9876543210',
-};
-
 export default function ProfilePage() {
   const router = useRouter();
   const { user: authUser, isUserLoading } = useAuth();
   
-  const [addresses, setAddresses] = useState<Address[]>([dummyAddress]);
+  const [addresses, setAddresses] = useState<Address[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
   const [downloadedPdfs, setDownloadedPdfs] = useState<UserDownloadedPdf[]>([]);
   
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingAddress, setEditingAddress] = useState<Address | null>(null);
-  const [isSeeding, setIsSeeding] = useState(false);
 
   useEffect(() => {
     if (!isUserLoading && !authUser) {
       router.push('/auth?redirect=/profile');
     }
-    // Mock data fetching
-    if(authUser) {
-        const orderBook1 = staticBooks[1];
-        const orderBook2 = staticBooks[2];
-        setOrders([
-            {
-                id: 'order-1',
-                userId: authUser.uid,
-                orderDate: new Date('2024-05-10T10:00:00Z').toISOString(),
-                totalAmount: (orderBook1.price) + (orderBook2.rentalPrice || 0),
-                status: 'Delivered',
-                deliveryAddress: dummyAddress,
-                items: [
-                  {
-                    id: orderBook1.id,
-                    bookId: orderBook1.id,
-                    title: orderBook1.title,
-                    author: orderBook1.author.name,
-                    coverImage: orderBook1.coverImage.url,
-                    quantity: 1,
-                    price: orderBook1.price,
-                    type: 'buy'
-                  },
-                  {
-                    id: orderBook2.id,
-                    bookId: orderBook2.id,
-                    title: orderBook2.title,
-                    author: orderBook2.author.name,
-                    coverImage: orderBook2.coverImage.url,
-                    quantity: 1,
-                    price: orderBook2.rentalPrice ?? 0,
-                    type: 'rent'
-                  }
-                ]
-            }
-        ]);
-        const wishlistedBook = staticBooks[5];
-        setWishlistItems([{
-            id: wishlistedBook.id,
-            userId: authUser.uid,
-            bookId: wishlistedBook.id,
-            addedDate: new Date().toISOString(),
-            bookTitle: wishlistedBook.title,
-            bookAuthor: wishlistedBook.author.name,
-            bookCoverImage: wishlistedBook.coverImage.url,
-        }]);
-        const downloadedPdf = staticPdfs[0];
-        setDownloadedPdfs([{
-            id: 'download-1',
-            userId: authUser.uid,
-            pdfId: downloadedPdf.id,
-            pdfTitle: downloadedPdf.title,
-            downloadDate: new Date().toISOString(),
-        }])
+    if (authUser) {
+      const fetchUserData = async () => {
+        const { data: addressesData, error: addressesError } = await supabase
+          .from('addresses')
+          .select('*')
+          .eq('user_id', authUser.id);
+        if (addressesError) console.error('Error fetching addresses:', addressesError.message);
+        else setAddresses(addressesData || []);
+      };
+      fetchUserData();
     }
   }, [authUser, isUserLoading, router]);
-
-  const handleSeedDb = async () => {
-    setIsSeeding(true);
-    toast.info("Database seeding has been removed.", {
-        description: "The application is now using static mock data."
-    });
-    setIsSeeding(false);
-  }
 
   const handleEditAddress = (address: Address) => {
     setEditingAddress(address);
@@ -167,20 +102,45 @@ export default function ProfilePage() {
     setIsFormOpen(false);
   }
 
-  const handleSaveAddress = (address: Address) => {
-      if(editingAddress) {
-          setAddresses(prev => prev.map(a => a.id === address.id ? address : a));
-          toast.success("Address updated successfully!");
+  const handleSaveAddress = async (addressData: Omit<Address, 'id'>) => {
+    if (!authUser) return;
+
+    if (editingAddress) {
+      const { data, error } = await supabase
+        .from('addresses')
+        .update({ ...addressData })
+        .eq('id', editingAddress.id)
+        .select();
+      if (error) {
+        toast.error("Failed to update address", { description: error.message });
       } else {
-          setAddresses(prev => [...prev, { ...address, id: `addr-${Date.now()}` }]);
-          toast.success("Address added successfully!");
+        setAddresses(prev => prev.map(a => a.id === editingAddress.id ? data[0] : a));
+        toast.success("Address updated successfully!");
+        handleFormClose();
       }
-      handleFormClose();
+    } else {
+      const { data, error } = await supabase
+        .from('addresses')
+        .insert([{ ...addressData, user_id: authUser.id }])
+        .select();
+      if (error) {
+        toast.error("Failed to add address", { description: error.message });
+      } else {
+        setAddresses(prev => [...prev, data[0]]);
+        toast.success("Address added successfully!");
+        handleFormClose();
+      }
+    }
   }
   
-  const removeAddress = (id: string) => {
+  const removeAddress = async (id: string) => {
+    const { error } = await supabase.from('addresses').delete().eq('id', id);
+    if (error) {
+      toast.error("Failed to remove address", { description: error.message });
+    } else {
       setAddresses(prev => prev.filter(a => a.id !== id));
       toast.info("Address removed.");
+    }
   }
 
 
@@ -201,7 +161,7 @@ export default function ProfilePage() {
   }
 
   const userInitial =
-    authUser.displayName?.charAt(0).toUpperCase() ||
+    authUser.user_metadata.full_name?.charAt(0).toUpperCase() ||
     authUser.email?.charAt(0).toUpperCase() ||
     "U";
 
@@ -222,17 +182,17 @@ export default function ProfilePage() {
             <CardContent className="pt-6 flex flex-col items-center text-center">
               <Avatar className="w-24 h-24 mb-4">
                 <AvatarImage
-                  src={authUser.photoURL ?? ""}
-                  alt={authUser.displayName ?? "User"}
+                  src={authUser.user_metadata.avatar_url ?? ""}
+                  alt={authUser.user_metadata.full_name ?? "User"}
                 />
                 <AvatarFallback className="text-4xl">{userInitial}</AvatarFallback>
               </Avatar>
-              <h2 className="text-xl font-semibold">{authUser.displayName || "User"}</h2>
+              <h2 className="text-xl font-semibold">{authUser.user_metadata.full_name || "User"}</h2>
               <p className="text-sm text-muted-foreground">{authUser.email}</p>
               <Separator className="my-4" />
                <div className="flex flex-col gap-2 w-full">
                 <h3 className="font-semibold text-left">Account Status</h3>
-                {authUser.emailVerified ? (
+                {authUser.email_confirmed_at ? (
                   <Badge className="flex items-center gap-2 w-fit bg-green-100 text-green-800 hover:bg-green-100/80 dark:bg-green-900/50 dark:text-green-300">
                     Verified
                   </Badge>
@@ -244,21 +204,6 @@ export default function ProfilePage() {
               </div>
             </CardContent>
           </Card>
-           <Card className="mt-8">
-            <CardHeader>
-                <CardTitle>Developer</CardTitle>
-                <CardDescription>Actions for development.</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <Button onClick={handleSeedDb} disabled={isSeeding} className="w-full">
-                    {isSeeding ? <Loader2 className="animate-spin mr-2" /> : <Database className="mr-2"/>}
-                    {isSeeding ? "Seeding..." : "Seed Database"}
-                </Button>
-                 <p className="text-xs text-muted-foreground mt-2">
-                    This will populate the 'books' and user data in Firestore.
-                 </p>
-            </CardContent>
-           </Card>
         </div>
         <div className="md:col-span-2 space-y-8">
           <Card>
@@ -271,7 +216,7 @@ export default function ProfilePage() {
                 <User className="h-5 w-5 mr-3 text-muted-foreground" />
                 <div>
                   <p className="text-sm text-muted-foreground">Full Name</p>
-                  <p className="font-medium">{authUser.displayName || "Not provided"}</p>
+                  <p className="font-medium">{authUser.user_metadata.full_name || "Not provided"}</p>
                 </div>
               </div>
               <div className="flex items-center">
@@ -285,7 +230,7 @@ export default function ProfilePage() {
                 <Phone className="h-5 w-5 mr-3 text-muted-foreground" />
                 <div>
                   <p className="text-sm text-muted-foreground">Phone Number</p>
-                  <p className="font-medium">{"Not provided"}</p>
+                  <p className="font-medium">{authUser.phone || "Not provided"}</p>
                 </div>
               </div>
             </CardContent>

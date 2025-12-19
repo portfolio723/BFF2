@@ -60,7 +60,7 @@ export function Header() {
     router.push("/");
   };
   
-  const userInitial = user?.displayName?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U';
+  const userInitial = user?.user_metadata.full_name?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U';
 
 
   return (
@@ -163,16 +163,16 @@ export function Header() {
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="flex items-center gap-2 rounded-full">
                       <Avatar className="w-8 h-8">
-                        <AvatarImage src={user.photoURL ?? ''} alt={user.displayName ?? ''} />
+                        <AvatarImage src={user.user_metadata.avatar_url ?? ''} alt={user.user_metadata.full_name ?? ''} />
                         <AvatarFallback>{userInitial}</AvatarFallback>
                       </Avatar>
-                       <span className="hidden md:inline">{user.displayName}</span>
+                       <span className="hidden md:inline">{user.user_metadata.full_name}</span>
                        <ChevronDown className="w-4 h-4 text-muted-foreground" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-56">
                     <DropdownMenuLabel>
-                        <p className="font-semibold">{user.displayName}</p>
+                        <p className="font-semibold">{user.user_metadata.full_name}</p>
                         <p className="text-xs text-muted-foreground font-normal">{user.email}</p>
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
@@ -238,11 +238,11 @@ export function Header() {
                   <div className="px-4 pb-4 mb-2 border-b border-border">
                     <div className="flex items-center gap-3">
                       <Avatar className="w-10 h-10">
-                        <AvatarImage src={user.photoURL ?? ''} alt={user.displayName ?? ''} />
+                        <AvatarImage src={user.user_metadata.avatar_url ?? ''} alt={user.user_metadata.full_name ?? ''} />
                         <AvatarFallback>{userInitial}</AvatarFallback>
                       </Avatar>
                       <div>
-                        <p className="font-medium">{user.displayName}</p>
+                        <p className="font-medium">{user.user_metadata.full_name}</p>
                       </div>
                     </div>
                   </div>

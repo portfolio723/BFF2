@@ -34,6 +34,7 @@ import {
 import { useAuth } from "@/context/AuthContext";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { AnimatePresence, motion } from "framer-motion";
+import { supabase } from "@/lib/supabase";
 
 const passwordValidation = new RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
@@ -85,13 +86,7 @@ export default function AuthForm() {
       toast.success("Signed in successfully!");
       router.push(redirect);
     } catch (error: any) {
-      let errorMessage = "An unexpected error occurred. Please try again.";
-      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-        errorMessage = "Invalid email or password. Please check your credentials.";
-      } else if (error.code === 'auth/invalid-credential') {
-        errorMessage = "Invalid credentials provided.";
-      }
-      toast.error("Sign In Failed", { description: errorMessage });
+      toast.error("Sign In Failed", { description: error.message || "Invalid credentials." });
     } finally {
       setLoading(false);
     }
@@ -102,21 +97,17 @@ export default function AuthForm() {
     try {
       const fullPhoneNumber = `+91${values.phoneNumber}`;
       await signUp(values.email, values.password, {
-        displayName: values.fullName,
-        phoneNumber: fullPhoneNumber,
+        data: {
+          full_name: values.fullName,
+          phone_number: fullPhoneNumber,
+        }
       });
       toast.success("Account created successfully!", {
         description: "Please check your email to verify your account.",
       });
       router.push('/');
     } catch (error: any) {
-      let errorMessage = "An unexpected error occurred. Please try again.";
-      if (error.code === 'auth/email-already-in-use') {
-          errorMessage = "This email address is already in use. Please sign in or use a different email.";
-      } else if (error.code === 'auth/weak-password') {
-          errorMessage = "The password is too weak. Please choose a stronger password.";
-      }
-      toast.error("Sign Up Failed", { description: errorMessage });
+      toast.error("Sign Up Failed", { description: error.message || "An unexpected error occurred." });
     } finally {
       setLoading(false);
     }
