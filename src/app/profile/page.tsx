@@ -31,7 +31,7 @@ import {
   Heart,
   Download,
 } from "lucide-react";
-import type { Address, Order, WishlistItem, UserDownloadedPdf, SbAddress, SbOrder } from "@/lib/types";
+import type { Address, Order, WishlistItem, UserDownloadedPdf, SbAddress, SbOrder, SbWishlistItem, SbUserDownloadedPdf } from "@/lib/types";
 import { useAuth } from "@/context/AuthContext";
 import { AddressForm } from "@/components/AddressForm";
 import {
@@ -75,9 +75,9 @@ export default function ProfilePage() {
       router.push('/auth?redirect=/profile');
     }
     if (authUser) {
-      const supabase = createClient();
       const fetchUserData = async () => {
         setLoadingData(true);
+        const supabase = createClient();
 
         const [
           addressesRes,
@@ -119,13 +119,25 @@ export default function ProfilePage() {
              setOrders(formattedOrders);
         }
         
-        if (wishlistRes.error) toast.error('Error fetching wishlist:', { description: wishlistRes.error.message });
-        else setWishlistItems(wishlistRes.data || []);
+        if (wishlistRes.error) {
+          toast.error('Error fetching wishlist:', { description: wishlistRes.error.message });
+        } else if (wishlistRes.data) {
+          const formattedWishlist: WishlistItem[] = (wishlistRes.data as SbWishlistItem[]).map(item => ({
+            id: item.id,
+            user_id: item.user_id,
+            book_id: item.book_id,
+            added_date: item.added_date,
+            book_title: item.book_title,
+            book_author: item.book_author,
+            book_cover_image: item.book_cover_image,
+          }));
+          setWishlistItems(formattedWishlist);
+        }
 
         if (downloadsRes.error) {
             toast.error('Error fetching downloads:', { description: downloadsRes.error.message });
         } else if(downloadsRes.data) {
-            const formattedDownloads: UserDownloadedPdf[] = downloadsRes.data.map(d => ({
+            const formattedDownloads: UserDownloadedPdf[] = downloadsRes.data.map((d: SbUserDownloadedPdf) => ({
                 id: d.id,
                 userId: d.user_id,
                 pdfId: d.pdf_id,
@@ -184,7 +196,7 @@ export default function ProfilePage() {
             firstName: data.first_name,
             lastName: data.last_name,
             address: data.address,
-            address2: data.address2,
+            address2: data.address2 || '',
             city: data.city,
             state: data.state,
             pincode: data.pincode,
@@ -210,7 +222,7 @@ export default function ProfilePage() {
             firstName: data.first_name,
             lastName: data.last_name,
             address: data.address,
-            address2: data.address2,
+            address2: data.address2 || '',
             city: data.city,
             state: data.state,
             pincode: data.pincode,
@@ -403,7 +415,7 @@ export default function ProfilePage() {
                         {order.order_items.map((item) => (
                           <div key={item.id} className="flex gap-3 text-sm">
                             <div className="flex-1">
-                              <p className="font-medium">{item.quantity}x Book ID: {item.book_id.substring(0,8)}...</p>
+                              <p className="font-medium">Book ID: {item.book_id.substring(0,8)}... ({item.quantity}x)</p>
                               <p className="text-muted-foreground capitalize">{item.type}</p>
                             </div>
                             <p className="font-medium">₹{item.price_at_purchase.toFixed(2)}</p>

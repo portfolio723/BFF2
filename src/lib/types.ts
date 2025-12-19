@@ -91,6 +91,7 @@ export type WishlistItem = {
 
 export type OrderItem = {
   id: string;
+  order_id: string;
   book_id: string;
   quantity: number;
   price_at_purchase: number;
@@ -148,3 +149,21 @@ export type SbOrderItem = {
   price_at_purchase: number;
   type: 'rent' | 'buy';
 }
+
+export type SbWishlistItem = {
+  id: string;
+  user_id: string;
+  book_id: string;
+  added_date: any; 
+  book_title: string;
+  book_author: string;
+  book_cover_image: string;
+};
+
+export type SbUserDownloadedPdf = {
+  id: string;
+  user_id: string;
+  pdf_id: string;
+  pdf_title: string;
+  download_date: any;
+};
