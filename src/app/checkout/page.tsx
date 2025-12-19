@@ -209,7 +209,7 @@ export default function CheckoutPage() {
            await createOrderInDB(response, 'Delivered'); // Or 'Paid'
         },
         prefill: {
-            name: `${selectedAddress.firstName} ${selectedAddress.lastName}`,
+            name: `${selectedAddress.first_name} ${selectedAddress.last_name}`,
             email: user.email,
             contact: selectedAddress.phone,
         },
@@ -453,7 +453,7 @@ export default function CheckoutPage() {
                               <div className="flex items-center gap-2 font-medium">
                                   {address.type === 'Home' && <Home className="w-4 h-4"/>}
                                   {address.type === 'Work' && <Briefcase className="w-4 h-4"/>}
-                                  {address.firstName} {address.lastName}
+                                  {address.first_name} {address.last_name}
                                   <Badge variant="outline" className="text-xs">{address.type}</Badge>
                               </div>
                               <div className="text-sm text-muted-foreground mt-1">
@@ -572,7 +572,7 @@ export default function CheckoutPage() {
                     <div className="p-4 bg-secondary/50 rounded-xl">
                       <h3 className="font-medium mb-2">Delivery Address</h3>
                       <p className="text-sm text-muted-foreground">
-                        {selectedAddress?.firstName} {selectedAddress?.lastName}, {selectedAddress?.address}, {selectedAddress?.city}, {selectedAddress?.state} - {selectedAddress?.pincode}
+                        {selectedAddress?.first_name} {selectedAddress?.last_name}, {selectedAddress?.address}, {selectedAddress?.city}, {selectedAddress?.state} - {selectedAddress?.pincode}
                       </p>
                     </div>
                     
