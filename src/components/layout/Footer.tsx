@@ -19,13 +19,13 @@ export const Footer = () => {
               Empowering readers through affordable book rentals, purchases, and community-driven donations. Every book finds a home.
             </p>
             <div className="flex items-center gap-3">
-              <a href="#" className="w-9 h-9 rounded-full bg-foreground text-background flex items-center justify-center hover:opacity-80 transition-opacity">
+              <a href="https://x.com/booksforfoster" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-foreground text-background flex items-center justify-center hover:opacity-80 transition-opacity">
                 <Twitter className="w-4 h-4" />
               </a>
-              <a href="#" className="w-9 h-9 rounded-full bg-foreground text-background flex items-center justify-center hover:opacity-80 transition-opacity">
+              <a href="https://www.instagram.com/booksforfoster/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-foreground text-background flex items-center justify-center hover:opacity-80 transition-opacity">
                 <Instagram className="w-4 h-4" />
               </a>
-              <a href="#" className="w-9 h-9 rounded-full bg-foreground text-background flex items-center justify-center hover:opacity-80 transition-opacity">
+              <a href="https://www.facebook.com/profile.php?id=61585150750582" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-foreground text-background flex items-center justify-center hover:opacity-80 transition-opacity">
                 <Facebook className="w-4 h-4" />
               </a>
             </div>
@@ -35,10 +35,15 @@ export const Footer = () => {
           <div>
             <h4 className="font-heading font-semibold text-lg mb-4">Quick Links</h4>
             <ul className="space-y-3">
-              {["/books", "/books", "/books", "/donate", "/community"].map((href, index) => (
-                <li key={index}>
-                  <Link href={href} className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-                    {["Explore Books", "Rent a Book", "Buy Books", "Donate Books", "Community"][index]}
+              {[
+                { name: "Explore Books", href: "/books" },
+                { name: "Donate Books", href: "/donate" },
+                { name: "Community", href: "/community" },
+                { name: "Free PDFs", href: "/pdfs" },
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+                    {item.name}
                   </Link>
                 </li>
               ))}
@@ -50,11 +55,10 @@ export const Footer = () => {
             <h4 className="font-heading font-semibold text-lg mb-4">Support</h4>
             <ul className="space-y-3">
               {[
-                { name: "Help Center", href: "/help" },
                 { name: "FAQs", href: "/faq" },
-                { name: "Delivery Info", href: "/delivery" },
-                { name: "Return Policy", href: "/returns" },
                 { name: "Contact Us", href: "/contact" },
+                { name: "Terms of Service", href: "/terms" },
+                { name: "Privacy Policy", href: "/privacy" },
               ].map((item) => (
                 <li key={item.name}>
                   <Link href={item.href} className="text-muted-foreground hover:text-foreground transition-colors text-sm">
@@ -87,7 +91,7 @@ export const Footer = () => {
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Mail className="w-4 h-4" />
-                <span>hello@booksforfosters.com</span>
+                <span>booksforfoster@gmail.com</span>
               </div>
               <div className="flex items-start gap-2 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 mt-0.5" />
