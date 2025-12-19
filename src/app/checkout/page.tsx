@@ -69,8 +69,7 @@ export default function CheckoutPage() {
   const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
   const [showNewAddressForm, setShowNewAddressForm] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const supabase = createClient();
-
+  
   useEffect(() => {
     setIsMounted(true);
     if (!isUserLoading && !user) {
@@ -81,6 +80,7 @@ export default function CheckoutPage() {
   useEffect(() => {
     const fetchAddresses = async () => {
       if (user) {
+        const supabase = createClient();
         setLoadingAddresses(true);
         const { data, error } = await supabase.from('addresses').select('*').eq('user_id', user.id);
         if (error) {
@@ -99,7 +99,7 @@ export default function CheckoutPage() {
     if (user) {
       fetchAddresses();
     }
-  }, [user, supabase]);
+  }, [user]);
 
   const subtotal = getSubtotal();
   const delivery = getDeliveryCharge();
@@ -124,6 +124,7 @@ export default function CheckoutPage() {
     if (!user || !selectedAddress) return null;
     
     try {
+      const supabase = createClient();
       // 1. Create the order
       const { data: orderData, error: orderError } = await supabase
         .from('orders')
