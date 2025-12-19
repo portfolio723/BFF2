@@ -2,7 +2,6 @@
 "use client";
 import { useState, useMemo, useEffect } from "react";
 import { BookCard } from "@/components/BookCard";
-import { genres as staticGenres } from "@/lib/data";
 import {
   Select,
   SelectContent,
@@ -16,6 +15,7 @@ import { Search, LayoutGrid, List, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase";
 import { toast } from "sonner";
+import type { Genre } from "@/lib/types";
 
 export default function BooksPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -24,7 +24,7 @@ export default function BooksPage() {
   const [view, setView] = useState("grid");
   const [books, setBooks] = useState<BookType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [genres, setGenres] = useState(staticGenres);
+  const [genres, setGenres] = useState<Genre[]>([]);
   
   useEffect(() => {
     const supabase = createClient();
