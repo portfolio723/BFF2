@@ -37,7 +37,7 @@ import { cn } from "@/lib/utils";
 import { useCart } from "@/context/AppProvider";
 import Image from "next/image";
 import { AddressForm } from "@/components/AddressForm";
-import type { Address, Order, CartItem as AppCartItem } from "@/lib/types";
+import type { Address, Order, CartItem as AppCartItem, SbAddress, SbOrder } from "@/lib/types";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase";
@@ -52,6 +52,12 @@ declare global {
   interface Window {
     Razorpay: any;
   }
+}
+
+interface RazorpayPaymentResponse {
+    razorpay_order_id: string;
+    razorpay_payment_id: string;
+    razorpay_signature: string;
 }
 
 export default function CheckoutPage() {
@@ -85,15 +91,15 @@ export default function CheckoutPage() {
         const { data, error } = await supabase.from('addresses').select('*').eq('user_id', user.id);
         if (error) {
           toast.error("Failed to fetch addresses", { description: error.message });
-        } else {
-          const formattedAddresses: Address[] = data.map((d: any) => ({
+        } else if (data) {
+          const formattedAddresses: Address[] = data.map((d: SbAddress) => ({
             id: d.id,
             user_id: d.user_id,
             type: d.type,
             firstName: d.first_name,
             lastName: d.last_name,
             address: d.address,
-            address2: d.address2,
+            address2: d.address2 || '',
             city: d.city,
             state: d.state,
             pincode: d.pincode,
@@ -133,7 +139,7 @@ export default function CheckoutPage() {
     }
   };
 
-  const createOrderInDB = async (paymentDetails: any, status: Order['status']) => {
+  const createOrderInDB = async (paymentDetails: RazorpayPaymentResponse | null, status: Order['status']) => {
     if (!user || !selectedAddress) return null;
     
     try {
@@ -165,12 +171,12 @@ export default function CheckoutPage() {
       if (itemsError) throw itemsError;
 
       // 3. Create payment record
-      if (paymentMethod !== 'cod' || paymentDetails) {
+      if (paymentMethod !== 'cod' && paymentDetails) {
           const { error: paymentError } = await supabase.from('payments').insert({
             order_id: orderData.id,
             user_id: user.id,
             amount: total,
-            status: status,
+            status: status === 'Delivered' ? 'Paid' : status,
             method: paymentMethod,
             razorpay_order_id: paymentDetails?.razorpay_order_id,
             razorpay_payment_id: paymentDetails?.razorpay_payment_id,
@@ -179,10 +185,15 @@ export default function CheckoutPage() {
           if(paymentError) throw paymentError;
       }
       
-      setOrderPlaced(orderData);
+      const finalOrder: Order = {
+        ...orderData,
+        order_items: orderItemsToInsert
+      };
+
+      setOrderPlaced(finalOrder);
       clearCart();
       setCurrentStep(3); // Move to confirmation
-      return orderData;
+      return finalOrder;
 
     } catch (error: any) {
       toast.error("Failed to place order", {
@@ -196,6 +207,7 @@ export default function CheckoutPage() {
   const makePayment = async () => {
     if (!selectedAddress || !user) {
       toast.error("Please select an address and login first.");
+      setIsProcessing(false);
       return;
     }
 
@@ -216,11 +228,11 @@ export default function CheckoutPage() {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         amount: razorpayOrder.amount,
         currency: "INR",
-        name: "Books For Fosters",
-        description: "Book Purchase",
+        name: "Hyderabad Reads",
+        description: "Book Purchase/Rental",
         image: "/logo.svg", // Replace with your logo
         order_id: razorpayOrder.id,
-        handler: async function (response: any) {
+        handler: async function (response: RazorpayPaymentResponse) {
            await createOrderInDB(response, 'Delivered'); // Or 'Paid'
         },
         prefill: {
@@ -272,6 +284,7 @@ export default function CheckoutPage() {
         }])
         .select()
         .single();
+
     if (error) {
       toast.error("Failed to add address", { description: error.message });
     } else if (data) {

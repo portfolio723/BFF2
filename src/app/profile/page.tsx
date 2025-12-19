@@ -31,7 +31,7 @@ import {
   Heart,
   Download,
 } from "lucide-react";
-import type { Address, Order, WishlistItem, UserDownloadedPdf } from "@/lib/types";
+import type { Address, Order, WishlistItem, UserDownloadedPdf, SbAddress, SbOrder } from "@/lib/types";
 import { useAuth } from "@/context/AuthContext";
 import { AddressForm } from "@/components/AddressForm";
 import {
@@ -91,17 +91,49 @@ export default function ProfilePage() {
           supabase.from('user_downloaded_pdfs').select('*').eq('user_id', authUser.id)
         ]);
 
-        if (addressesRes.error) toast.error('Error fetching addresses:', { description: addressesRes.error.message });
-        else setAddresses(addressesRes.data || []);
+        if (addressesRes.error) {
+            toast.error('Error fetching addresses:', { description: addressesRes.error.message });
+        } else if (addressesRes.data) {
+            const formattedAddresses: Address[] = addressesRes.data.map((d: SbAddress) => ({
+                id: d.id,
+                user_id: d.user_id,
+                type: d.type,
+                firstName: d.first_name,
+                lastName: d.last_name,
+                address: d.address,
+                address2: d.address2 || '',
+                city: d.city,
+                state: d.state,
+                pincode: d.pincode,
+                phone: d.phone,
+            }));
+            setAddresses(formattedAddresses);
+        }
 
-        if (ordersRes.error) toast.error('Error fetching orders:', { description: ordersRes.error.message });
-        else setOrders(ordersRes.data || []);
+        if (ordersRes.error) {
+            toast.error('Error fetching orders:', { description: ordersRes.error.message });
+        } else if (ordersRes.data) {
+             const formattedOrders: Order[] = (ordersRes.data as SbOrder[]).map(o => ({
+                ...o,
+             }));
+             setOrders(formattedOrders);
+        }
         
         if (wishlistRes.error) toast.error('Error fetching wishlist:', { description: wishlistRes.error.message });
         else setWishlistItems(wishlistRes.data || []);
 
-        if (downloadsRes.error) toast.error('Error fetching downloads:', { description: downloadsRes.error.message });
-        else setDownloadedPdfs(downloadsRes.data || []);
+        if (downloadsRes.error) {
+            toast.error('Error fetching downloads:', { description: downloadsRes.error.message });
+        } else if(downloadsRes.data) {
+            const formattedDownloads: UserDownloadedPdf[] = downloadsRes.data.map(d => ({
+                id: d.id,
+                userId: d.user_id,
+                pdfId: d.pdf_id,
+                pdfTitle: d.pdf_title,
+                downloadDate: d.download_date
+            }));
+            setDownloadedPdfs(formattedDownloads);
+        }
 
         setLoadingData(false);
       };
@@ -127,31 +159,64 @@ export default function ProfilePage() {
   const handleSaveAddress = async (addressData: Omit<Address, 'id' | 'user_id'>) => {
     if (!authUser) return;
     const supabase = createClient();
+    
+    const dbData = {
+      ...addressData,
+      user_id: authUser.id,
+      first_name: addressData.firstName,
+      last_name: addressData.lastName,
+    };
 
     if (editingAddress) {
       const { data, error } = await supabase
         .from('addresses')
-        .update({ ...addressData })
+        .update(dbData)
         .eq('id', editingAddress.id)
         .select()
         .single();
       if (error) {
         toast.error("Failed to update address", { description: error.message });
-      } else {
-        setAddresses(prev => prev.map(a => a.id === editingAddress.id ? data : a));
+      } else if (data) {
+        const updatedAddress: Address = {
+            id: data.id,
+            user_id: data.user_id,
+            type: data.type,
+            firstName: data.first_name,
+            lastName: data.last_name,
+            address: data.address,
+            address2: data.address2,
+            city: data.city,
+            state: data.state,
+            pincode: data.pincode,
+            phone: data.phone,
+        };
+        setAddresses(prev => prev.map(a => a.id === editingAddress.id ? updatedAddress : a));
         toast.success("Address updated successfully!");
         handleFormClose();
       }
     } else {
       const { data, error } = await supabase
         .from('addresses')
-        .insert([{ ...addressData, user_id: authUser.id }])
+        .insert([dbData])
         .select()
         .single();
       if (error) {
         toast.error("Failed to add address", { description: error.message });
-      } else {
-        setAddresses(prev => [...prev, data]);
+      } else if (data) {
+         const newAddress: Address = {
+            id: data.id,
+            user_id: data.user_id,
+            type: data.type,
+            firstName: data.first_name,
+            lastName: data.last_name,
+            address: data.address,
+            address2: data.address2,
+            city: data.city,
+            state: data.state,
+            pincode: data.pincode,
+            phone: data.phone,
+        };
+        setAddresses(prev => [...prev, newAddress]);
         toast.success("Address added successfully!");
         handleFormClose();
       }
@@ -335,7 +400,7 @@ export default function ProfilePage() {
                       </div>
                       <Separator className="my-3" />
                       <div className="space-y-2">
-                        {order.order_items.map((item: any) => (
+                        {order.order_items.map((item) => (
                           <div key={item.id} className="flex gap-3 text-sm">
                             <div className="flex-1">
                               <p className="font-medium">{item.quantity}x Book ID: {item.book_id.substring(0,8)}...</p>
@@ -370,7 +435,7 @@ export default function ProfilePage() {
               {wishlistItems && wishlistItems.length > 0 ? (
                 <div className="space-y-2">
                   {wishlistItems.map(item => (
-                    <div key={item.id} className="flex gap-3 p-2 rounded-md hover:bg-secondary/50">
+                    <div key={item.id} className="flex gap-3 p-2 rounded-md hover:bg-secondary/50 items-center">
                        <Image src={item.book_cover_image} alt={item.book_title} width={40} height={53} className="rounded-sm" />
                        <div className="flex-1">
                           <p className="font-medium text-sm">{item.book_title}</p>

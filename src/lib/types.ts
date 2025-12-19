@@ -24,22 +24,6 @@ export type Book = {
   rentalPrice?: number;
 };
 
-// This type can be removed or kept for reference, but is no longer sourced from Firestore
-export type FirestoreBook = {
-  id: string;
-  title: string;
-  price: number;
-  description: string;
-  availability: 'in-stock' | 'out-of-stock';
-  coverImageUrl: string;
-  coverImageHint: string;
-  authorId: string;
-  authorName: string;
-  genreId: string;
-  genreName: string;
-  rentalPrice: number | null;
-}
-
 export type CommunityPost = {
   id: string;
   created_at: string;
@@ -109,7 +93,7 @@ export type OrderItem = {
   id: string;
   book_id: string;
   quantity: number;
-  price: number;
+  price_at_purchase: number;
   type: 'rent' | 'buy';
 };
 
@@ -130,3 +114,37 @@ export type UserDownloadedPdf = {
   pdfTitle: string;
   downloadDate: any;
 };
+
+// Supabase-specific types
+export type SbAddress = {
+  id: string;
+  user_id: string;
+  type: "Home" | "Work" | "Other";
+  first_name: string;
+  last_name: string;
+  address: string;
+  address2: string | null;
+  city: string;
+  state: string;
+  pincode: string;
+  phone: string;
+};
+
+export type SbOrder = {
+  id: string;
+  user_id: string;
+  created_at: any;
+  total_amount: number;
+  status: 'Pending' | 'Shipped' | 'Delivered' | 'Cancelled';
+  delivery_address: string;
+  order_items: SbOrderItem[];
+}
+
+export type SbOrderItem = {
+  id: string;
+  order_id: string;
+  book_id: string;
+  quantity: number;
+  price_at_purchase: number;
+  type: 'rent' | 'buy';
+}

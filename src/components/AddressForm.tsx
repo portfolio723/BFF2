@@ -42,7 +42,7 @@ const addressSchema = z.object({
 type AddressFormValues = z.infer<typeof addressSchema>;
 
 interface AddressFormProps {
-  onSave: (address: Omit<Address, 'id' | 'user_id'>) => void;
+  onSave: (address: Omit<Address, 'id' | 'user_id'>) => Promise<void>;
   existingAddress?: Address | null;
 }
 
@@ -72,11 +72,7 @@ export function AddressForm({ onSave, existingAddress }: AddressFormProps) {
   
   useEffect(() => {
     if(existingAddress) {
-        reset({
-          ...existingAddress,
-          firstName: existingAddress.first_name,
-          lastName: existingAddress.last_name,
-        });
+        reset(existingAddress);
     } else {
         reset({
           type: "Home",
