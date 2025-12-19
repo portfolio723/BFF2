@@ -4,7 +4,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,8 +15,6 @@ import {
   SelectTrigger, 
   SelectValue 
 } from "@/components/ui/select";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
 import { 
   Gift, 
   Package, 
@@ -28,9 +25,7 @@ import {
   Plus,
   Trash2,
   Upload,
-  Calendar as CalendarIcon
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 const steps = [
   { id: 1, title: "Book Details", icon: Package },
@@ -41,7 +36,6 @@ const steps = [
 export default function DonatePage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [books, setBooks] = useState([{ id: 1, title: "", author: "", category: "", condition: "" }]);
-  const [pickupDate, setPickupDate] = useState<Date | undefined>();
 
 
   const addBook = () => {
@@ -266,45 +260,18 @@ export default function DonatePage() {
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label>Preferred Pickup Date *</Label>
-                     <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant={"outline"}
-                          className={cn(
-                            "w-full justify-start text-left font-normal",
-                            !pickupDate && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {pickupDate ? format(pickupDate, "PPP") : <span>Pick a date</span>}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0">
-                        <Calendar
-                          mode="single"
-                          selected={pickupDate}
-                          onSelect={setPickupDate}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Preferred Time Slot *</Label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select time" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="morning">9 AM - 12 PM</SelectItem>
-                        <SelectItem value="afternoon">12 PM - 3 PM</SelectItem>
-                        <SelectItem value="evening">3 PM - 6 PM</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+                <div className="space-y-2">
+                  <Label>Preferred Time Slot *</Label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select time" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="morning">9 AM - 12 PM</SelectItem>
+                      <SelectItem value="afternoon">12 PM - 3 PM</SelectItem>
+                      <SelectItem value="evening">3 PM - 6 PM</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 <div className="space-y-2">
@@ -337,10 +304,6 @@ export default function DonatePage() {
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Books to Donate</span>
                       <span className="font-medium">{books.length} book(s)</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Pickup Date</span>
-                      <span className="font-medium">{pickupDate ? format(pickupDate, "PPP") : 'Not Selected'}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Time Slot</span>
