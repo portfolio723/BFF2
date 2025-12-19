@@ -3,7 +3,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { createClient } from '@/lib/supabase';
-import type { AuthChangeEvent, Session, User } from '@supabase/supabase-js';
+import type { AuthChangeEvent, Session, User, SupabaseClient } from '@supabase/supabase-js';
 
 interface AuthContextType {
   user: User | null;
@@ -20,7 +20,16 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [user, setUser] = useState<User | null>(null);
   const [isUserLoading, setIsUserLoading] = useState(true);
   
-  const getSupabase = () => createClient();
+  // Use a ref to hold the client instance to avoid re-creating it on every render.
+  const supabaseRef = React.useRef<SupabaseClient | null>(null);
+
+  // Lazily get the Supabase client
+  const getSupabase = () => {
+    if (!supabaseRef.current) {
+      supabaseRef.current = createClient();
+    }
+    return supabaseRef.current;
+  };
 
   useEffect(() => {
     const supabase = getSupabase();
@@ -41,6 +50,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return () => {
       authListener?.subscription.unsubscribe();
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const signIn = async (email: string, password: string) => {
