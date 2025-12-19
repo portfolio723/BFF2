@@ -49,9 +49,9 @@ export default function CommunityPage() {
   const [newPostTitle, setNewPostTitle] = useState("");
   const [newPostContent, setNewPostContent] = useState("");
   const [isPosting, setIsPosting] = useState(false);
-  const supabase = createClient();
-
+  
   useEffect(() => {
+    const supabase = createClient();
     const fetchDiscussions = async () => {
       setIsLoading(true);
       const { data, error } = await supabase
@@ -78,7 +78,7 @@ export default function CommunityPage() {
     };
 
     fetchDiscussions();
-  }, [supabase]);
+  }, []);
 
   const handlePostDiscussion = async () => {
     if (!user) {
@@ -92,6 +92,7 @@ export default function CommunityPage() {
     }
 
     setIsPosting(true);
+    const supabase = createClient();
 
     const { data, error } = await supabase
       .from('community_posts')
