@@ -86,9 +86,9 @@ export default function CheckoutPage() {
         if (error) {
           toast.error("Failed to fetch addresses", { description: error.message });
         } else {
-          setAddresses(data);
+          setAddresses(data.map(d => ({...d, firstName: d.first_name, lastName: d.last_name})));
           if (data.length > 0) {
-            setSelectedAddress(data[0]);
+            setSelectedAddress({...data[0], firstName: data[0].first_name, lastName: data[0].last_name});
           } else {
             setShowNewAddressForm(true);
           }
@@ -211,7 +211,7 @@ export default function CheckoutPage() {
            await createOrderInDB(response, 'Delivered'); // Or 'Paid'
         },
         prefill: {
-            name: `${selectedAddress.first_name} ${selectedAddress.last_name}`,
+            name: `${selectedAddress.firstName} ${selectedAddress.lastName}`,
             email: user.email,
             contact: selectedAddress.phone,
         },
@@ -455,7 +455,7 @@ export default function CheckoutPage() {
                               <div className="flex items-center gap-2 font-medium">
                                   {address.type === 'Home' && <Home className="w-4 h-4"/>}
                                   {address.type === 'Work' && <Briefcase className="w-4 h-4"/>}
-                                  {address.first_name} {address.last_name}
+                                  {address.firstName} {address.lastName}
                                   <Badge variant="outline" className="text-xs">{address.type}</Badge>
                               </div>
                               <div className="text-sm text-muted-foreground mt-1">
@@ -574,7 +574,7 @@ export default function CheckoutPage() {
                     <div className="p-4 bg-secondary/50 rounded-xl">
                       <h3 className="font-medium mb-2">Delivery Address</h3>
                       <p className="text-sm text-muted-foreground">
-                        {selectedAddress?.first_name} {selectedAddress?.last_name}, {selectedAddress?.address}, {selectedAddress?.city}, {selectedAddress?.state} - {selectedAddress?.pincode}
+                        {selectedAddress?.firstName} {selectedAddress?.lastName}, {selectedAddress?.address}, {selectedAddress?.city}, {selectedAddress?.state} - {selectedAddress?.pincode}
                       </p>
                     </div>
                     
@@ -681,3 +681,5 @@ export default function CheckoutPage() {
     </section>
   );
 };
+
+    
