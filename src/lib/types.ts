@@ -42,17 +42,14 @@ export type FirestoreBook = {
 
 export type CommunityPost = {
   id: string;
+  created_at: string;
   title: string;
-  author: {
-    name: string;
-    avatar: {
-      url: string;
-      hint: string;
-    };
-  };
   content: string;
-  timestamp: string;
-  replies: number;
+  user_id: string;
+  profiles: {
+    full_name: string;
+    avatar_url: string;
+  }
 };
 
 export type CartItem = {

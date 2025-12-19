@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -19,71 +19,16 @@ import {
   TrendingUp,
   Clock,
   Filter,
-  LogIn
+  LogIn,
+  Loader2
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const initialDiscussions = [
-  {
-    id: 1,
-    title: "What are your top 5 book recommendations for beginners in investing?",
-    author: "Rahul M.",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80",
-    category: "Finance",
-    replies: 24,
-    likes: 156,
-    time: "2 hours ago",
-    preview: "I'm new to investing and looking for books that explain the basics in simple terms...",
-  },
-  {
-    id: 2,
-    title: "The ending of 'The Silent Patient' - Let's discuss! (Spoilers)",
-    author: "Priya S.",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80",
-    category: "Thriller",
-    replies: 89,
-    likes: 234,
-    time: "5 hours ago",
-    preview: "Just finished this book and I'm still processing that twist. Anyone else?",
-  },
-  {
-    id: 3,
-    title: "Monthly Reading Challenge - December 2024",
-    author: "BookClub Admin",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80",
-    category: "Challenge",
-    replies: 156,
-    likes: 445,
-    time: "1 day ago",
-    preview: "This month's theme: Books set during winter! Share your picks and progress here.",
-    isPinned: true,
-  },
-  {
-    id: 4,
-    title: "Looking for books similar to 'Atomic Habits'",
-    author: "Anjali P.",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80",
-    category: "Self-Help",
-    replies: 32,
-    likes: 78,
-    time: "3 hours ago",
-    preview: "I loved how practical Atomic Habits was. Looking for similar actionable reads...",
-  },
-  {
-    id: 5,
-    title: "Best Indian authors writing in English?",
-    author: "Vikram K.",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80",
-    category: "Fiction",
-    replies: 67,
-    likes: 189,
-    time: "6 hours ago",
-    preview: "Want to explore more Indian literature in English. Recommendations please!",
-  },
-];
+import { supabase } from "@/lib/supabase";
+import type { CommunityPost } from "@/lib/types";
+import { formatDistanceToNow } from "date-fns";
 
 const trendingTopics = [
   { name: "Book Reviews", count: 234 },
@@ -97,11 +42,42 @@ export default function CommunityPage() {
   const { user } = useAuth();
   const pathname = usePathname();
 
-  const [discussions, setDiscussions] = useState(initialDiscussions);
+  const [discussions, setDiscussions] = useState<CommunityPost[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [newPostTitle, setNewPostTitle] = useState("");
   const [newPostContent, setNewPostContent] = useState("");
+  const [isPosting, setIsPosting] = useState(false);
 
-  const handlePostDiscussion = () => {
+  useEffect(() => {
+    const fetchDiscussions = async () => {
+      setIsLoading(true);
+      const { data, error } = await supabase
+        .from('community_posts')
+        .select(`
+          id,
+          title,
+          content,
+          created_at,
+          user_id,
+          profiles (
+            full_name,
+            avatar_url
+          )
+        `)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        toast.error("Failed to fetch discussions", { description: error.message });
+      } else {
+        setDiscussions(data as any);
+      }
+      setIsLoading(false);
+    };
+
+    fetchDiscussions();
+  }, []);
+
+  const handlePostDiscussion = async () => {
     if (!user) {
       toast.error("Please sign in to start a discussion.");
       return;
@@ -112,22 +88,38 @@ export default function CommunityPage() {
       return;
     }
 
-    const newPost = {
-      id: Date.now(),
-      title: newPostTitle,
-      author: user.displayName || "Anonymous",
-      avatar: user.photoURL || "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80",
-      category: "General",
-      replies: 0,
-      likes: 0,
-      time: "Just now",
-      preview: newPostContent,
-    };
+    setIsPosting(true);
 
-    setDiscussions([newPost, ...discussions]);
-    setNewPostTitle("");
-    setNewPostContent("");
-    toast.success("Your discussion has been posted!");
+    const { data, error } = await supabase
+      .from('community_posts')
+      .insert({
+        title: newPostTitle,
+        content: newPostContent,
+        user_id: user.id,
+      })
+      .select(`
+          id,
+          title,
+          content,
+          created_at,
+          user_id,
+          profiles (
+            full_name,
+            avatar_url
+          )
+        `)
+      .single();
+
+    if (error) {
+      toast.error("Failed to post discussion", { description: error.message });
+    } else if (data) {
+      setDiscussions([data as any, ...discussions]);
+      setNewPostTitle("");
+      setNewPostContent("");
+      toast.success("Your discussion has been posted!");
+    }
+    
+    setIsPosting(false);
   };
 
   return (
@@ -204,6 +196,11 @@ export default function CommunityPage() {
                 </TabsList>
 
                 <TabsContent value="all" className="mt-0">
+                  {isLoading ? (
+                     <div className="flex justify-center items-center h-64">
+                        <Loader2 className="w-8 h-8 animate-spin" />
+                      </div>
+                  ) : (
                   <div className="space-y-4">
                     {discussions.map((discussion, index) => (
                       <motion.div
@@ -213,48 +210,39 @@ export default function CommunityPage() {
                         transition={{ delay: 0.1 + index * 0.05 }}
                         className="bg-card border border-border rounded-xl p-5 hover:border-muted-foreground/30 transition-colors cursor-pointer"
                       >
-                        {discussion.isPinned && (
-                          <Badge variant="secondary" className="mb-3">
-                            📌 Pinned
-                          </Badge>
-                        )}
-                        
                         <div className="flex gap-4">
-                          <Image 
-                            src={discussion.avatar} 
-                            alt={discussion.author}
-                            width={40}
-                            height={40}
-                            className="w-10 h-10 rounded-full object-cover flex-shrink-0"
-                          />
+                          <Avatar>
+                            <AvatarImage src={discussion.profiles.avatar_url} alt={discussion.profiles.full_name} />
+                             <AvatarFallback>{discussion.profiles.full_name?.charAt(0) || 'U'}</AvatarFallback>
+                          </Avatar>
                           <div className="flex-1 min-w-0">
                             <h3 className="font-medium text-lg line-clamp-2 hover:text-muted-foreground transition-colors">
                               {discussion.title}
                             </h3>
                             <p className="text-muted-foreground text-sm mt-1 line-clamp-2">
-                              {discussion.preview}
+                              {discussion.content}
                             </p>
                             
                             <div className="flex flex-wrap items-center gap-4 mt-4">
                               <div className="flex items-center gap-2">
-                                <span className="text-sm font-medium">{discussion.author}</span>
+                                <span className="text-sm font-medium">{discussion.profiles.full_name}</span>
                                 <span className="text-muted-foreground">·</span>
-                                <span className="text-sm text-muted-foreground">{discussion.time}</span>
+                                <span className="text-sm text-muted-foreground">{formatDistanceToNow(new Date(discussion.created_at), { addSuffix: true })}</span>
                               </div>
                               
                               <Badge variant="outline" className="text-xs">
-                                {discussion.category}
+                                General
                               </Badge>
                             </div>
                             
                             <div className="flex items-center gap-6 mt-4 pt-4 border-t border-border">
                               <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                                 <ThumbsUp className="w-4 h-4" />
-                                {discussion.likes}
+                                0
                               </button>
                               <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                                 <MessageCircle className="w-4 h-4" />
-                                {discussion.replies} replies
+                                0 replies
                               </button>
                               <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                                 <Share2 className="w-4 h-4" />
@@ -269,6 +257,7 @@ export default function CommunityPage() {
                       </motion.div>
                     ))}
                   </div>
+                  )}
                 </TabsContent>
                 
                 <TabsContent value="trending">
@@ -303,20 +292,20 @@ export default function CommunityPage() {
                   placeholder="Discussion Title"
                   value={newPostTitle}
                   onChange={(e) => setNewPostTitle(e.target.value)}
-                  disabled={!user}
+                  disabled={!user || isPosting}
                 />
                 <Textarea 
                   placeholder="What's on your mind?"
                   value={newPostContent}
                   onChange={(e) => setNewPostContent(e.target.value)}
-                  disabled={!user}
+                  disabled={!user || isPosting}
                 />
               </div>
 
               {user ? (
-                <Button className="w-full rounded-full gap-2 mt-4" onClick={handlePostDiscussion}>
-                  <MessageSquare className="w-4 h-4" />
-                  Post Discussion
+                <Button className="w-full rounded-full gap-2 mt-4" onClick={handlePostDiscussion} disabled={isPosting}>
+                  {isPosting ? <Loader2 className="animate-spin"/> : <MessageSquare className="w-4 h-4" />}
+                  {isPosting ? "Posting..." : "Post Discussion"}
                 </Button>
               ) : (
                 <Button asChild className="w-full rounded-full gap-2 mt-4">
