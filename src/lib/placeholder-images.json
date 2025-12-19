@@ -289,6 +289,30 @@
       "description": "The Grapes of Wrath"
     },
     {
+      "id": "psychology-of-money-cover",
+      "imageUrl": "https://images.unsplash.com/photo-1554774853-b415df9eeb92?w=400&q=80",
+      "imageHint": "finance money",
+      "description": "The Psychology of Money"
+    },
+    {
+      "id": "atomic-habits-cover",
+      "imageUrl": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&q=80",
+      "imageHint": "self help",
+      "description": "Atomic Habits"
+    },
+    {
+      "id": "alchemist-cover",
+      "imageUrl": "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&q=80",
+      "imageHint": "fiction journey",
+      "description": "The Alchemist"
+    },
+    {
+      "id": "sapiens-cover",
+      "imageUrl": "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=400&q=80",
+      "imageHint": "history mankind",
+      "description": "Sapiens"
+    },
+    {
       "id": "pdf-cover-1",
       "description": "The Great Gatsby book cover with Art Deco design.",
       "imageUrl": "https://images.unsplash.com/photo-1621847412528-919a79fa1216?w=600&q=80",
@@ -513,7 +537,7 @@
     {
       "id": "pdf-hf8-cover",
       "description": "Ben-Hur: A Tale of the Christ",
-      "imageUrl": "https://images.unsplash.com/photo-1635839952521-508537a72d38?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjaGFyaW90JTIwcmFjZXxlbnwwfHx8fDE3NjYwNTM4Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1635839952521-508537a72d38?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHhjaGFyaW90JTIwcmFjZXxlbnwwfHx8fDE3NjYwNTM4Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "chariot race"
     },
     {

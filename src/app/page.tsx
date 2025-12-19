@@ -503,7 +503,8 @@ const DonateSection = () => {
 };
 
 const FeaturedBooks = () => {
-  const featuredBooks = books.slice(0, 4);
+  const featuredBookIds = ['49', '19', '50', '18'];
+  const featuredBooks = books.filter(book => featuredBookIds.includes(book.id));
 
   return (
     <section className="py-20 lg:py-28">
@@ -538,8 +539,8 @@ const FeaturedBooks = () => {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredBooks.map((book) => (
-            <BookCard key={book.id} book={book} />
+          {featuredBooks.map((book, index) => (
+            <BookCard key={book.id} book={book} isNew={index === 1} isFeatured={index === 0 || index === 3}/>
           ))}
         </div>
       </div>
