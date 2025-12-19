@@ -36,7 +36,7 @@ import { cn } from "@/lib/utils";
 import { useCart } from "@/context/AppProvider";
 import Image from "next/image";
 import { AddressForm } from "@/components/AddressForm";
-import type { Address, Order } from "@/lib/types";
+import type { Address, Order, CartItem as AppCartItem } from "@/lib/types";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
@@ -56,7 +56,7 @@ declare global {
 export default function CheckoutPage() {
   const router = useRouter();
   const { user, isUserLoading } = useAuth();
-  const { items, getSubtotal, getDeliveryCharge, getTotal, clearCart, cart, loading: cartLoading } = useCart();
+  const { cart, getSubtotal, getDeliveryCharge, getTotal, clearCart, loading: cartLoading } = useCart();
   
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [loadingAddresses, setLoadingAddresses] = useState(true);
@@ -64,8 +64,7 @@ export default function CheckoutPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [paymentMethod, setPaymentMethod] = useState("razorpay");
   const [isProcessing, setIsProcessing] = useState(false);
-  const [orderPlaced, setOrderPlaced] = useState(false);
-  const [orderId, setOrderId] = useState<string | null>(null);
+  const [orderPlaced, setOrderPlaced] = useState<Order | null>(null);
   const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
   const [showNewAddressForm, setShowNewAddressForm] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -95,7 +94,9 @@ export default function CheckoutPage() {
         setLoadingAddresses(false);
       }
     };
-    fetchAddresses();
+    if (user) {
+      fetchAddresses();
+    }
   }, [user]);
 
   const subtotal = getSubtotal();
@@ -108,26 +109,20 @@ export default function CheckoutPage() {
       return;
     }
 
+    setIsProcessing(true);
+
     if (paymentMethod === 'razorpay') {
       await makePayment();
-    } else {
-      // Handle other payment methods like COD
-      await createOrderInDB('cod-placeholder', 'Pending');
+    } else { // COD
+      await createOrderInDB(null, 'Pending');
     }
   };
 
-  const createOrderInDB = async (paymentId: string, status: Order['status']) => {
-    if (!user || !selectedAddress) return;
+  const createOrderInDB = async (paymentDetails: any, status: Order['status']) => {
+    if (!user || !selectedAddress) return null;
     
-    setIsProcessing(true);
     try {
-      const orderItems = cart.map(item => ({
-        book_id: item.id,
-        quantity: item.quantity,
-        price: item.type === 'rent' ? item.rentalPrice : item.price,
-        type: item.type,
-      }));
-
+      // 1. Create the order
       const { data: orderData, error: orderError } = await supabase
         .from('orders')
         .insert({
@@ -135,24 +130,47 @@ export default function CheckoutPage() {
           total_amount: total,
           delivery_address: selectedAddress.id,
           status: status,
-          order_items: orderItems,
-          // You might want to store paymentId as well
         })
         .select()
         .single();
       
       if (orderError) throw orderError;
+
+      // 2. Create the order items
+      const orderItemsToInsert = cart.map(item => ({
+        order_id: orderData.id,
+        book_id: item.id,
+        quantity: item.quantity,
+        price_at_purchase: item.type === 'rent' ? item.rentalPrice : item.price,
+        type: item.type,
+      }));
+
+      const { error: itemsError } = await supabase.from('order_items').insert(orderItemsToInsert);
+      if (itemsError) throw itemsError;
+
+      // 3. Create payment record
+      const { error: paymentError } = await supabase.from('payments').insert({
+        order_id: orderData.id,
+        user_id: user.id,
+        amount: total,
+        status: status,
+        method: paymentMethod,
+        razorpay_order_id: paymentDetails?.razorpay_order_id,
+        razorpay_payment_id: paymentDetails?.razorpay_payment_id,
+        razorpay_signature: paymentDetails?.razorpay_signature,
+      });
+      if(paymentError) throw paymentError;
       
-      setOrderId(orderData.id);
-      setOrderPlaced(true);
+      setOrderPlaced(orderData);
       clearCart();
+      return orderData;
 
     } catch (error: any) {
       toast.error("Failed to place order", {
         description: error.message || "Please check your connection and try again.",
       });
-    } finally {
       setIsProcessing(false);
+      return null;
     }
   }
 
@@ -161,8 +179,6 @@ export default function CheckoutPage() {
       toast.error("Please select an address and login first.");
       return;
     }
-    
-    setIsProcessing(true);
 
     try {
       const res = await fetch('/api/razorpay', {
@@ -175,19 +191,18 @@ export default function CheckoutPage() {
         throw new Error("Failed to create Razorpay order.");
       }
 
-      const { order } = await res.json();
+      const { order: razorpayOrder } = await res.json();
       
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: order.amount,
+        amount: razorpayOrder.amount,
         currency: "INR",
         name: "Books For Fosters",
         description: "Book Purchase",
         image: "https://example.com/your_logo.jpg", // Replace with your logo
-        order_id: order.id,
+        order_id: razorpayOrder.id,
         handler: async function (response: any) {
-           // On successful payment, create the order in your database
-           await createOrderInDB(response.razorpay_payment_id, 'Delivered'); // Or 'Paid'
+           await createOrderInDB(response, 'Delivered'); // Or 'Paid'
         },
         prefill: {
             name: `${selectedAddress.firstName} ${selectedAddress.lastName}`,
@@ -249,7 +264,7 @@ export default function CheckoutPage() {
     )
   }
 
-  if (items.length === 0 && !orderPlaced) {
+  if (cart.length === 0 && !orderPlaced) {
     return (
         <section>
           <div className="container-custom py-12 lg:py-16">
@@ -304,7 +319,7 @@ export default function CheckoutPage() {
                 Thank you for your order. Your order ID is:
               </p>
               <p className="font-mono text-xl font-semibold mb-8">
-                #{orderId}
+                {orderPlaced.id}
               </p>
               
               <div className="bg-secondary/50 rounded-xl p-6 mb-8 text-left">
@@ -565,7 +580,7 @@ export default function CheckoutPage() {
                     <div>
                       <h3 className="font-medium mb-4">Order Items</h3>
                       <div className="space-y-3">
-                        {items.map((item) => (
+                        {cart.map((item) => (
                           <div key={`${item.id}-${item.type}`} className="flex gap-4 p-3 bg-secondary/30 rounded-lg">
                             <Image src={item.coverImage.url} alt={item.title} width={48} height={64} className="w-12 h-16 object-cover rounded"/>
                             <div className="flex-1">
@@ -617,7 +632,7 @@ export default function CheckoutPage() {
               <h3 className="font-heading text-lg font-semibold mb-6">Order Summary</h3>
               
               <div className="space-y-3 mb-6 max-h-60 overflow-y-auto">
-                {items.map((item) => (
+                {cart.map((item) => (
                   <div key={`${item.id}-${item.type}`} className="flex gap-3">
                     <Image 
                       src={item.coverImage.url} 

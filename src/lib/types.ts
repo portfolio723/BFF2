@@ -73,6 +73,7 @@ export interface User {
 
 export type Address = {
   id:string;
+  user_id: string;
   type: 'Home' | 'Work' | 'Other';
   firstName: string;
   lastName: string;
@@ -99,20 +100,17 @@ export type Pdf = {
 
 export type WishlistItem = {
   id: string;
-  userId: string;
-  bookId: string;
-  addedDate: any; 
-  bookTitle: string;
-  bookAuthor: string;
-  bookCoverImage: string;
+  user_id: string;
+  book_id: string;
+  added_date: any; 
+  book_title: string;
+  book_author: string;
+  book_cover_image: string;
 };
 
 export type OrderItem = {
   id: string;
-  bookId: string;
-  title: string;
-  author: string;
-  coverImage: string;
+  book_id: string;
   quantity: number;
   price: number;
   type: 'rent' | 'buy';
@@ -120,12 +118,12 @@ export type OrderItem = {
 
 export type Order = {
   id: string;
-  userId: string;
-  orderDate: any; 
-  totalAmount: number;
+  user_id: string;
+  created_at: any; 
+  total_amount: number;
   status: 'Pending' | 'Shipped' | 'Delivered' | 'Cancelled';
-  items: OrderItem[];
-  deliveryAddress: Address;
+  delivery_address: string; // address id
+  order_items: OrderItem[];
 };
 
 export type UserDownloadedPdf = {

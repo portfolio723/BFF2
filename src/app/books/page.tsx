@@ -1,8 +1,8 @@
 
 "use client";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { BookCard } from "@/components/BookCard";
-import { genres, books as staticBooks } from "@/lib/data";
+import { genres as staticGenres } from "@/lib/data";
 import {
   Select,
   SelectContent,
@@ -11,19 +11,70 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import type { Book as FirestoreBook } from "@/lib/types"; // Using the general Book type now
+import type { Book as BookType } from "@/lib/types"; 
 import { Search, LayoutGrid, List, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/lib/supabase";
+import { toast } from "sonner";
 
 export default function BooksPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [genre, setGenre] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
   const [view, setView] = useState("grid");
+  const [books, setBooks] = useState<BookType[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [genres, setGenres] = useState(staticGenres);
 
-  // Using static data instead of Firestore
-  const books = staticBooks;
-  const isLoading = false;
+  useEffect(() => {
+    const fetchBooks = async () => {
+      setIsLoading(true);
+      const { data, error } = await supabase.from('books').select(`
+        id,
+        title,
+        price,
+        rental_price,
+        cover_image_url,
+        cover_image_hint,
+        description,
+        availability,
+        author:authors (id, name),
+        genre:genres (id, name)
+      `);
+      
+      if (error) {
+        toast.error("Failed to fetch books", { description: error.message });
+        setBooks([]);
+      } else {
+        const formattedBooks = data.map((book: any) => ({
+          id: book.id,
+          title: book.title,
+          author: { id: book.author.id, name: book.author.name },
+          genre: { id: book.genre.id, name: book.genre.name },
+          price: book.price,
+          rentalPrice: book.rental_price,
+          coverImage: {
+            url: book.cover_image_url,
+            hint: book.cover_image_hint,
+          },
+          description: book.description,
+          availability: book.availability,
+        }));
+        setBooks(formattedBooks);
+      }
+      setIsLoading(false);
+    };
+    
+    const fetchGenres = async () => {
+        const { data, error } = await supabase.from('genres').select('*');
+        if (!error && data) {
+            setGenres(data);
+        }
+    }
+
+    fetchBooks();
+    fetchGenres();
+  }, []);
 
   const filteredBooks = useMemo(() => {
     if (!books) return [];

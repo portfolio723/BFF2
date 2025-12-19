@@ -44,7 +44,6 @@ import {
 import { toast } from "sonner";
 import { format } from "date-fns";
 import Image from "next/image";
-import { books as staticBooks, pdfs as staticPdfs } from "@/lib/data";
 import { supabase } from "@/lib/supabase";
 
 const AddressIcon = ({ type }: { type: Address["type"] }) => {
@@ -66,6 +65,7 @@ export default function ProfilePage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
   const [downloadedPdfs, setDownloadedPdfs] = useState<UserDownloadedPdf[]>([]);
+  const [loadingData, setLoadingData] = useState(true);
   
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingAddress, setEditingAddress] = useState<Address | null>(null);
@@ -76,12 +76,33 @@ export default function ProfilePage() {
     }
     if (authUser) {
       const fetchUserData = async () => {
-        const { data: addressesData, error: addressesError } = await supabase
-          .from('addresses')
-          .select('*')
-          .eq('user_id', authUser.id);
-        if (addressesError) console.error('Error fetching addresses:', addressesError.message);
-        else setAddresses(addressesData || []);
+        setLoadingData(true);
+
+        const [
+          addressesRes,
+          ordersRes,
+          wishlistRes,
+          downloadsRes
+        ] = await Promise.all([
+          supabase.from('addresses').select('*').eq('user_id', authUser.id),
+          supabase.from('orders').select('*, order_items(*)').eq('user_id', authUser.id),
+          supabase.from('wishlist_items').select('*').eq('user_id', authUser.id),
+          supabase.from('user_downloaded_pdfs').select('*').eq('user_id', authUser.id)
+        ]);
+
+        if (addressesRes.error) toast.error('Error fetching addresses:', { description: addressesRes.error.message });
+        else setAddresses(addressesRes.data || []);
+
+        if (ordersRes.error) toast.error('Error fetching orders:', { description: ordersRes.error.message });
+        else setOrders(ordersRes.data || []);
+        
+        if (wishlistRes.error) toast.error('Error fetching wishlist:', { description: wishlistRes.error.message });
+        else setWishlistItems(wishlistRes.data || []);
+
+        if (downloadsRes.error) toast.error('Error fetching downloads:', { description: downloadsRes.error.message });
+        else setDownloadedPdfs(downloadsRes.data || []);
+
+        setLoadingData(false);
       };
       fetchUserData();
     }
@@ -102,7 +123,7 @@ export default function ProfilePage() {
     setIsFormOpen(false);
   }
 
-  const handleSaveAddress = async (addressData: Omit<Address, 'id'>) => {
+  const handleSaveAddress = async (addressData: Omit<Address, 'id' | 'user_id'>) => {
     if (!authUser) return;
 
     if (editingAddress) {
@@ -110,11 +131,12 @@ export default function ProfilePage() {
         .from('addresses')
         .update({ ...addressData })
         .eq('id', editingAddress.id)
-        .select();
+        .select()
+        .single();
       if (error) {
         toast.error("Failed to update address", { description: error.message });
       } else {
-        setAddresses(prev => prev.map(a => a.id === editingAddress.id ? data[0] : a));
+        setAddresses(prev => prev.map(a => a.id === editingAddress.id ? data : a));
         toast.success("Address updated successfully!");
         handleFormClose();
       }
@@ -122,11 +144,12 @@ export default function ProfilePage() {
       const { data, error } = await supabase
         .from('addresses')
         .insert([{ ...addressData, user_id: authUser.id }])
-        .select();
+        .select()
+        .single();
       if (error) {
         toast.error("Failed to add address", { description: error.message });
       } else {
-        setAddresses(prev => [...prev, data[0]]);
+        setAddresses(prev => [...prev, data]);
         toast.success("Address added successfully!");
         handleFormClose();
       }
@@ -144,7 +167,7 @@ export default function ProfilePage() {
   }
 
 
-  if (isUserLoading) {
+  if (isUserLoading || (authUser && loadingData)) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <Loader2 className="h-8 w-8 animate-spin" />
@@ -300,29 +323,28 @@ export default function ProfilePage() {
                     <div key={order.id} className="border p-4 rounded-lg">
                       <div className="flex justify-between items-start">
                         <div>
-                          <p className="font-semibold">Order #{order.id}</p>
+                          <p className="font-semibold">Order #{order.id.substring(0, 8)}</p>
                           <p className="text-sm text-muted-foreground">
-                            {format(new Date(order.orderDate), 'PPP')}
+                            {format(new Date(order.created_at), 'PPP')}
                           </p>
                         </div>
                         <Badge>{order.status}</Badge>
                       </div>
                       <Separator className="my-3" />
                       <div className="space-y-2">
-                        {order.items.map(item => (
+                        {order.order_items.map((item: any) => (
                           <div key={item.id} className="flex gap-3 text-sm">
-                            <Image src={item.coverImage} alt={item.title} width={40} height={53} className="rounded-sm" />
                             <div className="flex-1">
-                              <p className="font-medium">{item.title}</p>
+                              <p className="font-medium">{item.quantity}x Book ID: {item.book_id.substring(0,8)}...</p>
                               <p className="text-muted-foreground capitalize">{item.type}</p>
                             </div>
-                            <p className="font-medium">₹{item.price.toFixed(2)}</p>
+                            <p className="font-medium">₹{item.price_at_purchase.toFixed(2)}</p>
                           </div>
                         ))}
                       </div>
                       <Separator className="my-3" />
                       <div className="flex justify-end">
-                        <p className="font-semibold">Total: ₹{order.totalAmount.toFixed(2)}</p>
+                        <p className="font-semibold">Total: ₹{order.total_amount.toFixed(2)}</p>
                       </div>
                     </div>
                   ))}
@@ -346,13 +368,13 @@ export default function ProfilePage() {
                 <div className="space-y-2">
                   {wishlistItems.map(item => (
                     <div key={item.id} className="flex gap-3 p-2 rounded-md hover:bg-secondary/50">
-                       <Image src={item.bookCoverImage} alt={item.bookTitle} width={40} height={53} className="rounded-sm" />
+                       <Image src={item.book_cover_image} alt={item.book_title} width={40} height={53} className="rounded-sm" />
                        <div className="flex-1">
-                          <p className="font-medium text-sm">{item.bookTitle}</p>
-                          <p className="text-xs text-muted-foreground">{item.bookAuthor}</p>
+                          <p className="font-medium text-sm">{item.book_title}</p>
+                          <p className="text-xs text-muted-foreground">{item.book_author}</p>
                        </div>
                        <Button variant="ghost" asChild>
-                          <Link href={`/book/${item.bookId}`}>View</Link>
+                          <Link href={`/book/${item.book_id}`}>View</Link>
                        </Button>
                     </div>
                   ))}
