@@ -5,6 +5,11 @@ let supabaseClient: SupabaseClient | null = null;
 
 // Re-export createClient to be used in other files
 export const createClient = (): SupabaseClient | null => {
+    // Only run this logic on the client-side
+    if (typeof window === 'undefined') {
+        return null;
+    }
+    
     if (supabaseClient) {
         return supabaseClient;
     }
