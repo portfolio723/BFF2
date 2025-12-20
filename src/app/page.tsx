@@ -644,11 +644,6 @@ const CTASection = () => {
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="secondary" className="rounded-full px-8">
-                <Link href="/books">
-                  Browse as Guest
-                </Link>
-              </Button>
             </motion.div>
           </div>
         </motion.div>
