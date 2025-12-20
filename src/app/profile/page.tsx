@@ -44,8 +44,6 @@ import {
 import { toast } from "sonner";
 import { format } from "date-fns";
 import Image from "next/image";
-import { createClient } from "@/lib/supabase";
-import type { SupabaseClient } from "@supabase/supabase-js";
 
 const AddressIcon = ({ type }: { type: Address["type"] }) => {
   switch (type) {
@@ -60,9 +58,8 @@ const AddressIcon = ({ type }: { type: Address["type"] }) => {
 
 export default function ProfilePage() {
   const router = useRouter();
-  const { user: authUser, isUserLoading } = useAuth();
+  const { user: authUser, isUserLoading, supabase } = useAuth();
   
-  const [supabase, setSupabase] = useState<SupabaseClient | null>(null);
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
@@ -78,11 +75,6 @@ export default function ProfilePage() {
     }
   }, [authUser, isUserLoading, router]);
 
-  useEffect(() => {
-    const client = createClient();
-    setSupabase(client);
-  }, []);
-  
   useEffect(() => {
     if (authUser && supabase) {
       const fetchUserData = async () => {

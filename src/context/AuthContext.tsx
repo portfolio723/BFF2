@@ -1,11 +1,12 @@
 
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useRef } from 'react';
 import { createClient } from '@/lib/supabase';
 import type { AuthChangeEvent, Session, User, SupabaseClient, SignUpWithPasswordCredentials } from '@supabase/supabase-js';
 
 interface AuthContextType {
+  supabase: SupabaseClient | null;
   user: User | null;
   isUserLoading: boolean;
   signIn: (email: string, password: string) => Promise<any>;
@@ -20,8 +21,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [user, setUser] = useState<User | null>(null);
   const [isUserLoading, setIsUserLoading] = useState(true);
   
-  // Use a ref to hold the client instance. This ensures it's created only once per provider instance.
-  const supabaseRef = React.useRef<SupabaseClient | null>(null);
+  const supabaseRef = useRef<SupabaseClient | null>(null);
   if (!supabaseRef.current) {
     supabaseRef.current = createClient();
   }
@@ -83,6 +83,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   return (
     <AuthContext.Provider
       value={{
+        supabase,
         user,
         isUserLoading,
         signIn,

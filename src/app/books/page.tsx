@@ -13,10 +13,9 @@ import { Input } from "@/components/ui/input";
 import type { Book as BookType } from "@/lib/types"; 
 import { Search, LayoutGrid, List, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { createClient } from "@/lib/supabase";
 import { toast } from "sonner";
 import type { Genre } from "@/lib/types";
-import type { SupabaseClient } from "@supabase/supabase-js";
+import { useAuth } from "@/context/AuthContext";
 
 export default function BooksPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -26,16 +25,15 @@ export default function BooksPage() {
   const [books, setBooks] = useState<BookType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [genres, setGenres] = useState<Genre[]>([]);
+  const { supabase } = useAuth();
   
   useEffect(() => {
-    const supabase = createClient();
     if (!supabase) {
-        toast.error("Database connection failed", { description: "Please check your Supabase credentials." });
-        setIsLoading(false);
+        if (!isLoading) setIsLoading(false);
         return;
     }
     
-    const fetchBooks = async (supabase: SupabaseClient) => {
+    const fetchBooks = async () => {
       setIsLoading(true);
       const { data, error } = await supabase.from('books').select(`
         id,
@@ -73,16 +71,16 @@ export default function BooksPage() {
       setIsLoading(false);
     };
     
-    const fetchGenres = async (supabase: SupabaseClient) => {
+    const fetchGenres = async () => {
         const { data, error } = await supabase.from('genres').select('*');
         if (!error && data) {
             setGenres(data);
         }
     }
 
-    fetchBooks(supabase);
-    fetchGenres(supabase);
-  }, []);
+    fetchBooks();
+    fetchGenres();
+  }, [supabase, isLoading]);
 
   const filteredBooks = useMemo(() => {
     if (!books) return [];

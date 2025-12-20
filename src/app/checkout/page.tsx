@@ -40,7 +40,6 @@ import { AddressForm } from "@/components/AddressForm";
 import type { Address, Order, CartItem as AppCartItem, SbAddress, SbOrder } from "@/lib/types";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
-import { createClient } from "@/lib/supabase";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 const steps = [
@@ -63,10 +62,9 @@ interface RazorpayPaymentResponse {
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { user, isUserLoading } = useAuth();
+  const { user, isUserLoading, supabase } = useAuth();
   const { cart, getSubtotal, getDeliveryCharge, getTotal, clearCart, loading: cartLoading } = useCart();
   
-  const [supabase, setSupabase] = useState<SupabaseClient | null>(null);
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [loadingAddresses, setLoadingAddresses] = useState(true);
 
@@ -84,11 +82,6 @@ export default function CheckoutPage() {
       router.push('/auth?redirect=/checkout');
     }
   }, [user, isUserLoading, router]);
-
-  useEffect(() => {
-    const client = createClient();
-    setSupabase(client);
-  }, []);
 
   useEffect(() => {
     const fetchAddresses = async () => {

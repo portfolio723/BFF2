@@ -28,10 +28,8 @@ import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { createClient } from "@/lib/supabase";
 import type { CommunityPost } from "@/lib/types";
 import { formatDistanceToNow } from "date-fns";
-import type { SupabaseClient } from "@supabase/supabase-js";
 
 const trendingTopics = [
   { name: "Book Reviews", count: 234 },
@@ -42,7 +40,7 @@ const trendingTopics = [
 ];
 
 export default function CommunityPage() {
-  const { user } = useAuth();
+  const { user, supabase } = useAuth();
   const pathname = usePathname();
 
   const [discussions, setDiscussions] = useState<CommunityPost[]>([]);
@@ -52,13 +50,11 @@ export default function CommunityPage() {
   const [isPosting, setIsPosting] = useState(false);
   
   useEffect(() => {
-    const supabase = createClient();
     if (!supabase) {
-        toast.error("Database connection failed.");
-        setIsLoading(false);
+        if (!isLoading) setIsLoading(false);
         return;
     }
-    const fetchDiscussions = async (supabase: SupabaseClient) => {
+    const fetchDiscussions = async () => {
       setIsLoading(true);
       const { data, error } = await supabase
         .from('community_posts')
@@ -83,11 +79,11 @@ export default function CommunityPage() {
       setIsLoading(false);
     };
 
-    fetchDiscussions(supabase);
-  }, []);
+    fetchDiscussions();
+  }, [supabase, isLoading]);
 
   const handlePostDiscussion = async () => {
-    if (!user) {
+    if (!user || !supabase) {
       toast.error("Please sign in to start a discussion.");
       return;
     }
@@ -98,13 +94,7 @@ export default function CommunityPage() {
     }
 
     setIsPosting(true);
-    const supabase = createClient();
-    if (!supabase) {
-        toast.error("Database connection failed.");
-        setIsPosting(false);
-        return;
-    }
-
+    
     const { data, error } = await supabase
       .from('community_posts')
       .insert({
