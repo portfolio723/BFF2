@@ -1,27 +1,28 @@
 
 import { createClient as createSupabaseClient, SupabaseClient } from '@supabase/supabase-js'
 
+// This approach ensures the client is a singleton and created only once.
 let supabaseClient: SupabaseClient | null = null;
 
-// Re-export createClient to be used in other files
-export const createClient = (): SupabaseClient | null => {
-    // Only run this logic on the client-side
-    if (typeof window === 'undefined') {
-        return null;
-    }
-    
-    if (supabaseClient) {
-        return supabaseClient;
-    }
-
+const getSupabase = () => {
+  if (supabaseClient) {
+    return supabaseClient;
+  }
+  
+  // Only create a new client if one doesn't exist and we are on the client-side.
+  if (typeof window !== 'undefined') {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-    if (!supabaseUrl || !supabaseAnonKey) {
-        // This log will now only appear in the browser console, not during the build
-        return null;
+    if (supabaseUrl && supabaseAnonKey) {
+      supabaseClient = createSupabaseClient(supabaseUrl, supabaseAnonKey);
+      return supabaseClient;
     }
-    
-    supabaseClient = createSupabaseClient(supabaseUrl, supabaseAnonKey);
-    return supabaseClient;
-}
+  }
+
+  // Return null if on the server or if keys are missing.
+  // The application should handle this gracefully.
+  return null;
+};
+
+export const createClient = getSupabase;
