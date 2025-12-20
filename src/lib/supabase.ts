@@ -1,10 +1,10 @@
 
-import { createClient as createSupabaseClient } from '@supabase/supabase-js'
+import { createClient as createSupabaseClient, SupabaseClient } from '@supabase/supabase-js'
 
-let supabaseClient: any = null;
+let supabaseClient: SupabaseClient | null = null;
 
 // Re-export createClient to be used in other files
-export const createClient = () => {
+export const createClient = (): SupabaseClient | null => {
     if (supabaseClient) {
         return supabaseClient;
     }
@@ -12,12 +12,9 @@ export const createClient = () => {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-    if (!supabaseUrl) {
-    throw new Error("Supabase URL is not defined. Please check your .env.local file.");
-    }
-
-    if (!supabaseAnonKey) {
-    throw new Error("Supabase Anon Key is not defined. Please check your .env.local file.");
+    if (!supabaseUrl || !supabaseAnonKey) {
+        console.error("Supabase URL or Anon Key is not defined. Please check your environment variables.");
+        return null;
     }
     
     supabaseClient = createSupabaseClient(supabaseUrl, supabaseAnonKey);

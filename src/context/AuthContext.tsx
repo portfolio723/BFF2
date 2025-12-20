@@ -33,6 +33,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   useEffect(() => {
     const supabase = getSupabase();
+    if (!supabase) {
+        setIsUserLoading(false);
+        return;
+    }
+
     const getSession = async () => {
         const { data: { session } } = await supabase.auth.getSession();
         setUser(session?.user ?? null);
@@ -55,6 +60,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const signIn = async (email: string, password: string) => {
     const supabase = getSupabase();
+    if (!supabase) throw new Error("Supabase client is not initialized.");
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) throw error;
     return data;
@@ -62,6 +68,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const signUp = async (email: string, password: string, options?: SignUpWithPasswordCredentials['options']) => {
     const supabase = getSupabase();
+    if (!supabase) throw new Error("Supabase client is not initialized.");
     const { data, error } = await supabase.auth.signUp({ email, password, options });
     if (error) throw error;
     return data;
@@ -69,12 +76,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const signOut = async () => {
     const supabase = getSupabase();
+    if (!supabase) throw new Error("Supabase client is not initialized.");
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
   };
 
   const sendPasswordReset = async (email: string) => {
     const supabase = getSupabase();
+    if (!supabase) throw new Error("Supabase client is not initialized.");
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${window.location.origin}/auth/reset-password`,
     });
