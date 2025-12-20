@@ -114,7 +114,7 @@ export default function AuthForm() {
 
   return (
     <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2">
-      <div className="flex flex-col items-center justify-center p-8 lg:p-12">
+      <div className="flex flex-col items-center justify-start lg:justify-center p-6 pt-16 sm:p-8 lg:p-12">
         <div className="w-full max-w-md">
            <AnimatePresence mode="wait">
              <motion.div
