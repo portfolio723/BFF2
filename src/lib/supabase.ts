@@ -18,7 +18,8 @@ export const createClient = (): SupabaseClient | null => {
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
     if (!supabaseUrl || !supabaseAnonKey) {
-        console.error("Supabase URL or Anon Key is not defined. Please check your environment variables.");
+        // This log will now only appear in the browser console, not during the build
+        console.error("Supabase credentials are not defined. Please check your environment variables.");
         return null;
     }
     
