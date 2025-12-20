@@ -538,7 +538,7 @@ const FeaturedBooks = () => {
           </motion.div>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           {featuredBooks.map((book, index) => (
             <BookCard key={book.id} book={book} isNew={index === 1} isFeatured={index === 0 || index === 3}/>
           ))}
