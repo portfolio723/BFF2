@@ -214,7 +214,7 @@ export default function CommunityPage() {
                      <div className="flex justify-center items-center h-64">
                         <Loader2 className="w-8 h-8 animate-spin" />
                       </div>
-                  ) : (
+                  ) : discussions.length > 0 ? (
                   <div className="space-y-4">
                     {discussions.map((discussion, index) => (
                       <motion.div
@@ -271,6 +271,14 @@ export default function CommunityPage() {
                       </motion.div>
                     ))}
                   </div>
+                  ) : (
+                    <div className="text-center py-16 lg:py-24 bg-card rounded-2xl border border-dashed">
+                        <MessageSquare className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                        <h2 className="text-2xl font-bold font-heading">No Discussions Yet</h2>
+                        <p className="text-muted-foreground mt-2 max-w-sm mx-auto">
+                        It's quiet in here. Be the first to start a conversation and get the community talking!
+                        </p>
+                    </div>
                   )}
                 </TabsContent>
                 
