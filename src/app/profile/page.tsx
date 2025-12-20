@@ -78,6 +78,11 @@ export default function ProfilePage() {
       const fetchUserData = async () => {
         setLoadingData(true);
         const supabase = createClient();
+        if (!supabase) {
+            toast.error("Database connection failed.");
+            setLoadingData(false);
+            return;
+        }
 
         const [
           addressesRes,
@@ -171,6 +176,10 @@ export default function ProfilePage() {
   const handleSaveAddress = async (addressData: Omit<Address, 'id' | 'user_id'>) => {
     if (!authUser) return;
     const supabase = createClient();
+    if (!supabase) {
+        toast.error("Database connection failed.");
+        return;
+    }
     
     const dbData = {
       ...addressData,
@@ -237,6 +246,10 @@ export default function ProfilePage() {
   
   const removeAddress = async (id: string) => {
     const supabase = createClient();
+    if (!supabase) {
+        toast.error("Database connection failed.");
+        return;
+    }
     const { error } = await supabase.from('addresses').delete().eq('id', id);
     if (error) {
       toast.error("Failed to remove address", { description: error.message });

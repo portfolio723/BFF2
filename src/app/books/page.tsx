@@ -28,6 +28,12 @@ export default function BooksPage() {
   
   useEffect(() => {
     const supabase = createClient();
+    if (!supabase) {
+        toast.error("Database connection failed", { description: "Please check your Supabase credentials." });
+        setIsLoading(false);
+        return;
+    }
+    
     const fetchBooks = async () => {
       setIsLoading(true);
       const { data, error } = await supabase.from('books').select(`

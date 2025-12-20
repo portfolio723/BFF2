@@ -52,6 +52,11 @@ export default function CommunityPage() {
   
   useEffect(() => {
     const supabase = createClient();
+    if (!supabase) {
+        toast.error("Database connection failed.");
+        setIsLoading(false);
+        return;
+    }
     const fetchDiscussions = async () => {
       setIsLoading(true);
       const { data, error } = await supabase
@@ -93,6 +98,11 @@ export default function CommunityPage() {
 
     setIsPosting(true);
     const supabase = createClient();
+    if (!supabase) {
+        toast.error("Database connection failed.");
+        setIsPosting(false);
+        return;
+    }
 
     const { data, error } = await supabase
       .from('community_posts')

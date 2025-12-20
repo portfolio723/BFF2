@@ -87,6 +87,12 @@ export default function CheckoutPage() {
     const fetchAddresses = async () => {
       if (user) {
         const supabase = createClient();
+        if (!supabase) {
+            toast.error("Database connection failed.");
+            setLoadingAddresses(false);
+            return;
+        }
+
         setLoadingAddresses(true);
         const { data, error } = await supabase.from('addresses').select('*').eq('user_id', user.id);
         if (error) {
@@ -144,6 +150,9 @@ export default function CheckoutPage() {
     
     try {
       const supabase = createClient();
+      if (!supabase) {
+        throw new Error("Database connection failed.");
+      }
       // 1. Create the order
       const { data: orderData, error: orderError } = await supabase
         .from('orders')
@@ -274,6 +283,11 @@ export default function CheckoutPage() {
   const handleNewAddressSaved = async (addressData: Omit<Address, 'id' | 'user_id'>) => {
     if (!user) return;
     const supabase = createClient();
+    if (!supabase) {
+        toast.error("Database connection failed.");
+        return;
+    }
+
     const { data, error } = await supabase
         .from('addresses')
         .insert([{ 
