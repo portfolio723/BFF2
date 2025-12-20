@@ -29,7 +29,7 @@ export default function BooksPage() {
   
   useEffect(() => {
     if (!supabase) {
-        if (!isLoading) setIsLoading(false);
+        setIsLoading(false);
         return;
     }
     
@@ -72,6 +72,7 @@ export default function BooksPage() {
     };
     
     const fetchGenres = async () => {
+        if (!supabase) return;
         const { data, error } = await supabase.from('genres').select('*');
         if (!error && data) {
             setGenres(data);
@@ -80,7 +81,7 @@ export default function BooksPage() {
 
     fetchBooks();
     fetchGenres();
-  }, [supabase, isLoading]);
+  }, [supabase]);
 
   const filteredBooks = useMemo(() => {
     if (!books) return [];
@@ -168,7 +169,7 @@ export default function BooksPage() {
             <Loader2 className="w-8 h-8 animate-spin" />
           </div>
         ) : filteredBooks.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
             {filteredBooks.map((book, index) => (
               <BookCard 
                 key={book.id} 
