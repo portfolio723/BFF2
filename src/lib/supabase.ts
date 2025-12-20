@@ -19,7 +19,6 @@ export const createClient = (): SupabaseClient | null => {
 
     if (!supabaseUrl || !supabaseAnonKey) {
         // This log will now only appear in the browser console, not during the build
-        console.error("Supabase credentials are not defined. Please check your environment variables.");
         return null;
     }
     
