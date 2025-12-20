@@ -41,6 +41,7 @@ import type { Address, Order, CartItem as AppCartItem, SbAddress, SbOrder } from
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 const steps = [
   { id: 1, name: "Address", icon: MapPin },
@@ -65,6 +66,7 @@ export default function CheckoutPage() {
   const { user, isUserLoading } = useAuth();
   const { cart, getSubtotal, getDeliveryCharge, getTotal, clearCart, loading: cartLoading } = useCart();
   
+  const [supabase, setSupabase] = useState<SupabaseClient | null>(null);
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [loadingAddresses, setLoadingAddresses] = useState(true);
 
@@ -84,15 +86,13 @@ export default function CheckoutPage() {
   }, [user, isUserLoading, router]);
 
   useEffect(() => {
-    const fetchAddresses = async () => {
-      if (user) {
-        const supabase = createClient();
-        if (!supabase) {
-            toast.error("Database connection failed.");
-            setLoadingAddresses(false);
-            return;
-        }
+    const client = createClient();
+    setSupabase(client);
+  }, []);
 
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      if (user && supabase) {
         setLoadingAddresses(true);
         const { data, error } = await supabase.from('addresses').select('*').eq('user_id', user.id);
         if (error) {
@@ -121,10 +121,10 @@ export default function CheckoutPage() {
         setLoadingAddresses(false);
       }
     };
-    if (user) {
+    if (user && supabase) {
       fetchAddresses();
     }
-  }, [user]);
+  }, [user, supabase]);
 
   const subtotal = getSubtotal();
   const delivery = getDeliveryCharge();
@@ -146,13 +146,9 @@ export default function CheckoutPage() {
   };
 
   const createOrderInDB = async (paymentDetails: RazorpayPaymentResponse | null, status: Order['status']) => {
-    if (!user || !selectedAddress) return null;
+    if (!user || !selectedAddress || !supabase) return null;
     
     try {
-      const supabase = createClient();
-      if (!supabase) {
-        throw new Error("Database connection failed.");
-      }
       // 1. Create the order
       const { data: orderData, error: orderError } = await supabase
         .from('orders')
@@ -281,12 +277,7 @@ export default function CheckoutPage() {
   };
 
   const handleNewAddressSaved = async (addressData: Omit<Address, 'id' | 'user_id'>) => {
-    if (!user) return;
-    const supabase = createClient();
-    if (!supabase) {
-        toast.error("Database connection failed.");
-        return;
-    }
+    if (!user || !supabase) return;
 
     const { data, error } = await supabase
         .from('addresses')
@@ -322,7 +313,7 @@ export default function CheckoutPage() {
     }
   }
 
-  const isLoading = !isMounted || cartLoading || loadingAddresses || isUserLoading;
+  const isLoading = !isMounted || cartLoading || loadingAddresses || isUserLoading || !supabase;
 
   if (isLoading) {
     return (

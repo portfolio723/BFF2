@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase";
 import { toast } from "sonner";
 import type { Genre } from "@/lib/types";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 export default function BooksPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,7 +35,7 @@ export default function BooksPage() {
         return;
     }
     
-    const fetchBooks = async () => {
+    const fetchBooks = async (supabase: SupabaseClient) => {
       setIsLoading(true);
       const { data, error } = await supabase.from('books').select(`
         id,
@@ -72,15 +73,15 @@ export default function BooksPage() {
       setIsLoading(false);
     };
     
-    const fetchGenres = async () => {
+    const fetchGenres = async (supabase: SupabaseClient) => {
         const { data, error } = await supabase.from('genres').select('*');
         if (!error && data) {
             setGenres(data);
         }
     }
 
-    fetchBooks();
-    fetchGenres();
+    fetchBooks(supabase);
+    fetchGenres(supabase);
   }, []);
 
   const filteredBooks = useMemo(() => {

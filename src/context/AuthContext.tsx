@@ -20,22 +20,17 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [user, setUser] = useState<User | null>(null);
   const [isUserLoading, setIsUserLoading] = useState(true);
   
-  // Use a ref to hold the client instance to avoid re-creating it on every render.
+  // Use a ref to hold the client instance. This ensures it's created only once per provider instance.
   const supabaseRef = React.useRef<SupabaseClient | null>(null);
-
-  // Lazily get the Supabase client
-  const getSupabase = () => {
-    if (!supabaseRef.current) {
-      supabaseRef.current = createClient();
-    }
-    return supabaseRef.current;
-  };
+  if (!supabaseRef.current) {
+    supabaseRef.current = createClient();
+  }
+  const supabase = supabaseRef.current;
 
   useEffect(() => {
-    const supabase = getSupabase();
     if (!supabase) {
-        setIsUserLoading(false);
-        return;
+      setIsUserLoading(false);
+      return;
     }
 
     const getSession = async () => {
@@ -55,11 +50,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return () => {
       authListener?.subscription.unsubscribe();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [supabase]);
 
   const signIn = async (email: string, password: string) => {
-    const supabase = getSupabase();
     if (!supabase) throw new Error("Supabase client is not initialized.");
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) throw error;
@@ -67,7 +60,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const signUp = async (email: string, password: string, options?: SignUpWithPasswordCredentials['options']) => {
-    const supabase = getSupabase();
     if (!supabase) throw new Error("Supabase client is not initialized.");
     const { data, error } = await supabase.auth.signUp({ email, password, options });
     if (error) throw error;
@@ -75,14 +67,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const signOut = async () => {
-    const supabase = getSupabase();
     if (!supabase) throw new Error("Supabase client is not initialized.");
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
   };
 
   const sendPasswordReset = async (email: string) => {
-    const supabase = getSupabase();
     if (!supabase) throw new Error("Supabase client is not initialized.");
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${window.location.origin}/auth/reset-password`,

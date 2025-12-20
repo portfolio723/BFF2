@@ -1,28 +1,24 @@
 
 import { createClient as createSupabaseClient, SupabaseClient } from '@supabase/supabase-js'
 
-// This approach ensures the client is a singleton and created only once.
-let supabaseClient: SupabaseClient | null = null;
+// This function can be called on the client side.
+// It will return null if the environment variables are not set.
+export const createClient = (): SupabaseClient | null => {
+  // Ensure this code only runs on the client
+  if (typeof window === 'undefined') {
+    return null;
+  }
 
-const getSupabase = () => {
-  if (supabaseClient) {
-    return supabaseClient;
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (supabaseUrl && supabaseAnonKey) {
+    return createSupabaseClient(supabaseUrl, supabaseAnonKey);
   }
   
-  // Only create a new client if one doesn't exist and we are on the client-side.
-  if (typeof window !== 'undefined') {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-    if (supabaseUrl && supabaseAnonKey) {
-      supabaseClient = createSupabaseClient(supabaseUrl, supabaseAnonKey);
-      return supabaseClient;
-    }
+  if (process.env.NODE_ENV === 'development') {
+    console.warn("Supabase credentials are not defined. Please check your .env.local file.");
   }
-
-  // Return null if on the server or if keys are missing.
-  // The application should handle this gracefully.
+  
   return null;
 };
-
-export const createClient = getSupabase;

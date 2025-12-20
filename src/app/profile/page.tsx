@@ -45,6 +45,7 @@ import { toast } from "sonner";
 import { format } from "date-fns";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 const AddressIcon = ({ type }: { type: Address["type"] }) => {
   switch (type) {
@@ -61,6 +62,7 @@ export default function ProfilePage() {
   const router = useRouter();
   const { user: authUser, isUserLoading } = useAuth();
   
+  const [supabase, setSupabase] = useState<SupabaseClient | null>(null);
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
@@ -74,16 +76,17 @@ export default function ProfilePage() {
     if (!isUserLoading && !authUser) {
       router.push('/auth?redirect=/profile');
     }
-    if (authUser) {
+  }, [authUser, isUserLoading, router]);
+
+  useEffect(() => {
+    const client = createClient();
+    setSupabase(client);
+  }, []);
+  
+  useEffect(() => {
+    if (authUser && supabase) {
       const fetchUserData = async () => {
         setLoadingData(true);
-        const supabase = createClient();
-        if (!supabase) {
-            toast.error("Database connection failed.");
-            setLoadingData(false);
-            return;
-        }
-
         const [
           addressesRes,
           ordersRes,
@@ -156,7 +159,7 @@ export default function ProfilePage() {
       };
       fetchUserData();
     }
-  }, [authUser, isUserLoading, router]);
+  }, [authUser, supabase]);
 
   const handleEditAddress = (address: Address) => {
     setEditingAddress(address);
@@ -174,12 +177,7 @@ export default function ProfilePage() {
   }
 
   const handleSaveAddress = async (addressData: Omit<Address, 'id' | 'user_id'>) => {
-    if (!authUser) return;
-    const supabase = createClient();
-    if (!supabase) {
-        toast.error("Database connection failed.");
-        return;
-    }
+    if (!authUser || !supabase) return;
     
     const dbData = {
       ...addressData,
@@ -245,11 +243,7 @@ export default function ProfilePage() {
   }
   
   const removeAddress = async (id: string) => {
-    const supabase = createClient();
-    if (!supabase) {
-        toast.error("Database connection failed.");
-        return;
-    }
+    if (!supabase) return;
     const { error } = await supabase.from('addresses').delete().eq('id', id);
     if (error) {
       toast.error("Failed to remove address", { description: error.message });

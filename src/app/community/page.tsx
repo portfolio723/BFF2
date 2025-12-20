@@ -31,6 +31,7 @@ import { usePathname } from "next/navigation";
 import { createClient } from "@/lib/supabase";
 import type { CommunityPost } from "@/lib/types";
 import { formatDistanceToNow } from "date-fns";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 const trendingTopics = [
   { name: "Book Reviews", count: 234 },
@@ -57,7 +58,7 @@ export default function CommunityPage() {
         setIsLoading(false);
         return;
     }
-    const fetchDiscussions = async () => {
+    const fetchDiscussions = async (supabase: SupabaseClient) => {
       setIsLoading(true);
       const { data, error } = await supabase
         .from('community_posts')
@@ -82,7 +83,7 @@ export default function CommunityPage() {
       setIsLoading(false);
     };
 
-    fetchDiscussions();
+    fetchDiscussions(supabase);
   }, []);
 
   const handlePostDiscussion = async () => {
