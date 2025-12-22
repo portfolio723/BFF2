@@ -131,7 +131,7 @@ const CategoriesSection = () => {
     { name: "NCERT", count: 300, imageId: "new-genre-ncert" },
     { name: "History", count: 210, imageId: "new-genre-history" },
     { name: "Competitive Exams", count: 280, imageId: "new-genre-exams" },
-    { name: "Biography", count: 150, imageId: "new-genre-biography" },
+    { name: "Biography", count: 150, imageId: "new-genre-biography", slug: "biography-auto-biography" },
     { name: "Bible", count: 90, imageId: "new-genre-bible" },
     { name: "Anthropology", count: 70, imageId: "new-genre-anthropology" },
     { name: "Adventure", count: 190, imageId: "new-genre-adventure" },
@@ -162,6 +162,9 @@ const CategoriesSection = () => {
           {categories.map((category, index) => {
             const image = PlaceHolderImages.find(img => img.id === category.imageId);
             if (!image) return null;
+            
+            const slug = category.slug || category.name.toLowerCase().replace(/ & | /g, '-').replace(/[^a-z0-9-]/g, '');
+            const href = `/genre/${slug}`;
 
             return (
               <motion.div
@@ -172,7 +175,7 @@ const CategoriesSection = () => {
                 transition={{ delay: index * 0.05 }}
               >
                 <Link 
-                  href={`/genre/${category.name.toLowerCase().replace(/ & | /g, '-').replace(/[^a-z0-9-]/g, '')}`}
+                  href={href}
                   className="group block relative aspect-[4/5] rounded-xl overflow-hidden"
                 >
                   <Image 
