@@ -209,6 +209,14 @@ export default function CheckoutPage() {
       return;
     }
 
+    if (!process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID) {
+      toast.error("Payment gateway is not configured.", {
+        description: "Razorpay Key ID is missing. Please contact support.",
+      });
+      setIsProcessing(false);
+      return;
+    }
+
     try {
       const res = await fetch('/api/razorpay', {
         method: 'POST',

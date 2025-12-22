@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, {
@@ -17,7 +18,7 @@ import type {
 } from "@supabase/supabase-js";
 
 interface AuthContextType {
-  supabase: SupabaseClient;
+  supabase: SupabaseClient | null;
   user: User | null;
   isUserLoading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
@@ -67,8 +68,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
   }, []);
 
-  // ✅ CLEAN, SAFE ACTIONS
   const signIn = async (email: string, password: string) => {
+    if (!supabase) throw new Error("Supabase client is not available.");
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -81,6 +82,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     password: string,
     options?: SignUpWithPasswordCredentials["options"]
   ) => {
+    if (!supabase) throw new Error("Supabase client is not available.");
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -90,11 +92,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const signOut = async () => {
+    if (!supabase) throw new Error("Supabase client is not available.");
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
   };
 
   const sendPasswordReset = async (email: string) => {
+    if (!supabase) throw new Error("Supabase client is not available.");
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${window.location.origin}/auth/reset-password`,
     });

@@ -332,7 +332,7 @@ export default function ProfilePage() {
                 <Phone className="h-5 w-5 mr-3 text-muted-foreground" />
                 <div>
                   <p className="text-sm text-muted-foreground">Phone Number</p>
-                  <p className="font-medium">{authUser.phone || "Not provided"}</p>
+                  <p className="font-medium">{authUser.user_metadata.phone_number || "Not provided"}</p>
                 </div>
               </div>
             </CardContent>
