@@ -14,44 +14,34 @@ import { Input } from "@/components/ui/input";
 import { Search, FileText, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { useAuth } from "@/context/AuthContext";
 
 export default function PdfsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("newest");
   const [pdfs, setPdfs] = useState<Pdf[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { supabase } = useAuth();
-  
+
   useEffect(() => {
     const fetchPdfs = async () => {
-      if (!supabase) {
-        setIsLoading(false);
-        return;
-      }
-
       setIsLoading(true);
       try {
-        const { data: upscPdfs, error } = await supabase
-          .from('pdf_books')
-          .select('*')
-          .eq('genre', 'UPSC');
-
-        if (error) {
-          throw error;
+        const response = await fetch('/api/list-pdfs');
+        if (!response.ok) {
+          throw new Error('Failed to fetch PDF list');
         }
+        const filenames: string[] = await response.json();
 
-        const formattedPdfs: Pdf[] = upscPdfs.map((pdf: any) => ({
-          id: pdf.id,
-          title: pdf.title,
-          author: pdf.genre, 
-          category: pdf.genre,
-          description: `Downloadable PDF file: ${pdf.title}`,
+        const formattedPdfs: Pdf[] = filenames.map((filename, index) => ({
+          id: `${index}-${filename}`,
+          title: filename.replace(/\.pdf$/i, '').replace(/_/g, ' '),
+          author: "UPSC Resource",
+          category: "UPSC",
+          description: `Downloadable PDF file: ${filename}`,
           coverImage: {
             url: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&q=80",
             hint: "study material",
           },
-          downloadUrl: pdf.file_url,
+          downloadUrl: `/upsc/${encodeURIComponent(filename)}`,
         }));
         
         setPdfs(formattedPdfs);
@@ -64,8 +54,7 @@ export default function PdfsPage() {
       }
     }
     fetchPdfs();
-  }, [supabase]);
-
+  }, []);
 
   const filteredPdfs = useMemo(() => {
     if (!pdfs) return [];
@@ -142,7 +131,7 @@ export default function PdfsPage() {
             <FileText className="w-12 h-12 text-muted-foreground mx-auto mb-4"/>
             <h2 className="text-2xl font-bold font-heading">No PDFs Found</h2>
             <p className="text-muted-foreground mt-2 max-w-sm mx-auto">
-              We couldn't find any PDF files with the 'UPSC' genre in the database. Please make sure you have run the upload script.
+              We couldn't find any PDF files in the 'public/upsc' directory. Please make sure the folder exists and contains PDF files.
             </p>
           </div>
         )}
