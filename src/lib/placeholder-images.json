@@ -39,7 +39,7 @@
     {
       "id": "book-cover-8",
       "description": "Science fiction themed book cover",
-      "imageUrl": "https://images.unsplash.com/photo-1509266184724-19253ec68c24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyMHx8Ym9va3N8ZW58MHx8fHwxNzY2MDU0MjUwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1509266184724-19253ec68c24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyMHx8Ym9va3N8ZW58MHx8fHwxNzY2MDU0MjUwfDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "books"
     },
     {
@@ -50,7 +50,7 @@
     },
     {
       "id": "new-book-2",
-      "imageUrl": "https://images.unsplash.com/photo-1593410733607-4fe72c8f3f73?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmYW50YXN5JTIwbGFuZHNjYXBlfGVufDB8fHx8MTc2NTk4ODMyMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1593410733607-4fe72c8f3f73?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmYW50YXN5JTIwbGFuZHNjYXBlfGVufDB8fHx8MTc2NTk4ODMyMHww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "fantasy landscape",
       "description": "The Hobbit"
     },
@@ -62,37 +62,37 @@
     },
     {
       "id": "new-book-4",
-      "imageUrl": "https://images.unsplash.com/photo-1567919915310-0ec7b49bfb12?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxtYWdpY2FsJTIwcmVhbGlzbXxlbnwwfHx8fDE3NjYwNTQyNDl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1567919915310-0ec7b49bfb12?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxtYWdpY2FsJTIwcmVhbGlzbXxlbnwwfHx8fDE3NjYwNTQyNDl8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "magical realism",
       "description": "One Hundred Years of Solitude"
     },
     {
       "id": "new-book-5",
-      "imageUrl": "https://images.unsplash.com/photo-1718658667221-c8301a07b2f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxyZWdlbmN5JTIwZXJhfGVufDB8fHx8MTc2NjA1MzQxNHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1718658667221-c8301a07b2f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxyZWdlbmN5JTIwZXJhfGVufDB8fHx8MTc2NjA1MzQxNHww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "regency era",
       "description": "Pride and Prejudice"
     },
     {
       "id": "new-book-6",
-      "imageUrl": "https://images.unsplash.com/photo-1765890528975-19f81befcf31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxpc29sYXRlZCUyMGlzbGFuZHxlbnwwfHx8fDE3NjU5NTExNjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1765890528975-19f81befcf31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxpc29sYXRlZCUyMGlzbGFuZHxlbnwwfHx8fDE3NjU5NTExNjR8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "isolated island",
       "description": "And Then There Were None"
     },
     {
       "id": "new-book-7",
-      "imageUrl": "https://images.unsplash.com/photo-1541845657-db7e16cdb80d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxoYXVudGVkJTIwaG90ZWx8ZW58MHx8fHwxNzY2MDU0MjQ5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1541845657-db7e16cdb80d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxoYXVudGVkJTIwaG90ZWx8ZW58MHx8fHwxNzY2MDU0MjQ5fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "haunted hotel",
       "description": "The Shining"
     },
     {
       "id": "new-book-8",
-      "imageUrl": "https://images.unsplash.com/photo-1516714711725-f7fb09bc219d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtYWdpYyUyMHNjaG9vbHxlbnwwfHx8fDE3NjU5NjMyMjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1516714711725-f7fb09bc219d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtYWdpYyUyMHNjaG9vbHxlbnwwfHx8fDE3NjU5NjMyMjd8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "magic school",
       "description": "Harry Potter"
     },
     {
       "id": "new-book-9",
-      "imageUrl": "https://images.unsplash.com/photo-1765805911272-49500f50a01d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0ZWNoJTIwdmlzaW9uYXJ5fGVufDB8fHx8MTc2NjA1NDI0OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1765805911272-49500f50a01d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0ZWNoJTIwdmlzaW9uYXJ5fGVufDB8fHx8MTc2NjA1NDI0OXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "tech visionary",
       "description": "Steve Jobs"
     },
@@ -1187,6 +1187,120 @@
       "description": "Schuberta (Biography of Schubert)",
       "imageUrl": "https://images.unsplash.com/photo-1520523839598-bdbe5e69c590?w=600&q=80",
       "imageHint": "piano keys"
+    },
+    {
+      "id": "ncert-math-10",
+      "description": "NCERT Mathematics Class 10 textbook",
+      "imageUrl": "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=600&q=80",
+      "imageHint": "math equations"
+    },
+    {
+      "id": "ncert-science-10",
+      "description": "NCERT Science Class 10 textbook",
+      "imageUrl": "https://images.unsplash.com/photo-1576086213369-97a306d36557?w=600&q=80",
+      "imageHint": "science experiment"
+    },
+    {
+      "id": "ncert-history-10",
+      "description": "NCERT History Class 10 textbook",
+      "imageUrl": "https://images.unsplash.com/photo-1524188185897-43825f23a73c?w=600&q=80",
+      "imageHint": "world history"
+    },
+    {
+      "id": "ncert-geography-10",
+      "description": "NCERT Geography Class 10 textbook",
+      "imageUrl": "https://images.unsplash.com/photo-1521295121783-8a321d551ad2?w=600&q=80",
+      "imageHint": "earth map"
+    },
+    {
+      "id": "ncert-polsci-10",
+      "description": "NCERT Political Science Class 10 textbook",
+      "imageUrl": "https://images.unsplash.com/photo-1534294668821-28a3054f4246?w=600&q=80",
+      "imageHint": "political science"
+    },
+    {
+      "id": "ncert-economics-10",
+      "description": "NCERT Economics Class 10 textbook",
+      "imageUrl": "https://images.unsplash.com/photo-1620712943543-285f726a8484?w=600&q=80",
+      "imageHint": "economic development"
+    },
+    {
+      "id": "ncert-english-10a",
+      "description": "NCERT English Literature Class 10 textbook",
+      "imageUrl": "https://images.unsplash.com/photo-1499257329729-dc3b6d263920?w=600&q=80",
+      "imageHint": "english literature"
+    },
+    {
+      "id": "ncert-english-10b",
+      "description": "NCERT English Supplementary Reader Class 10",
+      "imageUrl": "https://images.unsplash.com/photo-1589834158498-4b8259b3fba2?w=600&q=80",
+      "imageHint": "reading book"
+    },
+    {
+      "id": "ncert-physics-11",
+      "description": "NCERT Physics Class 11 textbook",
+      "imageUrl": "https://images.unsplash.com/photo-1614935151651-0bea6508bf6e?w=600&q=80",
+      "imageHint": "physics concepts"
+    },
+    {
+      "id": "ncert-chemistry-11",
+      "description": "NCERT Chemistry Class 11 textbook",
+      "imageUrl": "https://images.unsplash.com/photo-1628151015968-3a4429e9ef09?w=600&q=80",
+      "imageHint": "chemistry set"
+    },
+    {
+      "id": "ncert-biology-11",
+      "description": "NCERT Biology Class 11 textbook",
+      "imageUrl": "https://images.unsplash.com/photo-1530026405182-271453396975?w=600&q=80",
+      "imageHint": "biology dna"
+    },
+    {
+      "id": "ncert-math-11",
+      "description": "NCERT Mathematics Class 11 textbook",
+      "imageUrl": "https://images.unsplash.com/photo-1635070041075-cb0050884b2c?w=600&q=80",
+      "imageHint": "mathematics formula"
+    },
+    {
+      "id": "ncert-physics-12",
+      "description": "NCERT Physics Class 12 textbook",
+      "imageUrl": "https://images.unsplash.com/photo-1518152006812-edab29b069ac?w=600&q=80",
+      "imageHint": "physics electricity"
+    },
+    {
+      "id": "ncert-chemistry-12a",
+      "description": "NCERT Chemistry Class 12 Part I textbook",
+      "imageUrl": "https://images.unsplash.com/photo-1581093550181-396a8a3f7218?w=600&q=80",
+      "imageHint": "chemistry labware"
+    },
+    {
+      "id": "ncert-chemistry-12b",
+      "description": "NCERT Chemistry Class 12 Part II textbook",
+      "imageUrl": "https://images.unsplash.com/photo-1554475901-45389624564d?w=600&q=80",
+      "imageHint": "organic chemistry"
+    },
+    {
+      "id": "ncert-biology-12",
+      "description": "NCERT Biology Class 12 textbook",
+      "imageUrl": "https://images.unsplash.com/photo-1581091224003-01b7a0d4c9c8?w=600&q=80",
+      "imageHint": "microscope biology"
+    },
+    {
+      "id": "ncert-math-12",
+      "description": "NCERT Mathematics Class 12 textbook",
+      "imageUrl": "https://images.unsplash.com/photo-1596495577886-d9256e326494?w=600&q=80",
+      "imageHint": "calculus math"
+    },
+    {
+      "id": "ncert-history-11",
+      "description": "NCERT History Class 11 textbook",
+      "imageUrl": "https://images.unsplash.com/photo-1447023393675-9a897e4a7d32?w=600&q=80",
+      "imageHint": "ancient history"
+    },
+    {
+      "id": "ncert-history-12",
+      "description": "NCERT History Class 12 textbook",
+      "imageUrl": "https://images.unsplash.com/photo-1582139088269-e58f08a9d18b?w=600&q=80",
+      "imageHint": "modern history"
     }
   ]
 }

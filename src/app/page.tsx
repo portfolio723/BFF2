@@ -124,11 +124,11 @@ const HeroSection = () => {
 
 const CategoriesSection = () => {
   const categories = [
-    { name: "UPSC", count: 180, imageId: "new-genre-upsc", href: "https://drive.google.com/file/d/1E1kihRbsVUbKeaISUTlK_EfK4y5FL6UC/view?usp=drivesdk" },
+    { name: "UPSC", count: 180, imageId: "new-genre-upsc", href: "/genre/upsc" },
     { name: "Space & Astronomy", count: 120, imageId: "new-genre-space", href: "/genre/space-astronomy" },
     { name: "Self Development", count: 250, imageId: "new-genre-self-dev", href: "/genre/self-development" },
     { name: "Psychology", count: 160, imageId: "new-genre-psychology", href: "/genre/psychology" },
-    { name: "NCERT", count: 300, imageId: "new-genre-ncert" },
+    { name: "NCERT", count: 300, imageId: "new-genre-ncert", href: "/genre/ncert" },
     { name: "History", count: 210, imageId: "new-genre-history", href: "/genre/history" },
     { name: "Competitive Exams", count: 280, imageId: "new-genre-exams" },
     { name: "Biography", count: 150, imageId: "new-genre-biography", slug: "biography-auto-biography" },
