@@ -1,7 +1,6 @@
 
 "use client";
 import { useState, useMemo, useEffect } from "react";
-import { BookCard } from "@/components/BookCard";
 import {
   Select,
   SelectContent,
@@ -11,7 +10,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import type { Book as BookType } from "@/lib/types"; 
-import { books as allBooks, genres as allGenres } from "@/lib/data";
+import { genres as allGenres } from "@/lib/data";
 import { Search, LayoutGrid, List, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Genre } from "@/lib/types";
@@ -27,7 +26,7 @@ export default function BooksPage() {
   
   useEffect(() => {
     setIsLoading(true);
-    setBooks(allBooks);
+    setBooks([]); // Set books to an empty array
     setGenres(allGenres);
     setIsLoading(false);
   }, []);
@@ -118,28 +117,17 @@ export default function BooksPage() {
           </div>
         ) : filteredBooks.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
-            {filteredBooks.map((book, index) => (
-              <BookCard 
-                key={book.id} 
-                book={book} 
-                isNew={index < 3} // Example logic for 'New' badge
-                isFeatured={index === 0 || index === 2} // Example logic for 'Featured' badge
-              />
-            ))}
+            {/* This will not render as filteredBooks is empty */}
           </div>
         ) : (
           <div className="text-center py-20 lg:py-32 bg-card rounded-2xl border border-dashed">
             <h2 className="text-2xl font-bold font-heading">No Books Found</h2>
             <p className="text-muted-foreground mt-2">
-              Try adjusting your filters to find what you're looking for.
+              Our library is currently empty. Please check back later!
             </p>
           </div>
         )}
       </main>
-
-       <div className="text-center mb-20">
-          <Button variant="outline" className="px-8 h-12 rounded-full">Load More Books</Button>
-        </div>
     </div>
   );
 }
