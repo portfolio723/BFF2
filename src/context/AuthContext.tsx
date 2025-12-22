@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, {
@@ -38,6 +37,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isUserLoading, setIsUserLoading] = useState(true);
 
   useEffect(() => {
+    if (!supabase) {
+      setIsUserLoading(false);
+      return;
+    }
+    
     const initSession = async () => {
       const {
         data: { session },
