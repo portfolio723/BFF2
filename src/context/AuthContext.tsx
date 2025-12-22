@@ -1,12 +1,12 @@
 
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode, useRef } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { createClient } from '@/lib/supabase';
 import type { AuthChangeEvent, Session, User, SupabaseClient, SignUpWithPasswordCredentials } from '@supabase/supabase-js';
 
 interface AuthContextType {
-  supabase: SupabaseClient | null;
+  supabase: SupabaseClient;
   user: User | null;
   isUserLoading: boolean;
   signIn: (email: string, password: string) => Promise<any>;
@@ -17,20 +17,17 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Memoize the client so it's created only once.
+const supabase = createClient();
+
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isUserLoading, setIsUserLoading] = useState(true);
   
-  const supabaseRef = useRef<SupabaseClient | null>(null);
-  if (!supabaseRef.current) {
-    supabaseRef.current = createClient();
-  }
-  const supabase = supabaseRef.current;
-
   useEffect(() => {
     if (!supabase) {
-      setIsUserLoading(false);
-      return;
+        setIsUserLoading(false);
+        return;
     }
 
     const getSession = async () => {
@@ -50,48 +47,22 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return () => {
       authListener?.subscription.unsubscribe();
     };
-  }, [supabase]);
+  }, []);
 
-  const signIn = async (email: string, password: string) => {
-    if (!supabase) throw new Error("Supabase client is not initialized.");
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) throw error;
-    return data;
-  };
-
-  const signUp = async (email: string, password: string, options?: SignUpWithPasswordCredentials['options']) => {
-    if (!supabase) throw new Error("Supabase client is not initialized.");
-    const { data, error } = await supabase.auth.signUp({ email, password, options });
-    if (error) throw error;
-    return data;
-  };
-
-  const signOut = async () => {
-    if (!supabase) throw new Error("Supabase client is not initialized.");
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
-  };
-
-  const sendPasswordReset = async (email: string) => {
-    if (!supabase) throw new Error("Supabase client is not initialized.");
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/auth/reset-password`,
-    });
-    if (error) throw error;
+  const value: AuthContextType = {
+    supabase,
+    user,
+    isUserLoading,
+    signIn: (email, password) => supabase.auth.signInWithPassword({ email, password }),
+    signUp: (email, password, options) => supabase.auth.signUp({ email, password, options }),
+    signOut: () => supabase.auth.signOut(),
+    sendPasswordReset: (email) => supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/auth/reset-password`,
+    }),
   };
 
   return (
-    <AuthContext.Provider
-      value={{
-        supabase,
-        user,
-        isUserLoading,
-        signIn,
-        signUp,
-        signOut,
-        sendPasswordReset,
-      }}
-    >
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );
@@ -99,7 +70,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) {
+  if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
