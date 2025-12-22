@@ -81,7 +81,7 @@ export default function PdfsPage() {
           Free PDF Library
         </h1>
         <p className="text-muted-foreground mt-3 max-w-xl">
-          Explore a collection of classic literature and important texts, free to download.
+          A collection of valuable resources for UPSC exam preparation, free to download.
         </p>
       </header>
 
@@ -109,7 +109,7 @@ export default function PdfsPage() {
               </Select>
             </div>
         </div>
-        {!isLoading && <p className="text-sm text-muted-foreground mt-4">Showing {filteredPdfs.length} PDFs</p>}
+        {!isLoading && <p className="text-sm text-muted-foreground mt-4">Showing {filteredPdfs.length} PDFs for UPSC</p>}
       </div>
 
       <main className="mb-20">
@@ -136,10 +136,6 @@ export default function PdfsPage() {
           </div>
         )}
       </main>
-
-       <div className="text-center mb-20">
-          <Button variant="outline" className="px-8 h-12 rounded-full">Load More PDFs</Button>
-        </div>
     </div>
   );
 }
