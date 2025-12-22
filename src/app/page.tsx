@@ -124,12 +124,21 @@ const HeroSection = () => {
 
 const CategoriesSection = () => {
   const categories = [
-    { name: "Fiction", count: 2340, imageId: "fiction-category" },
-    { name: "Non-Fiction", count: 1890, imageId: "non-fiction-category" },
-    { name: "Science", count: 1250, imageId: "science-category" },
-    { name: "Self-Help", count: 980, imageId: "self-help-category" },
-    { name: "Children", count: 1560, imageId: "children-category" },
-    { name: "Academic", count: 2100, imageId: "academic-category" },
+    { name: "UPSC", count: 180, imageId: "new-genre-upsc" },
+    { name: "Space & Astronomy", count: 120, imageId: "new-genre-space" },
+    { name: "Self Development", count: 250, imageId: "new-genre-self-dev" },
+    { name: "Psychology", count: 160, imageId: "new-genre-psychology" },
+    { name: "NCERT", count: 300, imageId: "new-genre-ncert" },
+    { name: "History", count: 210, imageId: "new-genre-history" },
+    { name: "Competitive Exams", count: 280, imageId: "new-genre-exams" },
+    { name: "Biography", count: 150, imageId: "new-genre-biography" },
+    { name: "Bible", count: 90, imageId: "new-genre-bible" },
+    { name: "Anthropology", count: 70, imageId: "new-genre-anthropology" },
+    { name: "Adventure", count: 190, imageId: "new-genre-adventure" },
+    { name: "Career Guide", count: 130, imageId: "new-genre-career" },
+    { name: "Business Management", count: 170, imageId: "new-genre-business" },
+    { name: "Computer Science", count: 140, imageId: "new-genre-cs" },
+    { name: "Cultural", count: 110, imageId: "new-genre-cultural" },
   ];
 
   return (
@@ -149,7 +158,7 @@ const CategoriesSection = () => {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
           {categories.map((category, index) => {
             const image = PlaceHolderImages.find(img => img.id === category.imageId);
             if (!image) return null;
@@ -163,7 +172,7 @@ const CategoriesSection = () => {
                 transition={{ delay: index * 0.05 }}
               >
                 <Link 
-                  href={`/genre/${category.name.toLowerCase().replace(/ /g, '-')}`}
+                  href={`/genre/${category.name.toLowerCase().replace(/ & | /g, '-').replace(/[^a-z0-9-]/g, '')}`}
                   className="group block relative aspect-[4/5] rounded-xl overflow-hidden"
                 >
                   <Image 
