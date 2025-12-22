@@ -8,8 +8,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Menu,
   X,
-  ShoppingCart,
-  Heart,
   Search,
   BookOpen,
   LogOut,
@@ -27,8 +25,6 @@ import {
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useCart } from "@/context/AppProvider";
-import { useWishlist } from "@/context/WishlistContext";
 import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
@@ -43,8 +39,6 @@ export function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const { cartCount } = useCart();
-  const { wishlistCount } = useWishlist();
   const { user, signOut, isUserLoading } = useAuth();
   
   const [isMounted, setIsMounted] = useState(false);
@@ -121,38 +115,6 @@ export function Header() {
               <Search className="w-5 h-5" />
             </Button>
             
-            <Link href="/wishlist">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-muted-foreground relative"
-                aria-label="Wishlist"
-              >
-                <Heart className="w-5 h-5" />
-                {isMounted && wishlistCount > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-foreground text-background text-[10px] font-medium rounded-full flex items-center justify-center">
-                    {wishlistCount > 9 ? "9+" : wishlistCount}
-                  </span>
-                )}
-              </Button>
-            </Link>
-
-            <Link href="/cart">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-muted-foreground relative"
-                aria-label="Cart"
-              >
-                <ShoppingCart className="w-5 h-5" />
-                {isMounted && cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-foreground text-background text-[10px] font-medium rounded-full flex items-center justify-center">
-                    {cartCount > 9 ? "9+" : cartCount}
-                  </span>
-                )}
-              </Button>
-            </Link>
-            
             <Separator orientation="vertical" className="h-6" />
 
             {!isUserLoading && (
@@ -196,22 +158,6 @@ export function Header() {
           </div>
 
           <div className="flex lg:hidden items-center gap-3">
-            <Link href="/cart">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-muted-foreground relative"
-                 aria-label="Cart"
-              >
-                <ShoppingCart className="w-5 h-5" />
-                {isMounted && cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-foreground text-background text-[10px] font-medium rounded-full flex items-center justify-center">
-                    {cartCount > 9 ? "9+" : cartCount}
-                  </span>
-                )}
-              </Button>
-            </Link>
-
             <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
               {isOpen ? (
                 <X className="w-5 h-5" />
@@ -283,16 +229,6 @@ export function Header() {
                       </Button>
                     </Link>
                   )}
-                  <Link href="/wishlist" onClick={() => setIsOpen(false)}>
-                    <Button
-                      variant="secondary"
-                      className="w-full justify-start gap-3"
-                    >
-                      <Heart className="w-4 h-4" />
-                      Wishlist {isMounted && wishlistCount > 0 && `(${wishlistCount})`}
-                    </Button>
-                  </Link>
-
                   {user ? (
                      <Button 
                       variant="destructive" 
