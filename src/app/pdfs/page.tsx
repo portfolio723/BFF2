@@ -1,8 +1,8 @@
 
 "use client";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { PdfCard } from "@/components/PdfCard";
-import { pdfs } from "@/lib/data";
+import type { Pdf } from "@/lib/types";
 import {
   Select,
   SelectContent,
@@ -11,20 +11,60 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { Search, FileText } from "lucide-react";
+import { Search, FileText, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/context/AuthContext";
+import { toast } from "sonner";
 
 export default function PdfsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
+  const [pdfs, setPdfs] = useState<Pdf[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { supabase } = useAuth();
+  
+  useEffect(() => {
+    if (!supabase) {
+      setIsLoading(false);
+      return;
+    }
+    const fetchPdfs = async () => {
+      setIsLoading(true);
+      const { data, error } = await supabase.from('pdfs').select('*');
+
+      if (error) {
+        toast.error("Failed to fetch PDFs", { description: error.message });
+        setPdfs([]);
+      } else {
+        const formattedPdfs = data.map((pdf: any) => ({
+          id: pdf.id,
+          title: pdf.title,
+          author: pdf.author,
+          category: pdf.category,
+          description: pdf.description,
+          coverImage: {
+            url: pdf.cover_image_url,
+            hint: pdf.cover_image_hint,
+          },
+          downloadUrl: pdf.download_url
+        }));
+        setPdfs(formattedPdfs);
+      }
+      setIsLoading(false);
+    }
+    fetchPdfs();
+  }, [supabase]);
 
   const categories = useMemo(() => {
+    if (!pdfs) return [];
     const allCategories = pdfs.map(p => p.category);
     return [...new Set(allCategories)];
-  }, []);
+  }, [pdfs]);
 
   const filteredPdfs = useMemo(() => {
+    if (!pdfs) return [];
+
     let filtered = pdfs.filter((pdf) => {
       const searchMatch =
         pdf.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -41,7 +81,7 @@ export default function PdfsPage() {
     // "newest" is default, no specific sorting logic for now.
 
     return filtered;
-  }, [searchTerm, category, sortBy]);
+  }, [searchTerm, category, sortBy, pdfs]);
 
   return (
     <div className="container-custom">
@@ -91,11 +131,15 @@ export default function PdfsPage() {
               </Select>
             </div>
         </div>
-        <p className="text-sm text-muted-foreground mt-4">Showing {filteredPdfs.length} PDFs</p>
+        {!isLoading && <p className="text-sm text-muted-foreground mt-4">Showing {filteredPdfs.length} PDFs</p>}
       </div>
 
       <main className="mb-20">
-        {filteredPdfs.length > 0 ? (
+        {isLoading ? (
+          <div className="flex justify-center items-center h-64">
+            <Loader2 className="w-8 h-8 animate-spin" />
+          </div>
+        ) : filteredPdfs.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
             {filteredPdfs.map((pdf) => (
               <PdfCard 
@@ -106,9 +150,10 @@ export default function PdfsPage() {
           </div>
         ) : (
           <div className="text-center py-20 lg:py-32 bg-card rounded-2xl border border-dashed">
+            <FileText className="w-12 h-12 text-muted-foreground mx-auto mb-4"/>
             <h2 className="text-2xl font-bold font-heading">No PDFs Found</h2>
             <p className="text-muted-foreground mt-2">
-              Try adjusting your filters to find what you're looking for.
+              There are no PDFs available at the moment. Please check back later.
             </p>
           </div>
         )}
@@ -120,3 +165,5 @@ export default function PdfsPage() {
     </div>
   );
 }
+
+    
