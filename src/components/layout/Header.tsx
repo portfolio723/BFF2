@@ -13,8 +13,6 @@ import {
   LogOut,
   User,
   ChevronDown,
-  ShoppingCart,
-  Heart,
   Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -31,9 +29,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
-import { useCart } from "@/context/AppProvider";
-import { useWishlist } from "@/context/WishlistContext";
-import { Badge } from "@/components/ui/badge";
 
 const navLinks = [
   { name: "Donate", href: "/donate" },
@@ -46,8 +41,6 @@ export function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const { user, signOut, isUserLoading } = useAuth();
-  const { cartCount } = useCart();
-  const { wishlistCount } = useWishlist();
   
   const [isMounted, setIsMounted] = useState(false);
 
@@ -125,21 +118,6 @@ export function Header() {
             
             <Separator orientation="vertical" className="h-6 mx-2" />
 
-             <Link href="/wishlist" className="relative">
-              <Button variant="ghost" size="icon" className="text-muted-foreground" aria-label="Wishlist">
-                <Heart className="w-5 h-5" />
-              </Button>
-              {wishlistCount > 0 && <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 w-5 justify-center p-0">{wishlistCount}</Badge>}
-            </Link>
-
-            <Link href="/cart" className="relative">
-              <Button variant="ghost" size="icon" className="text-muted-foreground" aria-label="Cart">
-                <ShoppingCart className="w-5 h-5" />
-              </Button>
-              {cartCount > 0 && <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 w-5 justify-center p-0">{cartCount}</Badge>}
-            </Link>
-
-
             {isUserLoading ? <Loader2 className="w-5 h-5 animate-spin mx-4" /> : (
               user ? (
                 <DropdownMenu>
@@ -181,12 +159,6 @@ export function Header() {
           </div>
 
           <div className="flex lg:hidden items-center gap-1">
-            <Link href="/cart" className="relative">
-              <Button variant="ghost" size="icon" className="text-muted-foreground" aria-label="Cart">
-                <ShoppingCart className="w-5 h-5" />
-              </Button>
-              {cartCount > 0 && <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 w-5 justify-center p-0">{cartCount}</Badge>}
-            </Link>
             <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
               {isOpen ? (
                 <X className="w-5 h-5" />
@@ -248,24 +220,6 @@ export function Header() {
                     </Link>
                   </motion.div>
                 ))}
-                 <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 }}
-                  >
-                    <Link
-                      href="/wishlist"
-                      onClick={() => setIsOpen(false)}
-                      className={cn(
-                        "block px-4 py-3 rounded-lg font-medium transition-colors",
-                        pathname === "/wishlist"
-                          ? "bg-secondary text-foreground"
-                          : "text-muted-foreground hover:bg-secondary hover:text-foreground"
-                      )}
-                    >
-                      Wishlist
-                    </Link>
-                  </motion.div>
 
                 <div className="pt-4 px-2 flex flex-col gap-2">
                  {user && (
