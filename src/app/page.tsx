@@ -129,7 +129,7 @@ const CategoriesSection = () => {
     { name: "Self Development", count: 250, imageId: "new-genre-self-dev", href: "/genre/self-development" },
     { name: "Psychology", count: 160, imageId: "new-genre-psychology", href: "/genre/psychology" },
     { name: "NCERT", count: 300, imageId: "new-genre-ncert" },
-    { name: "History", count: 210, imageId: "new-genre-history" },
+    { name: "History", count: 210, imageId: "new-genre-history", href: "/genre/history" },
     { name: "Competitive Exams", count: 280, imageId: "new-genre-exams" },
     { name: "Biography", count: 150, imageId: "new-genre-biography", slug: "biography-auto-biography" },
     { name: "Christian", count: 90, imageId: "new-genre-bible", href: "/genre/christian" },

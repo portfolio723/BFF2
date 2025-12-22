@@ -80,7 +80,7 @@
     },
     {
       "id": "new-book-7",
-      "imageUrl": "https://images.unsplash.com/photo-1541845657-db7e16cdb80d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxoYXVudGVkJTIwaG90ZWx8ZW58MHx8fHwxNzY2MDU0MjQ5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1541845657-db7e16cdb80d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxoYXVudGVkJTIwaG90ZWx8ZW58MHx8fHwxNzY2MDU0MjQ5fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "haunted hotel",
       "description": "The Shining"
     },
@@ -98,7 +98,7 @@
     },
     {
       "id": "new-book-10",
-      "imageUrl": "https://images.unsplash.com/photo-1616632297532-b9d528704239?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8aHVtYW4lMjBldm9sdXRpb258ZW58MHx8fHwxNzY2MDIwNjU3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1616632297532-b9d528704239?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8aHVtYW4lMjBldm9sdXRpb258ZW58MHx8fHwxNzY2MDIwNjU3fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "human evolution",
       "description": "Sapiens"
     },
@@ -152,7 +152,7 @@
     },
     {
       "id": "new-book-19",
-      "imageUrl": "https://images.unsplash.com/photo-1703206189624-893c460ac0b4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8bWFnaWMlMjBjYXN0bGV8ZW58MHx8fHwxNzY2MDQ1ODI0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1703206189624-893c460ac0b4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8bWFnaWMlMjBjYXN0bGV8ZW58MHx8fHwxNzY2MDQ1ODI0fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "magic castle",
       "description": "Chamber of Secrets"
     },
@@ -164,7 +164,7 @@
     },
     {
       "id": "new-book-21",
-      "imageUrl": "https://images.unsplash.com/photo-1602065286227-ec28540628fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZnV0dXJlJTIwaGlzdG9yeXxlbnwwfHx8fDE3NjYwNTQyNTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1602065286227-ec28540628fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZnV0dXJlJTIwaGlzdG9yeXxlbnwwfHx8fDE3NjYwNTQyNTB8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "future history",
       "description": "Homo Deus"
     },
@@ -176,7 +176,7 @@
     },
     {
       "id": "new-book-23",
-      "imageUrl": "https://images.unsplash.com/photo-1765560215006-3f55535b83ee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzZWxmJTIwYWNjZXB0YW5jZXxlbnwwfHx8fDE3NjYwNTQyNDl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1765560215006-3f55535b83ee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzZWxmJTIwYWNjZXB0YW5jZXxlbnwwfHx8fDE3NjYwNTQyNDl8MA&ixlibrb-4.1.0&q=80&w=1080",
       "imageHint": "self acceptance",
       "description": "Gifts of Imperfection"
     },
@@ -188,79 +188,79 @@
     },
     {
       "id": "new-book-25",
-      "imageUrl": "https://images.unsplash.com/photo-1578302409072-9c1725001b1a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmYW50YXN5JTIwbXl0aG9sb2d5fGVufDB8fHx8MTc2NjA1NDI0OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1578302409072-9c1725001b1a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmYW50YXN5JTIwbXl0aG9sb2d5fGVufDB8fHx8MTc2NjA1NDI0OXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "fantasy mythology",
       "description": "The Silmarillion"
     },
     {
       "id": "new-book-26",
-      "imageUrl": "https://images.unsplash.com/photo-1602926340217-518924ca5a61?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwYXJhbGxlbCUyMHdvcmxkc3xlbnwwfHx8fDE3NjYwNTQyNDl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1602926340217-518924ca5a61?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwYXJhbGxlbCUyMHdvcmxkc3xlbnwwfHx8fDE3NjYwNTQyNDl8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "parallel worlds",
       "description": "1Q84"
     },
     {
       "id": "new-book-27",
-      "imageUrl": "https://images.unsplash.com/photo-1674671551316-4544abb741d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxsYXRpbiUyMGFtZXJpY2FufGVufDB8fHx8MTc2NjA1NDI0OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1674671551316-4544abb741d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxsYXRpbiUyMGFtZXJpY2FufGVufDB8fHx8MTc2NjA1NDI0OXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "latin american",
       "description": "Chronicle of a Death Foretold"
     },
     {
       "id": "new-book-28",
-      "imageUrl": "https://images.unsplash.com/photo-1577720088120-1018dfa3fb2e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxyZWdlbmN5JTIwcm9tYW5jZXxlbnwwfHx8fDE3NjYwNTA2OTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1577720088120-1018dfa3fb2e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxyZWdlbmN5JTIwcm9tYW5jZXxlbnwwfHx8fDE3NjYwNTA2OTh8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "regency romance",
       "description": "Emma"
     },
     {
       "id": "new-book-29",
-      "imageUrl": "https://images.unsplash.com/photo-1758942078591-cb507723ef25?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxkZXRlY3RpdmUlMjBzdG9yeXxlbnwwfHx8fDE3NjYwNTQyNDl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1758942078591-cb507723ef25?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxkZXRlY3RpdmUlMjBzdG9yeXxlbnwwfHx8fDE3NjYwNTQyNDl8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "detective story",
       "description": "Murder of Roger Ackroyd"
     },
     {
       "id": "new-book-30",
-      "imageUrl": "https://images.unsplash.com/photo-1713362280665-21ffc10ae3b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwb3N0JTIwYXBvY2FseXB0aWN8ZW58MHx8fHwxNzY2MDU0MjQ5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1713362280665-21ffc10ae3b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwb3N0JTIwYXBvY2FseXB0aWN8ZW58MHx8fHwxNzY2MDU0MjQ5fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "post apocalyptic",
       "description": "The Stand"
     },
     {
       "id": "new-book-31",
-      "imageUrl": "https://images.unsplash.com/photo-1696681448879-50b32f5f3db4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx3aXphcmQlMjBzY2hvb2x8ZW58MHx8fHwxNzY1OTgzOTM2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1696681448879-50b32f5f3db4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx3aXphcmQlMjBzY2hvb2x8ZW58MHx8fHwxNzY1OTgzOTM2fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "wizard school",
       "description": "Prisoner of Azkaban"
     },
     {
       "id": "new-book-32",
-      "imageUrl": "https://images.unsplash.com/photo-1663669066662-1c696543b852?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxyZWxhdGl2aXR5JTIwZ2VuaXVzfGVufDB8fHx8MTc2NjA1NDI0OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1663669066662-1c696543b852?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxyZWxhdGl2aXR5JTIwZ2VuaXVzfGVufDB8fHx8MTc2NjA1NDI0OXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "relativity genius",
       "description": "Einstein"
     },
     {
       "id": "new-book-33",
-      "imageUrl": "https://images.unsplash.com/photo-1673505411900-f6b228603625?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmdXR1cmUlMjBjaGFsbGVuZ2VzfGVufDB8fHx8MTc2NjA1NDI1MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1673505411900-f6b228603625?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmdXR1cmUlMjBjaGFsbGVuZ2VzfGVufDB8fHx8MTc2NjA1NDI1MHww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "future challenges",
       "description": "21 Lessons"
     },
     {
       "id": "new-book-34",
-      "imageUrl": "https://images.unsplash.com/photo-1711409650645-a568a59446f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjb2duaXRpdmUlMjBiaWFzfGVufDB8fHx8MTc2NjA1NDI0OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1711409650645-a568a59446f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjb2duaXRpdmUlMjBiaWFzfGVufDB8fHx8MTc2NjA1NDI0OXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "cognitive bias",
       "description": "Thinking Fast and Slow"
     },
     {
       "id": "new-book-35",
-      "imageUrl": "https://images.unsplash.com/photo-1748237549070-a72aa442aa7c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxyZXNpbGllbmNlJTIwc3Rvcnl8ZW58MHx8fHwxNzY2MDU0MjQ5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1748237549070-a72aa442aa7c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxyZXNpbGllbmNlJTIwc3Rvcnl8ZW58MHx8fHwxNzY2MDU0MjQ5fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "resilience story",
       "description": "Rising Strong"
     },
     {
       "id": "new-book-36",
-      "imageUrl": "https://images.unsplash.com/photo-1619597254568-65e9ed87043b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxqYXp6JTIwYWdlfGVufDB8fHx8MTc2NjA1NDI0OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1619597254568-65e9ed87043b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxqYXp6JTIwYWdlfGVufDB8fHx8MTc2NjA1NDI0OXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "jazz age",
       "description": "The Great Gatsby"
     },
     {
       "id": "new-book-37",
-      "imageUrl": "https://images.unsplash.com/photo-1762626046706-d0be3e213543?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzb3V0aGVybiUyMGdvdGhpY3xlbnwwfHx8fDE3NjYwNTQyNDl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1762626046706-d0be3e213543?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzb3V0aGVybiUyMGdvdGhpY3xlbnwwfHx8fDE3NjYwNTQyNDl8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "southern gothic",
       "description": "To Kill a Mockingbird"
     },
@@ -272,13 +272,13 @@
     },
     {
       "id": "new-book-39",
-      "imageUrl": "https://images.unsplash.com/photo-1758273240331-745ccab011a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx0ZWVuJTIwYW5nc3R8ZW58MHx8fHwxNzY2MDU0MjUwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1758273240331-745ccab011a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx0ZWVuJTIwYW5nc3R8ZW58MHx8fHwxNzY2MDU0MjUwfDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "teen angst",
       "description": "The Catcher in the Rye"
     },
     {
       "id": "new-book-40",
-      "imageUrl": "https://images.unsplash.com/photo-1649859341441-e5bf368db1f1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxkdXN0JTIwYm93bHxlbnwwfHx8fDE3NjYwNTQyNDl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1649859341441-e5bf368db1f1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxkdXN0JTIwYm93bHxlbnwwfHx8fDE3NjYwNTQyNDl8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "dust bowl",
       "description": "The Grapes of Wrath"
     },
@@ -357,7 +357,7 @@
     {
       "id": "pdf-cl6-cover",
       "description": "Brave New World",
-      "imageUrl": "https://images.unsplash.com/photo-1573767291321-c0af2eaf5266?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmdXR1cmlzdGljJTIwY2l0eXxlbnwwfHx8fDE3NjYwNTAyMzd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1573767291321-c0af2eaf5266?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmdXR1cmlzdGljJTIwY2l0eXxlbnwwfHx8fDE3NjYwNTAyMzd8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "futuristic city"
     },
     {
@@ -375,7 +375,7 @@
     {
       "id": "pdf-cl9-cover",
       "description": "Don Quixote",
-      "imageUrl": "https://images.unsplash.com/photo-1590523328639-1ebe5a06a0d4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx3aW5kbWlsbCUyMGtuaWdodHxlbnwwfHx8fDE3NjYwNTM4Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1590523328639-1ebe5a06a0d4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx3aW5kbWlsbCUyMGtuaWdodHxlbnwwfHx8fDE3NjYwNTM4Mzl8MA&ixlibrb-4.1.0&q=80&w=1080",
       "imageHint": "windmill knight"
     },
     {
@@ -387,7 +387,7 @@
     {
       "id": "pdf-cr2-cover",
       "description": "Jane Eyre",
-      "imageUrl": "https://images.unsplash.com/photo-1762423780682-f7fdb0dc36c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxnb3RoaWMlMjBtYW5vcnxlbnwwfHx8fDE3NjYwNTM4Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1762423780682-f7fdb0dc36c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxnb3RoaWMlMjBtYW5vcnxlbnwwfHx8fDE3NjYwNTM4Mzl8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "gothic manor"
     },
     {
@@ -399,13 +399,13 @@
     {
       "id": "pdf-cr4-cover",
       "description": "Sense and Sensibility",
-      "imageUrl": "https://images.unsplash.com/photo-1580135657386-2a2afb2871e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxyZWdlbmN5JTIwbGFkaWVzfGVufDB8fHx8MTc2NjA1MzgzOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1580135657386-2a2afb2871e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxyZWdlbmN5JTIwbGFkaWVzfGVufDB8fHx8MTc2NjA1MzgzOXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "regency ladies"
     },
     {
       "id": "pdf-cr5-cover",
       "description": "Anna Karenina",
-      "imageUrl": "https://images.unsplash.com/photo-1628428989068-ba3fdd65ed79?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxydXNzaWFuJTIwYmFsbHJvb218ZW58MHx8fHwxNzY2MDUzODM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1628428989068-ba3fdd65ed79?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxydXNzaWFuJTIwYmFsbHJvb218ZW58MHx8fHwxNzY2MDUzODM5fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "russian ballroom"
     },
     {
@@ -417,67 +417,67 @@
     {
       "id": "pdf-cr7-cover",
       "description": "The Age of Innocence",
-      "imageUrl": "https://images.unsplash.com/photo-1671500338570-b5229b824c39?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxnaWxkZWQlMjBhZ2V8ZW58MHx8fHwxNzY2MDUzODM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1671500338570-b5229b824c39?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxnaWxkZWQlMjBhZ2V8ZW58MHx8fHwxNzY2MDUzODM5fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "gilded age"
     },
     {
       "id": "pdf-cr8-cover",
       "description": "Romeo and Juliet",
-      "imageUrl": "https://images.unsplash.com/photo-1757700051788-a5b3d6e254d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxiYWxjb255JTIwc2NlbmV8ZW58MHx8fHwxNzY2MDUzODM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1757700051788-a5b3d6e254d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxiYWxjb255JTIwc2NlbmV8ZW58MHx8fHwxNzY2MDUzODM5fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "balcony scene"
     },
     {
       "id": "pdf-cr9-cover",
       "description": "Persuasion",
-      "imageUrl": "https://images.unsplash.com/photo-1629943163055-d8c9c9fd8a88?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzZWFzaWRlJTIwcm9tYW5jZXxlbnwwfHx8fDE3NjYwNTM4Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1629943163055-d8c9c9fd8a88?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzZWFzaWRlJTIwcm9tYW5jZXxlbnwwfHx8fDE3NjYwNTM4Mzl8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "seaside romance"
     },
     {
       "id": "pdf-cr10-cover",
       "description": "Emma",
-      "imageUrl": "https://images.unsplash.com/photo-1563714193017-5a5fb60bc02b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxnYXJkZW4lMjBwYXJ0eXxlbnwwfHx8fDE3NjYwNTM4Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1563714193017-5a5fb60bc02b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxnYXJkZW4lMjBwYXJ0eXxlbnwwfHx8fDE3NjYwNTM4Mzl8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "garden party"
     },
     {
       "id": "pdf-sp2-cover",
       "description": "Meditations",
-      "imageUrl": "https://images.unsplash.com/photo-1714393674263-a13f5ada361d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxyb21hbiUyMGJ1c3R8ZW58MHx8fHwxNzY2MDUzODQwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1714393674263-a13f5ada361d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxyb21hbiUyMGJ1c3R8ZW58MHx8fHwxNzY2MDUzODQwfDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "roman bust"
     },
     {
       "id": "pdf-sp3-cover",
       "description": "The Prince",
-      "imageUrl": "https://images.unsplash.com/photo-1742046350822-5ca88be3ec8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxyZW5haXNzYW5jZSUyMGNvdXJ0fGVufDB8fHx8MTc2NjA1MzgzOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1742046350822-5ca88be3ec8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxyZW5haXNzYW5jZSUyMGNvdXJ0fGVufDB8fHx8MTc2NjA1MzgzOXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "renaissance court"
     },
     {
       "id": "pdf-sp4-cover",
       "description": "The Republic",
-      "imageUrl": "https://images.unsplash.com/photo-1633537066002-8d24ebe036b2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxncmVlayUyMGNvbHVtbnN8ZW58MHx8fHwxNzY2MDUzODM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1633537066002-8d24ebe036b2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxncmVlayUyMGNvbHVtbnN8ZW58MHx8fHwxNzY2MDUzODM5fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "greek columns"
     },
     {
       "id": "pdf-sp5-cover",
       "description": "Beyond Good and Evil",
-      "imageUrl": "https://images.unsplash.com/photo-1759416643372-a666d1c639a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxhYnN0cmFjdCUyMHBoaWxvc29waHl8ZW58MHx8fHwxNzY2MDUzODQwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1759416643372-a666d1c639a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxhYnN0cmFjdCUyMHBoaWxvc29waHl8ZW58MHx8fHwxNzY2MDUzODQwfDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "abstract philosophy"
     },
     {
       "id": "pdf-sp6-cover",
       "description": "The Analects",
-      "imageUrl": "https://images.unsplash.com/photo-1709777506073-6ddf2741ee31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjaGluZXNlJTIwc2Nob2xhcnxlbnwwfHx8fDE3NjYwNTM4NDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1709777506073-6ddf2741ee31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjaGluZXNlJTIwc2Nob2xhcnxlbnwwfHx8fDE3NjYwNTM4NDB8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "chinese scholar"
     },
     {
       "id": "pdf-sp7-cover",
       "description": "Discourse on Method",
-      "imageUrl": "https://images.unsplash.com/photo-1657778752500-9da406aa813f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzY2llbnRpZmljJTIwaW5zdHJ1bWVudHN8ZW58MHx8fHwxNzY2MDUzODM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1657778752500-9da406aa813f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzY2llbnRpZmljJTIwaW5zdHJ1bWVudHN8ZW58MHx8fHwxNzY2MDUzODM5fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "scientific instruments"
     },
     {
       "id": "pdf-sp8-cover",
       "description": "The Social Contract",
-      "imageUrl": "https://images.unsplash.com/photo-1762283995822-04e334ef59c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwYXJjaG1lbnQlMjBxdWlsbHxlbnwwfHx8fDE3NjYwNTM4NDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1762283995822-04e334ef59c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwYXJjaG1lbnQlMjBxdWlsbHxlbnwwfHx8fDE3NjYwNTM4NDB8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "parchment quill"
     },
     {
@@ -489,25 +489,25 @@
     {
       "id": "pdf-sp10-cover",
       "description": "Tao Te Ching",
-      "imageUrl": "https://images.unsplash.com/photo-1620207796791-c4d5b6e68a1a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx5aW4lMjB5YW5nfGVufDB8fHx8MTc2NjA1MzgwMnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1620207796791-c4d5b6e68a1a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx5aW4lMjB5YW5nfGVufDB8fHx8MTc2NjA1MzgwMnww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "yin yang"
     },
     {
       "id": "pdf-hf2-cover",
       "description": "The Name of the Rose",
-      "imageUrl": "https://images.unsplash.com/photo-1763164472648-51827fdd30e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtb25hc3RlcnklMjBsaWJyYXJ5fGVufDB8fHx8MTc2NjA1MzgzOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1763164472648-51827fdd30e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtb25hc3RlcnklMjBsaWJyYXJ5fGVufDB8fHx8MTc2NjA1MzgzOXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "monastery library"
     },
     {
       "id": "pdf-hf3-cover",
       "description": "I, Claudius",
-      "imageUrl": "https://images.unsplash.com/photo-1698778573617-6403f260384a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxyb21hbiUyMGVtcGVyb3J8ZW58MHx8fHwxNzY2MDUzODM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1698778573617-6403f260384a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxyb21hbiUyMGVtcGVyb3J8ZW58MHx8fHwxNzY2MDUzODM5fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "roman emperor"
     },
     {
       "id": "pdf-hf4-cover",
       "description": "Wolf Hall",
-      "imageUrl": "https://images.unsplash.com/photo-1738729352101-7df1b34388e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx0dWRvciUyMGNvdXJ0fGVufDB8fHx8MTc2NjA1MzgzOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1738729352101-7df1b34388e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx0dWRvciUyMGNvdXJ0fGVufDB8fHx8MTc2NjA1MzgzOXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "tudor court"
     },
     {
@@ -543,7 +543,7 @@
     {
       "id": "pdf-hf10-cover",
       "description": "Ivanhoe",
-      "imageUrl": "https://images.unsplash.com/photo-1599846888497-75e115f5c889?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxrbmlnaHQlMjBqb3VzdHxlbnwwfHx8fDE3NjYwNTM4NDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1599846888497-75e115f5c889?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxrbmlnaHQlMjBqb3VzdHxlbnwwfHx8fDE3NjYwNTM4NDB8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "knight joust"
     },
     {
@@ -1115,6 +1115,36 @@
       "description": "A Christian in a Non-Christian World by John Stott",
       "imageUrl": "https://images.unsplash.com/photo-1520186105399-a89f07455d36?w=600&q=80",
       "imageHint": "world map"
+    },
+    {
+      "id": "history-pdf-1",
+      "description": "A Brief History of the Indian People",
+      "imageUrl": "https://images.unsplash.com/photo-1601650979883-9117f3543232?w=600&q=80",
+      "imageHint": "indian history"
+    },
+    {
+      "id": "history-pdf-2",
+      "description": "A Brief Life of Guru Nanak Dev Ji",
+      "imageUrl": "https://images.unsplash.com/photo-1629194888849-a2e6f42b6e15?w=600&q=80",
+      "imageHint": "sikh guru"
+    },
+    {
+      "id": "history-pdf-3",
+      "description": "A Collection of Punjabi and Urdu Manuscripts",
+      "imageUrl": "https://images.unsplash.com/photo-1583483425333-7a64194749a2?w=600&q=80",
+      "imageHint": "ancient manuscript"
+    },
+    {
+      "id": "history-pdf-4",
+      "description": "Bhagat Singh by A.B. Bhardhan",
+      "imageUrl": "https://images.unsplash.com/photo-1594934839213-9a4f4d2f098c?w=600&q=80",
+      "imageHint": "freedom fighter"
+    },
+    {
+      "id": "history-pdf-5",
+      "description": "Bhagat Singh by All India Youth Federation",
+      "imageUrl": "https://images.unsplash.com/photo-1603204922108-5053fedc5332?w=600&q=80",
+      "imageHint": "youth protest"
     }
   ]
 }

@@ -1281,3 +1281,51 @@ export const christianPdfs: Pdf[] = [
         downloadUrl: "#",
     },
 ];
+
+export const historyPdfs: Pdf[] = [
+    {
+        id: "history-pdf-1",
+        title: "A Brief History of the Indian People",
+        author: "Sir William Wilson Hunter",
+        category: "History",
+        description: "A historical account of the people of India.",
+        coverImage: getImage("history-pdf-1"),
+        downloadUrl: "#",
+    },
+    {
+        id: "history-pdf-2",
+        title: "A Brief Life of Guru Nanak Dev Ji",
+        author: "Prof. Puran Singh",
+        category: "History",
+        description: "The life story of Guru Nanak Dev Ji.",
+        coverImage: getImage("history-pdf-2"),
+        downloadUrl: "#",
+    },
+    {
+        id: "history-pdf-3",
+        title: "A Collection of Punjabi and Urdu Manuscripts",
+        author: "Kirpal Singh",
+        category: "History",
+        description: "A collection of historical manuscripts in Punjabi and Urdu.",
+        coverImage: getImage("history-pdf-3"),
+        downloadUrl: "#",
+    },
+    {
+        id: "history-pdf-4",
+        title: "Bhagat Singh",
+        author: "A.B. Bhardhan",
+        category: "History",
+        description: "A biography of the revolutionary Bhagat Singh.",
+        coverImage: getImage("history-pdf-4"),
+        downloadUrl: "#",
+    },
+    {
+        id: "history-pdf-5",
+        title: "Bhagat Singh",
+        author: "All India Youth Federation",
+        category: "History",
+        description: "A publication on Bhagat Singh by the All India Youth Federation.",
+        coverImage: getImage("history-pdf-5"),
+        downloadUrl: "#",
+    },
+];
