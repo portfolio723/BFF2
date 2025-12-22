@@ -22,14 +22,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import {
-  BookOpen,
   Mail,
   Lock,
   ArrowRight,
   Eye,
   EyeOff,
   User,
-  Phone,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
@@ -80,36 +78,14 @@ export default function AuthForm() {
 
   const handleSignIn = async (values: z.infer<typeof signInSchema>) => {
     setLoading(true);
-    try {
-      await signIn(values.email, values.password);
-      toast.success("Signed in successfully!");
-      router.push(redirect);
-    } catch (error: any) {
-      toast.error("Sign In Failed", { description: error.message || "Invalid credentials." });
-    } finally {
-      setLoading(false);
-    }
+    toast.error("Authentication is currently disabled.");
+    setLoading(false);
   };
 
   const handleSignUp = async (values: z.infer<typeof signUpSchema>) => {
     setLoading(true);
-    try {
-      const fullPhoneNumber = `+91${values.phoneNumber}`;
-      await signUp(values.email, values.password, {
-        data: {
-          full_name: values.fullName,
-          phone_number: fullPhoneNumber,
-        }
-      });
-      toast.success("Account created successfully!", {
-        description: "Please check your email to verify your account.",
-      });
-      router.push('/');
-    } catch (error: any) {
-      toast.error("Sign Up Failed", { description: error.message || "An unexpected error occurred." });
-    } finally {
-      setLoading(false);
-    }
+    toast.error("Authentication is currently disabled.");
+    setLoading(false);
   };
 
   return (

@@ -8,24 +8,22 @@ import React, {
   useEffect,
   ReactNode,
 } from "react";
-import { supabase } from "@/lib/supabase";
-import type {
-  AuthChangeEvent,
-  Session,
-  User,
-  SupabaseClient,
-  SignUpWithPasswordCredentials,
-} from "@supabase/supabase-js";
+import { toast } from "sonner";
+
+// Mock User type to avoid breaking components
+interface MockUser {
+  id: string;
+  email: string | undefined;
+}
 
 interface AuthContextType {
-  supabase: SupabaseClient | null;
-  user: User | null;
+  user: MockUser | null;
   isUserLoading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (
     email: string,
     password: string,
-    options?: SignUpWithPasswordCredentials["options"]
+    options?: any
   ) => Promise<void>;
   signOut: () => Promise<void>;
   sendPasswordReset: (email: string) => Promise<void>;
@@ -34,79 +32,53 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<MockUser | null>(null);
   const [isUserLoading, setIsUserLoading] = useState(true);
 
   useEffect(() => {
-    if (!supabase) {
+    // In a real app, you might check a token from localStorage here
+    // For now, we simulate loading and then set user to null
+    const timer = setTimeout(() => {
+      setUser(null); // No user by default
       setIsUserLoading(false);
-      return;
-    }
-    
-    const initSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
+    }, 500);
 
-      setUser(session?.user ?? null);
-      setIsUserLoading(false);
-    };
-
-    initSession();
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(
-      (_event: AuthChangeEvent, session: Session | null) => {
-        setUser(session?.user ?? null);
-        setIsUserLoading(false);
-      }
-    );
-
-    return () => {
-      subscription.unsubscribe();
-    };
+    return () => clearTimeout(timer);
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    if (!supabase) throw new Error("Supabase client is not available.");
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) throw error;
+    toast.error("Authentication is currently disabled.");
+    // Mock a user session for demonstration if needed for protected routes
+    // For example:
+    // setIsUserLoading(true);
+    // await new Promise(resolve => setTimeout(resolve, 500));
+    // setUser({ id: 'mock-user-id', email });
+    // setIsUserLoading(false);
   };
 
   const signUp = async (
     email: string,
     password: string,
-    options?: SignUpWithPasswordCredentials["options"]
+    options?: any
   ) => {
-    if (!supabase) throw new Error("Supabase client is not available.");
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options,
-    });
-    if (error) throw error;
+    toast.error("Authentication is currently disabled.");
   };
 
   const signOut = async () => {
-    if (!supabase) throw new Error("Supabase client is not available.");
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
+    setIsUserLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 500));
+    setUser(null);
+    setIsUserLoading(false);
+    toast.success("You have been signed out.");
   };
 
+
+
   const sendPasswordReset = async (email: string) => {
-    if (!supabase) throw new Error("Supabase client is not available.");
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/auth/reset-password`,
-    });
-    if (error) throw error;
+    toast.error("Password reset is currently disabled.");
   };
 
   const value: AuthContextType = {
-    supabase,
     user,
     isUserLoading,
     signIn,

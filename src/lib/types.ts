@@ -103,57 +103,7 @@ export type UserDownloadedPdf = {
   downloadDate: any;
 };
 
-// Supabase-specific types
-export type SbAddress = {
-  id: string;
-  user_id: string;
-  type: "Home" | "Work" | "Other";
-  first_name: string;
-  last_name: string;
-  address: string;
-  address2: string | null;
-  city: string;
-  state: string;
-  pincode: string;
-  phone: string;
-};
-
-export type SbOrder = {
-  id: string;
-  user_id: string;
-  created_at: any;
-  total_amount: number;
-  status: 'Pending' | 'Shipped' | 'Delivered' | 'Cancelled';
-  delivery_address: string;
-  order_items: SbOrderItem[];
-}
-
-export type SbOrderItem = {
-  id: string;
-  order_id: string;
-  book_id: string;
-  quantity: number;
-  price_at_purchase: number;
-  type: 'rent' | 'buy';
-}
-
-export type SbWishlistItem = {
-  id: string;
-  user_id: string;
-  book_id: string;
-  added_date: any; 
-  book_title: string;
-  book_author: string;
-  book_cover_image: string;
-};
-
-export type SbUserDownloadedPdf = {
-  id: string;
-  user_id: string;
-  pdf_id: string;
-  pdf_title: string;
-  download_date: any;
-};
+// Supabase-specific types have been removed.
 
 export type Pdf = {
   id: string;

@@ -11,11 +11,10 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import type { Book as BookType } from "@/lib/types"; 
+import { books as allBooks, genres as allGenres } from "@/lib/data";
 import { Search, LayoutGrid, List, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
 import type { Genre } from "@/lib/types";
-import { useAuth } from "@/context/AuthContext";
 
 export default function BooksPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -25,63 +24,13 @@ export default function BooksPage() {
   const [books, setBooks] = useState<BookType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [genres, setGenres] = useState<Genre[]>([]);
-  const { supabase } = useAuth();
   
   useEffect(() => {
-    if (!supabase) {
-        setIsLoading(false);
-        return;
-    }
-    
-    const fetchBooks = async () => {
-      setIsLoading(true);
-      const { data, error } = await supabase.from('books').select(`
-        id,
-        title,
-        price,
-        rental_price,
-        cover_image_url,
-        cover_image_hint,
-        description,
-        availability,
-        author:authors (id, name),
-        genre:genres (id, name)
-      `);
-      
-      if (error) {
-        toast.error("Failed to fetch books", { description: error.message });
-        setBooks([]);
-      } else {
-        const formattedBooks = data.map((book: any) => ({
-          id: book.id,
-          title: book.title,
-          author: { id: book.author.id, name: book.author.name },
-          genre: { id: book.genre.id, name: book.genre.name },
-          price: book.price,
-          rentalPrice: book.rental_price,
-          coverImage: {
-            url: book.cover_image_url,
-            hint: book.cover_image_hint,
-          },
-          description: book.description,
-          availability: book.availability,
-        }));
-        setBooks(formattedBooks);
-      }
-      setIsLoading(false);
-    };
-    
-    const fetchGenres = async () => {
-        if (!supabase) return;
-        const { data, error } = await supabase.from('genres').select('*');
-        if (!error && data) {
-            setGenres(data);
-        }
-    }
-
-    fetchBooks();
-    fetchGenres();
-  }, [supabase]);
+    setIsLoading(true);
+    setBooks(allBooks);
+    setGenres(allGenres);
+    setIsLoading(false);
+  }, []);
 
   const filteredBooks = useMemo(() => {
     if (!books) return [];
@@ -158,7 +107,6 @@ export default function BooksPage() {
                     <List className="w-5 h-5"/>
                 </Button>
               </div>
-            </div>
         </div>
         {!isLoading && <p className="text-sm text-muted-foreground mt-4">Showing {filteredBooks.length} books</p>}
       </div>

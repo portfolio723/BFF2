@@ -1,11 +1,5 @@
 
-import { createClient } from '@supabase/supabase-js'
+// This file is cleared because Supabase has been removed.
+// The Supabase client is no longer needed.
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-
-// Conditionally create the client only if the variables are set.
-export const supabase =
-  supabaseUrl && supabaseAnonKey
-    ? createClient(supabaseUrl, supabaseAnonKey)
-    : null;
+export {};

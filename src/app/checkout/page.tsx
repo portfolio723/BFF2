@@ -37,10 +37,10 @@ import { cn } from "@/lib/utils";
 import { useCart } from "@/context/AppProvider";
 import Image from "next/image";
 import { AddressForm } from "@/components/AddressForm";
-import type { Address, Order, CartItem as AppCartItem, SbAddress, SbOrder } from "@/lib/types";
+import type { Address, Order, CartItem as AppCartItem } from "@/lib/types";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
-import type { SupabaseClient } from "@supabase/supabase-js";
+
 
 const steps = [
   { id: 1, name: "Address", icon: MapPin },
@@ -62,7 +62,7 @@ interface RazorpayPaymentResponse {
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { user, isUserLoading, supabase } = useAuth();
+  const { user, isUserLoading } = useAuth();
   const { cart, getSubtotal, getDeliveryCharge, getTotal, clearCart, loading: cartLoading } = useCart();
   
   const [addresses, setAddresses] = useState<Address[]>([]);
@@ -85,39 +85,19 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     const fetchAddresses = async () => {
-      if (user && supabase) {
+      if (user) {
         setLoadingAddresses(true);
-        const { data, error } = await supabase.from('addresses').select('*').eq('user_id', user.id);
-        if (error) {
-          toast.error("Failed to fetch addresses", { description: error.message });
-        } else if (data) {
-          const formattedAddresses: Address[] = data.map((d: SbAddress) => ({
-            id: d.id,
-            user_id: d.user_id,
-            type: d.type,
-            firstName: d.first_name,
-            lastName: d.last_name,
-            address: d.address,
-            address2: d.address2 || '',
-            city: d.city,
-            state: d.state,
-            pincode: d.pincode,
-            phone: d.phone,
-          }));
-          setAddresses(formattedAddresses);
-          if (formattedAddresses.length > 0) {
-            setSelectedAddress(formattedAddresses[0]);
-          } else {
-            setShowNewAddressForm(true);
-          }
-        }
+        // This is where you would fetch addresses from your new backend.
+        // For now, we'll use an empty array.
+        setAddresses([]);
         setLoadingAddresses(false);
+        setShowNewAddressForm(true);
       }
     };
-    if (user && supabase) {
+    if (user) {
       fetchAddresses();
     }
-  }, [user, supabase]);
+  }, [user]);
 
   const subtotal = getSubtotal();
   const delivery = getDeliveryCharge();
@@ -139,53 +119,29 @@ export default function CheckoutPage() {
   };
 
   const createOrderInDB = async (paymentDetails: RazorpayPaymentResponse | null, status: Order['status']) => {
-    if (!user || !selectedAddress || !supabase) return null;
+    if (!user || !selectedAddress) return null;
     
     try {
       // 1. Create the order
-      const { data: orderData, error: orderError } = await supabase
-        .from('orders')
-        .insert({
-          user_id: user.id,
-          total_amount: total,
-          delivery_address: selectedAddress.id,
-          status: status,
-        })
-        .select()
-        .single();
-      
-      if (orderError) throw orderError;
-
-      // 2. Create the order items
-      const orderItemsToInsert = cart.map(item => ({
-        order_id: orderData.id,
-        book_id: item.id, // Ensure your book object has a valid UUID
+      // This part would be replaced with your new backend's order creation logic.
+      const mockOrderId = `mock-order-${Date.now()}`;
+      const mockOrderItems = cart.map(item => ({
+        id: `mock-item-${item.id}`,
+        order_id: mockOrderId,
+        book_id: item.id,
         quantity: item.quantity,
-        price_at_purchase: item.type === 'rent' ? item.rentalPrice : item.price,
+        price_at_purchase: item.type === 'rent' ? item.rentalPrice! : item.price,
         type: item.type,
       }));
-
-      const { error: itemsError } = await supabase.from('order_items').insert(orderItemsToInsert);
-      if (itemsError) throw itemsError;
-
-      // 3. Create payment record
-      if (paymentMethod !== 'cod' && paymentDetails) {
-          const { error: paymentError } = await supabase.from('payments').insert({
-            order_id: orderData.id,
-            user_id: user.id,
-            amount: total,
-            status: status === 'Delivered' ? 'Paid' : status,
-            method: paymentMethod,
-            razorpay_order_id: paymentDetails?.razorpay_order_id,
-            razorpay_payment_id: paymentDetails?.razorpay_payment_id,
-            razorpay_signature: paymentDetails?.razorpay_signature,
-          });
-          if(paymentError) throw paymentError;
-      }
       
       const finalOrder: Order = {
-        ...orderData,
-        order_items: orderItemsToInsert
+        id: mockOrderId,
+        user_id: user.id,
+        created_at: new Date().toISOString(),
+        total_amount: total,
+        delivery_address: selectedAddress.id,
+        status: status,
+        order_items: mockOrderItems,
       };
 
       setOrderPlaced(finalOrder);
@@ -278,43 +234,22 @@ export default function CheckoutPage() {
   };
 
   const handleNewAddressSaved = async (addressData: Omit<Address, 'id' | 'user_id'>) => {
-    if (!user || !supabase) return;
-
-    const { data, error } = await supabase
-        .from('addresses')
-        .insert([{ 
-            ...addressData, 
-            user_id: user.id,
-            first_name: addressData.firstName,
-            last_name: addressData.lastName
-        }])
-        .select()
-        .single();
-
-    if (error) {
-      toast.error("Failed to add address", { description: error.message });
-    } else if (data) {
-       const newAddress: Address = {
-        id: data.id,
-        user_id: data.user_id,
-        type: data.type,
-        firstName: data.first_name,
-        lastName: data.last_name,
-        address: data.address,
-        address2: data.address2,
-        city: data.city,
-        state: data.state,
-        pincode: data.pincode,
-        phone: data.phone,
-      };
-      setAddresses(prev => [...prev, newAddress]);
-      setSelectedAddress(newAddress);
-      setShowNewAddressForm(false);
-      toast.success("Address added successfully!");
-    }
+    if (!user) return;
+    
+    // This logic needs to be adapted for your new backend.
+    // For now, we'll add it to the local state.
+    const newAddress: Address = {
+        id: `mock-addr-${Date.now()}`,
+        user_id: user.id,
+        ...addressData,
+    };
+    setAddresses(prev => [...prev, newAddress]);
+    setSelectedAddress(newAddress);
+    setShowNewAddressForm(false);
+    toast.success("Address added successfully!");
   }
 
-  const isLoading = !isMounted || cartLoading || loadingAddresses || isUserLoading || !supabase;
+  const isLoading = !isMounted || cartLoading || loadingAddresses || isUserLoading;
 
   if (isLoading) {
     return (

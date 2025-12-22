@@ -2,7 +2,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,6 +29,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { CommunityPost } from "@/lib/types";
 import { formatDistanceToNow } from "date-fns";
+import { communityPosts as allPosts } from "@/lib/data";
 
 const trendingTopics = [
   { name: "Book Reviews", count: 234 },
@@ -40,7 +40,7 @@ const trendingTopics = [
 ];
 
 export default function CommunityPage() {
-  const { user, supabase } = useAuth();
+  const { user } = useAuth();
   const pathname = usePathname();
 
   const [discussions, setDiscussions] = useState<CommunityPost[]>([]);
@@ -50,40 +50,13 @@ export default function CommunityPage() {
   const [isPosting, setIsPosting] = useState(false);
   
   useEffect(() => {
-    if (!supabase) {
-        if (!isLoading) setIsLoading(false);
-        return;
-    }
-    const fetchDiscussions = async () => {
-      setIsLoading(true);
-      const { data, error } = await supabase
-        .from('community_posts')
-        .select(`
-          id,
-          title,
-          content,
-          created_at,
-          user_id,
-          profiles (
-            full_name,
-            avatar_url
-          )
-        `)
-        .order('created_at', { ascending: false });
-
-      if (error) {
-        toast.error("Failed to fetch discussions", { description: error.message });
-      } else {
-        setDiscussions(data as any);
-      }
-      setIsLoading(false);
-    };
-
-    fetchDiscussions();
-  }, [supabase, isLoading]);
+    setIsLoading(true);
+    setDiscussions(allPosts);
+    setIsLoading(false);
+  }, []);
 
   const handlePostDiscussion = async () => {
-    if (!user || !supabase) {
+    if (!user) {
       toast.error("Please sign in to start a discussion.");
       return;
     }
@@ -95,34 +68,24 @@ export default function CommunityPage() {
 
     setIsPosting(true);
     
-    const { data, error } = await supabase
-      .from('community_posts')
-      .insert({
-        title: newPostTitle,
-        content: newPostContent,
-        user_id: user.id,
-      })
-      .select(`
-          id,
-          title,
-          content,
-          created_at,
-          user_id,
-          profiles (
-            full_name,
-            avatar_url
-          )
-        `)
-      .single();
-
-    if (error) {
-      toast.error("Failed to post discussion", { description: error.message });
-    } else if (data) {
-      setDiscussions([data as any, ...discussions]);
-      setNewPostTitle("");
-      setNewPostContent("");
-      toast.success("Your discussion has been posted!");
+    // This would be where you call your new backend
+    toast.success("Your discussion has been posted!");
+    
+    const newPost: CommunityPost = {
+      id: `mock-post-${Date.now()}`,
+      title: newPostTitle,
+      content: newPostContent,
+      created_at: new Date().toISOString(),
+      user_id: user.id,
+      profiles: {
+        full_name: "You",
+        avatar_url: ""
+      }
     }
+
+    setDiscussions([newPost, ...discussions]);
+    setNewPostTitle("");
+    setNewPostContent("");
     
     setIsPosting(false);
   };

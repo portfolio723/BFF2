@@ -31,7 +31,7 @@ import {
   Heart,
   Download,
 } from "lucide-react";
-import type { Address, Order, WishlistItem, UserDownloadedPdf, SbAddress, SbOrder, SbWishlistItem, SbUserDownloadedPdf } from "@/lib/types";
+import type { Address, Order, WishlistItem, UserDownloadedPdf } from "@/lib/types";
 import { useAuth } from "@/context/AuthContext";
 import { AddressForm } from "@/components/AddressForm";
 import {
@@ -58,7 +58,7 @@ const AddressIcon = ({ type }: { type: Address["type"] }) => {
 
 export default function ProfilePage() {
   const router = useRouter();
-  const { user: authUser, isUserLoading, supabase } = useAuth();
+  const { user: authUser, isUserLoading } = useAuth();
   
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
@@ -76,82 +76,19 @@ export default function ProfilePage() {
   }, [authUser, isUserLoading, router]);
 
   useEffect(() => {
-    if (authUser && supabase) {
+    if (authUser) {
       const fetchUserData = async () => {
         setLoadingData(true);
-        const [
-          addressesRes,
-          ordersRes,
-          wishlistRes,
-          downloadsRes
-        ] = await Promise.all([
-          supabase.from('addresses').select('*').eq('user_id', authUser.id),
-          supabase.from('orders').select('*, order_items(*)').eq('user_id', authUser.id),
-          supabase.from('wishlist_items').select('*').eq('user_id', authUser.id),
-          supabase.from('user_downloaded_pdfs').select('*').eq('user_id', authUser.id)
-        ]);
-
-        if (addressesRes.error) {
-            toast.error('Error fetching addresses:', { description: addressesRes.error.message });
-        } else if (addressesRes.data) {
-            const formattedAddresses: Address[] = addressesRes.data.map((d: SbAddress) => ({
-                id: d.id,
-                user_id: d.user_id,
-                type: d.type,
-                firstName: d.first_name,
-                lastName: d.last_name,
-                address: d.address,
-                address2: d.address2 || '',
-                city: d.city,
-                state: d.state,
-                pincode: d.pincode,
-                phone: d.phone,
-            }));
-            setAddresses(formattedAddresses);
-        }
-
-        if (ordersRes.error) {
-            toast.error('Error fetching orders:', { description: ordersRes.error.message });
-        } else if (ordersRes.data) {
-             const formattedOrders: Order[] = (ordersRes.data as SbOrder[]).map(o => ({
-                ...o,
-             }));
-             setOrders(formattedOrders);
-        }
-        
-        if (wishlistRes.error) {
-          toast.error('Error fetching wishlist:', { description: wishlistRes.error.message });
-        } else if (wishlistRes.data) {
-          const formattedWishlist: WishlistItem[] = (wishlistRes.data as SbWishlistItem[]).map(item => ({
-            id: item.id,
-            user_id: item.user_id,
-            book_id: item.book_id,
-            added_date: item.added_date,
-            book_title: item.book_title,
-            book_author: item.book_author,
-            book_cover_image: item.book_cover_image,
-          }));
-          setWishlistItems(formattedWishlist);
-        }
-
-        if (downloadsRes.error) {
-            toast.error('Error fetching downloads:', { description: downloadsRes.error.message });
-        } else if(downloadsRes.data) {
-            const formattedDownloads: UserDownloadedPdf[] = downloadsRes.data.map((d: SbUserDownloadedPdf) => ({
-                id: d.id,
-                userId: d.user_id,
-                pdfId: d.pdf_id,
-                pdfTitle: d.pdf_title,
-                downloadDate: d.download_date
-            }));
-            setDownloadedPdfs(formattedDownloads);
-        }
-
+        // Mock data fetching since Supabase is removed
+        setAddresses([]);
+        setOrders([]);
+        setWishlistItems([]);
+        setDownloadedPdfs([]);
         setLoadingData(false);
       };
       fetchUserData();
     }
-  }, [authUser, supabase]);
+  }, [authUser]);
 
   const handleEditAddress = (address: Address) => {
     setEditingAddress(address);
@@ -169,80 +106,28 @@ export default function ProfilePage() {
   }
 
   const handleSaveAddress = async (addressData: Omit<Address, 'id' | 'user_id'>) => {
-    if (!authUser || !supabase) return;
+    if (!authUser) return;
     
-    const dbData = {
-      ...addressData,
-      user_id: authUser.id,
-      first_name: addressData.firstName,
-      last_name: addressData.lastName,
+    // This logic needs to be adapted for your new backend.
+    // For now, we'll add it to the local state.
+    const newAddress: Address = {
+        id: `mock-addr-${Date.now()}`,
+        user_id: authUser.id,
+        ...addressData,
     };
-
     if (editingAddress) {
-      const { data, error } = await supabase
-        .from('addresses')
-        .update(dbData)
-        .eq('id', editingAddress.id)
-        .select()
-        .single();
-      if (error) {
-        toast.error("Failed to update address", { description: error.message });
-      } else if (data) {
-        const updatedAddress: Address = {
-            id: data.id,
-            user_id: data.user_id,
-            type: data.type,
-            firstName: data.first_name,
-            lastName: data.last_name,
-            address: data.address,
-            address2: data.address2 || '',
-            city: data.city,
-            state: data.state,
-            pincode: data.pincode,
-            phone: data.phone,
-        };
-        setAddresses(prev => prev.map(a => a.id === editingAddress.id ? updatedAddress : a));
-        toast.success("Address updated successfully!");
-        handleFormClose();
-      }
+      setAddresses(prev => prev.map(a => a.id === editingAddress.id ? newAddress : a));
+      toast.success("Address updated successfully!");
     } else {
-      const { data, error } = await supabase
-        .from('addresses')
-        .insert([dbData])
-        .select()
-        .single();
-      if (error) {
-        toast.error("Failed to add address", { description: error.message });
-      } else if (data) {
-         const newAddress: Address = {
-            id: data.id,
-            user_id: data.user_id,
-            type: data.type,
-            firstName: data.first_name,
-            lastName: data.last_name,
-            address: data.address,
-            address2: data.address2 || '',
-            city: data.city,
-            state: data.state,
-            pincode: data.pincode,
-            phone: data.phone,
-        };
-        setAddresses(prev => [...prev, newAddress]);
-        toast.success("Address added successfully!");
-        handleFormClose();
-      }
+      setAddresses(prev => [...prev, newAddress]);
+      toast.success("Address added successfully!");
     }
+    handleFormClose();
   }
   
   const removeAddress = async (id: string) => {
-    if (!supabase) return;
-    const { error } = await supabase.from('addresses').delete().eq('id', id);
-    if (error) {
-      toast.error("Failed to remove address", { description: error.message });
-    } else {
-      setAddresses(prev => prev.filter(a => a.id !== id));
-      toast.info("Address removed.");
-    }
+    setAddresses(prev => prev.filter(a => a.id !== id));
+    toast.info("Address removed.");
   }
 
 
@@ -262,10 +147,13 @@ export default function ProfilePage() {
     );
   }
 
-  const userInitial =
-    authUser.user_metadata.full_name?.charAt(0).toUpperCase() ||
-    authUser.email?.charAt(0).toUpperCase() ||
-    "U";
+  const userInitial = authUser.email?.charAt(0).toUpperCase() || "U";
+  const fullName = "Guest User";
+  const email = authUser.email;
+  const phoneNumber = "Not provided";
+  const avatarUrl = "";
+  const emailConfirmed = true;
+
 
   return (
     <div className="container mx-auto px-4 md:px-6 py-8 md:py-12 max-w-4xl">
@@ -284,17 +172,17 @@ export default function ProfilePage() {
             <CardContent className="pt-6 flex flex-col items-center text-center">
               <Avatar className="w-24 h-24 mb-4">
                 <AvatarImage
-                  src={authUser.user_metadata.avatar_url ?? ""}
-                  alt={authUser.user_metadata.full_name ?? "User"}
+                  src={avatarUrl}
+                  alt={fullName}
                 />
                 <AvatarFallback className="text-4xl">{userInitial}</AvatarFallback>
               </Avatar>
-              <h2 className="text-xl font-semibold">{authUser.user_metadata.full_name || "User"}</h2>
-              <p className="text-sm text-muted-foreground">{authUser.email}</p>
+              <h2 className="text-xl font-semibold">{fullName}</h2>
+              <p className="text-sm text-muted-foreground">{email}</p>
               <Separator className="my-4" />
                <div className="flex flex-col gap-2 w-full">
                 <h3 className="font-semibold text-left">Account Status</h3>
-                {authUser.email_confirmed_at ? (
+                {emailConfirmed ? (
                   <Badge className="flex items-center gap-2 w-fit bg-green-100 text-green-800 hover:bg-green-100/80 dark:bg-green-900/50 dark:text-green-300">
                     Verified
                   </Badge>
@@ -318,21 +206,21 @@ export default function ProfilePage() {
                 <User className="h-5 w-5 mr-3 text-muted-foreground" />
                 <div>
                   <p className="text-sm text-muted-foreground">Full Name</p>
-                  <p className="font-medium">{authUser.user_metadata.full_name || "Not provided"}</p>
+                  <p className="font-medium">{fullName}</p>
                 </div>
               </div>
               <div className="flex items-center">
                 <Mail className="h-5 w-5 mr-3 text-muted-foreground" />
                 <div>
                   <p className="text-sm text-muted-foreground">Email Address</p>
-                  <p className="font-medium">{authUser.email}</p>
+                  <p className="font-medium">{email}</p>
                 </div>
               </div>
               <div className="flex items-center">
                 <Phone className="h-5 w-5 mr-3 text-muted-foreground" />
                 <div>
                   <p className="text-sm text-muted-foreground">Phone Number</p>
-                  <p className="font-medium">{authUser.user_metadata.phone_number || "Not provided"}</p>
+                  <p className="font-medium">{phoneNumber}</p>
                 </div>
               </div>
             </CardContent>
