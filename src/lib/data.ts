@@ -1329,7 +1329,6 @@ export const historyPdfs: Pdf[] = [
         downloadUrl: "#",
     },
 ];
-
 export const biographyPdfs: Pdf[] = [
     {
         id: "bio-pdf-1",
@@ -1395,3 +1394,4 @@ export const biographyPdfs: Pdf[] = [
         downloadUrl: "#",
     },
 ];
+
