@@ -791,6 +791,96 @@
       "description": "Welcome to the Universe",
       "imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80",
       "imageHint": "universe view"
+    },
+    {
+      "id": "sd-alchemist",
+      "description": "The Alchemist",
+      "imageUrl": "https://images.unsplash.com/photo-1518929458119-e5bf4148b3d5?w=600&q=80",
+      "imageHint": "desert journey"
+    },
+    {
+      "id": "sd-grit",
+      "description": "Grit",
+      "imageUrl": "https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80",
+      "imageHint": "mountain climber"
+    },
+    {
+      "id": "sd-awareness",
+      "description": "Awareness",
+      "imageUrl": "https://images.unsplash.com/photo-1508921340878-ba53e1f416ec?w=600&q=80",
+      "imageHint": "meditation sunrise"
+    },
+    {
+      "id": "sd-awaken-giant",
+      "description": "Awaken the Giant Within",
+      "imageUrl": "https://images.unsplash.com/photo-1574680096145-f8493c95159b?w=600&q=80",
+      "imageHint": "powerful silhouette"
+    },
+    {
+      "id": "sd-drive",
+      "description": "Drive",
+      "imageUrl": "https://images.unsplash.com/photo-1525160354320-d8e92641c563?w=600&q=80",
+      "imageHint": "motivation engine"
+    },
+    {
+      "id": "sd-emotional-intelligence",
+      "description": "Emotional Intelligence",
+      "imageUrl": "https://images.unsplash.com/photo-1579547945413-497e1b991e61?w=600&q=80",
+      "imageHint": "brain connections"
+    },
+    {
+      "id": "sd-win-friends",
+      "description": "How to Win Friends and Influence People",
+      "imageUrl": "https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=600&q=80",
+      "imageHint": "social gathering"
+    },
+    {
+      "id": "sd-mindset",
+      "description": "Mindset",
+      "imageUrl": "https://images.unsplash.com/photo-1520452112805-c66920341beb?w=600&q=80",
+      "imageHint": "growing plant"
+    },
+    {
+      "id": "sd-7-habits",
+      "description": "The 7 Habits of Highly Effective People",
+      "imageUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80",
+      "imageHint": "planning success"
+    },
+    {
+      "id": "sd-miracle-morning",
+      "description": "The Miracle Morning",
+      "imageUrl": "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600&q=80",
+      "imageHint": "morning sunrise"
+    },
+    {
+      "id": "sd-power-of-now",
+      "description": "The Power of Now",
+      "imageUrl": "https://images.unsplash.com/photo-1593181822396-1628127b8a74?w=600&q=80",
+      "imageHint": "present moment"
+    },
+    {
+      "id": "sd-untethered-soul",
+      "description": "The Untethered Soul",
+      "imageUrl": "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&q=80",
+      "imageHint": "free bird"
+    },
+    {
+      "id": "sd-one-thing",
+      "description": "The ONE Thing",
+      "imageUrl": "https://images.unsplash.com/photo-1508921340878-ba53e1f416ec?w=600&q=80",
+      "imageHint": "focused target"
+    },
+    {
+      "id": "sd-subtle-art",
+      "description": "The Subtle Art of Not Giving a F*ck",
+      "imageUrl": "https://images.unsplash.com/photo-1531306739947-a8e5209f803c?w=600&q=80",
+      "imageHint": "carefree person"
+    },
+    {
+      "id": "sd-think-grow-rich",
+      "description": "Think And Grow Rich",
+      "imageUrl": "https://images.unsplash.com/photo-1593672715438-d88a706299a5?w=600&q=80",
+      "imageHint": "gold coins"
     }
   ]
 }
