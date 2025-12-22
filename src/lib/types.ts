@@ -66,19 +66,6 @@ export type Address = {
   phone: string;
 };
 
-export type Pdf = {
-  id: string;
-  title: string;
-  author: string;
-  category: string;
-  description: string;
-  coverImage: {
-    url: string;
-    hint: string;
-  };
-  downloadUrl: string;
-};
-
 export type WishlistItem = {
   id: string;
   user_id: string;
@@ -166,4 +153,17 @@ export type SbUserDownloadedPdf = {
   pdf_id: string;
   pdf_title: string;
   download_date: any;
+};
+
+export type Pdf = {
+  id: string;
+  title: string;
+  author: string;
+  category: string;
+  description: string;
+  coverImage: {
+    url: string;
+    hint: string;
+  };
+  downloadUrl: string;
 };

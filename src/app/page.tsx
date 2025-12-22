@@ -4,11 +4,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BookOpen, Gift, Users, Package, CheckCircle, Truck, CreditCard, Shield, Star, Quote, Download } from "lucide-react";
+import { ArrowRight, BookOpen, Gift, Users, Package, CheckCircle, Truck, CreditCard, Shield, Star, Quote } from "lucide-react";
 import { motion } from "framer-motion";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { books, pdfs } from "@/lib/data";
-import { PdfCard } from "@/components/PdfCard";
 
 const HeroSection = () => {
   const heroImage = PlaceHolderImages.find(img => img.id === 'hero-2');
@@ -124,21 +122,11 @@ const HeroSection = () => {
 
 const CategoriesSection = () => {
   const categories = [
-    { name: "UPSC", count: 180, imageId: "new-genre-upsc", href: "/genre/upsc" },
-    { name: "Space & Astronomy", count: 120, imageId: "new-genre-space", href: "/genre/space-astronomy" },
-    { name: "Self Development", count: 250, imageId: "new-genre-self-dev", href: "/genre/self-development" },
-    { name: "Psychology", count: 160, imageId: "new-genre-psychology", href: "/genre/psychology" },
-    { name: "NCERT", count: 300, imageId: "new-genre-ncert", href: "/genre/ncert" },
-    { name: "History", count: 210, imageId: "new-genre-history", href: "/genre/history" },
-    { name: "Competitive Exams", count: 280, imageId: "new-genre-exams" },
-    { name: "Biography", count: 150, imageId: "new-genre-biography", slug: "biography-auto-biography" },
-    { name: "Christian", count: 90, imageId: "new-genre-bible", href: "/genre/christian" },
-    { name: "Anthropology", count: 70, imageId: "new-genre-anthropology" },
-    { name: "Adventure", count: 190, imageId: "new-genre-adventure" },
-    { name: "Career Guide", count: 130, imageId: "new-genre-career" },
-    { name: "Business Management", count: 170, imageId: "new-genre-business" },
-    { name: "Computer Science", count: 140, imageId: "new-genre-cs" },
-    { name: "Cultural", count: 110, imageId: "new-genre-cultural" },
+    { name: "Fiction", count: 450, imageId: "book-cover-1" },
+    { name: "Non-Fiction", count: 320, imageId: "book-cover-2" },
+    { name: "Science Fiction", count: 180, imageId: "book-cover-8" },
+    { name: "Fantasy", count: 210, imageId: "new-book-2" },
+    { name: "Mystery", count: 150, imageId: "new-book-6" },
   ];
 
   return (
@@ -163,9 +151,8 @@ const CategoriesSection = () => {
             const image = PlaceHolderImages.find(img => img.id === category.imageId);
             if (!image) return null;
             
-            const slug = category.slug || category.name.toLowerCase().replace(/ & | /g, '-').replace(/[^a-z0-9-]/g, '');
-            const href = category.href || `/genre/${slug}`;
-            const isExternal = href.startsWith('http');
+            const slug = category.name.toLowerCase().replace(/ & | /g, '-').replace(/[^a-z0-9-]/g, '');
+            const href = `/genre/${slug}`;
 
             return (
               <motion.div
@@ -178,8 +165,6 @@ const CategoriesSection = () => {
                 <Link 
                   href={href}
                   className="group block relative aspect-[4/5] rounded-xl overflow-hidden"
-                  target={isExternal ? '_blank' : '_self'}
-                  rel={isExternal ? 'noopener noreferrer' : ''}
                 >
                   <Image 
                     src={image.imageUrl} 
@@ -516,52 +501,6 @@ const DonateSection = () => {
   );
 };
 
-const FeaturedPdfs = () => {
-  const featuredPdfs = pdfs.slice(0, 8);
-
-  return (
-    <section className="py-20 lg:py-28 bg-secondary/30">
-      <div className="container-custom">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-              Classic Collection
-            </span>
-            <h2 className="font-heading text-3xl lg:text-4xl font-semibold mt-3">
-              Free Reads
-            </h2>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
-            <Button asChild variant="ghost" className="gap-2 group">
-                <Link href="/pdfs">
-                  View All PDFs
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-            </Button>
-          </motion.div>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {featuredPdfs.map((pdf) => (
-            <PdfCard key={pdf.id} pdf={pdf} />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-
 const CTASection = () => {
   return (
     <section className="py-20 lg:py-28">
@@ -624,7 +563,6 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <FeaturedPdfs />
       <CategoriesSection />
       <FeaturesSection />
       <DonateSection />
