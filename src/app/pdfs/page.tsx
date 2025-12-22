@@ -18,7 +18,6 @@ import { toast } from "sonner";
 
 export default function PdfsPage() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [category, setCategory] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
   const [pdfs, setPdfs] = useState<Pdf[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -31,24 +30,43 @@ export default function PdfsPage() {
     }
     const fetchPdfs = async () => {
       setIsLoading(true);
-      const { data, error } = await supabase.from('pdfs').select('*');
+      // List all files in the 'UPSC' folder of the 'pdfs' bucket
+      const { data: fileList, error: listError } = await supabase.storage
+        .from('pdfs')
+        .list('UPSC', {
+          limit: 100, // Adjust as needed
+          offset: 0,
+          sortBy: { column: 'name', order: 'asc' },
+        });
 
-      if (error) {
-        toast.error("Failed to fetch PDFs", { description: error.message });
+      if (listError) {
+        toast.error("Failed to fetch PDFs", { description: listError.message });
         setPdfs([]);
-      } else {
-        const formattedPdfs = data.map((pdf: any) => ({
-          id: pdf.id,
-          title: pdf.title,
-          author: pdf.author,
-          category: pdf.category,
-          description: pdf.description,
-          coverImage: {
-            url: pdf.cover_image_url,
-            hint: pdf.cover_image_hint,
-          },
-          downloadUrl: pdf.download_url
-        }));
+        setIsLoading(false);
+        return;
+      }
+
+      if (fileList) {
+        const formattedPdfs = fileList
+          .filter(file => file.name !== '.emptyFolderPlaceholder') // Exclude placeholder
+          .map((file) => {
+            const { data: publicUrlData } = supabase.storage
+              .from('pdfs')
+              .getPublicUrl(`UPSC/${file.name}`);
+
+            return {
+              id: file.id,
+              title: file.name.replace(/\.pdf$/i, '').replace(/_/g, ' '), // Clean up title
+              author: "UPSC", // Assign a default author or category
+              category: "UPSC Materials",
+              description: `Downloadable PDF file: ${file.name}`,
+              coverImage: {
+                url: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&q=80", // Generic book image
+                hint: "study material",
+              },
+              downloadUrl: publicUrlData.publicUrl,
+            };
+          });
         setPdfs(formattedPdfs);
       }
       setIsLoading(false);
@@ -56,21 +74,14 @@ export default function PdfsPage() {
     fetchPdfs();
   }, [supabase]);
 
-  const categories = useMemo(() => {
-    if (!pdfs) return [];
-    const allCategories = pdfs.map(p => p.category);
-    return [...new Set(allCategories)];
-  }, [pdfs]);
 
   const filteredPdfs = useMemo(() => {
     if (!pdfs) return [];
 
     let filtered = pdfs.filter((pdf) => {
       const searchMatch =
-        pdf.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        pdf.author.toLowerCase().includes(searchTerm.toLowerCase());
-      const categoryMatch = category === "all" || pdf.category === category;
-      return searchMatch && categoryMatch;
+        pdf.title.toLowerCase().includes(searchTerm.toLowerCase());
+      return searchMatch;
     });
 
     if (sortBy === 'title-asc') {
@@ -78,10 +89,10 @@ export default function PdfsPage() {
     } else if (sortBy === 'title-desc') {
         filtered.sort((a, b) => b.title.localeCompare(a.title));
     }
-    // "newest" is default, no specific sorting logic for now.
+    // "newest" is default, based on initial fetch sort.
 
     return filtered;
-  }, [searchTerm, category, sortBy, pdfs]);
+  }, [searchTerm, sortBy, pdfs]);
 
   return (
     <div className="container-custom">
@@ -99,26 +110,13 @@ export default function PdfsPage() {
            <div className="flex-1 relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
-                placeholder="Search by title or author..."
+                placeholder="Search by title..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-11 h-12 w-full bg-secondary border-0"
               />
             </div>
             <div className="flex gap-4">
-              <Select value={category} onValueChange={setCategory}>
-                  <SelectTrigger className="w-full md:w-[180px] h-12 bg-secondary border-0">
-                      <SelectValue placeholder="All Categories" />
-                  </SelectTrigger>
-                  <SelectContent>
-                      <SelectItem value="all">All Categories</SelectItem>
-                      {categories.map((c) => (
-                      <SelectItem key={c} value={c}>
-                          {c}
-                      </SelectItem>
-                      ))}
-                  </SelectContent>
-              </Select>
                <Select value={sortBy} onValueChange={setSortBy}>
                   <SelectTrigger className="w-full md:w-[180px] h-12 bg-secondary border-0">
                       <SelectValue placeholder="Sort by" />
@@ -153,7 +151,7 @@ export default function PdfsPage() {
             <FileText className="w-12 h-12 text-muted-foreground mx-auto mb-4"/>
             <h2 className="text-2xl font-bold font-heading">No PDFs Found</h2>
             <p className="text-muted-foreground mt-2">
-              There are no PDFs available at the moment. Please check back later.
+              There are no PDFs available in the UPSC folder.
             </p>
           </div>
         )}
@@ -165,5 +163,3 @@ export default function PdfsPage() {
     </div>
   );
 }
-
-    

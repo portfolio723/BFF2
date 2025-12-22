@@ -41,7 +41,7 @@ export function PdfCard({ pdf }: PdfCardProps) {
         <span className="text-xs text-muted-foreground uppercase tracking-wider">
           {category}
         </span>
-        <h3 className="font-heading text-base font-medium mt-1 line-clamp-1">
+        <h3 className="font-heading text-base font-medium mt-1 line-clamp-2">
           {title}
         </h3>
         <p className="text-sm text-muted-foreground mt-0.5">
