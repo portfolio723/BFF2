@@ -122,11 +122,26 @@ const HeroSection = () => {
 
 const CategoriesSection = () => {
   const categories = [
-    { name: "Fiction", count: 450, imageId: "book-cover-1" },
-    { name: "Non-Fiction", count: 320, imageId: "book-cover-2" },
-    { name: "Science Fiction", count: 180, imageId: "book-cover-8" },
-    { name: "Fantasy", count: 210, imageId: "new-book-2" },
-    { name: "Mystery", count: 150, imageId: "new-book-6" },
+    { name: "UPSC", imageId: "new-genre-upsc" },
+    { name: "Space & Astronomy", imageId: "new-genre-space" },
+    { name: "Self Development", imageId: "new-genre-self-dev" },
+    { name: "Psychology", imageId: "new-genre-psychology" },
+    { name: "NCERT", imageId: "new-genre-ncert" },
+    { name: "History", imageId: "new-genre-history" },
+    { name: "Competitve Exams", imageId: "new-genre-exams" },
+    { name: "Biography & Auto Biograpghy", imageId: "new-genre-biography" },
+    { name: "Bible", imageId: "new-genre-bible" },
+    { name: "Anthrapology", imageId: "new-genre-anthropology" },
+    { name: "Adventure", imageId: "new-genre-adventure" },
+    { name: "Career Guide", imageId: "new-genre-career" },
+    { name: "Business Management", imageId: "new-genre-business" },
+    { name: "Computer Science", imageId: "new-genre-cs" },
+    { name: "Cultural", imageId: "new-genre-cultural" },
+    { name: "Crime & Mystery", imageId: "book-cover-6" },
+    { name: "Economics", imageId: "new-genre-economics" },
+    { name: "Engineering", imageId: "new-genre-engineering" },
+    { name: "Fantasy", imageId: "new-book-2" },
+    { name: "Environment", imageId: "new-genre-environment" },
   ];
 
   return (
@@ -178,9 +193,6 @@ const CategoriesSection = () => {
                     <h3 className="font-heading text-lg font-medium text-background">
                       {category.name}
                     </h3>
-                    <p className="text-sm text-background/70 mt-0.5">
-                      {category.count.toLocaleString()} books
-                    </p>
                   </div>
                   <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
                     <ArrowRight className="w-4 h-4 text-background" />
