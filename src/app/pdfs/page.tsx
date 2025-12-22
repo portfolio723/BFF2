@@ -13,7 +13,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Search, FileText, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 
 export default function PdfsPage() {
@@ -21,58 +20,41 @@ export default function PdfsPage() {
   const [sortBy, setSortBy] = useState("newest");
   const [pdfs, setPdfs] = useState<Pdf[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { supabase } = useAuth();
   
   useEffect(() => {
-    if (!supabase) {
-      setIsLoading(false);
-      return;
-    }
     const fetchPdfs = async () => {
       setIsLoading(true);
-      // List all files in the 'UPSC' folder of the 'pdfs' bucket
-      const { data: fileList, error: listError } = await supabase.storage
-        .from('pdfs')
-        .list('UPSC', {
-          limit: 100, // Adjust as needed
-          offset: 0,
-          sortBy: { column: 'name', order: 'asc' },
-        });
+      try {
+        const response = await fetch('/api/list-pdfs');
+        if (!response.ok) {
+          throw new Error('Failed to fetch PDF list');
+        }
+        const filenames: string[] = await response.json();
 
-      if (listError) {
-        toast.error("Failed to fetch PDFs", { description: listError.message });
-        setPdfs([]);
-        setIsLoading(false);
-        return;
-      }
-
-      if (fileList) {
-        const formattedPdfs = fileList
-          .filter(file => file.name !== '.emptyFolderPlaceholder') // Exclude placeholder
-          .map((file) => {
-            const { data: publicUrlData } = supabase.storage
-              .from('pdfs')
-              .getPublicUrl(`UPSC/${file.name}`);
-
-            return {
-              id: file.id,
-              title: file.name.replace(/\.pdf$/i, '').replace(/_/g, ' '), // Clean up title
-              author: "UPSC", // Assign a default author or category
-              category: "UPSC Materials",
-              description: `Downloadable PDF file: ${file.name}`,
-              coverImage: {
-                url: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&q=80", // Generic book image
-                hint: "study material",
-              },
-              downloadUrl: publicUrlData.publicUrl,
-            };
-          });
+        const formattedPdfs = filenames.map((name, index) => ({
+          id: `${name}-${index}`,
+          title: name.replace(/\.pdf$/i, '').replace(/_/g, ' '),
+          author: "UPSC",
+          category: "UPSC Materials",
+          description: `Downloadable PDF file: ${name}`,
+          coverImage: {
+            url: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&q=80",
+            hint: "study material",
+          },
+          downloadUrl: `/upsc/${name}`,
+        }));
+        
         setPdfs(formattedPdfs);
+
+      } catch (error: any) {
+        toast.error("Failed to fetch PDFs", { description: error.message });
+        setPdfs([]);
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     }
     fetchPdfs();
-  }, [supabase]);
+  }, []);
 
 
   const filteredPdfs = useMemo(() => {
@@ -88,8 +70,9 @@ export default function PdfsPage() {
         filtered.sort((a, b) => a.title.localeCompare(b.title));
     } else if (sortBy === 'title-desc') {
         filtered.sort((a, b) => b.title.localeCompare(a.title));
+    } else { // 'newest' will be the order from the API
+        // The API returns sorted by name, we can just use that order.
     }
-    // "newest" is default, based on initial fetch sort.
 
     return filtered;
   }, [searchTerm, sortBy, pdfs]);
@@ -122,7 +105,7 @@ export default function PdfsPage() {
                       <SelectValue placeholder="Sort by" />
                   </SelectTrigger>
                   <SelectContent>
-                      <SelectItem value="newest">Newest First</SelectItem>
+                      <SelectItem value="newest">By Name</SelectItem>
                       <SelectItem value="title-asc">Title: A to Z</SelectItem>
                       <SelectItem value="title-desc">Title: Z to A</SelectItem>
                   </SelectContent>
@@ -150,8 +133,8 @@ export default function PdfsPage() {
           <div className="text-center py-20 lg:py-32 bg-card rounded-2xl border border-dashed">
             <FileText className="w-12 h-12 text-muted-foreground mx-auto mb-4"/>
             <h2 className="text-2xl font-bold font-heading">No PDFs Found</h2>
-            <p className="text-muted-foreground mt-2">
-              There are no PDFs available in the UPSC folder.
+            <p className="text-muted-foreground mt-2 max-w-sm mx-auto">
+              We couldn't find any PDF files in the `public/upsc` directory. Please make sure you have added your files there.
             </p>
           </div>
         )}
