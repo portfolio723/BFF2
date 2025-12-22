@@ -28,30 +28,7 @@ export const genres: Genre[] = [
 
 export const books: Book[] = [];
 
-export const communityPosts: CommunityPost[] = [
-    {
-      id: '1',
-      created_at: '2024-08-10T10:00:00Z',
-      title: 'What is everyone reading this week?',
-      content: 'I just started "Dune" and I am absolutely hooked. The world-building is incredible. Curious to know what other books have captured your attention recently!',
-      user_id: 'user-123',
-      profiles: {
-        full_name: 'Bookworm_Reader',
-        avatar_url: 'https://i.pravatar.cc/150?u=user-123',
-      },
-    },
-    {
-      id: '2',
-      created_at: '2024-08-09T15:30:00Z',
-      title: 'Seeking recommendations for good mystery novels',
-      content: 'I love a good whodunit! I have already read most of Agatha Christie\'s work. Any suggestions for modern mystery authors or standalone books?',
-      user_id: 'user-456',
-      profiles: {
-        full_name: 'Mystery_Fan',
-        avatar_url: 'https://i.pravatar.cc/150?u=user-456',
-      },
-    },
-];
+export const communityPosts: CommunityPost[] = [];
 
 export const pdfs: Pdf[] = [];
 

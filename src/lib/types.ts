@@ -24,16 +24,29 @@ export type Book = {
   rentalPrice?: number;
 };
 
+export type Profile = {
+  id: string;
+  full_name: string;
+  avatar_url: string;
+}
+
+export type CommunityComment = {
+  id: string;
+  created_at: string;
+  content: string;
+  user_id: string;
+  post_id: string;
+  profiles: Profile;
+}
+
 export type CommunityPost = {
   id: string;
   created_at: string;
   title: string;
   content: string;
   user_id: string;
-  profiles: {
-    full_name: string;
-    avatar_url: string;
-  }
+  profiles: Profile;
+  community_comments: CommunityComment[];
 };
 
 export type CartItem = {
