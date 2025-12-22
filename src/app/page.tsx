@@ -127,7 +127,7 @@ const CategoriesSection = () => {
     { name: "UPSC", count: 180, imageId: "new-genre-upsc", href: "/genre/upsc" },
     { name: "Space & Astronomy", count: 120, imageId: "new-genre-space", href: "/genre/space-astronomy" },
     { name: "Self Development", count: 250, imageId: "new-genre-self-dev", href: "/genre/self-development" },
-    { name: "Psychology", count: 160, imageId: "new-genre-psychology" },
+    { name: "Psychology", count: 160, imageId: "new-genre-psychology", href: "/genre/psychology" },
     { name: "NCERT", count: 300, imageId: "new-genre-ncert" },
     { name: "History", count: 210, imageId: "new-genre-history" },
     { name: "Competitive Exams", count: 280, imageId: "new-genre-exams" },
@@ -176,8 +176,6 @@ const CategoriesSection = () => {
               >
                 <Link 
                   href={href}
-                  target={category.target}
-                  rel={category.target === "_blank" ? "noopener noreferrer" : undefined}
                   className="group block relative aspect-[4/5] rounded-xl overflow-hidden"
                 >
                   <Image 

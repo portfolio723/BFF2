@@ -881,6 +881,66 @@
       "description": "Think And Grow Rich",
       "imageUrl": "https://images.unsplash.com/photo-1593672715438-d88a706299a5?w=600&q=80",
       "imageHint": "gold coins"
+    },
+    {
+      "id": "psych-pdf-1",
+      "description": "Attachment in Psychotherapy by David J. Wallin",
+      "imageUrl": "https://images.unsplash.com/photo-1598346762291-a988e0234c61?w=600&q=80",
+      "imageHint": "therapy session"
+    },
+    {
+      "id": "psych-pdf-2",
+      "description": "Thinking, Fast and Slow by Daniel Kahneman",
+      "imageUrl": "https://images.unsplash.com/photo-1518976024611-28bf4b48222e?w=600&q=80",
+      "imageHint": "brain mind"
+    },
+    {
+      "id": "psych-pdf-3",
+      "description": "Flow: The Psychology of Optimal Experience by Mihaly Csikszentmihalyi",
+      "imageUrl": "https://images.unsplash.com/photo-1542642594-7253556b6823?w=600&q=80",
+      "imageHint": "river flow"
+    },
+    {
+      "id": "psych-pdf-4",
+      "description": "Man’s Search for Meaning by Viktor E. Frankl",
+      "imageUrl": "https://images.unsplash.com/photo-1532012197267-da84d127e765?w=600&q=80",
+      "imageHint": "hope light"
+    },
+    {
+      "id": "psych-pdf-5",
+      "description": "Predictably Irrational by Dan Ariely",
+      "imageUrl": "https://images.unsplash.com/photo-1591115764219-2a88d49ffcae?w=600&q=80",
+      "imageHint": "question mark"
+    },
+    {
+      "id": "psych-pdf-6",
+      "description": "Quiet: The Power of Introverts by Susan Cain",
+      "imageUrl": "https://images.unsplash.com/photo-1519751064509-5c8b5539d482?w=600&q=80",
+      "imageHint": "quiet forest"
+    },
+    {
+      "id": "psych-pdf-7",
+      "description": "The Interpretation of Dreams by Sigmund Freud",
+      "imageUrl": "https://images.unsplash.com/photo-1518156075221-6f412c140412?w=600&q=80",
+      "imageHint": "dream abstract"
+    },
+    {
+      "id": "psych-pdf-8",
+      "description": "The Power of Habit by Charles Duhigg",
+      "imageUrl": "https://images.unsplash.com/photo-1599863473711-b8d234a41f23?w=600&q=80",
+      "imageHint": "gears turning"
+    },
+    {
+      "id": "psych-pdf-9",
+      "description": "The Psychology Book: Big Ideas Simply Explained",
+      "imageUrl": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&q=80",
+      "imageHint": "psychology textbook"
+    },
+    {
+      "id": "psych-pdf-10",
+      "description": "Influence: The Psychology of Persuasion by Robert B. Cialdini",
+      "imageUrl": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600&q=80",
+      "imageHint": "persuasion influence"
     }
   ]
 }
