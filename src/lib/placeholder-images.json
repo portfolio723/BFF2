@@ -737,6 +737,60 @@
       "description": "Cover for Indian Polity book",
       "imageUrl": "https://images.unsplash.com/photo-1723357646143-68b17c10ee0a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxpbmRpYW4lMjBwb2xpdHl8ZW58MHx8fHwxNzY2NDA4ODU4fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "indian polity"
+    },
+    {
+      "id": "space-pdf-1",
+      "description": "Awareness by Anthony de Mello",
+      "imageUrl": "https://images.unsplash.com/photo-1506126613408-4e0e0f7c50e1?w=600&q=80",
+      "imageHint": "spiritual awareness"
+    },
+    {
+      "id": "space-pdf-2",
+      "description": "Astrophysics For People In A Hurry by Neil deGrasse Tyson",
+      "imageUrl": "https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=600&q=80",
+      "imageHint": "galaxy stars"
+    },
+    {
+      "id": "space-pdf-3",
+      "description": "Death by Black Hole by Neil deGrasse Tyson",
+      "imageUrl": "https://images.unsplash.com/photo-1570284613060-766c33850e00?w=600&q=80",
+      "imageHint": "black hole"
+    },
+    {
+      "id": "space-pdf-4",
+      "description": "Cosmos by Carl Sagan",
+      "imageUrl": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&q=80",
+      "imageHint": "earth space"
+    },
+    {
+      "id": "space-pdf-5",
+      "description": "A Brief History of Time by Stephen Hawking",
+      "imageUrl": "https://images.unsplash.com/photo-1614726365902-181516b3246a?w=600&q=80",
+      "imageHint": "time space"
+    },
+    {
+      "id": "space-pdf-6",
+      "description": "The Fabric of the Cosmos by Brian Greene",
+      "imageUrl": "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=600&q=80",
+      "imageHint": "abstract cosmos"
+    },
+    {
+      "id": "space-pdf-7",
+      "description": "The Milky Way Galaxy",
+      "imageUrl": "https://images.unsplash.com/photo-1538351786255-a7c85834921f?w=600&q=80",
+      "imageHint": "milky way"
+    },
+    {
+      "id": "space-pdf-8",
+      "description": "The Right Stuff by Tom Wolfe",
+      "imageUrl": "https://images.unsplash.com/photo-1541185934-01b600ea069c?w=600&q=80",
+      "imageHint": "astronaut space"
+    },
+    {
+      "id": "space-pdf-9",
+      "description": "Welcome to the Universe",
+      "imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80",
+      "imageHint": "universe view"
     }
   ]
 }

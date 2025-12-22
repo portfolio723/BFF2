@@ -124,8 +124,8 @@ const HeroSection = () => {
 
 const CategoriesSection = () => {
   const categories = [
-    { name: "UPSC", count: 180, imageId: "new-genre-upsc" },
-    { name: "Space & Astronomy", count: 120, imageId: "new-genre-space" },
+    { name: "UPSC", count: 180, imageId: "new-genre-upsc", href: "https://drive.google.com/file/d/1E1kihRbsVUbKeaISUTlK_EfK4y5FL6UC/view?usp=drivesdk", target: "_blank" },
+    { name: "Space & Astronomy", count: 120, imageId: "new-genre-space", href: "/genre/space-astronomy" },
     { name: "Self Development", count: 250, imageId: "new-genre-self-dev" },
     { name: "Psychology", count: 160, imageId: "new-genre-psychology" },
     { name: "NCERT", count: 300, imageId: "new-genre-ncert" },
@@ -164,7 +164,7 @@ const CategoriesSection = () => {
             if (!image) return null;
             
             const slug = category.slug || category.name.toLowerCase().replace(/ & | /g, '-').replace(/[^a-z0-9-]/g, '');
-            const href = `/genre/${slug}`;
+            const href = category.href || `/genre/${slug}`;
 
             return (
               <motion.div
@@ -176,6 +176,8 @@ const CategoriesSection = () => {
               >
                 <Link 
                   href={href}
+                  target={category.target}
+                  rel={category.target === "_blank" ? "noopener noreferrer" : undefined}
                   className="group block relative aspect-[4/5] rounded-xl overflow-hidden"
                 >
                   <Image 
