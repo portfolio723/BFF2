@@ -14,47 +14,66 @@ import { Input } from "@/components/ui/input";
 import { Search, FileText, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { useAuth } from "@/context/AuthContext";
 
 export default function PdfsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("newest");
   const [pdfs, setPdfs] = useState<Pdf[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { supabase } = useAuth();
 
   useEffect(() => {
     const fetchPdfs = async () => {
+      if (!supabase) return;
       setIsLoading(true);
       try {
-        const response = await fetch('/api/list-pdfs');
-        if (!response.ok) {
-          throw new Error('Failed to fetch PDF list');
-        }
-        const filenames: string[] = await response.json();
+        const { data: fileList, error: listError } = await supabase
+          .storage
+          .from('books-pdfs')
+          .list('UPSC', {
+            limit: 200, // Increase limit to fetch more files
+            offset: 0,
+            sortBy: { column: 'name', order: 'asc' },
+          });
 
-        const formattedPdfs: Pdf[] = filenames.map((filename, index) => ({
-          id: `${index}-${filename}`,
-          title: filename.replace(/\.pdf$/i, '').replace(/_/g, ' '),
-          author: "UPSC Resource",
-          category: "UPSC",
-          description: `Downloadable PDF file: ${filename}`,
-          coverImage: {
-            url: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&q=80",
-            hint: "study material",
-          },
-          downloadUrl: `/upsc/${encodeURIComponent(filename)}`,
-        }));
+        if (listError) {
+          throw listError;
+        }
+
+        const formattedPdfs: Pdf[] = fileList.map((file) => {
+            const { data: urlData } = supabase
+                .storage
+                .from('books-pdfs')
+                .getPublicUrl(`UPSC/${file.name}`);
+
+            return {
+              id: file.id,
+              title: file.name.replace(/\.pdf$/i, '').replace(/_/g, ' '),
+              author: "UPSC Resource",
+              category: "UPSC",
+              description: `Downloadable PDF file: ${file.name}`,
+              coverImage: {
+                url: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&q=80",
+                hint: "study material",
+              },
+              downloadUrl: urlData.publicUrl,
+            }
+        });
         
         setPdfs(formattedPdfs);
 
       } catch (error: any) {
-        toast.error("Failed to fetch PDFs", { description: error.message });
+        toast.error("Failed to fetch PDFs from storage", { description: error.message });
         setPdfs([]);
       } finally {
         setIsLoading(false);
       }
     }
-    fetchPdfs();
-  }, []);
+    if (supabase) {
+        fetchPdfs();
+    }
+  }, [supabase]);
 
   const filteredPdfs = useMemo(() => {
     if (!pdfs) return [];
@@ -131,7 +150,7 @@ export default function PdfsPage() {
             <FileText className="w-12 h-12 text-muted-foreground mx-auto mb-4"/>
             <h2 className="text-2xl font-bold font-heading">No PDFs Found</h2>
             <p className="text-muted-foreground mt-2 max-w-sm mx-auto">
-              We couldn't find any PDF files in the 'public/upsc' directory. Please make sure the folder exists and contains PDF files.
+              We couldn't find any PDF files in the 'UPSC' folder in your Supabase 'books-pdfs' storage bucket.
             </p>
           </div>
         )}
