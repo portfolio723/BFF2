@@ -44,6 +44,7 @@ import {
 import { toast } from "sonner";
 import { format } from "date-fns";
 import Image from "next/image";
+import { createClient } from "@/lib/supabase/client";
 
 const AddressIcon = ({ type }: { type: Address["type"] }) => {
   switch (type) {
@@ -59,6 +60,7 @@ const AddressIcon = ({ type }: { type: Address["type"] }) => {
 export default function ProfilePage() {
   const router = useRouter();
   const { user: authUser, isUserLoading } = useAuth();
+  const supabase = createClient();
   
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
@@ -79,7 +81,7 @@ export default function ProfilePage() {
     if (authUser) {
       const fetchUserData = async () => {
         setLoadingData(true);
-        // Mock data fetching since Supabase is removed
+        // Mock data fetching. In a real app you would fetch from your DB
         setAddresses([]);
         setOrders([]);
         setWishlistItems([]);
@@ -147,12 +149,12 @@ export default function ProfilePage() {
     );
   }
 
-  const userInitial = authUser.email?.charAt(0).toUpperCase() || "U";
-  const fullName = "Guest User";
+  const userInitial = authUser.user_metadata.full_name?.charAt(0).toUpperCase() || authUser.email?.charAt(0).toUpperCase() || "U";
+  const fullName = authUser.user_metadata.full_name || "Guest User";
   const email = authUser.email;
-  const phoneNumber = "Not provided";
-  const avatarUrl = "";
-  const emailConfirmed = true;
+  const phoneNumber = authUser.user_metadata.phone_number || "Not provided";
+  const avatarUrl = authUser.user_metadata.avatar_url || "";
+  const emailConfirmed = authUser.email_confirmed_at;
 
 
   return (

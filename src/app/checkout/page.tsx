@@ -11,13 +11,6 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Badge } from "@/components/ui/badge";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from "@/components/ui/select";
-import {
   ChevronRight,
   MapPin,
   CreditCard,
@@ -40,6 +33,7 @@ import { AddressForm } from "@/components/AddressForm";
 import type { Address, Order, CartItem as AppCartItem } from "@/lib/types";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
+import { createClient } from "@/lib/supabase/client";
 
 
 const steps = [
@@ -64,6 +58,7 @@ export default function CheckoutPage() {
   const router = useRouter();
   const { user, isUserLoading } = useAuth();
   const { cart, getSubtotal, getDeliveryCharge, getTotal, clearCart, loading: cartLoading } = useCart();
+  const supabase = createClient();
   
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [loadingAddresses, setLoadingAddresses] = useState(true);
@@ -87,11 +82,14 @@ export default function CheckoutPage() {
     const fetchAddresses = async () => {
       if (user) {
         setLoadingAddresses(true);
-        // This is where you would fetch addresses from your new backend.
+        // This is where you would fetch addresses from your backend.
         // For now, we'll use an empty array.
         setAddresses([]);
         setLoadingAddresses(false);
-        setShowNewAddressForm(true);
+        // If no addresses, force the new address form open.
+        if (addresses.length === 0) {
+            setShowNewAddressForm(true);
+        }
       }
     };
     if (user) {
@@ -122,8 +120,7 @@ export default function CheckoutPage() {
     if (!user || !selectedAddress) return null;
     
     try {
-      // 1. Create the order
-      // This part would be replaced with your new backend's order creation logic.
+      // Mock order creation since DB logic is not fully implemented
       const mockOrderId = `mock-order-${Date.now()}`;
       const mockOrderItems = cart.map(item => ({
         id: `mock-item-${item.id}`,
@@ -236,8 +233,7 @@ export default function CheckoutPage() {
   const handleNewAddressSaved = async (addressData: Omit<Address, 'id' | 'user_id'>) => {
     if (!user) return;
     
-    // This logic needs to be adapted for your new backend.
-    // For now, we'll add it to the local state.
+    // Mock logic for now
     const newAddress: Address = {
         id: `mock-addr-${Date.now()}`,
         user_id: user.id,

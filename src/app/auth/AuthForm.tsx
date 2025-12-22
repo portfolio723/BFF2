@@ -20,7 +20,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { toast } from "sonner";
 import {
   Mail,
   Lock,
@@ -28,6 +27,7 @@ import {
   Eye,
   EyeOff,
   User,
+  Loader2,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
@@ -78,13 +78,24 @@ export default function AuthForm() {
 
   const handleSignIn = async (values: z.infer<typeof signInSchema>) => {
     setLoading(true);
-    toast.error("Authentication is currently disabled.");
+    const { error } = await signIn(values.email, values.password);
+    if (!error) {
+        router.push(redirect);
+    }
     setLoading(false);
   };
 
   const handleSignUp = async (values: z.infer<typeof signUpSchema>) => {
     setLoading(true);
-    toast.error("Authentication is currently disabled.");
+    const { error } = await signUp(values.email, values.password, {
+        data: {
+            full_name: values.fullName,
+            phone_number: values.phoneNumber,
+        }
+    });
+    if (!error) {
+        setActiveTab("signin");
+    }
     setLoading(false);
   };
 
@@ -182,14 +193,14 @@ export default function AuthForm() {
                         </div>
 
                         <Button type="submit" className="w-full h-12 rounded-full" disabled={loading}>
-                          {loading ? "Signing In..." : "Sign In"}
-                          <ArrowRight className="ml-2 w-4 h-4" />
+                          {loading ? <Loader2 className="animate-spin" /> : "Sign In"}
+                          {!loading && <ArrowRight className="ml-2 w-4 h-4" />}
                         </Button>
                       </form>
                     </Form>
 
                     <div className="text-center mt-6">
-                      <Link href="/books" className="text-sm font-medium text-muted-foreground hover:text-primary">
+                      <Link href="/" className="text-sm font-medium text-muted-foreground hover:text-primary">
                         Continue as Guest
                       </Link>
                     </div>
@@ -314,8 +325,8 @@ export default function AuthForm() {
                           )}
                         />
                         <Button type="submit" className="w-full h-12 rounded-full" disabled={loading}>
-                          {loading ? "Creating Account..." : "Create Account"}
-                          <ArrowRight className="ml-2 w-4 h-4" />
+                          {loading ? <Loader2 className="animate-spin"/> : "Create Account"}
+                          {!loading && <ArrowRight className="ml-2 w-4 h-4" />}
                         </Button>
                       </form>
                     </Form>

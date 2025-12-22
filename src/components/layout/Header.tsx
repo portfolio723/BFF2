@@ -12,7 +12,10 @@ import {
   BookOpen,
   LogOut,
   User,
-  ChevronDown
+  ChevronDown,
+  ShoppingCart,
+  Heart,
+  Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,6 +31,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
+import { useCart } from "@/context/AppProvider";
+import { useWishlist } from "@/context/WishlistContext";
+import { Badge } from "@/components/ui/badge";
 
 const navLinks = [
   { name: "Donate", href: "/donate" },
@@ -40,6 +46,8 @@ export function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const { user, signOut, isUserLoading } = useAuth();
+  const { cartCount } = useCart();
+  const { wishlistCount } = useWishlist();
   
   const [isMounted, setIsMounted] = useState(false);
 
@@ -52,7 +60,7 @@ export function Header() {
     router.push("/");
   };
   
-  const userInitial = user?.email?.charAt(0).toUpperCase() || 'U';
+  const userInitial = user?.user_metadata.full_name?.charAt(0) || user?.email?.charAt(0).toUpperCase() || 'U';
 
 
   return (
@@ -86,7 +94,7 @@ export function Header() {
             ))}
           </div>
 
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-2">
             <AnimatePresence>
               {isSearchOpen && (
                 <motion.div
@@ -115,24 +123,39 @@ export function Header() {
               <Search className="w-5 h-5" />
             </Button>
             
-            <Separator orientation="vertical" className="h-6" />
+            <Separator orientation="vertical" className="h-6 mx-2" />
 
-            {!isUserLoading && (
+             <Link href="/wishlist" className="relative">
+              <Button variant="ghost" size="icon" className="text-muted-foreground" aria-label="Wishlist">
+                <Heart className="w-5 h-5" />
+              </Button>
+              {wishlistCount > 0 && <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 w-5 justify-center p-0">{wishlistCount}</Badge>}
+            </Link>
+
+            <Link href="/cart" className="relative">
+              <Button variant="ghost" size="icon" className="text-muted-foreground" aria-label="Cart">
+                <ShoppingCart className="w-5 h-5" />
+              </Button>
+              {cartCount > 0 && <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 w-5 justify-center p-0">{cartCount}</Badge>}
+            </Link>
+
+
+            {isUserLoading ? <Loader2 className="w-5 h-5 animate-spin mx-4" /> : (
               user ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="flex items-center gap-2 rounded-full">
                       <Avatar className="w-8 h-8">
-                        <AvatarImage src={""} alt={"User"} />
+                        <AvatarImage src={user.user_metadata.avatar_url} alt={user.user_metadata.full_name} />
                         <AvatarFallback>{userInitial}</AvatarFallback>
                       </Avatar>
-                       <span className="hidden md:inline">{"Guest User"}</span>
+                       <span className="hidden md:inline">{user.user_metadata.full_name || 'Guest'}</span>
                        <ChevronDown className="w-4 h-4 text-muted-foreground" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-56">
                     <DropdownMenuLabel>
-                        <p className="font-semibold">{"Guest User"}</p>
+                        <p className="font-semibold">{user.user_metadata.full_name || 'Guest'}</p>
                         <p className="text-xs text-muted-foreground font-normal">{user.email}</p>
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
@@ -157,7 +180,13 @@ export function Header() {
             )}
           </div>
 
-          <div className="flex lg:hidden items-center gap-3">
+          <div className="flex lg:hidden items-center gap-1">
+            <Link href="/cart" className="relative">
+              <Button variant="ghost" size="icon" className="text-muted-foreground" aria-label="Cart">
+                <ShoppingCart className="w-5 h-5" />
+              </Button>
+              {cartCount > 0 && <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 w-5 justify-center p-0">{cartCount}</Badge>}
+            </Link>
             <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
               {isOpen ? (
                 <X className="w-5 h-5" />
@@ -182,11 +211,11 @@ export function Header() {
                   <div className="px-4 pb-4 mb-2 border-b border-border">
                     <div className="flex items-center gap-3">
                       <Avatar className="w-10 h-10">
-                        <AvatarImage src={""} alt={"Guest User"} />
+                        <AvatarImage src={user.user_metadata.avatar_url} alt={user.user_metadata.full_name} />
                         <AvatarFallback>{userInitial}</AvatarFallback>
                       </Avatar>
                       <div>
-                        <p className="font-medium">{"Guest User"}</p>
+                        <p className="font-medium">{user.user_metadata.full_name || 'Guest'}</p>
                       </div>
                     </div>
                   </div>
@@ -219,6 +248,24 @@ export function Header() {
                     </Link>
                   </motion.div>
                 ))}
+                 <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    <Link
+                      href="/wishlist"
+                      onClick={() => setIsOpen(false)}
+                      className={cn(
+                        "block px-4 py-3 rounded-lg font-medium transition-colors",
+                        pathname === "/wishlist"
+                          ? "bg-secondary text-foreground"
+                          : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                      )}
+                    >
+                      Wishlist
+                    </Link>
+                  </motion.div>
 
                 <div className="pt-4 px-2 flex flex-col gap-2">
                  {user && (

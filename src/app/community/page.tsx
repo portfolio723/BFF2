@@ -30,6 +30,7 @@ import { usePathname } from "next/navigation";
 import type { CommunityPost } from "@/lib/types";
 import { formatDistanceToNow } from "date-fns";
 import { communityPosts as allPosts } from "@/lib/data";
+import { createClient } from "@/lib/supabase/client";
 
 const trendingTopics = [
   { name: "Book Reviews", count: 234 },
@@ -42,6 +43,7 @@ const trendingTopics = [
 export default function CommunityPage() {
   const { user } = useAuth();
   const pathname = usePathname();
+  const supabase = createClient();
 
   const [discussions, setDiscussions] = useState<CommunityPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -51,6 +53,7 @@ export default function CommunityPage() {
   
   useEffect(() => {
     setIsLoading(true);
+    // Mocking data for now
     setDiscussions(allPosts);
     setIsLoading(false);
   }, []);
@@ -68,7 +71,7 @@ export default function CommunityPage() {
 
     setIsPosting(true);
     
-    // This would be where you call your new backend
+    // This is where you would call your backend
     toast.success("Your discussion has been posted!");
     
     const newPost: CommunityPost = {
@@ -78,8 +81,8 @@ export default function CommunityPage() {
       created_at: new Date().toISOString(),
       user_id: user.id,
       profiles: {
-        full_name: "You",
-        avatar_url: ""
+        full_name: user.user_metadata.full_name || "You",
+        avatar_url: user.user_metadata.avatar_url || ""
       }
     }
 
