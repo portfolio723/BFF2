@@ -34,7 +34,6 @@ import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 
 const navLinks = [
-  { name: "Explore", href: "/books" },
   { name: "Donate", href: "/donate" },
   { name: "Community", href: "/community" },
 ];

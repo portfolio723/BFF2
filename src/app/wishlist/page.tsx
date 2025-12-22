@@ -121,12 +121,12 @@ export default function WishlistPage() {
               Your wishlist is empty
             </h2>
             <p className="text-muted-foreground mb-6">
-              Save books you love to read later.
+              Save items you love to read later.
             </p>
-            <Link href="/books">
+            <Link href="/">
               <Button className="rounded-full px-8 gap-2">
                 <ShoppingBag className="w-4 h-4" />
-                Explore Books
+                Explore Genres
               </Button>
             </Link>
           </motion.div>

@@ -59,8 +59,8 @@ const HeroSection = () => {
               className="mt-8 flex flex-wrap gap-4 justify-center lg:justify-start"
             >
               <Button asChild size="lg" className="rounded-full px-8 gap-2 group">
-                <Link href="/books">
-                  Explore Books
+                <Link href="/community">
+                  Join Community
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>

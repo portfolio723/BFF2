@@ -283,11 +283,11 @@ export default function CheckoutPage() {
                 Your cart is empty
               </h2>
               <p className="text-muted-foreground mb-6">
-                Add some books to your cart before checkout.
+                Add some items to your cart before checkout.
               </p>
-              <Link href="/books">
+              <Link href="/">
                 <Button className="rounded-full px-8 gap-2">
-                  Explore Books
+                  Explore Genres
                   <ArrowRight className="w-4 h-4" />
                 </Button>
               </Link>
@@ -334,7 +334,7 @@ export default function CheckoutPage() {
                   </div>
                   <div className="flex items-start gap-3">
                     <Package className="w-4 h-4 mt-0.5 text-muted-foreground" />
-                    <span className="text-muted-foreground">Your books will be packed within 24 hours</span>
+                    <span className="text-muted-foreground">Your items will be packed within 24 hours</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <Truck className="w-4 h-4 mt-0.5 text-muted-foreground" />
@@ -344,7 +344,7 @@ export default function CheckoutPage() {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/books">
+                <Link href="/">
                   <Button variant="outline" size="lg" className="rounded-full px-8">
                     Continue Shopping
                   </Button>
@@ -530,7 +530,7 @@ export default function CheckoutPage() {
                       <RadioGroupItem value="cod" id="cod" />
                       <Label htmlFor="cod" className="flex-1 cursor-pointer">
                         <div className="font-medium">Cash on Delivery</div>
-                        <div className="text-sm text-muted-foreground">Pay when you receive the books</div>
+                        <div className="text-sm text-muted-foreground">Pay when you receive the items</div>
                       </Label>
                     </div>
                   </RadioGroup>

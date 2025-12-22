@@ -145,7 +145,7 @@ export default function CartPage() {
 
               {/* Continue Shopping */}
               <div className="mt-8">
-                <Link href="/books">
+                <Link href="/">
                   <Button variant="outline" className="rounded-full gap-2">
                     <ShoppingBag className="w-4 h-4" />
                     Continue Shopping
@@ -238,7 +238,7 @@ export default function CartPage() {
             <p className="text-muted-foreground mb-6">
               Looks like you haven't added any books yet.
             </p>
-            <Link href="/books">
+            <Link href="/">
               <Button className="rounded-full px-8 gap-2">
                 Start Shopping
                 <ArrowRight className="w-4 h-4" />
