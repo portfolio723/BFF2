@@ -1243,3 +1243,41 @@ export const psychologyPdfs: Pdf[] = [
     },
 ];
     
+export const christianPdfs: Pdf[] = [
+    {
+        id: "christian-pdf-1",
+        title: "100 Ways to Motivate Others",
+        author: "Steve Chandler",
+        category: "Christian",
+        description: "A guide to motivating others through positive reinforcement.",
+        coverImage: getImage("christian-pdf-1"),
+        downloadUrl: "#",
+    },
+    {
+        id: "christian-pdf-2",
+        title: "The 1928 Book of Common Prayer",
+        author: "Church of England",
+        category: "Christian",
+        description: "A classic book of prayers and liturgies.",
+        coverImage: getImage("christian-pdf-2"),
+        downloadUrl: "#",
+    },
+    {
+        id: "christian-pdf-3",
+        title: "A Brief Bible History",
+        author: "Traditional / Biblical Scholarship",
+        category: "Christian",
+        description: "A summary of the history contained within the Bible.",
+        coverImage: getImage("christian-pdf-3"),
+        downloadUrl: "#",
+    },
+    {
+        id: "christian-pdf-4",
+        title: "A Christian in a Non-Christian World",
+        author: "John Stott",
+        category: "Christian",
+        description: "An exploration of how Christians can live out their faith in a secular world.",
+        coverImage: getImage("christian-pdf-4"),
+        downloadUrl: "#",
+    },
+];
