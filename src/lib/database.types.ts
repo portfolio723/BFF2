@@ -213,7 +213,7 @@ export type Database = {
           order_id?: string
           price_at_purchase?: number
           quantity?: number
-          type?: Database["public"]["Enunms"]["order_item_type"]
+          type?: Database["public"]["Enums"]["order_item_type"]
         }
         Relationships: [
           {
