@@ -514,7 +514,7 @@ const DonateSection = () => {
 };
 
 const FeaturedPdfs = () => {
-  const featuredPdfs = pdfs.slice(0, 4);
+  const featuredPdfs = pdfs.slice(0, 8);
 
   return (
     <section className="py-20 lg:py-28 bg-secondary/30">
@@ -548,7 +548,7 @@ const FeaturedPdfs = () => {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {featuredPdfs.map((pdf) => (
             <PdfCard key={pdf.id} pdf={pdf} />
           ))}
