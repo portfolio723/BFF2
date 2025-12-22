@@ -6,7 +6,6 @@ import { WishlistProvider } from "@/context/WishlistContext";
 import { AuthProvider } from "@/context/AuthContext";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { Toaster as LegacyToaster } from "@/components/ui/toaster";
 import { Toaster } from "sonner";
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -34,7 +33,6 @@ export default function RootLayout({
                 <Header />
                 <main className="flex-grow">{children}</main>
                 <Footer />
-                <LegacyToaster />
                 <Toaster richColors />
             </WishlistProvider>
           </AppProvider>
