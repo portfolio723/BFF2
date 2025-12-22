@@ -2,7 +2,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { createClient } from '@/lib/supabase';
+import { supabase } from '@/lib/supabase';
 import type { AuthChangeEvent, Session, User, SupabaseClient, SignUpWithPasswordCredentials } from '@supabase/supabase-js';
 
 interface AuthContextType {
@@ -17,19 +17,11 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Memoize the client so it's created only once.
-const supabase = createClient();
-
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isUserLoading, setIsUserLoading] = useState(true);
   
   useEffect(() => {
-    if (!supabase) {
-        setIsUserLoading(false);
-        return;
-    }
-
     const getSession = async () => {
         const { data: { session } } = await supabase.auth.getSession();
         setUser(session?.user ?? null);
