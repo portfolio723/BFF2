@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const signOut = async () => {
     await supabase.auth.signOut();
     setUser(null);
-    toast.success("You have been signed out.");
+    toast.info("You have been signed out.");
   };
 
   const sendPasswordReset = async (email: string) => {
