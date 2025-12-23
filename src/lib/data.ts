@@ -79,12 +79,12 @@ export const christianPdfs: Pdf[] = [
 ];
 
 export const fantasyPdfs: Pdf[] = [
-    { id: "fan1", title: "American Gods Illustrated", author: "Neil Gaiman and Dave McKean", downloadUrl: "#", category: "Fantasy", description: "", coverImage: {url: "", hint: ""} },
-    { id: "fan2", title: "Eragons Guide to Alagaesia", author: "Christopher Paolini", downloadUrl: "#", category: "Fantasy", description: "", coverImage: {url: "", hint: ""} },
-    { id: "fan3", title: "Game of Thrones Graphic 1.1-6", author: "George R R Martin", downloadUrl: "#", category: "Fantasy", description: "", coverImage: {url: "", hint: ""} },
-    { id: "fan4", title: "Good Omens", author: "Terry Pratchett and Neil Gaiman", downloadUrl: "#", category: "Fantasy", description: "", coverImage: {url: "", hint: ""} },
-    { id: "fan5", title: "Gunslinger", author: "Stephen King", downloadUrl: "#", category: "Fantasy", description: "", coverImage: {url: "", hint: ""} },
-    { id: "fan6", title: "Harry Potter Philosophers Stone", author: "JK Rowling", downloadUrl: "#", category: "Fantasy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fan1", title: "American Gods Illustrated", author: "Neil Gaiman and Dave McKean", downloadUrl: "https://mega.nz/file/agRj0AYR#FeacbqkmfZc4_RemGLNYY7Qxe8zjwUDqOl0k-k_xJ0M", category: "Fantasy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fan2", title: "Eragons Guide to Alagaesia", author: "Christopher Paolini", downloadUrl: "https://mega.nz/file/n9IAQIKA#ORq6bTzzhBrxNnFJGL6i9jz6oeMGKXJWlJbt7eQwagw", category: "Fantasy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fan3", title: "Game of Thrones Graphic 1.1-6", author: "George R R Martin", downloadUrl: "https://mega.nz/file/bpAiyR6Y#AzH2FINJ6ZFf6fZPhY-3pq6aCr4uaq2trf-2EndpLFk", category: "Fantasy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fan4", title: "Good Omens", author: "Terry Pratchett and Neil Gaiman", downloadUrl: "https://mega.nz/file/XxgmER5J#quIbiyHczjVJsXwS03lDn-knipdA9Qr4gX17gVoAT68", category: "Fantasy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fan5", title: "Gunslinger", author: "Stephen King", downloadUrl: "https://mega.nz/file/u0J0xYoY#5GHv_cFPAF9abVvAxrSWVg2tn5ylgqRoUqSmYI4dd3A", category: "Fantasy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fan6", title: "Harry Potter Philosophers Stone", author: "JK Rowling", downloadUrl: "https://mega.nz/file/zkoBTRRC#-Uf8blnQTKCAG2poB6HNwkCPzDJ6KSFFOWTm4odVZ4M", category: "Fantasy", description: "", coverImage: {url: "", hint: ""} },
 ];
 
 export const historyPdfs: Pdf[] = [];
