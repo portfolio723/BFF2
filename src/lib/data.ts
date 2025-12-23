@@ -54,11 +54,11 @@ export const spacePdfs: Pdf[] = [
 ];
 
 export const selfDevelopmentPdfs: Pdf[] = [
-    { id: "sd1", title: "The Alchemist", author: "Paulo Coelho", downloadUrl: "#", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
-    { id: "sd2", title: "Grit: The Power of Passion and Perseverance", author: "Angela Duckworth", downloadUrl: "#", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
-    { id: "sd3", title: "Awareness: The Perils and Opportunities of Reality", author: "Anthony de Mello", downloadUrl: "#", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
-    { id: "sd4", title: "Atomic Habits", author: "James Clear", downloadUrl: "#", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
-    { id: "sd5", title: "Awaken the Giant Within", author: "Anthony Robbins", downloadUrl: "#", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sd1", title: "The Alchemist", author: "Paulo Coelho", downloadUrl: "https://mega.nz/file/3842xABY#qilU_uHcVxQpf84r3cAi2pXAzRRABV3hlW_Lt8pOar4", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sd2", title: "Grit: The Power of Passion and Perseverance", author: "Angela Duckworth", downloadUrl: "https://mega.nz/file/OgRVyaQS#v_cZNe2qQn6-cXYhKwYN89usRjVu6V2pfD2UPdzRoKs", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sd3", title: "Awareness: The Perils and Opportunities of Reality", author: "Anthony de Mello", downloadUrl: "https://mega.nz/file/ihph0JDb#IyTY958WuXLm4ac6YfsjHmvRlk1iH9J1ppzC4P-oY14", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sd4", title: "Atomic Habits", author: "James Clear", downloadUrl: "https://mega.nz/file/Hs4XUapT#YON7PfyPaP3QtwKcHt2qz2njldJtpdBCMf7HLyKXWPI", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sd5", title: "Awaken the Giant Within", author: "Anthony Robbins", downloadUrl: "https://mega.nz/file/vkgQkIwC#P8A0fGEBj8E_dnD7AFII4gCYli874tW7DUjcsrjoP4E", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
 ];
 
 export const psychologyPdfs: Pdf[] = [];
