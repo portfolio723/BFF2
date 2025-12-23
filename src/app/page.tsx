@@ -65,8 +65,8 @@ const HeroSection = () => {
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="rounded-full px-8 gap-2">
-                <Link href="/faq">
-                  Learn More
+                <Link href="/donate">
+                  Donate
                 </Link>
               </Button>
             </motion.div>
