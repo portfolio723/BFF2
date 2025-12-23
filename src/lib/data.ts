@@ -98,12 +98,12 @@ export const geographyPdfs: Pdf[] = [
 ];
 
 export const historyPdfs: Pdf[] = [
-    { id: "hist1", title: "A Comprehensive Outline of World History", author: "N/A", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
-    { id: "hist2", title: "A first book in American History", author: "N/A", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
-    { id: "hist3", title: "Ancient history and rome", author: "N/A", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
-    { id: "hist4", title: "Great Events by Famous Historians", author: "N/A", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
-    { id: "hist5", title: "Heritage", author: "N/A", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
-    { id: "hist6", title: "history of nations", author: "N/A", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
+    { id: "hist1", title: "A Comprehensive Outline of World History", author: "N/A", downloadUrl: "https://mega.nz/file/ihoCCBIb#MQSfXaDq0HGBXiYvTXh0AHpdlRIwHzVfXjVj1krDvQk", category: "History", description: "", coverImage: {url: "", hint: ""} },
+    { id: "hist2", title: "A first book in American History", author: "N/A", downloadUrl: "https://mega.nz/file/exBXUKzb#AKQouQ7_cKDIZF4zSUCVbXGp9-ykSWhxCe3aHBxlLzE", category: "History", description: "", coverImage: {url: "", hint: ""} },
+    { id: "hist3", title: "Ancient history and rome", author: "N/A", downloadUrl: "https://mega.nz/file/qtoDVCwT#gxrYXrVPAcLhG6YT4YJr3ai8UyYt_4coLCkvlsteE7o", category: "History", description: "", coverImage: {url: "", hint: ""} },
+    { id: "hist4", title: "Great Events by Famous Historians", author: "N/A", downloadUrl: "https://mega.nz/file/y8gkCZKb#59-yr3QwDB-QZX5ngjYHRPdaLaOPfg_mVpFKCkwoJPE", category: "History", description: "", coverImage: {url: "", hint: ""} },
+    { id: "hist5", title: "Heritage", author: "N/A", downloadUrl: "https://mega.nz/file/K55zHaoK#6pwwv7sQovTq76xK9OWBT8olk7nOx3183TXCzVaQltI", category: "History", description: "", coverImage: {url: "", hint: ""} },
+    { id: "hist6", title: "history of nations", author: "N/A", downloadUrl: "https://mega.nz/file/b5oxyRIZ#JQKERmyIfLHpWt7fzG4cs7m4mTuhj22Yirfw-ptpsvw", category: "History", description: "", coverImage: {url: "", hint: ""} },
 ];
 
 export const ncertPdfs: Pdf[] = [];
