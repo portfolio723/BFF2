@@ -122,13 +122,13 @@ export const biographyPdfs: Pdf[] = [
 ];
 
 export const anthropologyPdfs: Pdf[] = [
-    { id: "anth1", title: "Archaeology and Anthropology", author: "N/A", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
-    { id: "anth2", title: "Biological Anthropology", author: "Augustin Fuentes", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
-    { id: "anth3", title: "Yanomamo: The Fierce People", author: "Chagnon", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
-    { id: "anth4", title: "Coming of age in Samoa", author: "Margaret Mead", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
-    { id: "anth5", title: "Debt", author: "David Graeber", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
-    { id: "anth6", title: "Evolutions Bite", author: "Peter Ungar", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
-    { id: "anth7", title: "Floods, Famines, And Emperors: El Nino And The Fate Of Civilizations", author: "Brian M Fagan", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth1", title: "Archaeology and Anthropology", author: "N/A", downloadUrl: "https://mega.nz/file/2gBHSbxJ#GAD1Cta1ks7W_PgaGGypqgN9q6HLBQ_FeA3P7gW_h-E", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth2", title: "Biological Anthropology", author: "Augustin Fuentes", downloadUrl: "https://mega.nz/file/mlgyxLhS#xXqtMHb1TXm_K8tX5PAZM8i07xMkT9eOuqDPk2IsUco", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth3", title: "Yanomamo: The Fierce People", author: "Chagnon", downloadUrl: "https://mega.nz/file/nsBnFQgS#AYxKa6eQyX9AUMrTLAv9ip-4Y11nPWZNgq05jEPAWEU", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth4", title: "Coming of age in Samoa", author: "Margaret Mead", downloadUrl: "https://mega.nz/file/ah4FzYDD#Kx9FDU3A4TBeyP9qcoS0xHs8BSu9qOqXydog1Gvrwg0", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth5", title: "Debt", author: "David Graeber", downloadUrl: "https://mega.nz/file/z5ZixISA#li_0NLVSEiFnGVvVn_uepjCMkxRuXKN2AFNBdX6BSwM", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth6", title: "Evolutions Bite", author: "Peter Ungar", downloadUrl: "https://mega.nz/file/HpRHjQzL#g1z4I0QaKGK40Dfp79Du9lCrQ-bGTjUzHki84yR217A", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth7", title: "Floods, Famines, And Emperors: El Nino And The Fate Of Civilizations", author: "Brian M Fagan", downloadUrl: "https://mega.nz/file/vl5DSIgZ#vpXDuBCk1TTjRvecCuEgAIMoDGLgzc6GbEnC4uncl5U", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
 ];
 
 export const ncertPdfs: Pdf[] = [];
