@@ -123,7 +123,7 @@ const CategoriesSection = () => {
   const categories = [
     { name: "UPSC", imageId: "new-genre-upsc", href: "/genre/upsc" },
     { name: "Space & Astronomy", imageId: "new-genre-space", href: "/genre/space-and-astronomy" },
-    { name: "Self Development", imageId: "new-genre-self-dev" },
+    { name: "Self Development", imageId: "new-genre-self-dev", href: "/genre/self-development" },
     { name: "Psychology", imageId: "new-genre-psychology" },
     { name: "NCERT", imageId: "new-genre-ncert" },
     { name: "History", imageId: "new-genre-history" },

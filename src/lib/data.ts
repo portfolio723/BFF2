@@ -53,7 +53,13 @@ export const spacePdfs: Pdf[] = [
     { id: "sa10", title: "Welcome to the Universe", author: "Neil deGrasse Tyson, Michael A. Strauss, J. Richard Gott", downloadUrl: "https://mega.nz/file/P8YEnTDK#mzz2U0mO5QeilV6cshyIabjNCCIfcYsWW_5dJ8J68Wk", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
 ];
 
-export const selfDevelopmentPdfs: Pdf[] = [];
+export const selfDevelopmentPdfs: Pdf[] = [
+    { id: "sd1", title: "The Alchemist", author: "Paulo Coelho", downloadUrl: "#", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sd2", title: "Grit: The Power of Passion and Perseverance", author: "Angela Duckworth", downloadUrl: "#", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sd3", title: "Awareness: The Perils and Opportunities of Reality", author: "Anthony de Mello", downloadUrl: "#", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sd4", title: "Atomic Habits", author: "James Clear", downloadUrl: "#", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sd5", title: "Awaken the Giant Within", author: "Anthony Robbins", downloadUrl: "#", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
+];
 
 export const psychologyPdfs: Pdf[] = [];
 
