@@ -33,11 +33,11 @@ export const communityPosts: CommunityPost[] = [];
 export const pdfs: Pdf[] = [];
 
 export const upscPdfs: Pdf[] = [
-  { id: "1", title: "Ancient History", downloadUrl: "#", author: "RS Sharma", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
-  { id: "2", title: "Art and Culture", downloadUrl: "#", author: "Nitin Singhania", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
-  { id: "3", title: "Certificate Physical and Human Geography", downloadUrl: "#", author: "Goh Cheng Leong", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
-  { id: "4", title: "Indian Economy", downloadUrl: "#", author: "Sanjiv Verma", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
-  { id: "5", title: "Indian Polity", downloadUrl: "#", author: "M. Laxmikanth", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
+  { id: "1", title: "Ancient History", downloadUrl: "https://mega.nz/file/ypBRnD5T#qVTEUPR8Ge7hIsz04RMlnkpBJcyFuxsUr5VGxJD6HJM", author: "RS Sharma", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
+  { id: "2", title: "Art and Culture", downloadUrl: "https://mega.nz/file/2pZhUIgL#a2NY44Lq4aUvDQoQiol1jBA6WqVEX4vRnGTLMt4eCpc", author: "Nitin Singhania", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
+  { id: "3", title: "Certificate Physical and Human Geography", downloadUrl: "https://mega.nz/file/6wZzDAAS#yWy96pCsLHUbS1q99Gr6c_3Jnb-PGsf0WQCAV1Xboa0", author: "Goh Cheng Leong", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
+  { id: "4", title: "Indian Economy", downloadUrl: "https://mega.nz/file/6tQFkA4Z#5OsoGtcac9erpWbKSCVsf7xbts1uMXMrU_7xi4bL-yU", author: "Sanjiv Verma", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
+  { id: "5", title: "Indian Polity", downloadUrl: "https://mega.nz/file/70YnBKgI#R5DmIrmigbLfQEjfOa36Ec_SoxdguMN-eSAUPpdKXiE", author: "M. Laxmikanth", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
 ];
 
 export const spacePdfs: Pdf[] = [];
