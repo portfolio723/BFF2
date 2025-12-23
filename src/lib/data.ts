@@ -112,6 +112,16 @@ export const competitiveExamsPdfs: Pdf[] = [
   { id: "ce3", title: "Word Power Made Easy", author: "Norman Lewis", downloadUrl: "https://mega.nz/file/aoIjXYwK#3oH6yhM3XovBMranmyg0kSD_Lek1VanGM6izh5L8k1U", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
 ];
 
+export const biographyPdfs: Pdf[] = [
+    { id: "bio1", title: "Agni Ki Udan", author: "N/A", downloadUrl: "#", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bio2", title: "12th Fail Novel", author: "N/A", downloadUrl: "#", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bio3", title: "A Teacher's Lot", author: "N/A", downloadUrl: "#", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bio4", title: "Autobiography of Helen Keller", author: "N/A", downloadUrl: "#", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bio5", title: "Benjamin Franklin Ki Atmakatha", author: "N/A", downloadUrl: "#", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bio6", title: "Bhagat Singh Biography", author: "N/A", downloadUrl: "#", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
+];
+
+
 export const ncertPdfs: Pdf[] = [];
 
     

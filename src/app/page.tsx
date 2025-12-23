@@ -129,7 +129,7 @@ const CategoriesSection = () => {
     { name: "NCERT", imageId: "new-genre-ncert" },
     { name: "History", imageId: "new-genre-history", href: "/genre/history" },
     { name: "Competitve Exams", imageId: "new-genre-exams", href: "/genre/competitve-exams" },
-    { name: "Biography &amp; Auto Biograpghy", imageId: "new-genre-biography" },
+    { name: "Biography & Auto Biograpghy", imageId: "new-genre-biography", href: "/genre/biography-autobiography" },
     { name: "Bible", imageId: "new-genre-bible", href: "/genre/bible" },
     { name: "Anthrapology", imageId: "new-genre-anthropology" },
     { name: "Adventure", imageId: "new-genre-adventure" },
