@@ -1,5 +1,4 @@
-
-// This file is cleared because Supabase has been removed.
-// The Supabase client is no longer needed.
+// This file is cleared because Supabase SQL migrations are now used.
+// The Supabase client is no longer needed here.
 
 export {};
