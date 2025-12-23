@@ -87,6 +87,16 @@ export const fantasyPdfs: Pdf[] = [
     { id: "fan6", title: "Harry Potter Philosophers Stone", author: "JK Rowling", downloadUrl: "https://mega.nz/file/zkoBTRRC#-Uf8blnQTKCAG2poB6HNwkCPzDJ6KSFFOWTm4odVZ4M", category: "Fantasy", description: "", coverImage: {url: "", hint: ""} },
 ];
 
+export const geographyPdfs: Pdf[] = [
+    { id: "geo1", title: "Certificate Physical And Human Geography", author: "GC Leong", downloadUrl: "#", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "geo2", title: "Oxford School Spelling punctuation and grammar dictionary", author: "Oxford University Press", downloadUrl: "#", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "geo3", title: "Physical geography", author: "Savindra singh", downloadUrl: "#", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "geo4", title: "Class 11 Fundamentals of Physical Geography", author: "N/A", downloadUrl: "#", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "geo5", title: "Climatology and Meteorology", author: "N/A", downloadUrl: "#", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "geo6", title: "Fundamentals of Geomorphology", author: "Routledge", downloadUrl: "#", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "geo7", title: "Human geography", author: "N/A", downloadUrl: "#", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
+];
+
 export const historyPdfs: Pdf[] = [];
 
 export const ncertPdfs: Pdf[] = [];

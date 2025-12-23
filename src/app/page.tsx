@@ -125,11 +125,12 @@ const CategoriesSection = () => {
     { name: "Space & Astronomy", imageId: "new-genre-space", href: "/genre/space-and-astronomy" },
     { name: "Self Development", imageId: "new-genre-self-dev", href: "/genre/self-development" },
     { name: "Psychology", imageId: "new-genre-psychology", href: "/genre/psychology" },
+    { name: "Geography", imageId: "new-genre-geography", href: "/genre/geography"},
     { name: "NCERT", imageId: "new-genre-ncert" },
     { name: "History", imageId: "new-genre-history" },
     { name: "Competitve Exams", imageId: "new-genre-exams" },
     { name: "Biography &amp; Auto Biograpghy", imageId: "new-genre-biography" },
-    { name: "Bible", imageId: "new-genre-bible" },
+    { name: "Bible", imageId: "new-genre-bible", href: "/genre/bible" },
     { name: "Anthrapology", imageId: "new-genre-anthropology" },
     { name: "Adventure", imageId: "new-genre-adventure" },
     { name: "Career Guide", imageId: "new-genre-career" },
@@ -139,7 +140,7 @@ const CategoriesSection = () => {
     { name: "Crime & Mystery", imageId: "book-cover-6" },
     { name: "Economics", imageId: "new-genre-economics" },
     { name: "Engineering", imageId: "new-genre-engineering" },
-    { name: "Fantasy", imageId: "new-book-2" },
+    { name: "Fantasy", imageId: "new-book-2", href: "/genre/fantasy" },
     { name: "Environment", imageId: "new-genre-environment" },
   ];
 

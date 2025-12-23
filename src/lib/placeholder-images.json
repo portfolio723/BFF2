@@ -50,7 +50,7 @@
     },
     {
       "id": "new-book-2",
-      "imageUrl": "https://images.unsplash.com/photo-1593410733607-4fe72c8f3f73?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmYW50YXN5JTIwbGFuZHNjYXBlfGVufDB8fHx8MTc2NTk4ODMyMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1593410733607-4fe72c8f3f73?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmYW50YXN5JTIwbGFuZHNjYXBlfGVufDB8fHx8MTc2NTk4ODMyMHww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "fantasy landscape",
       "description": "The Hobbit"
     },
@@ -68,13 +68,13 @@
     },
     {
       "id": "new-book-5",
-      "imageUrl": "https://images.unsplash.com/photo-1718658667221-c8301a07b2f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxyZWdlbmN5JTIwZXJhfGVufDB8fHx8MTc2NjA1MzQxNHww&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1718658667221-c8301a07b2f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxyZWdlbmN5JTIwZXJhfGVufDB8fHx8MTc2NjA1MzQxNHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "regency era",
       "description": "Pride and Prejudice"
     },
     {
       "id": "new-book-6",
-      "imageUrl": "https://images.unsplash.com/photo-1765890528975-19f81befcf31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxpc29sYXRlZCUyMGlzbGFuZHxlbnwwfHx8fDE3NjU5NTExNjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1765890528975-19f81befcf31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxpc29sYXRlZCUyMGlzbGFuZHxlbnwwfHx8fDE3NjU5NTExNjR8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "isolated island",
       "description": "And Then There Were None"
     },
@@ -86,7 +86,7 @@
     },
     {
       "id": "new-book-8",
-      "imageUrl": "https://images.unsplash.com/photo-1516714711725-f7fb09bc219d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtYWdpYyUyMHNjaG9vbHxlbnwwfHx8fDE3NjU5NjMyMjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1516714711725-f7fb09bc219d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtYWdpYyUyMHNjaG9vbHxlbnwwfHx8fDE3NjU5NjMyMjd8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "magic school",
       "description": "Harry Potter"
     },
@@ -681,13 +681,13 @@
     {
       "id": "new-genre-economics",
       "description": "Image for Economics books",
-      "imageUrl": "https://images.unsplash.com/photo-1664333985492-3d854c9656b2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxlY29ub21pY3MlMjBncm93dGh8ZW58MHx8fHwxNzY2NDE2NTU0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1664333985492-3d854c9656b2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxlY29ub21pY3MlMjBncm93dGh8ZW58MHx8fHwxNzY2NDE2NTU0fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "economics growth"
     },
     {
       "id": "new-genre-engineering",
       "description": "Image for Engineering books",
-      "imageUrl": "https://images.unsplash.com/photo-1667828882583-00abf4b50352?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxlbmdpbmVlcmluZyUyMGJsdWVwcmludHxlbnwwfHx8fDE3NjY0MTY1NTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1667828882583-00abf4b50352?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxlbmdpbmVlcmluZyUyMGJsdWVwcmludHxlbnwwfHx8fDE3NjY0MTY1NTR8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "engineering blueprint"
     },
     {
@@ -695,6 +695,12 @@
       "description": "Image for Environment books",
       "imageUrl": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxlbnZpcm9ubWVudCUyMHByb3RlY3Rpb258ZW58MHx8fHwxNzY2NDE2NTU0fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "environment protection"
+    },
+    {
+      "id": "new-genre-geography",
+      "description": "Image for Geography books",
+      "imageUrl": "https://images.unsplash.com/photo-1597736691928-0a67268b3552?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtYXAlMjBhbmQlMjBnbG9iZXxlbnwwfHx8fDE3NjY0MTcwMzR8MA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "map globe"
     }
   ]
 }
