@@ -4,13 +4,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
-  ThumbsUp,
   MessageCircle,
-  Share2,
-  Bookmark,
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import type { CommunityPost } from "@/lib/types";
@@ -56,23 +51,12 @@ export function PostCard({ post }: PostCardProps) {
           </p>
 
           <div className="flex items-center gap-6 mt-4 pt-4 border-t border-border">
-            <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-              <ThumbsUp className="w-4 h-4" />
-              0
-            </button>
             <button 
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
               onClick={() => setShowReplies(!showReplies)}
             >
               <MessageCircle className="w-4 h-4" />
               {post.community_comments.length} replies
-            </button>
-            <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-              <Share2 className="w-4 h-4" />
-              Share
-            </button>
-            <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors ml-auto">
-              <Bookmark className="w-4 h-4" />
             </button>
           </div>
           
