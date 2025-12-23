@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { DonationTypeStep } from "@/components/donate/DonationTypeStep";
 import { BookDetailsStep } from "@/components/donate/BookDetailsStep";
 import { PdfUploadStep } from "@/components/donate/PdfUploadStep";
+import { DonorDetailsStep } from "@/components/donate/DonorDetailsStep";
 import { PickupDetailsStep } from "@/components/donate/PickupDetailsStep";
 import { ConfirmationStep } from "@/components/donate/ConfirmationStep";
 import type { DonatedBook } from "@/lib/types";
@@ -111,18 +112,21 @@ export default function DonatePage() {
           <PdfUploadStep formData={formData} onUpdate={handleUpdate} nextStep={nextStep} />
         ),
     },
-    { id: 3, component: formData.donationType === "book" ? 
-        <PickupDetailsStep formData={formData} onUpdate={handleUpdate} nextStep={nextStep} /> : 
-        <ConfirmationStep formData={formData} handleSubmit={handleSubmit} isSubmitting={isSubmitting} error={submissionError} /> 
+    { 
+      id: 3, 
+      component: formData.donationType === "book" 
+        ? <PickupDetailsStep formData={formData} onUpdate={handleUpdate} nextStep={nextStep} /> 
+        : <DonorDetailsStep formData={formData} onUpdate={handleUpdate} nextStep={nextStep} /> 
     },
-    { id: 4, component: formData.donationType === "book" ? 
-        <ConfirmationStep formData={formData} handleSubmit={handleSubmit} isSubmitting={isSubmitting} error={submissionError} /> :
-        <div /> // Success step is step 5 for PDF
+    { 
+      id: 4, 
+      component: formData.donationType === "book" 
+        ? <ConfirmationStep formData={formData} handleSubmit={handleSubmit} isSubmitting={isSubmitting} error={submissionError} />
+        : <ConfirmationStep formData={formData} handleSubmit={handleSubmit} isSubmitting={isSubmitting} error={submissionError} />
     },
   ];
   
-  const currentStepData = steps[step-1];
-  const totalSteps = formData.donationType === 'book' ? 4 : 3;
+  const totalSteps = formData.donationType === 'book' ? 4 : 4;
 
   return (
     <section className="pb-20 pt-12">
@@ -160,7 +164,7 @@ export default function DonatePage() {
                            Back
                         </Button>
                     )}
-                  {step <= totalSteps ? currentStepData.component : <ConfirmationStep formData={formData} isSuccess={true} donationId={donationId} />}
+                  {step <= totalSteps ? steps[step-1].component : <ConfirmationStep formData={formData} isSuccess={true} donationId={donationId} />}
                 </motion.div>
             </AnimatePresence>
             
