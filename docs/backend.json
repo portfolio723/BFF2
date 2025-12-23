@@ -276,57 +276,6 @@
         "price"
       ]
     },
-    "Donation": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Donation",
-      "type": "object",
-      "description": "Represents a book donation.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the Donation entity."
-        },
-        "userId": {
-          "type": "string",
-          "description": "Reference to User. (Relationship: User 1:N Donation)"
-        },
-        "bookId": {
-          "type": "string",
-          "description": "Reference to Book. (Relationship: Book 1:N Donation)"
-        },
-        "donationDate": {
-          "type": "string",
-          "description": "The date of the donation.",
-          "format": "date-time"
-        },
-        "condition": {
-          "type": "string",
-          "description": "The condition of the donated book."
-        },
-        "pickupAddress": {
-          "type": "string",
-          "description": "The address where the book should be picked up."
-        },
-        "deliveryCharge": {
-          "type": "number",
-          "description": "The delivery charge for picking up the donation."
-        },
-        "status": {
-          "type": "string",
-          "description": "The status of the donation (e.g., 'pending pickup', 'picked up', 'received')."
-        }
-      },
-      "required": [
-        "id",
-        "userId",
-        "bookId",
-        "donationDate",
-        "condition",
-        "pickupAddress",
-        "deliveryCharge",
-        "status"
-      ]
-    },
     "CommunityPost": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "CommunityPost",
@@ -580,26 +529,6 @@
             {
               "name": "orderItemId",
               "description": "The unique identifier for the order item."
-            }
-          ]
-        }
-      },
-      {
-        "path": "/users/{userId}/donations/{donationId}",
-        "definition": {
-          "entityName": "Donation",
-          "schema": {
-            "$ref": "#/backend/entities/Donation"
-          },
-          "description": "Stores donation data for a specific user. Only the user can manage their own donations.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The unique identifier for the user."
-            },
-            {
-              "name": "donationId",
-              "description": "The unique identifier for the donation."
             }
           ]
         }

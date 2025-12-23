@@ -65,9 +65,8 @@ const HeroSection = () => {
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="rounded-full px-8 gap-2">
-                <Link href="/donate">
-                  <Gift className="w-4 h-4" />
-                  Donate Books
+                <Link href="/faq">
+                  Learn More
                 </Link>
               </Button>
             </motion.div>
@@ -380,139 +379,6 @@ const TestimonialsSection = () => {
 };
 
 
-const DonateSection = () => {
-  const steps = [
-    {
-      icon: Package,
-      step: "01",
-      title: "Pack Your Books",
-      description: "Gather the books you'd like to donate. Any genre, any condition – all are welcome.",
-    },
-    {
-      icon: CheckCircle,
-      step: "02",
-      title: "Fill the Form",
-      description: "Submit details about your books through our simple step-by-step process.",
-    },
-    {
-      icon: Truck,
-      step: "03",
-      title: "We Pick Up",
-      description: "Schedule a free pickup from your doorstep. We handle the rest!",
-    },
-  ];
-  const donateImage = PlaceHolderImages.find(img => img.id === 'donate-books');
-
-
-  return (
-    <section className="py-20 lg:py-28">
-      <div className="container-custom">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary text-sm font-medium mb-6">
-              <Gift className="w-4 h-4" />
-              Give Back to Community
-            </span>
-            
-            <h2 className="font-heading text-3xl lg:text-4xl xl:text-5xl font-semibold leading-tight">
-              Donate Books,<br />
-              <span className="text-muted-foreground">Change Lives</span>
-            </h2>
-            
-            <p className="mt-6 text-muted-foreground max-w-md">
-              Your pre-loved books can ignite a passion for reading in someone else. 
-              Join our mission to make books accessible to everyone.
-            </p>
-            
-            <div className="mt-10 space-y-6">
-              {steps.map((item, index) => (
-                <motion.div
-                  key={item.step}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="flex gap-4"
-                >
-                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-secondary flex items-center justify-center">
-                    <item.icon className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs font-medium text-muted-foreground">
-                        Step {item.step}
-                      </span>
-                    </div>
-                    <h4 className="font-heading text-lg font-medium mt-1">
-                      {item.title}
-                    </h4>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      {item.description}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="mt-10"
-            >
-              <Button asChild size="lg" className="rounded-full px-8 gap-2 group">
-                <Link href="/donate">
-                  Start Donating
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
-            </motion.div>
-          </motion.div>
-          
-          {/* Image */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="relative"
-          >
-            <div className="aspect-[4/5] rounded-2xl overflow-hidden bg-secondary">
-              {donateImage && (
-                <Image 
-                  src={donateImage.imageUrl} 
-                  alt={donateImage.description}
-                  data-ai-hint={donateImage.imageHint}
-                  width={600}
-                  height={750}
-                  className="w-full h-full object-cover"
-                />
-              )}
-            </div>
-            
-            {/* Floating Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="absolute -bottom-6 -left-6 lg:-left-12 bg-card rounded-xl p-5 shadow-hover border border-border"
-            >
-              <p className="font-heading text-3xl font-semibold">2,500+</p>
-              <p className="text-sm text-muted-foreground mt-1">Books donated this month</p>
-            </motion.div>
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
 const CTASection = () => {
   return (
     <section className="py-20 lg:py-28">
@@ -577,7 +443,6 @@ export default function Home() {
       <HeroSection />
       <CategoriesSection />
       <FeaturesSection />
-      <DonateSection />
       <TestimonialsSection />
       <CTASection />
     </>
