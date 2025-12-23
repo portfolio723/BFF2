@@ -1,4 +1,5 @@
 
+
 export type Author = {
   id: string;
   name: string;
@@ -130,3 +131,29 @@ export type Pdf = {
   };
   downloadUrl: string;
 };
+
+export type DonatedBook = {
+    title: string;
+    author: string;
+    genre: string;
+    quantity: number;
+}
+
+export type Donation = {
+    id?: string;
+    created_at?: string;
+    user_id: string | null;
+    donor_name: string;
+    donor_email: string;
+    donation_type: 'book' | 'pdf';
+    status: 'pending' | 'pickup_scheduled' | 'completed' | 'cancelled';
+    pickup_address?: string;
+    pickup_city?: string;
+    pickup_state?: string;
+    pickup_pincode?: string;
+    pickup_phone?: string;
+    pickup_date?: Date;
+    donated_books: DonatedBook[];
+    file_name?: string;
+    file_url?: string;
+}
