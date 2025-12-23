@@ -176,5 +176,13 @@ export const ncertClass12Pdfs: Pdf[] = [
   { id: "ncert12-17", title: "History - Themes in Indian History III", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
 ];
     
-
+export const businessManagementPdfs: Pdf[] = [
+    { id: "bm1", title: "Execution", author: "Larry Bossidy", downloadUrl: "#", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bm2", title: "Good to great", author: "Jim Collins", downloadUrl: "#", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bm3", title: "How To Win Friends And Influence People", author: "Dale Carnegie", downloadUrl: "#", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bm4", title: "Leaders Eat Last", author: "Simon Sinek", downloadUrl: "#", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bm5", title: "Measure What Matters", author: "John Doerr", downloadUrl: "#", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bm6", title: "Principles for Success", author: "Ray Dalio", downloadUrl: "#", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bm7", title: "Resilience", author: "Harvard Business Review", downloadUrl: "#", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
+];
     
