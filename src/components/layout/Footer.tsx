@@ -119,10 +119,10 @@ export const Footer = () => {
             © {new Date().getFullYear()} Books For Fosters. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-sm">
-            <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
               Privacy Policy
             </Link>
-            <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
               Terms of Service
             </Link>
             <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
