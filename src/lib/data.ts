@@ -97,6 +97,13 @@ export const geographyPdfs: Pdf[] = [
     { id: "geo7", title: "Human geography", author: "N/A", downloadUrl: "https://mega.nz/file/b9gAGIpY#-LIPBJ3qDHB7aY5EgMyC7ZUeXFNcXsE6pYlkVJH_JZI", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
 ];
 
-export const historyPdfs: Pdf[] = [];
+export const historyPdfs: Pdf[] = [
+    { id: "hist1", title: "A Comprehensive Outline of World History", author: "N/A", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
+    { id: "hist2", title: "A first book in American History", author: "N/A", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
+    { id: "hist3", title: "Ancient history and rome", author: "N/A", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
+    { id: "hist4", title: "Great Events by Famous Historians", author: "N/A", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
+    { id: "hist5", title: "Heritage", author: "N/A", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
+    { id: "hist6", title: "history of nations", author: "N/A", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
+];
 
 export const ncertPdfs: Pdf[] = [];
