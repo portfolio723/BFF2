@@ -177,12 +177,12 @@ export const ncertClass12Pdfs: Pdf[] = [
 ];
     
 export const businessManagementPdfs: Pdf[] = [
-    { id: "bm1", title: "Execution", author: "Larry Bossidy", downloadUrl: "#", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
-    { id: "bm2", title: "Good to great", author: "Jim Collins", downloadUrl: "#", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
-    { id: "bm3", title: "How To Win Friends And Influence People", author: "Dale Carnegie", downloadUrl: "#", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
-    { id: "bm4", title: "Leaders Eat Last", author: "Simon Sinek", downloadUrl: "#", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
-    { id: "bm5", title: "Measure What Matters", author: "John Doerr", downloadUrl: "#", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
-    { id: "bm6", title: "Principles for Success", author: "Ray Dalio", downloadUrl: "#", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
-    { id: "bm7", title: "Resilience", author: "Harvard Business Review", downloadUrl: "#", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bm1", title: "Execution", author: "Larry Bossidy", downloadUrl: "https://mega.nz/file/LoYFUATB#GYp2UYjYwqEGTyyaca7Pd1DfuPR55E3x-_b9bcy-Ldw", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bm2", title: "Good to great", author: "Jim Collins", downloadUrl: "https://mega.nz/file/vkwVVJrB#9bn627HAxxNx0MKx22PKDlPArhNx46ygLRboQvXadkg", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bm3", title: "How To Win Friends And Influence People", author: "Dale Carnegie", downloadUrl: "https://mega.nz/file/PsIWCL5Q#jw9vjKxQiC0gw6YIMfLAhb4w7PfyLCpYOGeuEzjqinE", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bm4", title: "Leaders Eat Last", author: "Simon Sinek", downloadUrl: "https://mega.nz/file/voBkxYgA#1b7Mg6XMv62L2KAD9GamCuNH5Ar67YCLu7PhfH5dDJQ", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bm5", title: "Measure What Matters", author: "John Doerr", downloadUrl: "https://mega.nz/file/iwo3BToa#xqLo4NajPcdl-SAXZJd3W383VdEIQA0KTR0BVrDT_gU", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bm6", title: "Principles for Success", author: "Ray Dalio", downloadUrl: "https://mega.nz/file/j9ZlyBDQ#ccB20L0_0KwzaHq_MeK10bQ8DUuFVyRr7KnKRxiLj1I", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bm7", title: "Resilience", author: "Harvard Business Review", downloadUrl: "https://mega.nz/file/35ZxDQKZ#0Uh64jiThF0HTlIwFivOJAhP1lDIXBAevvZXsZ74bh4", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
 ];
     
