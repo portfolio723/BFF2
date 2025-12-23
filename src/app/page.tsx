@@ -122,13 +122,13 @@ const HeroSection = () => {
 const CategoriesSection = () => {
   const categories = [
     { name: "UPSC", imageId: "new-genre-upsc", href: "/genre/upsc" },
-    { name: "Space & Astronomy", imageId: "new-genre-space" },
+    { name: "Space & Astronomy", imageId: "new-genre-space", href: "/genre/space-and-astronomy" },
     { name: "Self Development", imageId: "new-genre-self-dev" },
     { name: "Psychology", imageId: "new-genre-psychology" },
     { name: "NCERT", imageId: "new-genre-ncert" },
     { name: "History", imageId: "new-genre-history" },
     { name: "Competitve Exams", imageId: "new-genre-exams" },
-    { name: "Biography & Auto Biograpghy", imageId: "new-genre-biography" },
+    { name: "Biography &amp; Auto Biograpghy", imageId: "new-genre-biography" },
     { name: "Bible", imageId: "new-genre-bible" },
     { name: "Anthrapology", imageId: "new-genre-anthropology" },
     { name: "Adventure", imageId: "new-genre-adventure" },

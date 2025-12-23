@@ -40,7 +40,18 @@ export const upscPdfs: Pdf[] = [
   { id: "5", title: "Indian Polity", downloadUrl: "https://mega.nz/file/70YnBKgI#R5DmIrmigbLfQEjfOa36Ec_SoxdguMN-eSAUPpdKXiE", author: "M. Laxmikanth", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
 ];
 
-export const spacePdfs: Pdf[] = [];
+export const spacePdfs: Pdf[] = [
+    { id: "sa1", title: "Awareness", author: "Anthony de Mello", downloadUrl: "#", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sa2", title: "Astrophysics For People In A Hurry", author: "Neil deGrasse Tyson", downloadUrl: "#", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sa3", title: "Death by Black Hole And Other Cosmic Quandaries", author: "Neil deGrasse Tyson", downloadUrl: "#", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sa4", title: "Cosmos", author: "Carl Sagan", downloadUrl: "#", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sa5", title: "A Brief History of Time", author: "Stephen Hawking", downloadUrl: "#", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sa6", title: "The Fabric of the Cosmos", author: "Brian Greene", downloadUrl: "#", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sa7", title: "The Milky Way Galaxy", author: "N/A", downloadUrl: "#", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sa8", title: "The Universe in a Nutshell", author: "Stephen Hawking", downloadUrl: "#", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sa9", title: "The Right Stuff", author: "Tom Wolfe", downloadUrl: "#", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sa10", title: "Welcome to the Universe", author: "Neil deGrasse Tyson, Michael A. Strauss, J. Richard Gott", downloadUrl: "#", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
+];
 
 export const selfDevelopmentPdfs: Pdf[] = [];
 
