@@ -41,16 +41,16 @@ export const upscPdfs: Pdf[] = [
 ];
 
 export const spacePdfs: Pdf[] = [
-    { id: "sa1", title: "Awareness", author: "Anthony de Mello", downloadUrl: "#", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
-    { id: "sa2", title: "Astrophysics For People In A Hurry", author: "Neil deGrasse Tyson", downloadUrl: "#", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
-    { id: "sa3", title: "Death by Black Hole And Other Cosmic Quandaries", author: "Neil deGrasse Tyson", downloadUrl: "#", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
-    { id: "sa4", title: "Cosmos", author: "Carl Sagan", downloadUrl: "#", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
-    { id: "sa5", title: "A Brief History of Time", author: "Stephen Hawking", downloadUrl: "#", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
-    { id: "sa6", title: "The Fabric of the Cosmos", author: "Brian Greene", downloadUrl: "#", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
-    { id: "sa7", title: "The Milky Way Galaxy", author: "N/A", downloadUrl: "#", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
-    { id: "sa8", title: "The Universe in a Nutshell", author: "Stephen Hawking", downloadUrl: "#", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
-    { id: "sa9", title: "The Right Stuff", author: "Tom Wolfe", downloadUrl: "#", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
-    { id: "sa10", title: "Welcome to the Universe", author: "Neil deGrasse Tyson, Michael A. Strauss, J. Richard Gott", downloadUrl: "#", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sa1", title: "Awareness", author: "Anthony de Mello", downloadUrl: "https://mega.nz/file/DggXAbgC#IyTY958WuXLm4ac6YfsjHmvRlk1iH9J1ppzC4P-oY14", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sa2", title: "Astrophysics For People In A Hurry", author: "Neil deGrasse Tyson", downloadUrl: "https://mega.nz/file/2sxARAzA#yzBua2lM7XC43ca1M4U8y9TZ7YaNXEKUaY4owh-zGkc", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sa3", title: "Death by Black Hole And Other Cosmic Quandaries", author: "Neil deGrasse Tyson", downloadUrl: "https://mega.nz/file/LtpmSZYB#CU4XGvS565vU9MkyTPqHn4NrhD_NaC7un1SAU6qCv2E", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sa4", title: "Cosmos", author: "Carl Sagan", downloadUrl: "https://mega.nz/file/i1ImlaBZ#z8IHOeBqw2-KRuq_QbOgo_NcCcS4ExjJC6PkvCry0ww", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sa5", title: "A Brief History of Time", author: "Stephen Hawking", downloadUrl: "https://mega.nz/file/msQwhLrb#lxVOXfzopErCcvClIz28wHmugYC628K66PxebjEmHRY", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sa6", title: "The Fabric of the Cosmos", author: "Brian Greene", downloadUrl: "https://mega.nz/file/ishjQQBb#k6NwyRG9qsTnWIXGZo4TptOX6iWX_WanDr32k2uscq8", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sa7", title: "The Milky Way Galaxy", author: "N/A", downloadUrl: "https://mega.nz/file/2xJgCCAB#2YVk5h-WLLQqDZYDBrFlerfFr9OkF-J2cPv8YBPZ2Ko", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sa8", title: "The Universe in a Nutshell", author: "Stephen Hawking", downloadUrl: "https://mega.nz/file/X9hGHZwb#KD7LmdJphLk2I1XKJ29grEsaWgkXcFYvLQCd0SyadBg", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sa9", title: "The Right Stuff", author: "Tom Wolfe", downloadUrl: "https://mega.nz/file/qghhyT4C#hs5IdY0Yl-NsXFPnfJjg4U0EJOVJ5tHnM-GWGicJN3Y", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sa10", title: "Welcome to the Universe", author: "Neil deGrasse Tyson, Michael A. Strauss, J. Richard Gott", downloadUrl: "https://mega.nz/file/P8YEnTDK#mzz2U0mO5QeilV6cshyIabjNCCIfcYsWW_5dJ8J68Wk", category: "Space & Astronomy", description: "", coverImage: {url: "", hint: ""} },
 ];
 
 export const selfDevelopmentPdfs: Pdf[] = [];
