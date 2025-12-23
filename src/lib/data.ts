@@ -106,4 +106,12 @@ export const historyPdfs: Pdf[] = [
     { id: "hist6", title: "history of nations", author: "N/A", downloadUrl: "https://mega.nz/file/b5oxyRIZ#JQKERmyIfLHpWt7fzG4cs7m4mTuhj22Yirfw-ptpsvw", category: "History", description: "", coverImage: {url: "", hint: ""} },
 ];
 
+export const competitiveExamsPdfs: Pdf[] = [
+  { id: "ce1", title: "Objective Computer Knowledge And Literacy", author: "Kiran", downloadUrl: "#", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ce2", title: "High School English Grammar and Composition", author: "Wren & Martin", downloadUrl: "#", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ce3", title: "Word Power Made Easy", author: "Norman Lewis", downloadUrl: "#", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
+];
+
 export const ncertPdfs: Pdf[] = [];
+
+    
