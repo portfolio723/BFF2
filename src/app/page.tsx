@@ -126,7 +126,7 @@ const CategoriesSection = () => {
     { name: "Self Development", imageId: "new-genre-self-dev", href: "/genre/self-development" },
     { name: "Psychology", imageId: "new-genre-psychology", href: "/genre/psychology" },
     { name: "Geography", imageId: "new-genre-geography", href: "/genre/geography"},
-    { name: "NCERT", imageId: "new-genre-ncert" },
+    { name: "NCERT", imageId: "new-genre-ncert", href: "/genre/ncert" },
     { name: "History", imageId: "new-genre-history", href: "/genre/history" },
     { name: "Competitve Exams", imageId: "new-genre-exams", href: "/genre/competitve-exams" },
     { name: "Biography & Auto Biograpghy", imageId: "new-genre-biography", href: "/genre/biography-autobiography" },

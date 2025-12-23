@@ -124,4 +124,26 @@ export const biographyPdfs: Pdf[] = [
 
 export const ncertPdfs: Pdf[] = [];
 
+export const ncertClass11Pdfs: Pdf[] = [
+  { id: "ncert11-1", title: "Accountancy - Financial Accounting I", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert11-2", title: "Accountancy - II", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert11-3", title: "Biotechnology", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert11-4", title: "Business Studies", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert11-5", title: "Chemistry - Part I", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert11-6", title: "Chemistry - Part II", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert11-7", title: "Computer Science", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert11-8", title: "Economics - Indian Economic Development", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert11-9", title: "Economics - Statistics for Economics", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert11-10", title: "English - Hornbill", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert11-11", title: "English - Snapshots", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert11-12", title: "English - Woven Words", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert11-13", title: "Geography - Fundamental of Physical Geography", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert11-14", title: "Health and Physical Education", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert11-15", title: "History - Themes in World History", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert11-16", title: "Home Science - Human Ecology and Family Sciences Part I", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert11-17", title: "Home Science - Human Ecology and Family Sciences Part II", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert11-18", title: "Introducing Sociology", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert11-19", title: "Mathematics", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert11-20", title: "Physics - Part I", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+];
     
