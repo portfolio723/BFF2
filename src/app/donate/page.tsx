@@ -62,7 +62,7 @@ const formSchema = z.object({
 export default function DonatePage() {
   const { user } = useAuth();
   const [currentStep, setCurrentStep] = useState(0);
-  const [donationId, setDonationId] = useState<string | null>(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const methods = useForm({
     resolver: zodResolver(formSchema),
@@ -117,7 +117,7 @@ export default function DonatePage() {
       }
       
       toast.success("Donation submitted successfully!", { id: toastId });
-      setDonationId(result.donationId);
+      setIsSubmitted(true);
       setCurrentStep((prev) => prev + 1); // Go to final success screen
 
     } catch (error: any) {
@@ -135,7 +135,7 @@ export default function DonatePage() {
     { name: "Confirmation", component: <ConfirmationStep /> },
   ];
   
-  const isFinalStep = currentStep === steps.length;
+  const isFinalStep = isSubmitted;
 
 
   return (
@@ -181,8 +181,7 @@ export default function DonatePage() {
                         </motion.div>
                         <h2 className="font-heading text-2xl font-semibold">Thank You for Your Donation!</h2>
                         <p className="text-muted-foreground mt-2">
-                            Your submission (ID: <span className="font-mono text-sm">{donationId?.substring(0,8)}</span>) has been received. 
-                            {getValues('donationType') === 'book' ? " We will contact you shortly to confirm pickup details." : " The PDF has been added to our library."}
+                           Your donation details have been sent. Our team will be in touch shortly.
                         </p>
                     </div>
                   ) : (
