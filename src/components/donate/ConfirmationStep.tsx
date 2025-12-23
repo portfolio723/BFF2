@@ -42,7 +42,7 @@ export function ConfirmationStep() {
             <div className="space-y-4 pt-4 border-t">
                 <h3 className="font-medium">Pickup Details</h3>
                 <div className="text-sm">
-                    <p><span className="text-muted-foreground">Date:</span> {values.pickupDay}/{values.pickupMonth}/{values.pickupYear}</p>
+                    <p className="text-muted-foreground italic">Pickup will be arranged within 7 business days.</p>
                     <p><span className="text-muted-foreground">Address:</span> {values.address}, {values.city}, {values.state} - {values.pincode}</p>
                     <p><span className="text-muted-foreground">Phone:</span> {values.phone}</p>
                 </div>

@@ -1,8 +1,17 @@
+
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import type { DonatedBook } from '@/lib/types';
+// To enable email sending, uncomment the following line and install resend: npm install resend
+// import { Resend } from 'resend';
+
+// Example Email component - create this file to design your email
+// import DonationConfirmationEmail from '@/components/emails/DonationConfirmationEmail';
 
 export const runtime = 'nodejs';
+
+// Initialize Resend with your API key
+// const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   const supabase = await createClient();
@@ -29,11 +38,6 @@ export async function POST(request: Request) {
   };
   
   if (data.donationType === 'book') {
-    // Combine manual date parts into a single ISO string
-    if (data.pickupYear && data.pickupMonth && data.pickupDay) {
-        const date = new Date(Date.UTC(Number(data.pickupYear), Number(data.pickupMonth) - 1, Number(data.pickupDay)));
-        donationPayload.pickup_date = date.toISOString();
-    }
     donationPayload.pickup_address = data.address;
     donationPayload.pickup_city = data.city;
     donationPayload.pickup_state = data.state;
@@ -101,16 +105,18 @@ export async function POST(request: Request) {
   }
 
   // 4. Send email confirmation (Resend integration placeholder)
-  // try {
-  //   await resend.emails.send({
-  //     from: 'donations@booksforfosters.com',
-  //     to: data.donorEmail,
-  //     subject: 'Your Donation to Books For Fosters',
-  //     react: <DonationConfirmationEmail donation={data} />,
-  //   });
-  // } catch (emailError) {
-  //   console.error('Failed to send confirmation email:', emailError);
-  //   // Don't block the response for email failure
+  // if (process.env.RESEND_API_KEY) {
+  //   try {
+  //     await resend.emails.send({
+  //       from: 'donations@yourdomain.com', // Replace with your verified Resend domain
+  //       to: data.donorEmail,
+  //       subject: 'Your Donation to Books For Fosters',
+  //       react: <DonationConfirmationEmail donation={data} donationId={donation.id} />,
+  //     });
+  //   } catch (emailError) {
+  //     console.error('Failed to send confirmation email:', emailError);
+  //     // Don't block the response for email failure
+  //   }
   // }
 
   return NextResponse.json({ success: true, donationId: donation.id }, { status: 200 });

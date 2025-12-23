@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Info } from "lucide-react";
 
 const indianStates = [
   "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
@@ -25,17 +26,21 @@ export function PickupDetailsStep() {
           <p className="text-muted-foreground text-sm mt-1">Where should we collect the book(s) from?</p>
       </div>
 
+      <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+          <div className="flex">
+              <div className="flex-shrink-0">
+                  <Info className="h-5 w-5 text-blue-400" />
+              </div>
+              <div className="ml-3">
+                  <p className="text-sm text-blue-700">
+                      Our team will contact you to arrange a pickup within the next <span className="font-semibold">7 business days</span>.
+                  </p>
+              </div>
+          </div>
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t">
-        <div className="space-y-2">
-            <Label>Preferred Pickup Date</Label>
-            <div className="grid grid-cols-3 gap-2">
-                <Input {...register("pickupDay")} placeholder="DD" maxLength={2} />
-                <Input {...register("pickupMonth")} placeholder="MM" maxLength={2} />
-                <Input {...register("pickupYear")} placeholder="YYYY" maxLength={4} />
-            </div>
-            {(errors.pickupDay || errors.pickupMonth || errors.pickupYear) && <p className="text-destructive text-sm">A valid date is required.</p>}
-        </div>
-         <div className="space-y-2">
+         <div className="space-y-2 sm:col-span-2">
             <Label htmlFor="phone">Contact Number</Label>
             <Input id="phone" {...register("phone")} placeholder="e.g. 9876543210" />
             {errors.phone && <p className="text-destructive text-sm">{(errors.phone as any).message}</p>}
