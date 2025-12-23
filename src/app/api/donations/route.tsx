@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
-import { render } from '@react-email/render';
 import DonationNotificationEmail from '@/emails/DonationNotificationEmail';
 
 export const runtime = 'nodejs';
@@ -40,9 +39,7 @@ export async function POST(request: Request) {
       });
     }
 
-    const emailHtml = render(
-      <DonationNotificationEmail donationData={data} />
-    );
+    const emailHtml = DonationNotificationEmail({ donationData: data });
 
     await resend.emails.send({
       from: 'donation-noreply@booksforfosters.com',
