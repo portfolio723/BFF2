@@ -6,7 +6,7 @@ import DonationNotificationEmail from '@/emails/DonationNotificationEmail';
 export const runtime = 'nodejs';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@example.com';
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'pixelkliqde@gmail.com';
 
 export async function POST(request: Request) {
   try {
