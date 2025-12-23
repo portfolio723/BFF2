@@ -71,11 +71,11 @@ export const psychologyPdfs: Pdf[] = [
 ];
 
 export const christianPdfs: Pdf[] = [
-    { id: "b1", title: "100 Ways to Motivate Others", author: "N/A", downloadUrl: "#", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
-    { id: "b2", title: "1928 Book of Common Prayer", author: "N/A", downloadUrl: "#", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
-    { id: "b3", title: "A Brief Bible History", author: "N/A", downloadUrl: "#", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
-    { id: "b4", title: "A Christian in a Non Christian World", author: "N/A", downloadUrl: "#", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
-    { id: "b5", title: "A Complete Guide to Web Design", author: "N/A", downloadUrl: "#", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
+    { id: "b1", title: "100 Ways to Motivate Others", author: "N/A", downloadUrl: "https://mega.nz/file/LgRCwBAI#ieI9C-w8MlTDEW9fDkN6WxdQ1LmPCk6NtDUGwJIVP10", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
+    { id: "b2", title: "1928 Book of Common Prayer", author: "N/A", downloadUrl: "https://mega.nz/file/71g0lQoD#1AjB-9YrA24LyIxsVJwsK2wmuQRsBNs_PU4y7ez275s", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
+    { id: "b3", title: "A Brief Bible History", author: "N/A", downloadUrl: "https://mega.nz/file/3thnFbQS#Ul2JwQBSN8B4Njl7qXUbk8wfw9SXSzds5Ozsfi9BOkM", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
+    { id: "b4", title: "A Christian in a Non Christian World", author: "N/A", downloadUrl: "https://mega.nz/file/qwwTxSBR#pJGiGMKqg3fHBixBGVej1hsY8YJMhtTFKg5JwgYOUwI", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
+    { id: "b5", title: "A Complete Guide to Web Design", author: "N/A", downloadUrl: "https://mega.nz/file/3pRgzaST#B1UgNl91QUPP_IA11KGGMO115b1wJm9Bi5Y4C2aG_ZA", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
 ];
 
 export const historyPdfs: Pdf[] = [];
