@@ -113,12 +113,12 @@ export const competitiveExamsPdfs: Pdf[] = [
 ];
 
 export const biographyPdfs: Pdf[] = [
-    { id: "bio1", title: "Agni Ki Udan", author: "N/A", downloadUrl: "#", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
-    { id: "bio2", title: "12th Fail Novel", author: "N/A", downloadUrl: "#", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
-    { id: "bio3", title: "A Teacher's Lot", author: "N/A", downloadUrl: "#", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
-    { id: "bio4", title: "Autobiography of Helen Keller", author: "N/A", downloadUrl: "#", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
-    { id: "bio5", title: "Benjamin Franklin Ki Atmakatha", author: "N/A", downloadUrl: "#", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
-    { id: "bio6", title: "Bhagat Singh Biography", author: "N/A", downloadUrl: "#", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bio1", title: "Agni Ki Udan", author: "N/A", downloadUrl: "https://mega.nz/file/fpInRRRC#WMqUwv5f9t479l2iXBxV4FvIZrtPod0FNQajtV_6XHU", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bio2", title: "12th Fail Novel", author: "N/A", downloadUrl: "https://mega.nz/file/m8YiWKwZ#VHIlSjjwxGN9WrDvMjNFGdFjXeJCV3wmB-yQ0_lJGIw", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bio3", title: "A Teacher's Lot", author: "N/A", downloadUrl: "https://mega.nz/file/71ggTSpQ#65t-92zUNuoan8-r_Hz1sJyvBKZcZIuRYAIPlk7DpeE", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bio4", title: "Autobiography of Helen Keller", author: "N/A", downloadUrl: "https://mega.nz/file/zhownLZY#oTpRbvUSyqizOqxSTr_fHdm-_zE1dbF1pafvEmQWzeM", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bio5", title: "Benjamin Franklin Ki Atmakatha", author: "N/A", downloadUrl: "https://mega.nz/file/2pR1xTZT#MUWr1ys670k4biHRVdbo_3OwZMDAqhIEpkFlVYieAvg", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bio6", title: "Bhagat Singh Biography", author: "N/A", downloadUrl: "https://mega.nz/file/G1AzkJDY#RK8uZbDHAhhz44RMRrXlT-Mo8uiryxkTceYa62n7TiA", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
 ];
 
 
