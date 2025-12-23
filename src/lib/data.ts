@@ -146,4 +146,24 @@ export const ncertClass11Pdfs: Pdf[] = [
   { id: "ncert11-19", title: "Mathematics", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
   { id: "ncert11-20", title: "Physics - Part I", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
 ];
+
+export const ncertClass12Pdfs: Pdf[] = [
+  { id: "ncert12-1", title: "Accountancy - Part I", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert12-2", title: "Accountancy - Part II", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert12-3", title: "Biotechnology", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert12-4", title: "Business Studies - Part I", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert12-5", title: "Business Studies - Part II", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert12-6", title: "Chemistry - Part I", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert12-7", title: "Chemistry - Part II", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert12-8", title: "Computer Science", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert12-9", title: "Economics - Introductory Macroeconomics", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert12-10", title: "Economics - Introductory Microeconomics", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert12-11", title: "English - Flamingo", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert12-12", title: "English - Kaliedoscope", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert12-13", title: "English - Vistas", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert12-14", title: "Geography - Fundamentals of Human Geography", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert12-15", title: "History - Themes in Indian History I", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert12-16", title: "History - Themes in Indian History II", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert12-17", title: "History - Themes in Indian History III", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
+];
     

@@ -8,6 +8,7 @@ import Link from 'next/link';
 export default function NcertPage() {
   const classes = [
     { name: "Class 11", href: "/genre/ncert/class-11" },
+    { name: "Class 12", href: "/genre/ncert/class-12" },
   ];
 
   return (
