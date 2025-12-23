@@ -88,13 +88,13 @@ export const fantasyPdfs: Pdf[] = [
 ];
 
 export const geographyPdfs: Pdf[] = [
-    { id: "geo1", title: "Certificate Physical And Human Geography", author: "GC Leong", downloadUrl: "#", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
-    { id: "geo2", title: "Oxford School Spelling punctuation and grammar dictionary", author: "Oxford University Press", downloadUrl: "#", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
-    { id: "geo3", title: "Physical geography", author: "Savindra singh", downloadUrl: "#", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
-    { id: "geo4", title: "Class 11 Fundamentals of Physical Geography", author: "N/A", downloadUrl: "#", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
-    { id: "geo5", title: "Climatology and Meteorology", author: "N/A", downloadUrl: "#", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
-    { id: "geo6", title: "Fundamentals of Geomorphology", author: "Routledge", downloadUrl: "#", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
-    { id: "geo7", title: "Human geography", author: "N/A", downloadUrl: "#", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "geo1", title: "Certificate Physical And Human Geography", author: "GC Leong", downloadUrl: "https://mega.nz/file/bxZlCACJ#ZuP2egHe0CFLEWVn9ur1Nd0DyCHpMh6e1cOuQXpzgTo", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "geo2", title: "Oxford School Spelling punctuation and grammar dictionary", author: "Oxford University Press", downloadUrl: "https://mega.nz/file/LxI3TIqI#iAf906vrj3zHa5G9tKJ-GPG_WUW_dJXpqk-_oS3IPLU", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "geo3", title: "Physical geography", author: "Savindra singh", downloadUrl: "https://mega.nz/file/f5Yizbpa#RnhtP6b2ir-WB7skznjdksrN7dFRpWFr7DqiGvItH0c", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "geo4", title: "Class 11 Fundamentals of Physical Geography", author: "N/A", downloadUrl: "https://mega.nz/file/igoFlZRJ#KntsLZ2CIBm5dZKOtx_jyCijOv3AZ_VF0fBVrAsnSxI", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "geo5", title: "Climatology and Meteorology", author: "N/A", downloadUrl: "https://mega.nz/file/ysghkJCZ#uidy5fYcgjvjLLkaXjOtLJ0bCME3uZ8rjorF2wF8ElM", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "geo6", title: "Fundamentals of Geomorphology", author: "Routledge", downloadUrl: "https://mega.nz/file/CgZDTZiC#gKdhQreeYTCbJ1C9d4lv1a0BfWGfcgtJoSta8FE88fQ", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "geo7", title: "Human geography", author: "N/A", downloadUrl: "https://mega.nz/file/b9gAGIpY#-LIPBJ3qDHB7aY5EgMyC7ZUeXFNcXsE6pYlkVJH_JZI", category: "Geography", description: "", coverImage: {url: "", hint: ""} },
 ];
 
 export const historyPdfs: Pdf[] = [];
