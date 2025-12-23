@@ -70,7 +70,13 @@ export const psychologyPdfs: Pdf[] = [
     { id: "psy6", title: "Quiet: The Power of Introverts in a World That Can't Stop Talking", author: "Susan Cain", downloadUrl: "https://mega.nz/file/r4Q00ITA#_9TSRmkCjx6D9tAg3dDMZ2ynI_ScmBc58XeWICMi2ZE", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
 ];
 
-export const christianPdfs: Pdf[] = [];
+export const christianPdfs: Pdf[] = [
+    { id: "b1", title: "100 Ways to Motivate Others", author: "N/A", downloadUrl: "#", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
+    { id: "b2", title: "1928 Book of Common Prayer", author: "N/A", downloadUrl: "#", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
+    { id: "b3", title: "A Brief Bible History", author: "N/A", downloadUrl: "#", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
+    { id: "b4", title: "A Christian in a Non Christian World", author: "N/A", downloadUrl: "#", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
+    { id: "b5", title: "A Complete Guide to Web Design", author: "N/A", downloadUrl: "#", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
+];
 
 export const historyPdfs: Pdf[] = [];
 
