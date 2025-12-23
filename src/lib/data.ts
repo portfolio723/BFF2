@@ -121,6 +121,15 @@ export const biographyPdfs: Pdf[] = [
     { id: "bio6", title: "Bhagat Singh Biography", author: "N/A", downloadUrl: "https://mega.nz/file/G1AzkJDY#RK8uZbDHAhhz44RMRrXlT-Mo8uiryxkTceYa62n7TiA", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
 ];
 
+export const anthropologyPdfs: Pdf[] = [
+    { id: "anth1", title: "Archaeology and Anthropology", author: "N/A", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth2", title: "Biological Anthropology", author: "Augustin Fuentes", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth3", title: "Yanomamo: The Fierce People", author: "Chagnon", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth4", title: "Coming of age in Samoa", author: "Margaret Mead", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth5", title: "Debt", author: "David Graeber", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth6", title: "Evolutions Bite", author: "Peter Ungar", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth7", title: "Floods, Famines, And Emperors: El Nino And The Fate Of Civilizations", author: "Brian M Fagan", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+];
 
 export const ncertPdfs: Pdf[] = [];
 
@@ -166,4 +175,6 @@ export const ncertClass12Pdfs: Pdf[] = [
   { id: "ncert12-16", title: "History - Themes in Indian History II", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
   { id: "ncert12-17", title: "History - Themes in Indian History III", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
 ];
+    
+
     

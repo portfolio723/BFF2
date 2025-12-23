@@ -131,7 +131,7 @@ const CategoriesSection = () => {
     { name: "Competitve Exams", imageId: "new-genre-exams", href: "/genre/competitve-exams" },
     { name: "Biography & Auto Biograpghy", imageId: "new-genre-biography", href: "/genre/biography-autobiography" },
     { name: "Bible", imageId: "new-genre-bible", href: "/genre/bible" },
-    { name: "Anthrapology", imageId: "new-genre-anthropology" },
+    { name: "Anthropology", imageId: "new-genre-anthropology" },
     { name: "Adventure", imageId: "new-genre-adventure" },
     { name: "Career Guide", imageId: "new-genre-career" },
     { name: "Business Management", imageId: "new-genre-business" },
