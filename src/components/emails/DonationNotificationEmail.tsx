@@ -8,80 +8,84 @@ import {
   Text,
   Section,
   Hr,
-  Button,
 } from '@react-email/components';
+import type { DonatedBook } from '@/lib/types';
 
-interface DonationEmailProps {
-  donationData: any;
-}
+type DonationData = {
+  donationType: 'book' | 'pdf';
+  books?: string; // This will be a JSON string
+  pdfTitle?: string;
+  pdfAuthor?: string;
+  pdfGenre?: string;
+  pdfFile?: File;
+  donorName: string;
+  donorEmail: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  pincode?: string;
+  phone?: string;
+};
 
-const DonationNotificationEmail: React.FC<DonationEmailProps> = ({ donationData }) => {
-  const {
-    donationType,
-    books,
-    donorName,
-    donorEmail,
-    address,
-    city,
-    state,
-    pincode,
-    phone,
-  } = donationData;
-
-  const isBookDonation = donationType === 'book';
+const DonationNotificationEmail: React.FC<{ donationData: DonationData }> = ({ donationData }) => {
+  const isBookDonation = donationData.donationType === 'book';
+  const books: DonatedBook[] = donationData.books ? JSON.parse(donationData.books) : [];
 
   return (
     <Html>
       <Head>
-        <title>New Book Donation Received</title>
+        <title>New Donation Submission</title>
       </Head>
       <Body style={main}>
         <Container style={container}>
-          <Heading style={heading}>New Donation Submission</Heading>
-          <Text style={paragraph}>A new donation has been submitted on the Books For Fosters website. Please find the details below.</Text>
-
+          <Heading style={heading}>📚 New Donation Received</Heading>
+          
           <Section style={section}>
-            <Heading as="h2" style={subheading}>Donor Information</Heading>
-            <Text style={text}><strong>Name:</strong> {donorName}</Text>
-            <Text style={text}><strong>Email:</strong> <a href={`mailto:${donorEmail}`}>{donorEmail}</a></Text>
-            {isBookDonation && <Text style={text}><strong>Phone:</strong> {phone}</Text>}
+            <Heading as="h2" style={subheading}>Donation Type</Heading>
+            <Text style={text}><strong style={capitalize}>{donationData.donationType}</strong></Text>
           </Section>
 
           <Hr style={hr} />
 
           <Section style={section}>
-            <Heading as="h2" style={subheading}>Donation Details</Heading>
-            <Text style={text}><strong>Type:</strong> <span style={{ textTransform: 'capitalize' }}>{donationType}</span></Text>
-            
-            <Heading as="h3" style={bookHeading}>Donated Book(s)</Heading>
-            {books.map((book: any, index: number) => (
-              <div key={index} style={bookItem}>
-                <Text style={bookText}><strong>Title:</strong> {book.title}</Text>
-                <Text style={bookText}><strong>Author:</strong> {book.author}</Text>
-                <Text style={bookText}><strong>Genre:</strong> {book.genre}</Text>
-                <Text style={bookText}><strong>Quantity:</strong> {book.quantity}</Text>
-              </div>
-            ))}
+            <Heading as="h2" style={subheading}>Donor Information</Heading>
+            <Text style={text}><strong>Name:</strong> {donationData.donorName}</Text>
+            <Text style={text}><strong>Email:</strong> <a href={`mailto:${donationData.donorEmail}`}>{donationData.donorEmail}</a></Text>
+            {isBookDonation && <Text style={text}><strong>Phone:</strong> {donationData.phone}</Text>}
           </Section>
+          
+          <Hr style={hr} />
 
-          {isBookDonation && (
+          {isBookDonation ? (
             <>
+              <Section style={section}>
+                <Heading as="h2" style={subheading}>Donated Books</Heading>
+                {books.map((book: DonatedBook, index: number) => (
+                  <div key={index} style={bookItem}>
+                    <Text style={bookText}><strong>Title:</strong> {book.title}</Text>
+                    <Text style={bookText}><strong>Author:</strong> {book.author}</Text>
+                    {book.genre && <Text style={bookText}><strong>Genre:</strong> {book.genre}</Text>}
+                    <Text style={bookText}><strong>Quantity:</strong> {book.quantity}</Text>
+                  </div>
+                ))}
+              </Section>
+
               <Hr style={hr} />
+
               <Section style={section}>
                 <Heading as="h2" style={subheading}>Pickup Address</Heading>
-                <Text style={text}>{address}</Text>
-                <Text style={text}>{city}, {state} {pincode}</Text>
-                <Text style={{ ...text, marginTop: 10 }}>
-                  Please contact the donor at <strong>{phone}</strong> to coordinate the pickup.
-                </Text>
+                <Text style={text}>{donationData.address}</Text>
+                <Text style={text}>{donationData.city}, {donationData.state} - {donationData.pincode}</Text>
               </Section>
             </>
-          )}
-          
-          {donationType === 'pdf' && (
+          ) : (
              <Section style={section}>
-                <Text style={text}>The submitted PDF is attached to this email.</Text>
-            </Section>
+                <Heading as="h2" style={subheading}>PDF Details</Heading>
+                <Text style={text}><strong>Title:</strong> {donationData.pdfTitle}</Text>
+                <Text style={text}><strong>Author:</strong> {donationData.pdfAuthor}</Text>
+                {donationData.pdfGenre && <Text style={text}><strong>Genre:</strong> {donationData.pdfGenre}</Text>}
+                <Text style={{ ...text, marginTop: '10px' }}>The PDF file is attached to this email.</Text>
+             </Section>
           )}
 
           <Hr style={hr} />
@@ -126,14 +130,6 @@ const subheading = {
     margin: '0 0 15px',
 }
 
-const paragraph = {
-  color: '#525f7f',
-  fontSize: '16px',
-  lineHeight: '24px',
-  textAlign: 'center' as const,
-  padding: '0 20px',
-};
-
 const section = {
   padding: '0 24px',
 };
@@ -144,13 +140,6 @@ const text = {
   lineHeight: '24px',
   margin: '0 0 10px',
 };
-
-const bookHeading = {
-    color: '#333',
-    fontSize: '16px',
-    fontWeight: 'bold',
-    margin: '20px 0 10px',
-}
 
 const bookItem = {
     borderLeft: '3px solid #eee',
@@ -174,3 +163,7 @@ const footer = {
   lineHeight: '16px',
   textAlign: 'center' as const,
 };
+
+const capitalize = {
+    textTransform: 'capitalize' as const
+}

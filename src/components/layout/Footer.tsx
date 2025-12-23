@@ -49,7 +49,7 @@ export const Footer = () => {
             <h4 className="font-heading font-semibold text-lg mb-4">Quick Links</h4>
             <ul className="space-y-3">
               {[
-                { name: "Explore Books", href: "/books" },
+                { name: "Donate Books", href: "/donate" },
                 { name: "Community", href: "/community" },
                 { name: "Free PDFs", href: "/pdfs" },
               ].map((item) => (

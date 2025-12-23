@@ -1,6 +1,42 @@
 
 {
   "entities": {
+    "Donation": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Donation",
+      "description": "Represents a book or PDF donation from a user.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier for the donation record." },
+        "created_at": { "type": "string", "format": "date-time" },
+        "user_id": { "type": ["string", "null"], "description": "Reference to the user if logged in." },
+        "donor_name": { "type": "string" },
+        "donor_email": { "type": "string", "format": "email" },
+        "donation_type": { "type": "string", "enum": ["book", "pdf"] },
+        "status": { "type": "string", "enum": ["pending", "pickup_scheduled", "completed", "cancelled"] },
+        "donated_books": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" },
+              "author": { "type": "string" },
+              "genre": { "type": "string" },
+              "quantity": { "type": "number" }
+            },
+            "required": ["title", "author", "quantity"]
+          }
+        },
+        "pickup_address": { "type": "string" },
+        "pickup_city": { "type": "string" },
+        "pickup_state": { "type": "string" },
+        "pickup_pincode": { "type": "string" },
+        "pickup_phone": { "type": "string" },
+        "file_name": { "type": "string" },
+        "file_url": { "type": "string", "format": "uri" }
+      },
+      "required": ["id", "created_at", "donor_name", "donor_email", "donation_type", "status"]
+    },
     "Book": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Book",
@@ -397,6 +433,22 @@
   },
   "firestore": {
     "structure": [
+      {
+        "path": "/donations/{donationId}",
+        "definition": {
+          "entityName": "Donation",
+          "schema": {
+            "$ref": "#/backend/entities/Donation"
+          },
+          "description": "Stores all book and PDF donation records.",
+          "params": [
+             {
+              "name": "donationId",
+              "description": "The unique identifier for the donation."
+            }
+          ]
+        }
+      },
       {
         "path": "/books/{bookId}",
         "definition": {
