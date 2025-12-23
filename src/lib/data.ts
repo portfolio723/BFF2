@@ -78,6 +78,15 @@ export const christianPdfs: Pdf[] = [
     { id: "b5", title: "A Complete Guide to Web Design", author: "N/A", downloadUrl: "https://mega.nz/file/3pRgzaST#B1UgNl91QUPP_IA11KGGMO115b1wJm9Bi5Y4C2aG_ZA", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
 ];
 
+export const fantasyPdfs: Pdf[] = [
+    { id: "fan1", title: "American Gods Illustrated", author: "Neil Gaiman and Dave McKean", downloadUrl: "#", category: "Fantasy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fan2", title: "Eragons Guide to Alagaesia", author: "Christopher Paolini", downloadUrl: "#", category: "Fantasy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fan3", title: "Game of Thrones Graphic 1.1-6", author: "George R R Martin", downloadUrl: "#", category: "Fantasy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fan4", title: "Good Omens", author: "Terry Pratchett and Neil Gaiman", downloadUrl: "#", category: "Fantasy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fan5", title: "Gunslinger", author: "Stephen King", downloadUrl: "#", category: "Fantasy", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fan6", title: "Harry Potter Philosophers Stone", author: "JK Rowling", downloadUrl: "#", category: "Fantasy", description: "", coverImage: {url: "", hint: ""} },
+];
+
 export const historyPdfs: Pdf[] = [];
 
 export const ncertPdfs: Pdf[] = [];
