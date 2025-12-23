@@ -2,7 +2,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { BookCopy, Download } from 'lucide-react';
+import { BookCopy, Download, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Table,
@@ -13,8 +13,37 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { upscPdfs } from '@/lib/data';
+import { useAuth } from '@/context/AuthContext';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 export default function UpscGenrePage() {
+  const { user, isUserLoading } = useAuth();
+  const router = useRouter();
+
+  const handleDownload = (pdf: {title: string, downloadUrl: string}) => {
+    if (!user) {
+      toast.info("Please log in to download materials.");
+      router.push('/auth?redirect=/genre/upsc');
+      return;
+    }
+
+    if(pdf.downloadUrl === '#') {
+        toast.warning("Download link not available.", {
+            description: "The download link for this PDF has not been configured yet."
+        });
+        return;
+    }
+
+    // This creates a temporary link and simulates a click to start the download.
+    const link = document.createElement('a');
+    link.href = pdf.downloadUrl;
+    link.setAttribute('download', pdf.title);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast.success(`Downloading ${pdf.title}...`);
+  };
 
   return (
     <section className="py-12 lg:py-16">
@@ -53,11 +82,13 @@ export default function UpscGenrePage() {
                         <TableRow key={pdf.id}>
                             <TableCell className="font-medium">{pdf.title}</TableCell>
                             <TableCell className="text-right">
-                                <Button asChild variant="outline" size="sm">
-                                    <a href={pdf.downloadUrl} download>
-                                        <Download className="w-4 h-4 mr-2" />
-                                        Download
-                                    </a>
+                                <Button variant="outline" size="sm" onClick={() => handleDownload(pdf)} disabled={isUserLoading}>
+                                  {isUserLoading ? (
+                                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                  ) : (
+                                    <Download className="w-4 h-4 mr-2" />
+                                  )}
+                                  Download
                                 </Button>
                             </TableCell>
                         </TableRow>
