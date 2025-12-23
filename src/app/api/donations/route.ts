@@ -32,12 +32,16 @@ export async function POST(request: Request) {
   };
   
   if (data.donationType === 'book') {
+    // Combine manual date parts into a single ISO string
+    if (data.pickupYear && data.pickupMonth && data.pickupDay) {
+        const date = new Date(Date.UTC(Number(data.pickupYear), Number(data.pickupMonth) - 1, Number(data.pickupDay)));
+        donationPayload.pickup_date = date.toISOString();
+    }
     donationPayload.pickup_address = data.address;
     donationPayload.pickup_city = data.city;
     donationPayload.pickup_state = data.state;
     donationPayload.pickup_pincode = data.pincode;
     donationPayload.pickup_phone = data.phone;
-    donationPayload.pickup_date = data.pickupDate;
     donationPayload.status = 'pickup_scheduled';
   }
 

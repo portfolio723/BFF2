@@ -5,12 +5,7 @@ import { useFormContext, Controller } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CalendarIcon } from "lucide-react";
-import { format } from 'date-fns';
-import { cn } from "@/lib/utils";
 
 const indianStates = [
   "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
@@ -33,36 +28,12 @@ export function PickupDetailsStep() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t">
         <div className="space-y-2">
             <Label>Preferred Pickup Date</Label>
-             <Controller
-                name="pickupDate"
-                control={control}
-                render={({ field }) => (
-                <Popover>
-                    <PopoverTrigger asChild>
-                    <Button
-                        variant={"outline"}
-                        className={cn(
-                        "w-full justify-start text-left font-normal",
-                        !field.value && "text-muted-foreground"
-                        )}
-                    >
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
-                    </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
-                    <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        initialFocus
-                        disabled={(date) => date < new Date() || date < new Date("1900-01-01")}
-                    />
-                    </PopoverContent>
-                </Popover>
-                )}
-            />
-            {errors.pickupDate && <p className="text-destructive text-sm">A pickup date is required.</p>}
+            <div className="grid grid-cols-3 gap-2">
+                <Input {...register("pickupDay")} placeholder="DD" maxLength={2} />
+                <Input {...register("pickupMonth")} placeholder="MM" maxLength={2} />
+                <Input {...register("pickupYear")} placeholder="YYYY" maxLength={4} />
+            </div>
+            {(errors.pickupDay || errors.pickupMonth || errors.pickupYear) && <p className="text-destructive text-sm">A valid date is required.</p>}
         </div>
          <div className="space-y-2">
             <Label htmlFor="phone">Contact Number</Label>

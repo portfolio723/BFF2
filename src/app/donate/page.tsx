@@ -28,7 +28,9 @@ const formSchema = z.object({
   books: z.array(bookSchema).min(1, "Please add at least one book."),
   donorName: z.string().min(1, "Your name is required."),
   donorEmail: z.string().email("Please enter a valid email."),
-  pickupDate: z.date().optional(),
+  pickupDay: z.string().optional(),
+  pickupMonth: z.string().optional(),
+  pickupYear: z.string().optional(),
   address: z.string().optional(),
   city: z.string().optional(),
   state: z.string().optional(),
@@ -38,7 +40,9 @@ const formSchema = z.object({
 }).refine(data => {
     if (data.donationType === "book") {
         return (
-            !!data.pickupDate &&
+            !!data.pickupDay &&
+            !!data.pickupMonth &&
+            !!data.pickupYear &&
             !!data.address &&
             !!data.city &&
             !!data.state &&
@@ -49,7 +53,7 @@ const formSchema = z.object({
     return true;
 }, {
     message: "Pickup details are required for physical book donations.",
-    path: ["pickupDate"],
+    path: ["pickupDay"],
 }).refine(data => {
     if (data.donationType === "pdf") {
         return !!data.file;
@@ -84,7 +88,7 @@ export default function DonatePage() {
     
     if (currentStep === 0) fieldsToValidate = ["donationType"];
     if (currentStep === 1) fieldsToValidate = ["books", "donorName", "donorEmail"];
-    if (currentStep === 2 && donationType === "book") fieldsToValidate = ["pickupDate", "address", "city", "state", "pincode", "phone"];
+    if (currentStep === 2 && donationType === "book") fieldsToValidate = ["pickupDay", "pickupMonth", "pickupYear", "address", "city", "state", "pincode", "phone"];
     if (currentStep === 2 && donationType === "pdf") fieldsToValidate = ["file"];
     
     const isValid = await trigger(fieldsToValidate);
