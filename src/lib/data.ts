@@ -32,7 +32,13 @@ export const communityPosts: CommunityPost[] = [];
 
 export const pdfs: Pdf[] = [];
 
-export const upscPdfs: Pdf[] = [];
+export const upscPdfs: Pdf[] = [
+  { id: "1", title: "Ancient History", downloadUrl: "#", author: "RS Sharma", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
+  { id: "2", title: "Art and Culture", downloadUrl: "#", author: "Nitin Singhania", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
+  { id: "3", title: "Certificate Physical and Human Geography", downloadUrl: "#", author: "Goh Cheng Leong", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
+  { id: "4", title: "Indian Economy", downloadUrl: "#", author: "Sanjiv Verma", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
+  { id: "5", title: "Indian Polity", downloadUrl: "#", author: "M. Laxmikanth", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
+];
 
 export const spacePdfs: Pdf[] = [];
 

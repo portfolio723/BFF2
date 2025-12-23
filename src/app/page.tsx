@@ -121,7 +121,7 @@ const HeroSection = () => {
 
 const CategoriesSection = () => {
   const categories = [
-    { name: "UPSC", imageId: "new-genre-upsc" },
+    { name: "UPSC", imageId: "new-genre-upsc", href: "/genre/upsc" },
     { name: "Space & Astronomy", imageId: "new-genre-space" },
     { name: "Self Development", imageId: "new-genre-self-dev" },
     { name: "Psychology", imageId: "new-genre-psychology" },
@@ -166,7 +166,7 @@ const CategoriesSection = () => {
             if (!image) return null;
             
             const slug = category.name.toLowerCase().replace(/ & | /g, '-').replace(/[^a-z0-9-]/g, '');
-            const href = `/genre/${slug}`;
+            const href = category.href || `/genre/${slug}`;
 
             return (
               <motion.div
