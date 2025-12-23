@@ -61,7 +61,14 @@ export const selfDevelopmentPdfs: Pdf[] = [
     { id: "sd5", title: "Awaken the Giant Within", author: "Anthony Robbins", downloadUrl: "https://mega.nz/file/vkgQkIwC#P8A0fGEBj8E_dnD7AFII4gCYli874tW7DUjcsrjoP4E", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
 ];
 
-export const psychologyPdfs: Pdf[] = [];
+export const psychologyPdfs: Pdf[] = [
+    { id: "psy1", title: "Attachment in Psychotherapy (or Attached)", author: "Amir Levine & Rachel Heller", downloadUrl: "#", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "psy2", title: "Thinking, Fast and Slow", author: "Daniel Kahneman", downloadUrl: "#", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "psy3", title: "Flow: The Psychology of Optimal Experience", author: "Mihaly Csikszentmihalyi", downloadUrl: "#", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "psy4", title: "Man's Search for Meaning", author: "Viktor E. Frankl", downloadUrl: "#", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "psy5", title: "Predictably Irrational", author: "Dan Ariely", downloadUrl: "#", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "psy6", title: "Quiet: The Power of Introverts in a World That Can't Stop Talking", author: "Susan Cain", downloadUrl: "#", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
+];
 
 export const christianPdfs: Pdf[] = [];
 
