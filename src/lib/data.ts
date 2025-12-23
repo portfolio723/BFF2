@@ -62,12 +62,12 @@ export const selfDevelopmentPdfs: Pdf[] = [
 ];
 
 export const psychologyPdfs: Pdf[] = [
-    { id: "psy1", title: "Attachment in Psychotherapy (or Attached)", author: "Amir Levine & Rachel Heller", downloadUrl: "#", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
-    { id: "psy2", title: "Thinking, Fast and Slow", author: "Daniel Kahneman", downloadUrl: "#", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
-    { id: "psy3", title: "Flow: The Psychology of Optimal Experience", author: "Mihaly Csikszentmihalyi", downloadUrl: "#", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
-    { id: "psy4", title: "Man's Search for Meaning", author: "Viktor E. Frankl", downloadUrl: "#", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
-    { id: "psy5", title: "Predictably Irrational", author: "Dan Ariely", downloadUrl: "#", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
-    { id: "psy6", title: "Quiet: The Power of Introverts in a World That Can't Stop Talking", author: "Susan Cain", downloadUrl: "#", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "psy1", title: "Attachment in Psychotherapy (or Attached)", author: "Amir Levine & Rachel Heller", downloadUrl: "https://mega.nz/file/PxhmiIIa#2Ps-_FSgnFXM_hCHUiOGWrgiwF2MyQzLCVdqbx5FtcA", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "psy2", title: "Thinking, Fast and Slow", author: "Daniel Kahneman", downloadUrl: "https://mega.nz/file/a95DGLLJ#AW3VvVJAprXhPobQp34JiX2E1Rfvg-dz6p548JS9sDY", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "psy3", title: "Flow: The Psychology of Optimal Experience", author: "Mihaly Csikszentmihalyi", downloadUrl: "https://mega.nz/file/Xk4zXBSZ#fVZp-zBKTrirt0Q9rj3Lur8fV9kj3CcpqBPX2LbtufM", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "psy4", title: "Man's Search for Meaning", author: "Viktor E. Frankl", downloadUrl: "https://mega.nz/file/WsZ3hSJQ#TxGkWVaM6MCJNK2JLqZ8_uux-3oezIlfPAscGYUb4QE", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "psy5", title: "Predictably Irrational", author: "Dan Ariely", downloadUrl: "https://mega.nz/file/fwwHkbAY#iFISi6iRlIFLa7kNJ6bAC9g7qcfVPykm8C9cVXb6PLM", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "psy6", title: "Quiet: The Power of Introverts in a World That Can't Stop Talking", author: "Susan Cain", downloadUrl: "https://mega.nz/file/r4Q00ITA#_9TSRmkCjx6D9tAg3dDMZ2ynI_ScmBc58XeWICMi2ZE", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
 ];
 
 export const christianPdfs: Pdf[] = [];
