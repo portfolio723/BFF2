@@ -1,4 +1,7 @@
 
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { BookOpen, Mail, Phone, MapPin, Instagram, Facebook } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -18,6 +21,12 @@ const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 
 export const Footer = () => {
+  const [year, setYear] = useState(new Date().getFullYear());
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
+
   return (
     <footer className="bg-secondary/50 border-t border-border">
       <div className="container mx-auto px-4 md:px-6 py-12 lg:py-16">
@@ -116,13 +125,13 @@ export const Footer = () => {
         {/* Bottom */}
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Books For Fosters. All rights reserved.
+            © {year} Books For Fosters. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-sm">
-            <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
               Privacy Policy
             </Link>
-            <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
               Terms of Service
             </Link>
             <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
