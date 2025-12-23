@@ -5,7 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { X, Plus } from 'lucide-react';
-import type { FormData, DonatedBook } from '@/app/donate/page';
+import type { FormData } from '@/app/donate/page';
+import type { DonatedBook } from '@/lib/types';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface BookDetailsStepProps {
