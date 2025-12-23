@@ -1,9 +1,9 @@
 'use server';
 
 import { NextResponse } from 'next/server';
-import type { DonatedBook } from '@/lib/types';
 import { Resend } from 'resend';
 import DonationNotificationEmail from '@/components/emails/DonationNotificationEmail';
+import { render } from '@react-email/render';
 
 export const runtime = 'nodejs';
 
@@ -34,12 +34,14 @@ export async function POST(request: Request) {
         content: Buffer.from(buffer),
       });
     }
+    
+    const emailHtml = render(<DonationNotificationEmail donationData={data} />);
 
     await resend.emails.send({
       from: 'donation-noreply@booksforfosters.com',
       to: ADMIN_EMAIL,
       subject: `New Book Donation Received: ${data.donationType === 'book' ? 'Physical Books' : 'PDF'}`,
-      react: <DonationNotificationEmail donationData={data} />,
+      html: emailHtml,
       attachments: attachments,
     });
 
