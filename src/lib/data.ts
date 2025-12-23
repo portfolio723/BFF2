@@ -107,9 +107,9 @@ export const historyPdfs: Pdf[] = [
 ];
 
 export const competitiveExamsPdfs: Pdf[] = [
-  { id: "ce1", title: "Objective Computer Knowledge And Literacy", author: "Kiran", downloadUrl: "#", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
-  { id: "ce2", title: "High School English Grammar and Composition", author: "Wren & Martin", downloadUrl: "#", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
-  { id: "ce3", title: "Word Power Made Easy", author: "Norman Lewis", downloadUrl: "#", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ce1", title: "Objective Computer Knowledge And Literacy", author: "Kiran", downloadUrl: "https://mega.nz/file/D4x1mQyb#5nrHcor5I2cW1k870C9zrsEefylDCv7MLYK685zbAN0", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ce2", title: "High School English Grammar and Composition", author: "Wren & Martin", downloadUrl: "https://mega.nz/file/StxAiLjb#-7N5ewz3JcJFah8WKxM2fxlUfqbLl0ry7BF-tXsOm8s", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ce3", title: "Word Power Made Easy", author: "Norman Lewis", downloadUrl: "https://mega.nz/file/aoIjXYwK#3oH6yhM3XovBMranmyg0kSD_Lek1VanGM6izh5L8k1U", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
 ];
 
 export const ncertPdfs: Pdf[] = [];
