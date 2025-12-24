@@ -22,7 +22,7 @@ export type Book = {
   };
   description: string;
   availability: 'in-stock' | 'out-of-stock';
-  rentalPrice?: number;
+  lendingPrice?: number;
 };
 
 export type Profile = {
@@ -52,7 +52,7 @@ export type CommunityPost = {
 
 export type CartItem = {
   book: Book;
-  type: 'buy' | 'rent';
+  type: 'buy' | 'lend';
   quantity: number;
 };
 
@@ -96,7 +96,7 @@ export type OrderItem = {
   book_id: string;
   quantity: number;
   price_at_purchase: number;
-  type: 'rent' | 'buy';
+  type: 'lend' | 'buy';
 };
 
 export type Order = {

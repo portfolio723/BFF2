@@ -7,16 +7,16 @@ import { toast } from "sonner";
 
 
 export interface CartItem extends Book {
-  type: "rent" | "buy";
+  type: "lend" | "buy";
   quantity: number;
 }
 
 interface AppContextType {
   cart: CartItem[];
-  addToCart: (book: Book, type: 'buy' | 'rent') => void;
-  removeFromCart: (bookId: string, type: 'buy' | 'rent') => void;
-  updateCartQuantity: (bookId: string, type: "rent" | "buy", quantity: number) => void;
-  isBookInCart: (bookId: string, type: "rent" | "buy") => boolean;
+  addToCart: (book: Book, type: 'buy' | 'lend') => void;
+  removeFromCart: (bookId: string, type: 'buy' | 'lend') => void;
+  updateCartQuantity: (bookId: string, type: "lend" | "buy", quantity: number) => void;
+  isBookInCart: (bookId: string, type: "lend" | "buy") => boolean;
   clearCart: () => void;
   cartCount: number;
   cartTotal: number;
@@ -60,7 +60,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   }, [cart]);
 
 
-  const addToCart = (book: Book, type: 'buy' | 'rent') => {
+  const addToCart = (book: Book, type: 'buy' | 'lend') => {
     setCart((prevCart) => {
       const existingItem = prevCart.find(
         (i) => i.id === book.id && i.type === type
@@ -81,7 +81,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     });
   };
   
-  const removeFromCart = (bookId: string, type: "rent" | "buy") => {
+  const removeFromCart = (bookId: string, type: "lend" | "buy") => {
      const itemToRemove = cart.find(item => item.id === bookId && item.type === type);
      if (itemToRemove) {
        toast.info(`${itemToRemove.title} removed from cart.`);
@@ -89,7 +89,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
      }
   };
 
-  const updateCartQuantity = (bookId: string, type: "rent" | "buy", quantity: number) => {
+  const updateCartQuantity = (bookId: string, type: "lend" | "buy", quantity: number) => {
     if (quantity <= 0) {
       removeFromCart(bookId, type);
       return;
@@ -101,7 +101,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
-  const isBookInCart = (bookId: string, type: 'rent' | 'buy') => cart.some((item) => item.id === bookId && item.type === type);
+  const isBookInCart = (bookId: string, type: 'lend' | 'buy') => cart.some((item) => item.id === bookId && item.type === type);
 
   const clearCart = () => {
     setCart([]);
@@ -111,7 +111,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   
   const cartTotal = useMemo(() => {
     return cart.reduce((total, item) => {
-      const price = item.type === 'rent' ? item.rentalPrice || 0 : item.price;
+      const price = item.type === 'lend' ? item.lendingPrice || 0 : item.price;
       return total + (price * item.quantity);
     }, 0);
   }, [cart]);
@@ -119,7 +119,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const getItemCount = () => cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const getSubtotal = () => cart.reduce((sum, item) => {
-      const price = item.type === "rent" ? item.rentalPrice || 0 : item.price;
+      const price = item.type === "lend" ? item.lendingPrice || 0 : item.price;
       return sum + (price || 0) * item.quantity;
     }, 0);
 

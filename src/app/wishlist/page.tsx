@@ -15,7 +15,7 @@ export default function WishlistPage() {
   const { items: wishlist, removeFromWishlist } = useWishlist();
   const { addToCart } = useCartStore();
 
-  const handleAddToCart = (item: Book, type: "rent" | "buy") => {
+  const handleAddToCart = (item: Book, type: "lend" | "buy") => {
     addToCart(item, type);
   };
 
@@ -77,8 +77,8 @@ export default function WishlistPage() {
 
                   <div className="flex items-center justify-between mt-3 pt-3 border-t border-border">
                     <div>
-                      <p className="text-xs text-muted-foreground">Rent from</p>
-                      <p className="font-semibold">₹{item.rentalPrice}</p>
+                      <p className="text-xs text-muted-foreground">Lend from</p>
+                      <p className="font-semibold">₹{item.lendingPrice}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-xs text-muted-foreground">Buy for</p>
@@ -90,10 +90,10 @@ export default function WishlistPage() {
                     <Button
                       variant="outline"
                       className="flex-1 rounded-full gap-1 text-xs"
-                      onClick={() => handleAddToCart(item, "rent")}
-                      disabled={!item.rentalPrice || item.availability === 'out-of-stock'}
+                      onClick={() => handleAddToCart(item, "lend")}
+                      disabled={!item.lendingPrice || item.availability === 'out-of-stock'}
                     >
-                      Rent
+                      Lend
                     </Button>
                     <Button
                       className="flex-1 rounded-full gap-1 text-xs"

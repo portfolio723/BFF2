@@ -41,7 +41,7 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Book",
       "type": "object",
-      "description": "Represents a book available for rent, purchase, or donation.",
+      "description": "Represents a book available for lending, purchase, or donation.",
       "properties": {
         "id": {
           "type": "string",
@@ -74,11 +74,11 @@
         },
         "availability": {
           "type": "string",
-          "description": "Indicates if the book is available for rent or purchase.  Values may be: 'available', 'rented', 'sold', 'donated'."
+          "description": "Indicates if the book is available for lending or purchase.  Values may be: 'available', 'lent', 'sold', 'donated'."
         },
-        "rentalPrice": {
+        "lendingPrice": {
           "type": "number",
-          "description": "The price to rent the book."
+          "description": "The price to lend the book."
         },
         "purchasePrice": {
           "type": "number",
@@ -240,7 +240,7 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Order",
       "type": "object",
-      "description": "Represents a user's order for books (either for purchase or rental).",
+      "description": "Represents a user's order for books (either for purchase or lending).",
       "properties": {
         "id": {
           "type": "string",
@@ -456,7 +456,7 @@
           "schema": {
             "$ref": "#/backend/entities/Book"
           },
-          "description": "Stores book data.  Accessible to all users for browsing. Availability status determines if the book is available for rent, purchase, or donation.",
+          "description": "Stores book data.  Accessible to all users for browsing. Availability status determines if the book is available for lending, purchase, or donation.",
           "params": [
             {
               "name": "bookId",
@@ -642,6 +642,6 @@
         }
       }
     ],
-    "reasoning": "The Firestore data structure is designed to support the core features of the Hyderabad Reads application, focusing on book rentals/purchases, wishlists, shopping carts, donations, and community discussions. The structure prioritizes Authorization Independence and QAPs (Rules are not Filters) via denormalization and structural segregation.\n\n**Authorization Independence:**\nPath-based ownership (`/users/{userId}/wishlist_items/{wishlistItemId}`) is employed where possible, automatically granting the user access to their own data. Collaborative data, such as CommunityPosts, relies on the user's `userId`, which can be checked against the currently authenticated user.  No `get()` calls are required in security rules for basic operations on user-owned resources.\n\n**Structural Segregation:**\nThe database separates user-specific data (wishlists, shopping carts, orders, donations, downloaded PDFs) under `/users/{userId}`.  Books are stored in a top-level `/books` collection. This segregation ensures that security rules can be applied consistently and efficiently.\n\n**QAPs (Rules are not Filters):**\nListing books for browsing is handled by the `/books` collection, where rules can ensure that only 'available' books are visible. User-specific data like wishlists and shopping carts are secured under `/users/{userId}`, allowing secure list operations for each user's resources.\n\n**Global Roles (DBAC):**\nNo global roles are used at this time. All data access is managed via path-based ownership and user-specific collections."
+    "reasoning": "The Firestore data structure is designed to support the core features of the Hyderabad Reads application, focusing on book lending/purchases, wishlists, shopping carts, donations, and community discussions. The structure prioritizes Authorization Independence and QAPs (Rules are not Filters) via denormalization and structural segregation.\n\n**Authorization Independence:**\nPath-based ownership (`/users/{userId}/wishlist_items/{wishlistItemId}`) is employed where possible, automatically granting the user access to their own data. Collaborative data, such as CommunityPosts, relies on the user's `userId`, which can be checked against the currently authenticated user.  No `get()` calls are required in security rules for basic operations on user-owned resources.\n\n**Structural Segregation:**\nThe database separates user-specific data (wishlists, shopping carts, orders, donations, downloaded PDFs) under `/users/{userId}`.  Books are stored in a top-level `/books` collection. This segregation ensures that security rules can be applied consistently and efficiently.\n\n**QAPs (Rules are not Filters):**\nListing books for browsing is handled by the `/books` collection, where rules can ensure that only 'available' books are visible. User-specific data like wishlists and shopping carts are secured under `/users/{userId}`, allowing secure list operations for each user's resources.\n\n**Global Roles (DBAC):**\nNo global roles are used at this time. All data access is managed via path-based ownership and user-specific collections."
   }
 }

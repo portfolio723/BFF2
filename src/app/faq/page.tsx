@@ -18,11 +18,11 @@ const faqs = [
         questions: [
             {
                 q: "What is Books For Fosters?",
-                a: "Books For Fosters is a community-driven platform that makes reading more accessible and affordable. We allow users to rent books for free (paying only for delivery), buy books at low prices, and donate their pre-loved books to give them a new life."
+                a: "Books For Fosters is a community-driven platform that makes reading more accessible and affordable. We allow users to lend books for free (paying only for delivery), buy books at low prices, and donate their pre-loved books to give them a new life."
             },
             {
                 q: "How is this different from a traditional library?",
-                a: "While we share the goal of promoting reading, our model is a bit different. We are a peer-to-peer inspired platform where the books are sourced from community donations. Our rental model focuses on minimal costs (just delivery), and we also offer the option to buy books outright."
+                a: "While we share the goal of promoting reading, our model is a bit different. We are a peer-to-peer inspired platform where the books are sourced from community donations. Our lending model focuses on minimal costs (just delivery), and we also offer the option to buy books outright."
             },
             {
                 q: "Is your service available across India?",
@@ -31,12 +31,12 @@ const faqs = [
         ]
     },
     {
-        category: "Renting & Buying Books",
+        category: "Lending & Buying Books",
         icon: BookOpen,
         questions: [
             {
-                q: "How does the book rental work?",
-                a: "Simply find a book you'd like to read, select the 'Rent' option, and check out. You only pay for the delivery fee. The standard rental period is 30 days. After that, you can either return it or extend the rental period if possible."
+                q: "How does the book lending work?",
+                a: "Simply find a book you'd like to read, select the 'Lend' option, and check out. You only pay for the delivery fee. The standard lending period is 30 days. After that, you can either return it or extend the lending period if possible."
             },
             {
                 q: "What are the delivery charges?",
@@ -47,7 +47,7 @@ const faqs = [
                 a: "Most of our books are pre-loved and come from donations. We have a quality check process to ensure all books are in readable condition. Conditions are typically listed on the book's detail page (e.g., 'Like New', 'Good', 'Fair')."
             },
             {
-                q: "What happens if I damage or lose a rented book?",
+                q: "What happens if I damage or lose a lent book?",
                 a: "We understand that accidents can happen. If a book is significantly damaged or lost, you will be charged the 'Buy' price of the book. Please contact our support team for assistance."
             }
         ]
@@ -66,7 +66,7 @@ const faqs = [
             },
             {
                 q: "What happens to the books I donate?",
-                a: "Once collected, your books are cataloged and added to our platform, making them available for other community members to rent or buy. This helps extend the life of each book and promotes sustainable reading."
+                a: "Once collected, your books are cataloged and added to our platform, making them available for other community members to lend or buy. This helps extend the life of each book and promotes sustainable reading."
             }
         ]
     },
@@ -76,7 +76,7 @@ const faqs = [
         questions: [
             {
                 q: "Why is KYC verification required?",
-                a: "KYC (Know Your Customer) verification is required for users who wish to rent books. This helps us build a trusted and secure community, ensuring that our books are handled responsibly and returned on time."
+                a: "KYC (Know Your Customer) verification is required for users who wish to lend books. This helps us build a trusted and secure community, ensuring that our books are handled responsibly and returned on time."
             },
             {
                 q: "What documents are needed for KYC?",
@@ -84,7 +84,7 @@ const faqs = [
             },
             {
                 q: "Can I use the platform without completing KYC?",
-                a: "Yes, absolutely. You can still browse our entire collection, buy books, and donate your own books without completing KYC. The verification is only mandatory for renting."
+                a: "Yes, absolutely. You can still browse our entire collection, buy books, and donate your own books without completing KYC. The verification is only mandatory for lending."
             }
         ]
     }
@@ -108,7 +108,7 @@ export default function FAQPage() {
             Have Questions? We Have Answers.
           </h1>
           <p className="text-muted-foreground mt-3">
-            Find answers to common questions about renting, donating, and using our platform.
+            Find answers to common questions about lending, donating, and using our platform.
             If you can't find your answer here, feel free to contact us.
           </p>
         </motion.div>

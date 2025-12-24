@@ -12,7 +12,7 @@ const HeroSection = () => {
   const heroImage = PlaceHolderImages.find(img => img.id === 'hero-2');
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden pt-16 lg:pt-0">
+    <section className="relative min-h-screen flex items-center overflow-hidden pt-24 lg:pt-0">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_-20%,hsl(var(--secondary))_0%,transparent_50%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_80%,hsl(var(--secondary))_0%,transparent_40%)]" />
@@ -95,7 +95,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                className="relative aspect-[4/5] max-w-sm mx-auto sm:max-w-md"
+                className="relative aspect-[4/5] max-w-sm mx-auto sm:max-w-sm"
               >
               {heroImage && (
                   <div className="w-full h-full bg-secondary rounded-2xl shadow-lg overflow-hidden">
@@ -151,16 +151,16 @@ const CategoriesSection = () => {
 
   const imageMap: { [key: string]: string } = {
     "UPSC": "/UPSC.png",
-    "Space & Astronomy": "/space & atronomy.png",
-    "Self Development": "/self develpment.png",
+    "Space & Astronomy": "/space & astronomy.png",
+    "Self Development": "/self development.png",
     "NCERT": "/NCERT.png",
     "Health & Lifestyle": "/health & lifestyle.png",
     "Competitive Exams": "/competitive exams.png",
     "Biography & Autobiography": "/biography.png",
     "Business & Management": "/business management.png",
     "Computer Science": "/computer science.png",
-    "Crime & Mystery": "/crime&mystry.png",
-    "Fantasy": "/fantacy.png",
+    "Crime & Mystery": "/crime & mystery.png",
+    "Fantasy": "/fantasy.png",
     "Environment": "/environment.png",
     "Food & Cooking": "/food.png",
     "Fashion": "/fashion.png",
@@ -234,7 +234,7 @@ const FeaturesSection = () => {
     {
       icon: Truck,
       title: "Pay Only Delivery",
-      description: "Rent books for free – just pay minimal delivery charges to your doorstep.",
+      description: "Lend books for free – just pay minimal delivery charges to your doorstep.",
     },
     {
       icon: Gift,
@@ -249,7 +249,7 @@ const FeaturesSection = () => {
     {
       icon: CreditCard,
       title: "Flexible Options",
-      description: "Rent for a period or buy outright. Choose what works best for you.",
+      description: "Lend for a period or buy outright. Choose what works best for you.",
     },
     {
       icon: Shield,

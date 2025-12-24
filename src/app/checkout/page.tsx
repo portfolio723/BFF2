@@ -127,7 +127,7 @@ export default function CheckoutPage() {
         order_id: mockOrderId,
         book_id: item.id,
         quantity: item.quantity,
-        price_at_purchase: item.type === 'rent' ? item.rentalPrice! : item.price,
+        price_at_purchase: item.type === 'lend' ? item.lendingPrice! : item.price,
         type: item.type,
       }));
       
@@ -188,7 +188,7 @@ export default function CheckoutPage() {
         amount: razorpayOrder.amount,
         currency: "INR",
         name: "Hyderabad Reads",
-        description: "Book Purchase/Rental",
+        description: "Book Purchase/Lending",
         image: "/logo.svg", // Replace with your logo
         order_id: razorpayOrder.id,
         handler: async function (response: RazorpayPaymentResponse) {
@@ -589,7 +589,7 @@ export default function CheckoutPage() {
                               </p>
                             </div>
                             <p className="font-semibold">
-                              ₹{item.type === 'rent' ? item.rentalPrice : item.price}
+                              ₹{item.type === 'lend' ? item.lendingPrice : item.price}
                             </p>
                           </div>
                         ))}
@@ -647,7 +647,7 @@ export default function CheckoutPage() {
                       </p>
                     </div>
                     <p className="text-sm font-medium">
-                      ₹{item.type === 'rent' ? item.rentalPrice : item.price}
+                      ₹{item.type === 'lend' ? item.lendingPrice : item.price}
                     </p>
                   </div>
                 ))}
