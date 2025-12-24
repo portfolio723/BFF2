@@ -170,8 +170,7 @@ const CategoriesSection = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
           {categories.map((category, index) => {
-            const slug = category.name.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-').replace(/[^a-z0-9-]/g, '');
-            const href = category.href || `/genre/${slug}`;
+            const slug = category.href.split('/').pop() || '';
             const imageUrl = `/genres/${slug}.png`;
 
             return (
@@ -182,7 +181,7 @@ const CategoriesSection = () => {
                 transition={{ delay: index * 0.05 }}
               >
                 <Link 
-                  href={href}
+                  href={category.href}
                   className="group block relative aspect-[4/5] rounded-xl overflow-hidden"
                 >
                   <Image 
