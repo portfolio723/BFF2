@@ -128,6 +128,7 @@ const CategoriesSection = () => {
     { name: "Geography", imageId: "new-genre-geography", href: "/genre/geography"},
     { name: "NCERT", imageId: "new-genre-ncert", href: "/genre/ncert" },
     { name: "History", imageId: "new-genre-history", href: "/genre/history" },
+    { name: "Health & Lifestyle", imageId: "new-genre-health", href: "/genre/health-lifestyle" },
     { name: "Competitve Exams", imageId: "new-genre-exams", href: "/genre/competitve-exams" },
     { name: "Biography & Auto Biograpghy", imageId: "new-genre-biography", href: "/genre/biography-autobiography" },
     { name: "Bible", imageId: "new-genre-bible", href: "/genre/bible" },
@@ -449,5 +450,7 @@ export default function Home() {
     </>
   );
 }
+
+    
 
     

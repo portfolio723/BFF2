@@ -298,4 +298,29 @@ export const environmentPdfs: Pdf[] = [
     { id: "env16", title: "The Uninhabitable Earth", author: "David Wallace-Wells", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
     { id: "env17", title: "This Changes Everything Capitalism vs Th", author: "Naomi Klein", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
 ];
+
+export const healthAndLifestylePdfs: Pdf[] = [
+  { id: "hl1", title: "Body By You", author: "Mark Lauren", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
+  { id: "hl2", title: "Eat to Beat Your Diet", author: "William W Li", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
+  { id: "hl3", title: "Essentialism", author: "Greg McKeown", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
+  { id: "hl4", title: "In Defense of Food An Eaters Manifesto", author: "Michael Pollan", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
+  { id: "hl5", title: "Lifespan", author: "David Sinclair", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
+  { id: "hl6", title: "Lost Connections", author: "Johann Hari", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
+  { id: "hl7", title: "Maybe You Should Talk to Someone", author: "Lori Gottlieb", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
+  { id: "hl8", title: "Mindset The New Psychology of Success", author: "Carol S Dweck", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
+  { id: "hl9", title: "Move Your DNA Restore Your Health Through Natural Movement", author: "Katy Bowman", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
+  { id: "hl10", title: "Outlive", author: "Peter Attia", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
+  { id: "hl11", title: "Radical Acceptance", author: "Tara Brach", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
+  { id: "hl12", title: "Reasons to Stay Alive", author: "Matt Haig", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
+  { id: "hl13", title: "Rest", author: "Alex Soojung-Kim Pang", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
+  { id: "hl14", title: "The 4-Hour Body", author: "Timothy Ferriss", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
+  { id: "hl15", title: "The Art of Living", author: "Thich Nhat Hanh", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
+  { id: "hl16", title: "The Blue Zones Kitchen", author: "Dan Buettner", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
+  { id: "hl17", title: "The Body Keeps the Score Brain Mind and Body in the Healing of Trauma", author: "Bessel van der Kolk", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
+  { id: "hl18", title: "The comfort crisis", author: "Michael Easter", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
+  { id: "hl19", title: "The Complete Book of ayurvedic home remedies", author: "Vasant lad", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
+  { id: "hl20", title: "The Feeling Good Handbook", author: "David D Burns", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
+];
+    
+
     
