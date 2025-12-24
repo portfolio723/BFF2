@@ -134,7 +134,7 @@ const CategoriesSection = () => {
     { name: "Bible", imageId: "new-genre-bible", href: "/genre/bible" },
     { name: "Anthropology", imageId: "new-genre-anthropology", href: "/genre/anthropology" },
     { name: "Adventure", imageId: "new-genre-adventure" },
-    { name: "Law", imageId: "new-genre-career", href: "/genre/law" },
+    { name: "Law", imageId: "new-genre-law", href: "/genre/law" },
     { name: "Business Management", imageId: "new-genre-business", href: "/genre/business-management" },
     { name: "Computer Science", imageId: "new-genre-cs", href: "/genre/computer-science" },
     { name: "Cultural", imageId: "new-genre-cultural", href: "/genre/cultural" },
@@ -144,6 +144,7 @@ const CategoriesSection = () => {
     { name: "Fantasy", imageId: "new-book-2", href: "/genre/fantasy" },
     { name: "Environment", imageId: "new-genre-environment", href: "/genre/environment" },
     { name: "Sports", imageId: "new-genre-sports", href: "/genre/sports" },
+    { name: "Poetry", imageId: "new-genre-poetry", href: "/genre/poetry" },
   ];
 
   return (

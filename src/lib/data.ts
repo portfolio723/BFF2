@@ -241,12 +241,12 @@ export const computerSciencePdfs: Pdf[] = [
 ];
     
 export const crimeMysteryPdfs: Pdf[] = [
-    { id: "cm1", title: "Gone Girl", author: "Gillian Flynn", downloadUrl: "https://mega.nz/file/mkIj2AyS#4M982DBKpe0QKvepUjko2BABs0frFilYGmRyt2n5tbQ", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
-    { id: "cm2", title: "I'll Be Gone in the Dark", author: "Michelle McNamara", downloadUrl: "https://mega.nz/file/CxxjAKIa#ECGAnfciWli3EzRt61ahSfx602kLdnAascCYoUakZ_Q", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
-    { id: "cm3", title: "In Cold Blood", author: "Truman Capote", downloadUrl: "https://mega.nz/file/24hhzLhD#TWtX9PA82BaQR2gf8BY9VqTMZcP7hMpa8Vac3i8IrO4", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
-    { id: "cm4", title: "In the Woods", author: "Tana French", downloadUrl: "https://mega.nz/file/i9BDQBKD#qNEupE7jWtcsje85Mow0DSZrgqTDrx9uRYJQj0i9s5A", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
-    { id: "cm5", title: "Murder on the Orient Express", author: "Agatha Christie", downloadUrl: "https://mega.nz/file/m4ARTLoA#0sHvhwFPYNzHyQlhlKevVZ3YMKL_3Kk6k8OUkZrOifY", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
-    { id: "cm6", title: "Postmortem", author: "Patricia Cornwell", downloadUrl: "https://mega.nz/file/X9IGHaiA#Z1rbt5zoDd6---GcYDGf6cTLB4-OMEysMiOJMy4u3DE", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cm1", title: "Gone Girl", downloadUrl: "https://mega.nz/file/mkIj2AyS#4M982DBKpe0QKvepUjko2BABs0frFilYGmRyt2n5tbQ", author: "Gillian Flynn", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cm2", title: "I'll Be Gone in the Dark", downloadUrl: "https://mega.nz/file/CxxjAKIa#ECGAnfciWli3EzRt61ahSfx602kLdnAascCYoUakZ_Q", author: "Michelle McNamara", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cm3", title: "In Cold Blood", downloadUrl: "https://mega.nz/file/24hhzLhD#TWtX9PA82BaQR2gf8BY9VqTMZcP7hMpa8Vac3i8IrO4", author: "Truman Capote", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cm4", title: "In the Woods", downloadUrl: "https://mega.nz/file/i9BDQBKD#qNEupE7jWtcsje85Mow0DSZrgqTDrx9uRYJQj0i9s5A", author: "Tana French", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cm5", title: "Murder on the Orient Express", downloadUrl: "https://mega.nz/file/m4ARTLoA#0sHvhwFPYNzHyQlhlKevVZ3YMKL_3Kk6k8OUkZrOifY", author: "Agatha Christie", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cm6", title: "Postmortem", downloadUrl: "https://mega.nz/file/X9IGHaiA#Z1rbt5zoDd6---GcYDGf6cTLB4-OMEysMiOJMy4u3DE", author: "Patricia Cornwell", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
 ];
 
 export const economicsPdfs: Pdf[] = [
@@ -345,6 +345,27 @@ export const sportsPdfs: Pdf[] = [
     { id: "sp16", title: "Serve to Win", author: "Novak Djokovic", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
     { id: "sp17", title: "The Dhoni Touch", author: "Bharat Sundaresan", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
     { id: "sp18", title: "The Inner Game of Tennis", author: "W. Timothy Gallwey", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
+];
+
+export const poetryPdfs: Pdf[] = [
+    { id: "poet1", title: "Ariel Restored Edition", author: "Sylvia Plath", downloadUrl: "#", category: "Poetry", description: "", coverImage: {url: "", hint: ""} },
+    { id: "poet2", title: "Birthday Letters", author: "Ted Hughes", downloadUrl: "#", category: "Poetry", description: "", coverImage: {url: "", hint: ""} },
+    { id: "poet3", title: "Blakes Selected Poems", author: "William Blake", downloadUrl: "#", category: "Poetry", description: "", coverImage: {url: "", hint: ""} },
+    { id: "poet4", title: "Citizen An American Lyric", author: "Claudia Rankine", downloadUrl: "#", category: "Poetry", description: "", coverImage: {url: "", hint: ""} },
+    { id: "poet5", title: "Complete Poems and Selected Letters of John Keats", author: "John Keats", downloadUrl: "#", category: "Poetry", description: "", coverImage: {url: "", hint: ""} },
+    { id: "poet6", title: "Gitanjali Song Offerings", author: "Rabindranath Tagore", downloadUrl: "#", category: "Poetry", description: "", coverImage: {url: "", hint: ""} },
+    { id: "poet7", title: "Howl Kaddish and Other Poems", author: "Allen Ginsberg", downloadUrl: "#", category: "Poetry", description: "", coverImage: {url: "", hint: ""} },
+    { id: "poet8", title: "Leaves of grass", author: "Walt Whitman", downloadUrl: "#", category: "Poetry", description: "", coverImage: {url: "", hint: ""} },
+    { id: "poet9", title: "Les Fleurs du Mal", author: "Charles Baudelaire", downloadUrl: "#", category: "Poetry", description: "", coverImage: {url: "", hint: ""} },
+    { id: "poet10", title: "Milk and Honey", author: "Rupi Kaur", downloadUrl: "#", category: "Poetry", description: "", coverImage: {url: "", hint: ""} },
+    { id: "poet11", title: "Night Sky with Exit Wounds", author: "Ocean Vuong", downloadUrl: "#", category: "Poetry", description: "", coverImage: {url: "", hint: ""} },
+    { id: "poet12", title: "Paradise Lost", author: "John Milton", downloadUrl: "#", category: "Poetry", description: "", coverImage: {url: "", hint: ""} },
+    { id: "poet13", title: "Rubaiyat of Omar Khayyam", author: "Omar Khayyam", downloadUrl: "#", category: "Poetry", description: "", coverImage: {url: "", hint: ""} },
+    { id: "poet14", title: "Selected Poems", author: "Emily Dickinson", downloadUrl: "#", category: "Poetry", description: "", coverImage: {url: "", hint: ""} },
+    { id: "poet15", title: "Selected Poems", author: "Kamala Das", downloadUrl: "#", category: "Poetry", description: "", coverImage: {url: "", hint: ""} },
+    { id: "poet16", title: "The Collected Poems", author: "Langston Hughes", downloadUrl: "#", category: "Poetry", description: "", coverImage: {url: "", hint: ""} },
+    { id: "poet17", title: "The Collected Poems of WB Yeats", author: "WB Yeats", downloadUrl: "#", category: "Poetry", description: "", coverImage: {url: "", hint: ""} },
+    { id: "poet18", title: "The Country Without a Post Office", author: "Agha Shahid Ali", downloadUrl: "#", category: "Poetry", description: "", coverImage: {url: "", hint: ""} },
 ];
     
 
