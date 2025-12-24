@@ -184,7 +184,7 @@ export const ncertClass11Pdfs: Pdf[] = [
   { id: "ncert11-5", title: "Chemistry - Part I", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
   { id: "ncert11-6", title: "Chemistry - Part II", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
   { id: "ncert11-7", title: "Computer Science", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
-  { id: "ncert11-8", title: "Economics - Indian Economic Development", author: "NCERT", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert11-8", title: "Economics - Indian Economic Development", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
   { id: "ncert11-9", title: "Economics - Statistics for Economics", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
   { id: "ncert11-10", title: "English - Hornbill", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
   { id: "ncert11-11", title: "English - Snapshots", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
