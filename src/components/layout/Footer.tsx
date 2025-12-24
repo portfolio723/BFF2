@@ -38,7 +38,7 @@ export const Footer = () => {
               <span className="font-heading text-xl font-semibold">Books For Fosters</span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-              Empowering readers through affordable book rentals, purchases, and community-driven donations. Every book finds a home.
+              Empowering readers through affordable book lending, purchases, and community-driven donations. Every book finds a home.
             </p>
             <div className="flex items-center gap-3">
               <a href="https://x.com/booksforfoster" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-foreground text-background flex items-center justify-center hover:opacity-80 transition-opacity p-2">
