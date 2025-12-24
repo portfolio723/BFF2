@@ -187,13 +187,15 @@ export const businessManagementPdfs: Pdf[] = [
 ];
 
 export const computerSciencePdfs: Pdf[] = [
-  { id: "cs1", title: "Artificial Intelligence: A Modern Approach", author: "Stuart Russell", downloadUrl: "#", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
-  { id: "cs2", title: "Bandit Algorithms", author: "Tor Lattimore", downloadUrl: "#", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
-  { id: "cs3", title: "Clean Code: A Handbook of Agile Software Craftsmanship", author: "Robert C. Martin", downloadUrl: "#", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
-  { id: "cs4", title: "Code: The Hidden Language of Computer Hardware and Software", author: "Charles Petzold", downloadUrl: "#", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
-  { id: "cs5", title: "Compilers: Principles, Techniques, and Tools", author: "Jeffrey D. Ullman", downloadUrl: "#", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
-  { id: "cs6", title: "Computer Networking: A Top-Down Approach", author: "James Kurose", downloadUrl: "#", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
-  { id: "cs7", title: "Computer Organization and Design Fundamentals", author: "David Tarnoff", downloadUrl: "#", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
-  { id: "cs8", title: "Cracking the Coding Interview", author: "Gayle Laakmann McDowell", downloadUrl: "#", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
+  { id: "cs1", title: "Artificial Intelligence: A Modern Approach", author: "Stuart Russell", downloadUrl: "https://mega.nz/file/G1pwAISJ#Xhd8XQbeuZuBLJK_j5ndJUGE__aIFsK9pTWsCPL653w", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
+  { id: "cs2", title: "Bandit Algorithms", author: "Tor Lattimore", downloadUrl: "https://mega.nz/file/OsZWkL5I#uB0gIoGWti1CEzToZrJ9a39Q6y3oHfZN4NddBG2t3XQ", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
+  { id: "cs3", title: "Clean Code: A Handbook of Agile Software Craftsmanship", author: "Robert C. Martin", downloadUrl: "https://mega.nz/file/n9oBkQ6Y#1oL57e4z7glMHpxjIW0UVLCQFUDc8fAKJ1tsxex4dKA", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
+  { id: "cs4", title: "Code: The Hidden Language of Computer Hardware and Software", author: "Charles Petzold", downloadUrl: "https://mega.nz/file/esQiWTID#o5z99b0ExnYKF61A6etFSEE261xN21aZNGim7ednZQ0", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
+  { id: "cs5", title: "Compilers: Principles, Techniques, and Tools", author: "Jeffrey D. Ullman", downloadUrl: "https://mega.nz/file/e84RyYgJ#r-w0jRgpoxtRZdMy_D1LXNVhxBVAyWtG5HD-_u0UYD0", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
+  { id: "cs6", title: "Computer Networking: A Top-Down Approach", author: "James Kurose", downloadUrl: "https://mega.nz/file/CoZwCJBT#JSUEKffCxs7XEqdiDJC5nN5FsGWQbTEZNjU6V-f9byk", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
+  { id: "cs7", title: "Computer Organization and Design Fundamentals", author: "David Tarnoff", downloadUrl: "https://mega.nz/file/f052Daia#EoddtwKTUeRh4izO0dkjXtyS_JP1vsBpaoIfS0qKuLg", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
+  { id: "cs8", title: "Cracking the Coding Interview", author: "Gayle Laakmann McDowell", downloadUrl: "https://mega.nz/file/y8IT1Y7A#qg2MIfHGHo_Ipy_vAWdfq2PdO0eC58uSyV2MJr_MbKM", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
 ];
+    
+
     
