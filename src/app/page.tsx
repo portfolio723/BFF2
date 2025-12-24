@@ -148,6 +148,7 @@ const CategoriesSection = () => {
     { name: "Horror & Thriller", imageId: "new-genre-horror", href: "/genre/horror-thriller" },
     { name: "Medical", imageId: "new-genre-medical", href: "/genre/medical" },
     { name: "Food & Cooking", imageId: "new-genre-food", href: "/genre/food-and-cooking" },
+    { name: "Fashion", imageId: "new-genre-fashion", href: "/genre/fashion" },
   ];
 
   return (
@@ -461,3 +462,6 @@ export default function Home() {
 
 
 
+
+
+    

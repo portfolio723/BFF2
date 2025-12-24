@@ -426,3 +426,26 @@ export const foodAndCookingPdfs: Pdf[] = [
     { id: "fc16", title: "Salt, Fat, Acid, Heat", author: "Samin Nosrat", downloadUrl: "#", category: "Food & Cooking", description: "", coverImage: {url: "", hint: ""} },
     { id: "fc17", title: "The Art of Fermentation", author: "Sandor Ellix Katz", downloadUrl: "#", category: "Food & Cooking", description: "", coverImage: {url: "", hint: ""} },
 ];
+
+export const fashionPdfs: Pdf[] = [
+  { id: "fas1", title: "Alexander McQueen", author: "Andrew Bolton", downloadUrl: "#", category: "Fashion", description: "", coverImage: {url: "", hint: ""} },
+  { id: "fas2", title: "Deluxe: How Luxury Lost its Luster", author: "Dana Thomas", downloadUrl: "#", category: "Fashion", description: "", coverImage: {url: "", hint: ""} },
+  { id: "fas3", title: "D.V.", author: "Diana Vreeland", downloadUrl: "#", category: "Fashion", description: "", coverImage: {url: "", hint: ""} },
+  { id: "fas4", title: "Fashion Climbing", author: "Bill Cunningham", downloadUrl: "#", category: "Fashion", description: "", coverImage: {url: "", hint: ""} },
+  { id: "fas5", title: "Fashion Design Course", author: "Steven Faerm", downloadUrl: "#", category: "Fashion", description: "", coverImage: {url: "", hint: ""} },
+  { id: "fas6", title: "Fashion: The Definitive History of Costume and Style", author: "Smithsonian", downloadUrl: "#", category: "Fashion", description: "", coverImage: {url: "", hint: ""} },
+  { id: "fas7", title: "Fashion Theory", author: "Malcolm Barnard", downloadUrl: "#", category: "Fashion", description: "", coverImage: {url: "", hint: ""} },
+  { id: "fas8", title: "Fashionopolis", author: "Dana Thomas", downloadUrl: "#", category: "Fashion", description: "", coverImage: {url: "", hint: ""} },
+  { id: "fas9", title: "Grace: A Memoir", author: "Grace Coddington", downloadUrl: "#", category: "Fashion", description: "", coverImage: {url: "", hint: ""} },
+  { id: "fas10", title: "Overdressed: The Shockingly High Cost of Cheap Fashion", author: "Elizabeth L. Cline", downloadUrl: "#", category: "Fashion", description: "", coverImage: {url: "", hint: ""} },
+  { id: "fas11", title: "Patternmaking for Fashion Design", author: "Helen Joseph Armstrong", downloadUrl: "#", category: "Fashion", description: "", coverImage: {url: "", hint: ""} },
+  { id: "fas12", title: "Street Style", author: "Ted Polhemus", downloadUrl: "#", category: "Fashion", description: "", coverImage: {url: "", hint: ""} },
+  { id: "fas13", title: "The Battle of Versailles", author: "Robin Givhan", downloadUrl: "#", category: "Fashion", description: "", coverImage: {url: "", hint: ""} },
+  { id: "fas14", title: "The Conscious Closet", author: "Elizabeth L. Cline", downloadUrl: "#", category: "Fashion", description: "", coverImage: {url: "", hint: ""} },
+  { id: "fas15", title: "The Curated Closet", author: "Anuschka Rees", downloadUrl: "#", category: "Fashion", description: "", coverImage: {url: "", hint: ""} },
+  { id: "fas16", title: "The Fashion System", author: "Roland Barthes", downloadUrl: "#", category: "Fashion", description: "", coverImage: {url: "", hint: ""} },
+  { id: "fas17", title: "The Little Dictionary of Fashion", author: "Christian Dior", downloadUrl: "#", category: "Fashion", description: "", coverImage: {url: "", hint: ""} },
+  { id: "fas18", title: "The Steal Like an Artist Journal", author: "Austin Kleon", downloadUrl: "#", category: "Fashion", description: "", coverImage: {url: "", hint: ""} },
+];
+
+    
