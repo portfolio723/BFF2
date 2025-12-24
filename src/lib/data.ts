@@ -198,11 +198,12 @@ export const computerSciencePdfs: Pdf[] = [
 ];
     
 export const crimeMysteryPdfs: Pdf[] = [
-    { id: "cm1", title: "Gone Girl", author: "Gillian Flynn", downloadUrl: "#", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
-    { id: "cm2", title: "I'll Be Gone in the Dark", author: "Michelle McNamara", downloadUrl: "#", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
-    { id: "cm3", title: "In Cold Blood", author: "Truman Capote", downloadUrl: "#", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
-    { id: "cm4", title: "In the Woods", author: "Tana French", downloadUrl: "#", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
-    { id: "cm5", title: "Murder on the Orient Express", author: "Agatha Christie", downloadUrl: "#", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
-    { id: "cm6", title: "Postmortem", author: "Patricia Cornwell", downloadUrl: "#", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cm1", title: "Gone Girl", author: "Gillian Flynn", downloadUrl: "https://mega.nz/file/mkIj2AyS#4M982DBKpe0QKvepUjko2BABs0frFilYGmRyt2n5tbQ", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cm2", title: "I'll Be Gone in the Dark", author: "Michelle McNamara", downloadUrl: "https://mega.nz/file/CxxjAKIa#ECGAnfciWli3EzRt61ahSfx602kLdnAascCYoUakZ_Q", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cm3", title: "In Cold Blood", author: "Truman Capote", downloadUrl: "https://mega.nz/file/24hhzLhD#TWtX9PA82BaQR2gf8BY9VqTMZcP7hMpa8Vac3i8IrO4", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cm4", title: "In the Woods", author: "Tana French", downloadUrl: "https://mega.nz/file/i9BDQBKD#qNEupE7jWtcsje85Mow0DSZrgqTDrx9uRYJQj0i9s5A", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cm5", title: "Murder on the Orient Express", author: "Agatha Christie", downloadUrl: "https://mega.nz/file/m4ARTLoA#0sHvhwFPYNzHyQlhlKevVZ3YMKL_3Kk6k8OUkZrOifY", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cm6", title: "Postmortem", author: "Patricia Cornwell", downloadUrl: "https://mega.nz/file/X9IGHaiA#Z1rbt5zoDd6---GcYDGf6cTLB4-OMEysMiOJMy4u3DE", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
 ];
     
+
