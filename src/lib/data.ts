@@ -280,12 +280,12 @@ export const engineeringPdfs: Pdf[] = [
 ];
 
 export const environmentPdfs: Pdf[] = [
-    { id: "env1", title: "A Sand County Almanac and Sketches Here and There", author: "Aldo Leopold", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
-    { id: "env2", title: "Braiding Sweetgrass", author: "Robin Wall Kimmerer", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
-    { id: "env3", title: "Environmental Studies 2nd ed", author: "R Rajagopalan", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
-    { id: "env4", title: "Feral Rewilding the Land the Sea and Hum", author: "George Monbiot", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
-    { id: "env5", title: "Half-Earth Our Planets Fight for Life", author: "Edward O Wilson", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
-    { id: "env6", title: "Last Child in the Woods", author: "Richard Louv", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env1", title: "A Sand County Almanac and Sketches Here and There", author: "Aldo Leopold", downloadUrl: "https://mega.nz/file/nkoyHSqB#zqZICd6-Drx949SqrKc_MPNTHYfGt19E2qm9FdbOPGo", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env2", title: "Braiding Sweetgrass", author: "Robin Wall Kimmerer", downloadUrl: "https://mega.nz/file/z0J0VJib#dUiYFCwtX0DSv5ynMnqlHC6uzgG9-dcY1VIzQ5u4ueg", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env3", title: "Environmental Studies 2nd ed", author: "R Rajagopalan", downloadUrl: "https://mega.nz/file/epxAwQaD#phdhfDd0ml-JwNfRWsz0WGnwcMFMK-SnF1jS8shVJJw", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env4", title: "Feral Rewilding the Land the Sea and Hum", author: "George Monbiot", downloadUrl: "https://mega.nz/file/O0JmgJ7Y#XmLQrzJ0hhJDbQTTmc45nhtjcZqrRNAn8wfi_hgPCVw", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env5", title: "Half-Earth Our Planets Fight for Life", author: "Edward O Wilson", downloadUrl: "https://mega.nz/file/jsA2gSDA#0_RM8hXQ1cUESOVYfjfQbAIkUhJ8Odpy61vBf1_vyCs", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env6", title: "Last Child in the Woods", author: "Richard Louv", downloadUrl: "https://mega.nz/file/Wp4jWCyQ#6jse3Ah75xeoNrdvPZNxZqc9-hvTmIKZmQLk8RMTkOA", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
     { id: "env7", title: "No One Is Too Small to Make a Difference", author: "Greta Thunberg", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
     { id: "env8", title: "Silent Spring", author: "Rachel Carson", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
     { id: "env9", title: "The Diversity of Life", author: "Edward O Wilson", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
