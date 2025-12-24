@@ -129,13 +129,13 @@ const CategoriesSection = () => {
     { name: "NCERT", href: "/genre/ncert" },
     { name: "History", href: "/genre/history" },
     { name: "Health & Lifestyle", href: "/genre/health-lifestyle" },
-    { name: "Competitve Exams", href: "/genre/competitve-exams" },
+    { name: "Competitive Exams", href: "/genre/competitve-exams" },
     { name: "Biography & Autobiography", href: "/genre/biography-autobiography" },
     { name: "Bible", href: "/genre/bible" },
     { name: "Anthropology", href: "/genre/anthropology" },
     { name: "Adventure", href: "/genre/adventure" },
     { name: "Law", href: "/genre/law" },
-    { name: "Business Management", href: "/genre/business-management" },
+    { name: "Business & Management", href: "/genre/business-management" },
     { name: "Computer Science", href: "/genre/computer-science" },
     { name: "Cultural", href: "/genre/cultural" },
     { name: "Crime & Mystery", href: "/genre/crime-mystery" },
@@ -453,15 +453,3 @@ export default function Home() {
     </>
   );
 }
-
-    
-
-    
-
-
-
-
-
-    
-
-    
