@@ -33,12 +33,12 @@ export const communityPosts: CommunityPost[] = [];
 export const pdfs: Pdf[] = [];
 
 export const lawPdfs: Pdf[] = [
-    { id: "law1", title: "Administrative law 9th ed", author: "lp Massey", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
-    { id: "law2", title: "Constitution of india", author: "V N shukla", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
-    { id: "law3", title: "Criminal procedure", author: "RV Kelkar", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
-    { id: "law4", title: "Indian penal code", author: "Ratanlal", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
-    { id: "law5", title: "International law ninth edition", author: "malcolm shaw", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
-    { id: "law6", title: "Introduction to the Constitution of India", author: "DD Basu", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law1", title: "Administrative law 9th ed", author: "lp Massey", downloadUrl: "https://mega.nz/file/eoAVBQpa#rJxLB60KpVIF-uKnicd4AM4mcvOcp31vXJ2MX-a4Pcc", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law2", title: "Constitution of india", author: "V N shukla", downloadUrl: "https://mega.nz/file/K1gWTDzC#Ywuw3p7YkSCQ6pepRk5jJqZlxG7vJA-5MEhkqXLRAZE", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law3", title: "Criminal procedure", author: "RV Kelkar", downloadUrl: "https://mega.nz/file/65IRQayI#mz_DmS8fjFfUjRWmqUVWuKAhD4weTPR8uz63TlId-sE", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law4", title: "Indian penal code", author: "Ratanlal", downloadUrl: "https://mega.nz/file/zth2VbIa#BKFewOKqOoKh_oSnFpmxPCD0oUN7SDqk5E5nSiblSPk", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law5", title: "International law ninth edition", author: "malcolm shaw", downloadUrl: "https://mega.nz/file/L5Ry0IbJ#gIkiHe2qBq9A4D01m3fQVlKFQXJS1EIuRix8PtmxIjE", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law6", title: "Introduction to the Constitution of India", author: "DD Basu", downloadUrl: "https://mega.nz/file/a5hQABoL#NEAgt_1Zlu8FrxXpZakUqZ0jR4B5-6Jpe2-YZ8wcgKE", category: "Law", description: "", coverImage: {url: "", hint: ""} },
     { id: "law7", title: "Jurisprudence and Legal Theory", author: "vd Mahajan", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
     { id: "law8", title: "Law of torts", author: "Dr R K Bangia", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
     { id: "law9", title: "Learning the law 17th edition", author: "Glanville Williams", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
@@ -270,3 +270,5 @@ export const engineeringPdfs: Pdf[] = [
   { id: "eng14", title: "Strength of Material", author: "R.K. Bansal", downloadUrl: "#", category: "Engineering", description: "", coverImage: {url: "", hint: ""} },
   { id: "eng15", title: "Transmission and Distribution Text Book", author: "N/A", downloadUrl: "#", category: "Engineering", description: "", coverImage: {url: "", hint: ""} },
 ];
+
+    
