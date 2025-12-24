@@ -215,4 +215,20 @@ export const crimeMysteryPdfs: Pdf[] = [
     { id: "cm5", title: "Murder on the Orient Express", author: "Agatha Christie", downloadUrl: "https://mega.nz/file/m4ARTLoA#0sHvhwFPYNzHyQlhlKevVZ3YMKL_3Kk6k8OUkZrOifY", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
     { id: "cm6", title: "Postmortem", author: "Patricia Cornwell", downloadUrl: "https://mega.nz/file/X9IGHaiA#Z1rbt5zoDd6---GcYDGf6cTLB4-OMEysMiOJMy4u3DE", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
 ];
+
+export const economicsPdfs: Pdf[] = [
+    { id: "eco1", title: "Basic Economics", author: "Thomas Sowell", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
+    { id: "eco2", title: "Capital: A Critique of Political Economy Volume 1", author: "Karl Marx", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
+    { id: "eco3", title: "Capital in the Twenty-First Century", author: "Thomas Piketty", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
+    { id: "eco4", title: "Development as Freedom", author: "Amartya Sen", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
+    { id: "eco5", title: "Economics 18th Edition", author: "Samuelson", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
+    { id: "eco6", title: "Economics In One Lesson", author: "Henry Hazlitt", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
+    { id: "eco7", title: "Indian Economy", author: "Ramesh Singh", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
+    { id: "eco8", title: "Nudge: Improving Decisions About Health", author: "Cass R Sunstein", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
+    { id: "eco9", title: "Principles Of Economics", author: "N/A", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
+    { id: "eco10", title: "The General Theory of Employment, Interest and Money", author: "John Maynard Keynes", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
+    { id: "eco11", title: "The Price of Inequality", author: "Joseph E. Stiglitz", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
+    { id: "eco12", title: "The Road to Serfdom", author: "Friedrich A Hayek", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
+    { id: "eco13", title: "The Undercover Economist", author: "Tim Harford", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
+];
     
