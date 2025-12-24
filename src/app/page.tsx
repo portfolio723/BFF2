@@ -133,7 +133,7 @@ const CategoriesSection = () => {
     { name: "Bible", imageId: "new-genre-bible", href: "/genre/bible" },
     { name: "Anthropology", imageId: "new-genre-anthropology", href: "/genre/anthropology" },
     { name: "Adventure", imageId: "new-genre-adventure" },
-    { name: "Law", imageId: "new-genre-career" },
+    { name: "Law", imageId: "new-genre-career", href: "/genre/law" },
     { name: "Business Management", imageId: "new-genre-business", href: "/genre/business-management" },
     { name: "Computer Science", imageId: "new-genre-cs", href: "/genre/computer-science" },
     { name: "Cultural", imageId: "new-genre-cultural", href: "/genre/cultural" },
@@ -141,7 +141,7 @@ const CategoriesSection = () => {
     { name: "Economics", imageId: "new-genre-economics", href: "/genre/economics" },
     { name: "Engineering", imageId: "new-genre-engineering", href: "/genre/engineering" },
     { name: "Fantasy", imageId: "new-book-2", href: "/genre/fantasy" },
-    { name: "Environment", imageId: "new-genre-environment" },
+    { name: "Environment", imageId: "new-genre-environment", href: "/genre/environment" },
   ];
 
   return (

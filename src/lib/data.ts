@@ -271,4 +271,23 @@ export const engineeringPdfs: Pdf[] = [
   { id: "eng15", title: "Transmission and Distribution Text Book", author: "N/A", downloadUrl: "#", category: "Engineering", description: "", coverImage: {url: "", hint: ""} },
 ];
 
+export const environmentPdfs: Pdf[] = [
+    { id: "env1", title: "A Sand County Almanac and Sketches Here and There", author: "Aldo Leopold", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env2", title: "Braiding Sweetgrass", author: "Robin Wall Kimmerer", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env3", title: "Environmental Studies 2nd ed", author: "R Rajagopalan", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env4", title: "Feral Rewilding the Land the Sea and Hum", author: "George Monbiot", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env5", title: "Half-Earth Our Planets Fight for Life", author: "Edward O Wilson", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env6", title: "Last Child in the Woods", author: "Richard Louv", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env7", title: "No One Is Too Small to Make a Difference", author: "Greta Thunberg", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env8", title: "Silent Spring", author: "Rachel Carson", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env9", title: "The Diversity of Life", author: "Edward O Wilson", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env10", title: "The Great Derangement Climate Change and the Unthinkable", author: "Amitav Ghosh", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env11", title: "The Hidden Life of Trees What They Feel", author: "Peter Wohlleben", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env12", title: "The Manufacturing of Greta Thunberg", author: "Cory Morningstar", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env13", title: "The Mushroom at the End of the World", author: "Anna Lowenhaupt Tsing", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env14", title: "The Overstory", author: "Richard Powers", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env15", title: "The Sixth Extinction", author: "Elizabeth Kolbert", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env16", title: "The Uninhabitable Earth", author: "David Wallace-Wells", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+    { id: "env17", title: "This Changes Everything Capitalism vs Th", author: "Naomi Klein", downloadUrl: "#", category: "Environment", description: "", coverImage: {url: "", hint: ""} },
+];
     
