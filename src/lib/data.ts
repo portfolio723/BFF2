@@ -217,11 +217,11 @@ export const crimeMysteryPdfs: Pdf[] = [
 ];
 
 export const economicsPdfs: Pdf[] = [
-    { id: "eco1", title: "Basic Economics", author: "Thomas Sowell", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
-    { id: "eco2", title: "Capital: A Critique of Political Economy Volume 1", author: "Karl Marx", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
-    { id: "eco3", title: "Capital in the Twenty-First Century", author: "Thomas Piketty", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
-    { id: "eco4", title: "Development as Freedom", author: "Amartya Sen", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
-    { id: "eco5", title: "Economics 18th Edition", author: "Samuelson", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
+    { id: "eco1", title: "Basic Economics", author: "Thomas Sowell", downloadUrl: "https://mega.nz/file/6oQXESpR#IQ74ap3TnumFKOZ7-fRuzZTg72ivw6PwLPC_A54JZwI", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
+    { id: "eco2", title: "Capital: A Critique of Political Economy Volume 1", author: "Karl Marx", downloadUrl: "https://mega.nz/file/qwpDkKoS#y5TbO0rauiAtuhNXmRhLT7f5Mrae6ECvCv3OI-obePM", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
+    { id: "eco3", title: "Capital in the Twenty-First Century", author: "Thomas Piketty", downloadUrl: "https://mega.nz/file/rpARyRBC#ujQAj7YpPquU9kZUa1tmOdxmvzOBrKGOLXcxiSuQ_9Y", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
+    { id: "eco4", title: "Development as Freedom", author: "Amartya Sen", downloadUrl: "https://mega.nz/file/HtgRjBKS#rHB-V3pUnZc3uevHcsZQ_kwl0vgC2e5cZ25sBmjKzxM", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
+    { id: "eco5", title: "Economics 18th Edition", author: "Samuelson", downloadUrl: "https://mega.nz/file/zpJXSQZD#eZH0e8GSjCck7WY2qFCwJEjWXFa_tqPlcYFxdXweYKU", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
     { id: "eco6", title: "Economics In One Lesson", author: "Henry Hazlitt", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
     { id: "eco7", title: "Indian Economy", author: "Ramesh Singh", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
     { id: "eco8", title: "Nudge: Improving Decisions About Health", author: "Cass R Sunstein", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
@@ -232,3 +232,4 @@ export const economicsPdfs: Pdf[] = [
     { id: "eco13", title: "The Undercover Economist", author: "Tim Harford", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
 ];
     
+
