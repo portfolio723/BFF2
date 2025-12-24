@@ -170,7 +170,7 @@ const CategoriesSection = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
           {categories.map((category, index) => {
-            const slug = category.name.toLowerCase().replace(/ & | /g, '-').replace(/[^a-z0-9-]/g, '');
+            const slug = category.name.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-').replace(/[^a-z0-9-]/g, '');
             const href = category.href || `/genre/${slug}`;
             const imageUrl = `/genres/${slug}.png`;
 
