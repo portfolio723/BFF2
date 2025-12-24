@@ -15,6 +15,11 @@ import {
   Building,
   Share2,
   ShieldCheck,
+  BookUp,
+  BookUser,
+  CheckCircle,
+  AlertTriangle,
+  Gift,
 } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
@@ -202,6 +207,62 @@ const AboutPage = () => {
                 </motion.div>
             </div>
         </div>
+
+        {/* --- Donation & Borrowing Guidelines --- */}
+        <div className="grid md:grid-cols-2 gap-8 mb-20 lg:mb-28">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="bg-card border border-border rounded-2xl p-8"
+            >
+                <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center">
+                        <Gift className="w-6 h-6 text-foreground"/>
+                    </div>
+                    <h2 className="font-heading text-2xl font-semibold">Donate Books</h2>
+                </div>
+                <p className="text-muted-foreground mb-4">Have books you no longer use? Your books can help someone continue their education.</p>
+                
+                <h4 className="font-medium mt-6 mb-2">What You Can Donate</h4>
+                <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
+                    <li>School & college textbooks</li>
+                    <li>Reference books</li>
+                    <li>Exam preparation books</li>
+                </ul>
+
+                <h4 className="font-medium mt-6 mb-2">What We Don’t Accept</h4>
+                <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
+                    <li>Torn or unusable books</li>
+                    <li>Pirated or photocopied materials</li>
+                </ul>
+                <p className="text-xs text-muted-foreground mt-4">By donating, you confirm that the books are legally owned by you.</p>
+            </motion.div>
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="bg-card border border-border rounded-2xl p-8"
+            >
+                 <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center">
+                        <BookUser className="w-6 h-6 text-foreground"/>
+                    </div>
+                    <h2 className="font-heading text-2xl font-semibold">Borrow Books</h2>
+                </div>
+                <p className="text-muted-foreground mb-4">Borrow books responsibly and help keep the cycle alive.</p>
+                
+                <h4 className="font-medium mt-6 mb-2">Borrower Responsibilities</h4>
+                <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
+                    <li>Return books within the agreed duration</li>
+                    <li>Maintain reasonable condition</li>
+                    <li>Replace or compensate for lost/damaged books if required</li>
+                </ul>
+            </motion.div>
+        </div>
+
 
         {/* --- Who Can Join Section --- */}
         <div className="bg-card border border-border rounded-2xl p-8 lg:p-12">
