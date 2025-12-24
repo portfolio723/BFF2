@@ -98,6 +98,17 @@ export const selfDevelopmentPdfs: Pdf[] = [
     { id: "sd3", title: "Awareness: The Perils and Opportunities of Reality", author: "Anthony de Mello", downloadUrl: "https://mega.nz/file/ihph0JDb#IyTY958WuXLm4ac6YfsjHmvRlk1iH9J1ppzC4P-oY14", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
     { id: "sd4", title: "Atomic Habits", author: "James Clear", downloadUrl: "https://mega.nz/file/Hs4XUapT#YON7PfyPaP3QtwKcHt2qz2njldJtpdBCMf7HLyKXWPI", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
     { id: "sd5", title: "Awaken the Giant Within", author: "Anthony Robbins", downloadUrl: "https://mega.nz/file/vkgQkIwC#P8A0fGEBj8E_dnD7AFII4gCYli874tW7DUjcsrjoP4E", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sd6", title: "Drive: The Surprising Truth About What Motivates Us", author: "Daniel H. Pink", downloadUrl: "#", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sd7", title: "Emotional Intelligence", author: "Daniel Goleman", downloadUrl: "#", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sd8", title: "How To Win Friends And Influence People", author: "Dale Carnegie", downloadUrl: "#", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sd9", title: "Mindset", author: "Carol S. Dweck", downloadUrl: "#", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sd10", title: "The 7 Habits of Highly Effective People", author: "Stephen Covey", downloadUrl: "#", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sd11", title: "The Miracle Morning", author: "Hal Elrod", downloadUrl: "#", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sd12", title: "The Power Of Now", author: "Eckhart Tolle", downloadUrl: "#", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sd13", title: "The Untethered Soul", author: "Michael A. Singer", downloadUrl: "#", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sd14", title: "The ONE Thing", author: "Gary Keller", downloadUrl: "#", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sd15", title: "The Subtle Art of Not Giving a F*ck", author: "Mark Manson", downloadUrl: "#", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sd16", title: "Think And Grow Rich", author: "Napoleon Hill", downloadUrl: "#", category: "Self Development", description: "", coverImage: {url: "", hint: ""} },
 ];
 
 export const psychologyPdfs: Pdf[] = [
@@ -454,5 +465,7 @@ export const fashionPdfs: Pdf[] = [
   { id: "fas17", title: "The Little Dictionary of Fashion", author: "Christian Dior", downloadUrl: "#", category: "Fashion", description: "", coverImage: {url: "", hint: ""} },
   { id: "fas18", title: "The Steal Like an Artist Journal", author: "Austin Kleon", downloadUrl: "#", category: "Fashion", description: "", coverImage: {url: "", hint: ""} },
 ];
+
+    
 
     
