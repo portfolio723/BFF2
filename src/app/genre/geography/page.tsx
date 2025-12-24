@@ -67,8 +67,28 @@ export default function GeographyPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-card border border-border rounded-xl"
         >
+          {/* Mobile View */}
+          <div className="lg:hidden bg-card border border-border rounded-xl p-4 space-y-4">
+            {geographyPdfs.map((pdf) => (
+              <div key={pdf.id} className="flex items-center justify-between p-2 rounded-lg hover:bg-secondary">
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium truncate">{pdf.title}</p>
+                  <p className="text-sm text-muted-foreground truncate">{pdf.author}</p>
+                </div>
+                <Button variant="ghost" size="icon" onClick={() => handleDownload(pdf)} disabled={isUserLoading}>
+                  {isUserLoading ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <Download className="w-4 h-4" />
+                  )}
+                </Button>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop View */}
+          <div className="hidden lg:block bg-card border border-border rounded-xl">
             <Table>
                 <TableHeader>
                     <TableRow>
@@ -96,6 +116,7 @@ export default function GeographyPage() {
                     ))}
                 </TableBody>
             </Table>
+          </div>
         </motion.div>
       </div>
     </section>
