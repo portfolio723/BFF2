@@ -38,7 +38,7 @@ const HeroSection = () => {
               className="font-heading text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold leading-[1.1] tracking-tight"
             >
               Share Books. <br />
-              Shape <span className="text-muted-foreground">Futures.</span>
+              <span className="text-muted-foreground">Shape Futures.</span>
             </motion.h1>
             
             <motion.p
@@ -95,7 +95,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                className="relative aspect-[4/5] max-w-sm mx-auto sm:max-w-sm"
+                className="relative aspect-[4/5] max-w-sm mx-auto sm:max-w-md"
               >
               {heroImage && (
                   <div className="w-full h-full bg-secondary rounded-2xl shadow-lg overflow-hidden">
