@@ -165,12 +165,32 @@ export const historyPdfs: Pdf[] = [
     { id: "hist4", title: "Great Events by Famous Historians", author: "N/A", downloadUrl: "https://mega.nz/file/y8gkCZKb#59-yr3QwDB-QZX5ngjYHRPdaLaOPfg_mVpFKCkwoJPE", category: "History", description: "", coverImage: {url: "", hint: ""} },
     { id: "hist5", title: "Heritage", author: "N/A", downloadUrl: "https://mega.nz/file/K55zHaoK#6pwwv7sQovTq76xK9OWBT8olk7nOx3183TXCzVaQltI", category: "History", description: "", coverImage: {url: "", hint: ""} },
     { id: "hist6", title: "history of nations", author: "N/A", downloadUrl: "https://mega.nz/file/b5oxyRIZ#JQKERmyIfLHpWt7fzG4cs7m4mTuhj22Yirfw-ptpsvw", category: "History", description: "", coverImage: {url: "", hint: ""} },
+    { id: "hist7", title: "HISTORY OF INDIA FROM THE EARLIEST TIME 122 AD", author: "N/A", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
+    { id: "hist8", title: "Indias Ancient Past", author: "R.S. Sharma", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
+    { id: "hist9", title: "Short History of the World", author: "N/A", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
+    { id: "hist10", title: "Story of Mankind", author: "vanl", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
+    { id: "hist11", title: "Textbook Universal History", author: "N/A", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
+    { id: "hist12", title: "The Origin of Universal History", author: "N/A", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
+    { id: "hist13", title: "The Historian's History of the World", author: "N/A", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
+    { id: "hist14", title: "The Encyclopedia of World History", author: "N/A", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
+    { id: "hist15", title: "A Study of History", author: "Toynbee", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
+    { id: "hist16", title: "World Regional Geography", author: "N/A", downloadUrl: "#", category: "History", description: "", coverImage: {url: "", hint: ""} },
 ];
 
 export const competitiveExamsPdfs: Pdf[] = [
   { id: "ce1", title: "Objective Computer Knowledge And Literacy", author: "Kiran", downloadUrl: "https://mega.nz/file/D4x1mQyb#5nrHcor5I2cW1k870C9zrsEefylDCv7MLYK685zbAN0", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
   { id: "ce2", title: "High School English Grammar and Composition", author: "Wren & Martin", downloadUrl: "https://mega.nz/file/StxAiLjb#-7N5ewz3JcJFah8WKxM2fxlUfqbLl0ry7BF-tXsOm8s", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
   { id: "ce3", title: "Word Power Made Easy", author: "Norman Lewis", downloadUrl: "https://mega.nz/file/aoIjXYwK#3oH6yhM3XovBMranmyg0kSD_Lek1VanGM6izh5L8k1U", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ce4", title: "HISTORY OF INDIA FROM THE EARLIEST TIME 122 AD", author: "N/A", downloadUrl: "#", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ce5", title: "Indias Ancient Past", author: "R.S. Sharma", downloadUrl: "#", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ce6", title: "Short History of the World", author: "N/A", downloadUrl: "#", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ce7", title: "Story of Mankind", author: "vanl", downloadUrl: "#", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ce8", title: "Textbook Universal History", author: "N/A", downloadUrl: "#", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ce9", title: "The Origin of Universal History", author: "N/A", downloadUrl: "#", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ce10", title: "The Historian's History of the World", author: "N/A", downloadUrl: "#", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ce11", title: "The Encyclopedia of World History", author: "N/A", downloadUrl: "#", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ce12", title: "A Study of History", author: "Toynbee", downloadUrl: "#", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ce13", title: "World Regional Geography", author: "N/A", downloadUrl: "#", category: "Competitive Exams", description: "", coverImage: {url: "", hint: ""} },
 ];
 
 export const biographyPdfs: Pdf[] = [
