@@ -115,6 +115,10 @@ export const christianPdfs: Pdf[] = [
     { id: "b3", title: "A Brief Bible History", author: "N/A", downloadUrl: "https://mega.nz/file/3thnFbQS#Ul2JwQBSN8B4Njl7qXUbk8wfw9SXSzds5Ozsfi9BOkM", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
     { id: "b4", title: "A Christian in a Non Christian World", author: "N/A", downloadUrl: "https://mega.nz/file/qwwTxSBR#pJGiGMKqg3fHBixBGVej1hsY8YJMhtTFKg5JwgYOUwI", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
     { id: "b5", title: "A Complete Guide to Web Design", author: "N/A", downloadUrl: "https://mega.nz/file/3pRgzaST#B1UgNl91QUPP_IA11KGGMO115b1wJm9Bi5Y4C2aG_ZA", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
+    { id: "b6", title: "CEB-GenesisNew", author: "N/A", downloadUrl: "#", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
+    { id: "b7", title: "CEB-LukeNEW", author: "N/A", downloadUrl: "#", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
+    { id: "b8", title: "CEBDailyReading-1", author: "N/A", downloadUrl: "#", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
+    { id: "b9", title: "CEBStudyBibleSampler", author: "N/A", downloadUrl: "#", category: "Bible", description: "", coverImage: {url: "", hint: ""} },
 ];
 
 export const fantasyPdfs: Pdf[] = [
@@ -342,6 +346,8 @@ export const sportsPdfs: Pdf[] = [
     { id: "sp17", title: "The Dhoni Touch", author: "Bharat Sundaresan", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
     { id: "sp18", title: "The Inner Game of Tennis", author: "W. Timothy Gallwey", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
 ];
+    
+
     
 
     
