@@ -32,6 +32,16 @@ export const communityPosts: CommunityPost[] = [];
 
 export const pdfs: Pdf[] = [];
 
+export const culturalPdfs: Pdf[] = [
+    { id: "cul1", title: "Culture and Society 1780-1950", author: "Raymond Williams", downloadUrl: "#", category: "Cultural", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cul2", title: "Imagined Communities", author: "Benedict Anderson", downloadUrl: "#", category: "Cultural", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cul3", title: "Interpretation of Cultures", author: "Robert Darnton", downloadUrl: "#", category: "Cultural", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cul4", title: "No Logo", author: "Naomi Klein", downloadUrl: "#", category: "Cultural", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cul5", title: "Orientalismo Portuguese Edition", author: "SAID Edward W", downloadUrl: "#", category: "Cultural", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cul6", title: "Patterns of Culture", author: "Ruth Benedict", downloadUrl: "#", category: "Cultural", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cul7", title: "The Forest People", author: "Colin Turnbull", downloadUrl: "#", category: "Cultural", description: "", coverImage: {url: "", hint: ""} },
+];
+
 export const upscPdfs: Pdf[] = [
   { id: "1", title: "Ancient History", downloadUrl: "https://mega.nz/file/ypBRnD5T#qVTEUPR8Ge7hIsz04RMlnkpBJcyFuxsUr5VGxJD6HJM", author: "RS Sharma", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
   { id: "2", title: "Art and Culture", downloadUrl: "https://mega.nz/file/2pZhUIgL#a2NY44Lq4aUvDQoQiol1jBA6WqVEX4vRnGTLMt4eCpc", author: "Nitin Singhania", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
@@ -206,4 +216,3 @@ export const crimeMysteryPdfs: Pdf[] = [
     { id: "cm6", title: "Postmortem", author: "Patricia Cornwell", downloadUrl: "https://mega.nz/file/X9IGHaiA#Z1rbt5zoDd6---GcYDGf6cTLB4-OMEysMiOJMy4u3DE", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
 ];
     
-
