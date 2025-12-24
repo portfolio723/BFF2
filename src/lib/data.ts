@@ -32,6 +32,27 @@ export const communityPosts: CommunityPost[] = [];
 
 export const pdfs: Pdf[] = [];
 
+export const lawPdfs: Pdf[] = [
+    { id: "law1", title: "Administrative law 9th ed", author: "lp Massey", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law2", title: "Constitution of india", author: "V N shukla", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law3", title: "Criminal procedure", author: "RV Kelkar", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law4", title: "Indian penal code", author: "Ratanlal", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law5", title: "International law ninth edition", author: "malcolm shaw", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law6", title: "Introduction to the Constitution of India", author: "DD Basu", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law7", title: "Jurisprudence and Legal Theory", author: "vd Mahajan", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law8", title: "Law of torts", author: "Dr R K Bangia", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law9", title: "Learning the law 17th edition", author: "Glanville Williams", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law10", title: "Letters to a law students", author: "Nicholas J McBride", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law11", title: "M P Jain Indian Constitutional Law", author: "MP Jain", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law12", title: "Modeling and Simulation of Social-Behavioral Phenomena in Creative Societies", author: "Nitin Agarwal", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law13", title: "Partition of India Legend and Reality", author: "H M Seervai", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law14", title: "The Concept of Law", author: "HLA Hart", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law15", title: "The Law of EVIDENCE", author: "BATUK LAL", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law16", title: "Universal Human Rights in Theory and Practice", author: "Jack Donnelly", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law17", title: "The Code", author: "N/A", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+    { id: "law18", title: "LEGAL APTITUDE AND LOGICAL REASONING", author: "N/A", downloadUrl: "#", category: "Law", description: "", coverImage: {url: "", hint: ""} },
+];
+
 export const culturalPdfs: Pdf[] = [
     { id: "cul1", title: "Culture and Society 1780-1950", author: "Raymond Williams", downloadUrl: "#", category: "Cultural", description: "", coverImage: {url: "", hint: ""} },
     { id: "cul2", title: "Imagined Communities", author: "Benedict Anderson", downloadUrl: "#", category: "Cultural", description: "", coverImage: {url: "", hint: ""} },
