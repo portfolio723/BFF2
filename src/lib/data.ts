@@ -321,6 +321,27 @@ export const healthAndLifestylePdfs: Pdf[] = [
   { id: "hl19", title: "The Complete Book of ayurvedic home remedies", author: "Vasant lad", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
   { id: "hl20", title: "The Feeling Good Handbook", author: "David D Burns", downloadUrl: "#", category: "Health & Lifestyle", description: "", coverImage: {url: "", hint: ""} },
 ];
+
+export const sportsPdfs: Pdf[] = [
+    { id: "sp1", title: "Born to Run 2", author: "Christopher McDougall & Eric Orton", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sp2", title: "Cristiano Ronaldo", author: "Guillem Balague", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sp3", title: "Eleven Rings: The Soul of Success", author: "Phil Jackson", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sp4", title: "Fast Girls", author: "Elise Hooper", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sp5", title: "Fever Pitch", author: "Nick Hornsby", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sp6", title: "How to Build a Car", author: "Adrian Newey", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sp7", title: "I Am Zlatan", author: "David Lagercrantz", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sp8", title: "Managing My Life", author: "Alex Ferguson", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sp9", title: "Messi", author: "Guillem Balague", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sp10", title: "Mind Gym", author: "Gary Mack", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sp11", title: "Muhammad Ali: A Memoir", author: "Michael Parkinson", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sp12", title: "No Spin: My Autobiography", author: "Shane Warne", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sp13", title: "Open", author: "Andre Agassi", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sp14", title: "Playing It My Way: My Autobiography", author: "Sachin Tendulkar", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sp15", title: "Relentless: From Good to Great to Unstoppable", author: "Tim Grover", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sp16", title: "Serve to Win", author: "Novak Djokovic", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sp17", title: "The Dhoni Touch", author: "Bharat Sundaresan", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
+    { id: "sp18", title: "The Inner Game of Tennis", author: "W. Timothy Gallwey", downloadUrl: "#", category: "Sports", description: "", coverImage: {url: "", hint: ""} },
+];
     
 
     

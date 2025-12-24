@@ -50,13 +50,13 @@
     },
     {
       "id": "new-book-2",
-      "imageUrl": "https://images.unsplash.com/photo-1593410733607-4fe72c8f3f73?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmYW50YXN5JTIwbGFuZHNjYXBlfGVufDB8fHx8MTc2NTk4ODMyMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1593410733607-4fe72c8f3f73?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmYW50YXN5JTIwbGFuZHNjYXBlfGVufDB8fHx8MTc2NTk4ODMyMHww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "fantasy landscape",
       "description": "The Hobbit"
     },
     {
       "id": "new-book-3",
-      "imageUrl": "https://images.unsplash.com/photo-1573455494060-c5595004fb6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx0b2t5byUyMHN0cmVldHxlbnwwfHx8fDE3NjU5NDI4OTl8MA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1573455494060-c5595004fb6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx0b2t5byUyMHN0cmVldHxlbnwwfHx8fDE3NjU5NDI4OTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "tokyo street",
       "description": "Norwegian Wood"
     },
@@ -134,7 +134,7 @@
     },
     {
       "id": "new-book-16",
-      "imageUrl": "https://images.unsplash.com/photo-1581745071812-e69f8cf9e898?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjbGFzc2ljJTIwcm9tYW5jZXxlbnwwfHx8fDE3NjYwNDg0MTl8MA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1581745071812-e69f8cf9e898?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjYWxpc3RpYyUyMHJvbWFuY2V8ZW58MHx8fHwxNzY2MDQ4NDE5fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "classic romance",
       "description": "Sense and Sensibility"
     },
@@ -176,7 +176,7 @@
     },
     {
       "id": "new-book-23",
-      "imageUrl": "https://images.unsplash.com/photo-1765560215006-3f55535b83ee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzZWxmJTIwYWNjZXB0YW5jZXxlbnwwfHx8fDE3NjYwNTQyNDl8MA&ixlibrb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1765560215006-3f55535b83ee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzZWxmJTIwYWNjZXB0YW5jZXxlbnwwfHx8fDE3NjYwNTQyNDl8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "self acceptance",
       "description": "Gifts of Imperfection"
     },
@@ -266,7 +266,7 @@
     },
     {
       "id": "new-book-38",
-      "imageUrl": "https://images.unsplash.com/photo-1633182203832-76ede0337ca2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxmdXR1cmlzdGljJTIwd29ybGR8ZW58MHx8fHwxNzY2MDU0MjUwfDA&ixlibrb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1633182203832-76ede0337ca2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxmdXR1cmlzdGljJTIwd29ybGR8ZW58MHx8fHwxNzY2MDU0MjUwfDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "futuristic world",
       "description": "Brave New World"
     },
@@ -333,7 +333,7 @@
     {
       "id": "pdf-cl2-cover",
       "description": "To Kill a Mockingbird",
-      "imageUrl": "https://images.unsplash.com/photo-1672317535351-54ed5ebf791d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtb2NraW5nYmlyZCUyMG5vdmVsfGVufDB8fHx8MTc2NjA1MzgzOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1672317535351-54ed5ebf791d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtb2NraW5nYmlyZCUyMG5vdmVsfGVufDB8fHx8MTc2NjA1MzgzOXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "mockingbird novel"
     },
     {
@@ -705,8 +705,14 @@
     {
       "id": "new-genre-health",
       "description": "Image for Health & Lifestyle books",
-      "imageUrl": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoZWFsdGglMjBsaWZlc3R5bGV8ZW58MHx8fHwxNzY2NDE4ODU0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoZWFsdGglMjBsaWZlc3R5bGV8ZW58MHx8fHwxNzY2NDE4ODU0fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "health lifestyle"
+    },
+    {
+      "id": "new-genre-sports",
+      "description": "Image for Sports books",
+      "imageUrl": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzb2NjZXIlMjBzdGFkaXVtfGVufDB8fHx8MTc2NjQxODg1NHww&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "soccer stadium"
     }
   ]
 }

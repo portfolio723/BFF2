@@ -143,6 +143,7 @@ const CategoriesSection = () => {
     { name: "Engineering", imageId: "new-genre-engineering", href: "/genre/engineering" },
     { name: "Fantasy", imageId: "new-book-2", href: "/genre/fantasy" },
     { name: "Environment", imageId: "new-genre-environment", href: "/genre/environment" },
+    { name: "Sports", imageId: "new-genre-sports", href: "/genre/sports" },
   ];
 
   return (
