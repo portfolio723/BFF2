@@ -200,6 +200,14 @@ export const biographyPdfs: Pdf[] = [
     { id: "bio4", title: "Autobiography of Helen Keller", author: "N/A", downloadUrl: "https://mega.nz/file/zhownLZY#oTpRbvUSyqizOqxSTr_fHdm-_zE1dbF1pafvEmQWzeM", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
     { id: "bio5", title: "Benjamin Franklin Ki Atmakatha", author: "N/A", downloadUrl: "https://mega.nz/file/2pR1xTZT#MUWr1ys670k4biHRVdbo_3OwZMDAqhIEpkFlVYieAvg", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
     { id: "bio6", title: "Bhagat Singh Biography", author: "N/A", downloadUrl: "https://mega.nz/file/G1AzkJDY#RK8uZbDHAhhz44RMRrXlT-Mo8uiryxkTceYa62n7TiA", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bio7", title: "Elon Musk Ke Success Principles", author: "Gautam Swati", downloadUrl: "#", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bio8", title: "Everest ki Beti", author: "N/A", downloadUrl: "#", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bio9", title: "Finlandia: Biography of Jean Sibelius", author: "N/A", downloadUrl: "#", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bio10", title: "Gandhi Autobiography (Hindi)", author: "N/A", downloadUrl: "#", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bio11", title: "My Life and Work", author: "Henry Ford", downloadUrl: "#", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bio12", title: "Schuberta", author: "N/A", downloadUrl: "#", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bio13", title: "St. Clare of Assisi", author: "N/A", downloadUrl: "#", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
+    { id: "bio14", title: "Vivekanand Athma Katha (Hindi)", author: "N/A", downloadUrl: "#", category: "Biography", description: "", coverImage: {url: "", hint: ""} },
 ];
 
 export const anthropologyPdfs: Pdf[] = [
