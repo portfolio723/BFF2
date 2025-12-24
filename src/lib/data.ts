@@ -184,7 +184,7 @@ export const ncertClass11Pdfs: Pdf[] = [
   { id: "ncert11-5", title: "Chemistry - Part I", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
   { id: "ncert11-6", title: "Chemistry - Part II", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
   { id: "ncert11-7", title: "Computer Science", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
-  { id: "ncert11-8", title: "Economics - Indian Economic Development", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
+  { id: "ncert11-8", title: "Economics - Indian Economic Development", author: "NCERT", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
   { id: "ncert11-9", title: "Economics - Statistics for Economics", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
   { id: "ncert11-10", title: "English - Hornbill", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
   { id: "ncert11-11", title: "English - Snapshots", author: "NCERT", downloadUrl: "#", category: "NCERT Class 11", description: "", coverImage: {url: "", hint: ""} },
@@ -242,11 +242,11 @@ export const computerSciencePdfs: Pdf[] = [
 
 export const crimeMysteryPdfs: Pdf[] = [
     { id: "cm1", title: "Gone Girl", downloadUrl: "https://mega.nz/file/mkIj2AyS#4M982DBKpe0QKvepUjko2BABs0frFilYGmRyt2n5tbQ", author: "Gillian Flynn", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
-    { id: "cm2", title: "I'll Be Gone in the Dark", downloadUrl: "https://mega.nz/file/CxxjAKIa#ECGAnfciWli3EzRt61ahSfx602kLdnAascCYoUakZ_Q", author: "Michelle McNamara", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cm2", title: "I'll Be Gone in the Dark", author: "Michelle McNamara", downloadUrl: "https://mega.nz/file/CxxjAKIa#ECGAnfciWli3EzRt61ahSfx602kLdnAascCYoUakZ_Q", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
     { id: "cm3", title: "In Cold Blood", downloadUrl: "https://mega.nz/file/24hhzLhD#TWtX9PA82BaQR2gf8BY9VqTMZcP7hMpa8Vac3i8IrO4", author: "Truman Capote", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
     { id: "cm4", title: "In the Woods", downloadUrl: "https://mega.nz/file/i9BDQBKD#qNEupE7jWtcsje85Mow0DSZrgqTDrx9uRYJQj0i9s5A", author: "Tana French", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
     { id: "cm5", title: "Murder on the Orient Express", downloadUrl: "https://mega.nz/file/m4ARTLoA#0sHvhwFPYNzHyQlhlKevVZ3YMKL_3Kk6k8OUkZrOifY", author: "Agatha Christie", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
-    { id: "cm6", title: "Postmortem", downloadUrl: "https://mega.nz/file/X9IGHaiA#Z1rbt5zoDd6---GcYDGf6cTLB4-OMEysMiOJMy4u3DE", author: "Patricia Cornwell", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cm6", title: "Postmortem", author: "Patricia Cornwell", downloadUrl: "https://mega.nz/file/X9IGHaiA#Z1rbt5zoDd6---GcYDGf6cTLB4-OMEysMiOJMy4u3DE", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
 ];
 
 export const economicsPdfs: Pdf[] = [
@@ -405,4 +405,24 @@ export const medicalPdfs: Pdf[] = [
     { id: "med15", title: "The Body Keeps the Score: Brain, Mind, and Body in the Healing of Trauma", author: "Bessel van der Kolk", downloadUrl: "#", category: "Medical", description: "", coverImage: {url: "", hint: ""} },
     { id: "med16", title: "The Brain That Changes Itself", author: "Norman Doidge", downloadUrl: "#", category: "Medical", description: "", coverImage: {url: "", hint: ""} },
     { id: "med17", title: "The Checklist Manifesto", author: "Atul Gawande", downloadUrl: "#", category: "Medical", description: "", coverImage: {url: "", hint: ""} },
+];
+
+export const foodAndCookingPdfs: Pdf[] = [
+    { id: "fc1", title: "A Cook's Tour: Global Adventures in Extreme Cuisines", author: "Anthony Bourdain", downloadUrl: "#", category: "Food & Cooking", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fc2", title: "Blood, Bones & Butter", author: "Gabrielle Hamilton", downloadUrl: "#", category: "Food & Cooking", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fc3", title: "Chetna's 30-minute Indian", author: "Chetna Makan", downloadUrl: "#", category: "Food & Cooking", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fc4", title: "Consider the Fork", author: "Bee Wilson", downloadUrl: "#", category: "Food & Cooking", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fc5", title: "Curry", author: "Lizzie Collingham", downloadUrl: "#", category: "Food & Cooking", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fc6", title: "Dessert Person", author: "Claire Saffitz", downloadUrl: "#", category: "Food & Cooking", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fc7", title: "Eat, Drink, and Be Healthy", author: "MD Walter Willett", downloadUrl: "#", category: "Food & Cooking", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fc8", title: "Eat, Pray, Love", author: "Elizabeth Gilbert", downloadUrl: "#", category: "Food & Cooking", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fc9", title: "Eat to Beat Your Diet", author: "William W. Li", downloadUrl: "#", category: "Food & Cooking", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fc10", title: "Heat: An Amateur's Adventures as Kitchen", author: "Bill Buford", downloadUrl: "#", category: "Food & Cooking", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fc11", title: "How to Cook Everything Christmas", author: "Mark Bittman", downloadUrl: "#", category: "Food & Cooking", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fc12", title: "In Defense of Food: An Eater's Manifesto", author: "Michael Pollan", downloadUrl: "#", category: "Food & Cooking", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fc13", title: "Keys to Good Cooking", author: "Harold McGee", downloadUrl: "#", category: "Food & Cooking", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fc14", title: "Kitchen Confidential", author: "Anthony Bourdain", downloadUrl: "#", category: "Food & Cooking", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fc15", title: "Mastering the Art of French Cooking, Volume 1", author: "Julia Child", downloadUrl: "#", category: "Food & Cooking", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fc16", title: "Salt, Fat, Acid, Heat", author: "Samin Nosrat", downloadUrl: "#", category: "Food & Cooking", description: "", coverImage: {url: "", hint: ""} },
+    { id: "fc17", title: "The Art of Fermentation", author: "Sandor Ellix Katz", downloadUrl: "#", category: "Food & Cooking", description: "", coverImage: {url: "", hint: ""} },
 ];
