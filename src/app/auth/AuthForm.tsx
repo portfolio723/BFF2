@@ -34,7 +34,7 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { AnimatePresence, motion } from "framer-motion";
 
 const passwordValidation = new RegExp(
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/
 );
 
 const signUpSchema = z.object({
