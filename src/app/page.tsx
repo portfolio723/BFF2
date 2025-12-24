@@ -97,7 +97,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                className="relative aspect-[4/5] max-w-sm sm:max-w-md mx-auto"
+                className="relative aspect-[4/5] max-w-sm mx-auto sm:max-w-md"
               >
               {heroImage && (
                   <div className="w-full h-full bg-secondary rounded-2xl shadow-lg overflow-hidden">
@@ -309,24 +309,45 @@ const FeaturesSection = () => {
 const TestimonialsSection = () => {
   const testimonials = [
     {
-      name: "Priya Sharma",
-      role: "Avid Reader",
+      name: "Srinijahova",
+      role: "Supporter",
       avatarId: "user-avatar-1",
-      content: "Books For Fosters has transformed my reading habit. I rent 5-6 books monthly for just delivery charges. Absolute game changer!",
+      content: "A story, once read, becomes part of us forever. Quietly, meaningfully, that’s exactly what BFF does. I’m proud to stand behind this wonderful cause.",
       rating: 5,
     },
     {
-      name: "Rahul Verma",
-      role: "Book Donor",
+      name: "Saikireety",
+      role: "Supporter",
       avatarId: "user-avatar-2",
-      content: "Donated over 200 books from my collection. The pickup service is seamless and knowing my books find new readers is heartwarming.",
+      content: "Every book that helped me learn can help someone else dream. BFF is about passing that hope forward.",
       rating: 5,
     },
     {
-      name: "Anjali Patel",
-      role: "Student",
+      name: "Sandeep",
+      role: "Reader",
       avatarId: "user-avatar-3",
-      content: "As a student, buying textbooks was expensive. Now I rent academic books at a fraction of the cost. Highly recommend!",
+      content: "Books turn 'I can’t' into 'I can.' They give knowledge, dignity, hope, and a future.",
+      rating: 5,
+    },
+     {
+      name: "Sneha",
+      role: "Supporter",
+      avatarId: "user-avatar-1",
+      content: "BFF can be a safe place when the world feels uncertain, offering comfort, hope, and a sense of belonging through every page.",
+      rating: 5,
+    },
+    {
+      name: "Aniket",
+      role: "Reader",
+      avatarId: "user-avatar-2",
+      content: "BFF has become my daily reading companion. The library is vast, I love how easily I can access books here, from spiritual to science & technology.",
+      rating: 5,
+    },
+    {
+      name: "Priya",
+      role: "Reader",
+      avatarId: "user-avatar-3",
+      content: "A book placed in the right hands can feel like being held. BFF lets stories travel with love, whispering, 'You matter. Keep dreaming.'",
       rating: 5,
     },
   ];
@@ -348,14 +369,14 @@ const TestimonialsSection = () => {
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {testimonials.map((testimonial, index) => {
              const avatar = PlaceHolderImages.find(img => img.id === testimonial.avatarId);
              if (!avatar) return null;
 
             return (
               <motion.div
-                key={testimonial.name}
+                key={testimonial.name + index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
