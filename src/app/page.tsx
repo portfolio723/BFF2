@@ -139,7 +139,7 @@ const CategoriesSection = () => {
     { name: "Cultural", imageId: "new-genre-cultural", href: "/genre/cultural" },
     { name: "Crime & Mystery", imageId: "book-cover-6", href: "/genre/crime-mystery" },
     { name: "Economics", imageId: "new-genre-economics", href: "/genre/economics" },
-    { name: "Engineering", imageId: "new-genre-engineering" },
+    { name: "Engineering", imageId: "new-genre-engineering", href: "/genre/engineering" },
     { name: "Fantasy", imageId: "new-book-2", href: "/genre/fantasy" },
     { name: "Environment", imageId: "new-genre-environment" },
   ];

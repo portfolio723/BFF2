@@ -232,4 +232,21 @@ export const economicsPdfs: Pdf[] = [
     { id: "eco13", title: "The Undercover Economist", author: "Tim Harford", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
 ];
     
+export const engineeringPdfs: Pdf[] = [
+  { id: "eng1", title: "Advanced Engineering Mathematics", author: "Erwin Kreyszig", downloadUrl: "#", category: "Engineering", description: "", coverImage: {url: "", hint: ""} },
+  { id: "eng2", title: "Computer Networking", author: "N/A", downloadUrl: "#", category: "Engineering", description: "", coverImage: {url: "", hint: ""} },
+  { id: "eng3", title: "Control System Reference Book", author: "N/A", downloadUrl: "#", category: "Engineering", description: "", coverImage: {url: "", hint: ""} },
+  { id: "eng4", title: "Introduction to Algorithms", author: "Cormen", downloadUrl: "#", category: "Engineering", description: "", coverImage: {url: "", hint: ""} },
+  { id: "eng5", title: "Electrical Machines", author: "S. K. Sahdev", downloadUrl: "#", category: "Engineering", description: "", coverImage: {url: "", hint: ""} },
+  { id: "eng6", title: "Engineering Mechanics", author: "N/A", downloadUrl: "#", category: "Engineering", description: "", coverImage: {url: "", hint: ""} },
+  { id: "eng7", title: "Heat and Mass Transfer", author: "Rajput", downloadUrl: "#", category: "Engineering", description: "", coverImage: {url: "", hint: ""} },
+  { id: "eng8", title: "Higher Engineering Mathematics", author: "B.S. Grewal", downloadUrl: "#", category: "Engineering", description: "", coverImage: {url: "", hint: ""} },
+  { id: "eng9", title: "Digital Design", author: "M. Morris Mano", downloadUrl: "#", category: "Engineering", description: "", coverImage: {url: "", hint: ""} },
+  { id: "eng10", title: "Machine Design", author: "R.S. Kurmi", downloadUrl: "#", category: "Engineering", description: "", coverImage: {url: "", hint: ""} },
+  { id: "eng11", title: "Microelectronic Circuits", author: "Sedra and Smith", downloadUrl: "#", category: "Engineering", description: "", coverImage: {url: "", hint: ""} },
+  { id: "eng12", title: "Operating System Concepts", author: "Greg Gagne", downloadUrl: "#", category: "Engineering", description: "", coverImage: {url: "", hint: ""} },
+  { id: "eng13", title: "Signals and Systems", author: "Oppenheim", downloadUrl: "#", category: "Engineering", description: "", coverImage: {url: "", hint: ""} },
+  { id: "eng14", title: "Strength of Material", author: "R.K. Bansal", downloadUrl: "#", category: "Engineering", description: "", coverImage: {url: "", hint: ""} },
+  { id: "eng15", title: "Transmission and Distribution Text Book", author: "N/A", downloadUrl: "#", category: "Engineering", description: "", coverImage: {url: "", hint: ""} },
+];
 
