@@ -164,7 +164,8 @@ const CategoriesSection = () => {
     "Crime & Mystery": "/crime&mystry.png",
     "Fantasy": "/fantacy.png",
     "Environment": "/environment.png",
-    "Food & Cooking": "/food.png"
+    "Food & Cooking": "/food.png",
+    "Fashion": "/fashion.png",
   };
 
   return (
