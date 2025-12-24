@@ -171,7 +171,7 @@ const CategoriesSection = () => {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
           {categories.map((category, index) => {
             const slug = category.href.split('/').pop() || '';
-            const imageUrl = `/genres/${slug}.png`;
+            const imageUrl = `/${slug}.png`;
 
             return (
               <motion.div
