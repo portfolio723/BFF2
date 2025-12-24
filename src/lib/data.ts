@@ -218,6 +218,16 @@ export const anthropologyPdfs: Pdf[] = [
     { id: "anth5", title: "Debt", author: "David Graeber", downloadUrl: "https://mega.nz/file/z5ZixISA#li_0NLVSEiFnGVvVn_uepjCMkxRuXKN2AFNBdX6BSwM", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
     { id: "anth6", title: "Evolutions Bite", author: "Peter Ungar", downloadUrl: "https://mega.nz/file/HpRHjQzL#g1z4I0QaKGK40Dfp79Du9lCrQ-bGTjUzHki84yR217A", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
     { id: "anth7", title: "Floods, Famines, And Emperors: El Nino And The Fate Of Civilizations", author: "Brian M Fagan", downloadUrl: "https://mega.nz/file/vl5DSIgZ#vpXDuBCk1TTjRvecCuEgAIMoDGLgzc6GbEnC4uncl5U", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth8", title: "Interpretation of Cultures", author: "Robert Darnton", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth9", title: "Introduction To Social Anthropology", author: "N/A", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth10", title: "Kindred", author: "Rebecca Wragg Sykes", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth11", title: "P.NATH physical Anthropology", author: "N/A", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth12", title: "Perspectives", author: "N/A", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth13", title: "Sapiens: A Brief History of Humankind", author: "Yuval Noah Harari", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth14", title: "Stiff: The Curious Lives of Human Cadavers", author: "Mary Roach", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth15", title: "The Forest People", author: "Colin Turnbull", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth16", title: "The Golden Bough", author: "James George Frazer", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "anth17", title: "The Third Chimpanzee", author: "Jared Diamond", downloadUrl: "#", category: "Anthropology", description: "", coverImage: {url: "", hint: ""} },
 ];
 
 export const ncertPdfs: Pdf[] = [];
@@ -497,3 +507,4 @@ export const fashionPdfs: Pdf[] = [
     
 
     
+
