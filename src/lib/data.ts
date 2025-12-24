@@ -107,6 +107,13 @@ export const psychologyPdfs: Pdf[] = [
     { id: "psy4", title: "Man's Search for Meaning", author: "Viktor E. Frankl", downloadUrl: "https://mega.nz/file/WsZ3hSJQ#TxGkWVaM6MCJNK2JLqZ8_uux-3oezIlfPAscGYUb4QE", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
     { id: "psy5", title: "Predictably Irrational", author: "Dan Ariely", downloadUrl: "https://mega.nz/file/fwwHkbAY#iFISi6iRlIFLa7kNJ6bAC9g7qcfVPykm8C9cVXb6PLM", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
     { id: "psy6", title: "Quiet: The Power of Introverts in a World That Can't Stop Talking", author: "Susan Cain", downloadUrl: "https://mega.nz/file/r4Q00ITA#_9TSRmkCjx6D9tAg3dDMZ2ynI_ScmBc58XeWICMi2ZE", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "psy7", title: "The Interpretation of Dreams", author: "Sigmund Freud", downloadUrl: "#", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "psy8", title: "The Power of Habit", author: "Charles Duhigg", downloadUrl: "#", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "psy9", title: "The Psychology Book (Big Ideas Simply Explained)", author: "DK", downloadUrl: "#", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "psy10", title: "The Psychology of Persuasion", author: "N/A", downloadUrl: "#", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "psy11", title: "The Social Animal", author: "Elliot Aronson", downloadUrl: "#", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "psy12", title: "The Body Keeps the Score", author: "Bessel van der Kolk", downloadUrl: "#", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
+    { id: "psy13", title: "Thinking in Systems", author: "Donella Meadows", downloadUrl: "#", category: "Psychology", description: "", coverImage: {url: "", hint: ""} },
 ];
 
 export const christianPdfs: Pdf[] = [
