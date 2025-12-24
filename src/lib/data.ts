@@ -69,6 +69,14 @@ export const upscPdfs: Pdf[] = [
   { id: "3", title: "Certificate Physical and Human Geography", downloadUrl: "https://mega.nz/file/6wZzDAAS#yWy96pCsLHUbS1q99Gr6c_3Jnb-PGsf0WQCAV1Xboa0", author: "Goh Cheng Leong", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
   { id: "4", title: "Indian Economy", downloadUrl: "https://mega.nz/file/6tQFkA4Z#5OsoGtcac9erpWbKSCVsf7xbts1uMXMrU_7xi4bL-yU", author: "Sanjiv Verma", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
   { id: "5", title: "Indian Polity", downloadUrl: "https://mega.nz/file/70YnBKgI#R5DmIrmigbLfQEjfOa36Ec_SoxdguMN-eSAUPpdKXiE", author: "M. Laxmikanth", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
+  { id: "6", title: "Class 11 Fundamentals of Physical Geography", downloadUrl: "#", author: "NCERT", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
+  { id: "7", title: "Ethics, Integrity and Aptitude", downloadUrl: "#", author: "N/A", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
+  { id: "8", title: "History of Modern India", downloadUrl: "#", author: "Bipin Chandra", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
+  { id: "9", title: "Indian Economy", downloadUrl: "#", author: "Ramesh Singh", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
+  { id: "10", title: "India's Struggle For Independence", downloadUrl: "#", author: "Bipin Chandra", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
+  { id: "11", title: "Introduction To The Constitution Of India", downloadUrl: "#", author: "D.D. Basu", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
+  { id: "12", title: "Medieval India", downloadUrl: "#", author: "Satish Chandra", category: "UPSC", description: "", coverImage: {url: "", hint: ""} },
+  { id: "13", title: "History of Medieval India", downloadUrl: "#", author: "Satish Chandra", category: "UPSC", description: "", coverImage: {url: "", hint: ""} }
 ];
 
 export const spacePdfs: Pdf[] = [
