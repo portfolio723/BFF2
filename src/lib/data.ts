@@ -197,5 +197,12 @@ export const computerSciencePdfs: Pdf[] = [
   { id: "cs8", title: "Cracking the Coding Interview", author: "Gayle Laakmann McDowell", downloadUrl: "https://mega.nz/file/y8IT1Y7A#qg2MIfHGHo_Ipy_vAWdfq2PdO0eC58uSyV2MJr_MbKM", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
 ];
     
-
+export const crimeMysteryPdfs: Pdf[] = [
+    { id: "cm1", title: "Gone Girl", author: "Gillian Flynn", downloadUrl: "#", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cm2", title: "I'll Be Gone in the Dark", author: "Michelle McNamara", downloadUrl: "#", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cm3", title: "In Cold Blood", author: "Truman Capote", downloadUrl: "#", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cm4", title: "In the Woods", author: "Tana French", downloadUrl: "#", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cm5", title: "Murder on the Orient Express", author: "Agatha Christie", downloadUrl: "#", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
+    { id: "cm6", title: "Postmortem", author: "Patricia Cornwell", downloadUrl: "#", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
+];
     

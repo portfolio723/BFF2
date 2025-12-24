@@ -137,7 +137,7 @@ const CategoriesSection = () => {
     { name: "Business Management", imageId: "new-genre-business", href: "/genre/business-management" },
     { name: "Computer Science", imageId: "new-genre-cs", href: "/genre/computer-science" },
     { name: "Cultural", imageId: "new-genre-cultural" },
-    { name: "Crime & Mystery", imageId: "book-cover-6" },
+    { name: "Crime & Mystery", imageId: "book-cover-6", href: "/genre/crime-mystery" },
     { name: "Economics", imageId: "new-genre-economics" },
     { name: "Engineering", imageId: "new-genre-engineering" },
     { name: "Fantasy", imageId: "new-book-2", href: "/genre/fantasy" },
