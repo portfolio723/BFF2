@@ -368,7 +368,26 @@ export const poetryPdfs: Pdf[] = [
     { id: "poet18", title: "The Country Without a Post Office", author: "Agha Shahid Ali", downloadUrl: "#", category: "Poetry", description: "", coverImage: {url: "", hint: ""} },
 ];
     
-
+export const horrorThrillerPdfs: Pdf[] = [
+    { id: "ht1", title: "American Psycho", author: "Bret Easton Ellis", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
+    { id: "ht2", title: "Bird Box", author: "Josh Malerman", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
+    { id: "ht3", title: "Dracula", author: "Bram Stoker", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
+    { id: "ht4", title: "Frankenstein", author: "Mary Wollstonecraft Shelley", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
+    { id: "ht5", title: "Gone Girl", author: "Gillian Flynn", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
+    { id: "ht6", title: "House of Leaves", author: "Mark Z. Danielewski", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
+    { id: "ht7", title: "I Am Legend", author: "Richard Matheson", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
+    { id: "ht8", title: "In Cold Blood", author: "Truman Capote", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
+    { id: "ht9", title: "Let the Right One In", author: "John Ajvide Lindqvist", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
+    { id: "ht10", title: "Misery", author: "Stephen King", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
+    { id: "ht11", title: "Pet Sematary", author: "Stephen King", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
+    { id: "ht12", title: "Sharp Objects", author: "Gillian Flynn", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
+    { id: "ht13", title: "The Haunting of Hill House", author: "Shirley Jackson", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
+    { id: "ht14", title: "Shutter Island", author: "Dennis Lehane", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
+    { id: "ht15", title: "Something Wicked This Way Comes", author: "Ray Bradbury", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
+    { id: "ht16", title: "The Amityville Horror", author: "Jay Anson", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
+];
     
 
     
+
+```

@@ -145,6 +145,7 @@ const CategoriesSection = () => {
     { name: "Environment", imageId: "new-genre-environment", href: "/genre/environment" },
     { name: "Sports", imageId: "new-genre-sports", href: "/genre/sports" },
     { name: "Poetry", imageId: "new-genre-poetry", href: "/genre/poetry" },
+    { name: "Horror & Thriller", imageId: "new-genre-horror", href: "/genre/horror-thriller" },
   ];
 
   return (
@@ -456,3 +457,4 @@ export default function Home() {
     
 
     
+
