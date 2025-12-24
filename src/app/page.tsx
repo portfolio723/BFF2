@@ -27,8 +27,7 @@ const HeroSection = () => {
               transition={{ duration: 0.6 }}
             >
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary text-sm font-medium mb-6">
-                <span className="w-2 h-2 rounded-full bg-foreground animate-pulse" />
-                Empowering readers, one book at a time
+                BFF — Books For Foster
               </span>
             </motion.div>
             
@@ -38,8 +37,8 @@ const HeroSection = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="font-heading text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold leading-[1.1] tracking-tight"
             >
-              Discover, Rent & <br />
-              <span className="text-muted-foreground">Share</span> Books
+              Share Books. <br />
+              Shape <span className="text-muted-foreground">Futures.</span>
             </motion.h1>
             
             <motion.p
@@ -48,8 +47,7 @@ const HeroSection = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="mt-6 text-lg text-muted-foreground max-w-lg mx-auto lg:mx-0"
             >
-              Join our community of book lovers. Rent books for just delivery charges, 
-              buy at affordable prices, or donate to make knowledge accessible to all.
+              A community-driven initiative by PixelKLiQ to make education accessible through shared learning resources.
             </motion.p>
             
             <motion.div
