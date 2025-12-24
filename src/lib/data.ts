@@ -32,6 +32,25 @@ export const communityPosts: CommunityPost[] = [];
 
 export const pdfs: Pdf[] = [];
 
+export const adventurePdfs: Pdf[] = [
+    { id: "adv1", title: "Shadow of the Silk Road", author: "Colin Thubron", downloadUrl: "#", category: "Adventure", description: "", coverImage: {url: "", hint: ""} },
+    { id: "adv2", title: "Call of the Wild", author: "Jack London", downloadUrl: "#", category: "Adventure", description: "", coverImage: {url: "", hint: ""} },
+    { id: "adv3", title: "The Count of Monte Cristo", author: "Alexandre Dumas", downloadUrl: "#", category: "Adventure", description: "", coverImage: {url: "", hint: ""} },
+    { id: "adv4", title: "Endurance (1959)", author: "Alfred Lansing", downloadUrl: "#", category: "Adventure", description: "", coverImage: {url: "", hint: ""} },
+    { id: "adv5", title: "Endurance: A Year in Space", author: "Scott Kelly", downloadUrl: "#", category: "Adventure", description: "", coverImage: {url: "", hint: ""} },
+    { id: "adv6", title: "In the Heart of the Sea: The Tragedy of the Whaleship Essex", author: "Nathaniel Philbrick", downloadUrl: "#", category: "Adventure", description: "", coverImage: {url: "", hint: ""} },
+    { id: "adv7", title: "Into the Wild", author: "Jon Krakauer", downloadUrl: "#", category: "Adventure", description: "", coverImage: {url: "", hint: ""} },
+    { id: "adv8", title: "Into Thin Air", author: "Jon Krakauer", downloadUrl: "#", category: "Adventure", description: "", coverImage: {url: "", hint: ""} },
+    { id: "adv9", title: "King Solomon's Mines", author: "H. Rider Haggard", downloadUrl: "#", category: "Adventure", description: "", coverImage: {url: "", hint: ""} },
+    { id: "adv10", title: "The Adventures of Huckleberry Finn", author: "Mark Twain", downloadUrl: "#", category: "Adventure", description: "", coverImage: {url: "", hint: ""} },
+    { id: "adv11", title: "The Lost City of Z", author: "David Grann", downloadUrl: "#", category: "Adventure", description: "", coverImage: {url: "", hint: ""} },
+    { id: "adv12", title: "The River of Doubt", author: "Candice Millard", downloadUrl: "#", category: "Adventure", description: "", coverImage: {url: "", hint: ""} },
+    { id: "adv13", title: "The Three Musketeers", author: "Alexandre Dumas", downloadUrl: "#", category: "Adventure", description: "", coverImage: {url: "", hint: ""} },
+    { id: "adv14", title: "The Hobbit", author: "J.R.R. Tolkien", downloadUrl: "#", category: "Adventure", description: "", coverImage: {url: "", hint: ""} },
+    { id: "adv15", title: "Treasure Island", author: "Robert Louis Stevenson", downloadUrl: "#", category: "Adventure", description: "", coverImage: {url: "", hint: ""} },
+    { id: "adv16", title: "White Fang", author: "Jack London", downloadUrl: "#", category: "Adventure", description: "", coverImage: {url: "", hint: ""} },
+];
+
 export const lawPdfs: Pdf[] = [
     { id: "law1", title: "Administrative law 9th ed", author: "lp Massey", downloadUrl: "https://mega.nz/file/eoAVBQpa#rJxLB60KpVIF-uKnicd4AM4mcvOcp31vXJ2MX-a4Pcc", category: "Law", description: "", coverImage: {url: "", hint: ""} },
     { id: "law2", title: "Constitution of india", author: "V N shukla", downloadUrl: "https://mega.nz/file/K1gWTDzC#Ywuw3p7YkSCQ6pepRk5jJqZlxG7vJA-5MEhkqXLRAZE", category: "Law", description: "", coverImage: {url: "", hint: ""} },
@@ -507,4 +526,5 @@ export const fashionPdfs: Pdf[] = [
     
 
     
+
 
