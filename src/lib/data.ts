@@ -386,3 +386,23 @@ export const horrorThrillerPdfs: Pdf[] = [
     { id: "ht15", title: "Something Wicked This Way Comes", author: "Ray Bradbury", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
     { id: "ht16", title: "The Amityville Horror", author: "Jay Anson", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
 ];
+
+export const medicalPdfs: Pdf[] = [
+    { id: "med1", title: "Bad Pharma", author: "Ben Goldacre", downloadUrl: "#", category: "Medical", description: "", coverImage: {url: "", hint: ""} },
+    { id: "med2", title: "Bad Science", author: "Ben Goldacre", downloadUrl: "#", category: "Medical", description: "", coverImage: {url: "", hint: ""} },
+    { id: "med3", title: "Behave", author: "Robert Sapolsky", downloadUrl: "#", category: "Medical", description: "", coverImage: {url: "", hint: ""} },
+    { id: "med4", title: "Being Mortal: Medicine and What Matters in the End", author: "Atul Gawande", downloadUrl: "#", category: "Medical", description: "", coverImage: {url: "", hint: ""} },
+    { id: "med5", title: "Brain on Fire", author: "Susannah Cahalan", downloadUrl: "#", category: "Medical", description: "", coverImage: {url: "", hint: ""} },
+    { id: "med6", title: "Complications: A Surgeon's Notes on an Imperfect Science", author: "Atul Gawande", downloadUrl: "#", category: "Medical", description: "", coverImage: {url: "", hint: ""} },
+    { id: "med7", title: "Do No Harm: Stories of Life, Death and Brain Surgery", author: "Henry Marsh", downloadUrl: "#", category: "Medical", description: "", coverImage: {url: "", hint: ""} },
+    { id: "med8", title: "Every Patient Tells a Story", author: "Lisa Sanders", downloadUrl: "#", category: "Medical", description: "", coverImage: {url: "", hint: ""} },
+    { id: "med9", title: "Gray's Anatomy", author: "Henry Gray", downloadUrl: "#", category: "Medical", description: "", coverImage: {url: "", hint: ""} },
+    { id: "med10", title: "How Doctors Think", author: "Jerome Groopman", downloadUrl: "#", category: "Medical", description: "", coverImage: {url: "", hint: ""} },
+    { id: "med11", title: "Kinesiology for Dummies", author: "Steve Glass", downloadUrl: "#", category: "Medical", description: "", coverImage: {url: "", hint: ""} },
+    { id: "med12", title: "Mad in America", author: "Robert Whitaker", downloadUrl: "#", category: "Medical", description: "", coverImage: {url: "", hint: ""} },
+    { id: "med13", title: "Phantoms in the Brain", author: "V.S. Ramachandran", downloadUrl: "#", category: "Medical", description: "", coverImage: {url: "", hint: ""} },
+    { id: "med14", title: "Spillover", author: "David Quammen", downloadUrl: "#", category: "Medical", description: "", coverImage: {url: "", hint: ""} },
+    { id: "med15", title: "The Body Keeps the Score: Brain, Mind, and Body in the Healing of Trauma", author: "Bessel van der Kolk", downloadUrl: "#", category: "Medical", description: "", coverImage: {url: "", hint: ""} },
+    { id: "med16", title: "The Brain That Changes Itself", author: "Norman Doidge", downloadUrl: "#", category: "Medical", description: "", coverImage: {url: "", hint: ""} },
+    { id: "med17", title: "The Checklist Manifesto", author: "Atul Gawande", downloadUrl: "#", category: "Medical", description: "", coverImage: {url: "", hint: ""} },
+];
