@@ -310,43 +310,31 @@ const TestimonialsSection = () => {
   const testimonials = [
     {
       name: "Srinijahova",
-      role: "Supporter",
-      avatarId: "user-avatar-1",
       content: "A story, once read, becomes part of us forever. Quietly, meaningfully, that’s exactly what BFF does. I’m proud to stand behind this wonderful cause.",
       rating: 5,
     },
     {
       name: "Saikireety",
-      role: "Supporter",
-      avatarId: "user-avatar-2",
       content: "Every book that helped me learn can help someone else dream. BFF is about passing that hope forward.",
       rating: 5,
     },
     {
       name: "Sandeep",
-      role: "Reader",
-      avatarId: "user-avatar-3",
       content: "Books turn 'I can’t' into 'I can.' They give knowledge, dignity, hope, and a future.",
       rating: 5,
     },
      {
       name: "Sneha",
-      role: "Supporter",
-      avatarId: "user-avatar-1",
       content: "BFF can be a safe place when the world feels uncertain, offering comfort, hope, and a sense of belonging through every page.",
       rating: 5,
     },
     {
       name: "Aniket",
-      role: "Reader",
-      avatarId: "user-avatar-2",
       content: "BFF has become my daily reading companion. The library is vast, I love how easily I can access books here, from spiritual to science & technology.",
       rating: 5,
     },
     {
       name: "Priya",
-      role: "Reader",
-      avatarId: "user-avatar-3",
       content: "A book placed in the right hands can feel like being held. BFF lets stories travel with love, whispering, 'You matter. Keep dreaming.'",
       rating: 5,
     },
@@ -371,9 +359,6 @@ const TestimonialsSection = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {testimonials.map((testimonial, index) => {
-             const avatar = PlaceHolderImages.find(img => img.id === testimonial.avatarId);
-             if (!avatar) return null;
-
             return (
               <motion.div
                 key={testimonial.name + index}
@@ -381,7 +366,7 @@ const TestimonialsSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-card rounded-xl p-6 lg:p-8 border border-border relative"
+                className="bg-card rounded-xl p-6 lg:p-8 border border-border relative flex flex-col"
               >
                 <Quote className="absolute top-6 right-6 w-8 h-8 text-muted-foreground/20" />
                 
@@ -391,22 +376,13 @@ const TestimonialsSection = () => {
                   ))}
                 </div>
                 
-                <p className="text-muted-foreground leading-relaxed mb-6">
+                <p className="text-muted-foreground leading-relaxed mb-6 flex-grow">
                   "{testimonial.content}"
                 </p>
                 
                 <div className="flex items-center gap-3">
-                  <Image 
-                    src={avatar.imageUrl}
-                    alt={testimonial.name}
-                    data-ai-hint={avatar.imageHint}
-                    width={48}
-                    height={48}
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
                   <div>
-                    <p className="font-medium">{testimonial.name}</p>
-                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                    <p className="font-semibold">{testimonial.name}</p>
                   </div>
                 </div>
               </motion.div>
