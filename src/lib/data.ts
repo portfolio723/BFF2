@@ -218,7 +218,7 @@ export const ncertClass12Pdfs: Pdf[] = [
   { id: "ncert12-16", title: "History - Themes in Indian History II", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
   { id: "ncert12-17", title: "History - Themes in Indian History III", author: "NCERT", downloadUrl: "#", category: "NCERT Class 12", description: "", coverImage: {url: "", hint: ""} },
 ];
-    
+
 export const businessManagementPdfs: Pdf[] = [
     { id: "bm1", title: "Execution", author: "Larry Bossidy", downloadUrl: "https://mega.nz/file/LoYFUATB#GYp2UYjYwqEGTyyaca7Pd1DfuPR55E3x-_b9bcy-Ldw", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
     { id: "bm2", title: "Good to great", author: "Jim Collins", downloadUrl: "https://mega.nz/file/vkwVVJrB#9bn627HAxxNx0MKx22PKDlPArhNx46ygLRboQvXadkg", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
@@ -239,7 +239,7 @@ export const computerSciencePdfs: Pdf[] = [
   { id: "cs7", title: "Computer Organization and Design Fundamentals", author: "David Tarnoff", downloadUrl: "https://mega.nz/file/f052Daia#EoddtwKTUeRh4izO0dkjXtyS_JP1vsBpaoIfS0qKuLg", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
   { id: "cs8", title: "Cracking the Coding Interview", author: "Gayle Laakmann McDowell", downloadUrl: "https://mega.nz/file/y8IT1Y7A#qg2MIfHGHo_Ipy_vAWdfq2PdO0eC58uSyV2MJr_MbKM", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
 ];
-    
+
 export const crimeMysteryPdfs: Pdf[] = [
     { id: "cm1", title: "Gone Girl", downloadUrl: "https://mega.nz/file/mkIj2AyS#4M982DBKpe0QKvepUjko2BABs0frFilYGmRyt2n5tbQ", author: "Gillian Flynn", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
     { id: "cm2", title: "I'll Be Gone in the Dark", downloadUrl: "https://mega.nz/file/CxxjAKIa#ECGAnfciWli3EzRt61ahSfx602kLdnAascCYoUakZ_Q", author: "Michelle McNamara", category: "Crime & Mystery", description: "", coverImage: {url: "", hint: ""} },
@@ -264,7 +264,7 @@ export const economicsPdfs: Pdf[] = [
     { id: "eco12", title: "The Road to Serfdom", author: "Friedrich A Hayek", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
     { id: "eco13", title: "The Undercover Economist", author: "Tim Harford", downloadUrl: "#", category: "Economics", description: "", coverImage: {url: "", hint: ""} },
 ];
-    
+
 export const engineeringPdfs: Pdf[] = [
   { id: "eng1", title: "Advanced Engineering Mathematics", author: "Erwin Kreyszig", downloadUrl: "https://mega.nz/file/ioITUB5I#Xsid6rqNZVTtYXNGcr7qziFsR6lMKf0B12_83P6GwDg", category: "Engineering", description: "", coverImage: {url: "", hint: ""} },
   { id: "eng2", title: "Computer Networking", author: "N/A", downloadUrl: "https://mega.nz/file/H0ZRmYoR#MBzbCEgNYEempVYs_GZRGfLKW5W0vzWQI4sU1PbwTgc", category: "Engineering", description: "", coverImage: {url: "", hint: ""} },
@@ -367,7 +367,7 @@ export const poetryPdfs: Pdf[] = [
     { id: "poet17", title: "The Collected Poems of WB Yeats", author: "WB Yeats", downloadUrl: "#", category: "Poetry", description: "", coverImage: {url: "", hint: ""} },
     { id: "poet18", title: "The Country Without a Post Office", author: "Agha Shahid Ali", downloadUrl: "#", category: "Poetry", description: "", coverImage: {url: "", hint: ""} },
 ];
-    
+
 export const horrorThrillerPdfs: Pdf[] = [
     { id: "ht1", title: "American Psycho", author: "Bret Easton Ellis", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
     { id: "ht2", title: "Bird Box", author: "Josh Malerman", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
@@ -386,8 +386,3 @@ export const horrorThrillerPdfs: Pdf[] = [
     { id: "ht15", title: "Something Wicked This Way Comes", author: "Ray Bradbury", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
     { id: "ht16", title: "The Amityville Horror", author: "Jay Anson", downloadUrl: "#", category: "Horror & Thriller", description: "", coverImage: {url: "", hint: ""} },
 ];
-    
-
-    
-
-```
