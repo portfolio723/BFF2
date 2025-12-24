@@ -121,34 +121,34 @@ const HeroSection = () => {
 
 const CategoriesSection = () => {
   const categories = [
-    { name: "UPSC", imageId: "new-genre-upsc", href: "/genre/upsc" },
-    { name: "Space & Astronomy", imageId: "new-genre-space", href: "/genre/space-and-astronomy" },
-    { name: "Self Development", imageId: "new-genre-self-dev", href: "/genre/self-development" },
-    { name: "Psychology", imageId: "new-genre-psychology", href: "/genre/psychology" },
-    { name: "Geography", imageId: "new-genre-geography", href: "/genre/geography"},
-    { name: "NCERT", imageId: "new-genre-ncert", href: "/genre/ncert" },
-    { name: "History", imageId: "new-genre-history", href: "/genre/history" },
-    { name: "Health & Lifestyle", imageId: "new-genre-health", href: "/genre/health-lifestyle" },
-    { name: "Competitve Exams", imageId: "new-genre-exams", href: "/genre/competitve-exams" },
-    { name: "Biography & Auto Biograpghy", imageId: "new-genre-biography", href: "/genre/biography-autobiography" },
-    { name: "Bible", imageId: "new-genre-bible", href: "/genre/bible" },
-    { name: "Anthropology", imageId: "new-genre-anthropology", href: "/genre/anthropology" },
-    { name: "Adventure", imageId: "new-genre-adventure" },
-    { name: "Law", imageId: "new-genre-law", href: "/genre/law" },
-    { name: "Business Management", imageId: "new-genre-business", href: "/genre/business-management" },
-    { name: "Computer Science", imageId: "new-genre-cs", href: "/genre/computer-science" },
-    { name: "Cultural", imageId: "new-genre-cultural", href: "/genre/cultural" },
-    { name: "Crime & Mystery", imageId: "book-cover-6", href: "/genre/crime-mystery" },
-    { name: "Economics", imageId: "new-genre-economics", href: "/genre/economics" },
-    { name: "Engineering", imageId: "new-genre-engineering", href: "/genre/engineering" },
-    { name: "Fantasy", imageId: "new-book-2", href: "/genre/fantasy" },
-    { name: "Environment", imageId: "new-genre-environment", href: "/genre/environment" },
-    { name: "Sports", imageId: "new-genre-sports", href: "/genre/sports" },
-    { name: "Poetry", imageId: "new-genre-poetry", href: "/genre/poetry" },
-    { name: "Horror & Thriller", imageId: "new-genre-horror", href: "/genre/horror-thriller" },
-    { name: "Medical", imageId: "new-genre-medical", href: "/genre/medical" },
-    { name: "Food & Cooking", imageId: "new-genre-food", href: "/genre/food-and-cooking" },
-    { name: "Fashion", imageId: "new-genre-fashion", href: "/genre/fashion" },
+    { name: "UPSC", href: "/genre/upsc" },
+    { name: "Space & Astronomy", href: "/genre/space-and-astronomy" },
+    { name: "Self Development", href: "/genre/self-development" },
+    { name: "Psychology", href: "/genre/psychology" },
+    { name: "Geography", href: "/genre/geography"},
+    { name: "NCERT", href: "/genre/ncert" },
+    { name: "History", href: "/genre/history" },
+    { name: "Health & Lifestyle", href: "/genre/health-lifestyle" },
+    { name: "Competitve Exams", href: "/genre/competitve-exams" },
+    { name: "Biography & Autobiography", href: "/genre/biography-autobiography" },
+    { name: "Bible", href: "/genre/bible" },
+    { name: "Anthropology", href: "/genre/anthropology" },
+    { name: "Adventure", href: "/genre/adventure" },
+    { name: "Law", href: "/genre/law" },
+    { name: "Business Management", href: "/genre/business-management" },
+    { name: "Computer Science", href: "/genre/computer-science" },
+    { name: "Cultural", href: "/genre/cultural" },
+    { name: "Crime & Mystery", href: "/genre/crime-mystery" },
+    { name: "Economics", href: "/genre/economics" },
+    { name: "Engineering", href: "/genre/engineering" },
+    { name: "Fantasy", href: "/genre/fantasy" },
+    { name: "Environment", href: "/genre/environment" },
+    { name: "Sports", href: "/genre/sports" },
+    { name: "Poetry", href: "/genre/poetry" },
+    { name: "Horror & Thriller", href: "/genre/horror-thriller" },
+    { name: "Medical", href: "/genre/medical" },
+    { name: "Food & Cooking", href: "/genre/food-and-cooking" },
+    { name: "Fashion", href: "/genre/fashion" },
   ];
 
   return (
@@ -170,11 +170,9 @@ const CategoriesSection = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
           {categories.map((category, index) => {
-            const image = PlaceHolderImages.find(img => img.id === category.imageId);
-            if (!image) return null;
-            
             const slug = category.name.toLowerCase().replace(/ & | /g, '-').replace(/[^a-z0-9-]/g, '');
             const href = category.href || `/genre/${slug}`;
+            const imageUrl = `/genres/${slug}.png`;
 
             return (
               <motion.div
@@ -188,11 +186,11 @@ const CategoriesSection = () => {
                   className="group block relative aspect-[4/5] rounded-xl overflow-hidden"
                 >
                   <Image 
-                    src={image.imageUrl} 
+                    src={imageUrl} 
                     alt={category.name}
-                    data-ai-hint={image.imageHint}
                     fill
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    unoptimized
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-4">
@@ -463,5 +461,7 @@ export default function Home() {
 
 
 
+
+    
 
     
