@@ -133,7 +133,7 @@ const CategoriesSection = () => {
     { name: "Bible", imageId: "new-genre-bible", href: "/genre/bible" },
     { name: "Anthropology", imageId: "new-genre-anthropology", href: "/genre/anthropology" },
     { name: "Adventure", imageId: "new-genre-adventure" },
-    { name: "Career Guide", imageId: "new-genre-career" },
+    { name: "Law", imageId: "new-genre-career" },
     { name: "Business Management", imageId: "new-genre-business", href: "/genre/business-management" },
     { name: "Computer Science", imageId: "new-genre-cs", href: "/genre/computer-science" },
     { name: "Cultural", imageId: "new-genre-cultural", href: "/genre/cultural" },
