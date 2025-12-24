@@ -12,7 +12,7 @@ const HeroSection = () => {
   const heroImage = PlaceHolderImages.find(img => img.id === 'hero-2');
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center overflow-hidden pt-16 lg:pt-0">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_-20%,hsl(var(--secondary))_0%,transparent_50%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_80%,hsl(var(--secondary))_0%,transparent_40%)]" />
@@ -97,7 +97,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                className="relative aspect-[4/5] max-w-md mx-auto"
+                className="relative aspect-[4/5] max-w-sm sm:max-w-md mx-auto"
               >
               {heroImage && (
                   <div className="w-full h-full bg-secondary rounded-2xl shadow-lg overflow-hidden">
@@ -187,8 +187,7 @@ const CategoriesSection = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
           {categories.map((category, index) => {
-            const slug = category.href.split('/').pop() || '';
-            const imageName = imageMap[category.name] || `/${slug}.png`;
+            const imageName = imageMap[category.name] || `/${category.href.split('/').pop()}.png`;
             return (
               <motion.div
                 key={category.name}
