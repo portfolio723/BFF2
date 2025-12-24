@@ -135,7 +135,7 @@ const CategoriesSection = () => {
     { name: "Adventure", imageId: "new-genre-adventure" },
     { name: "Career Guide", imageId: "new-genre-career" },
     { name: "Business Management", imageId: "new-genre-business", href: "/genre/business-management" },
-    { name: "Computer Science", imageId: "new-genre-cs" },
+    { name: "Computer Science", imageId: "new-genre-cs", href: "/genre/computer-science" },
     { name: "Cultural", imageId: "new-genre-cultural" },
     { name: "Crime & Mystery", imageId: "book-cover-6" },
     { name: "Economics", imageId: "new-genre-economics" },

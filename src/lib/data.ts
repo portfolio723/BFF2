@@ -185,4 +185,15 @@ export const businessManagementPdfs: Pdf[] = [
     { id: "bm6", title: "Principles for Success", author: "Ray Dalio", downloadUrl: "https://mega.nz/file/j9ZlyBDQ#ccB20L0_0KwzaHq_MeK10bQ8DUuFVyRr7KnKRxiLj1I", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
     { id: "bm7", title: "Resilience", author: "Harvard Business Review", downloadUrl: "https://mega.nz/file/35ZxDQKZ#0Uh64jiThF0HTlIwFivOJAhP1lDIXBAevvZXsZ74bh4", category: "Business Management", description: "", coverImage: {url: "", hint: ""} },
 ];
+
+export const computerSciencePdfs: Pdf[] = [
+  { id: "cs1", title: "Artificial Intelligence: A Modern Approach", author: "Stuart Russell", downloadUrl: "#", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
+  { id: "cs2", title: "Bandit Algorithms", author: "Tor Lattimore", downloadUrl: "#", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
+  { id: "cs3", title: "Clean Code: A Handbook of Agile Software Craftsmanship", author: "Robert C. Martin", downloadUrl: "#", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
+  { id: "cs4", title: "Code: The Hidden Language of Computer Hardware and Software", author: "Charles Petzold", downloadUrl: "#", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
+  { id: "cs5", title: "Compilers: Principles, Techniques, and Tools", author: "Jeffrey D. Ullman", downloadUrl: "#", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
+  { id: "cs6", title: "Computer Networking: A Top-Down Approach", author: "James Kurose", downloadUrl: "#", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
+  { id: "cs7", title: "Computer Organization and Design Fundamentals", author: "David Tarnoff", downloadUrl: "#", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
+  { id: "cs8", title: "Cracking the Coding Interview", author: "Gayle Laakmann McDowell", downloadUrl: "#", category: "Computer Science", description: "", coverImage: {url: "", hint: ""} },
+];
     
