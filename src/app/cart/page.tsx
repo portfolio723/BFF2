@@ -89,7 +89,7 @@ export default function CartPage() {
                         <div className="flex-1 min-w-0">
                           <div className="flex justify-between gap-4">
                             <div>
-                              <Badge variant={item.type === "lend" ? "secondary" : "default"} className="mb-2 capitalize">
+                              <Badge variant={item.type === "shared" ? "secondary" : "default"} className="mb-2 capitalize">
                                 {item.type}
                               </Badge>
                               <h3 className="font-heading text-lg font-medium line-clamp-1">
@@ -133,7 +133,7 @@ export default function CartPage() {
                               </div>
                             {/* Price */}
                             <p className="font-heading text-xl font-semibold">
-                              ₹{((item.type === 'lend' ? item.lendingPrice || 0 : item.price) * item.quantity).toFixed(2)}
+                              ₹{((item.type === 'shared' ? item.lendingPrice || 0 : item.price) * item.quantity).toFixed(2)}
                             </p>
                           </div>
                         </div>

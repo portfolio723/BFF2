@@ -283,7 +283,7 @@ export default function ProfilePage() {
           <Card>
             <CardHeader>
               <CardTitle>Order History</CardTitle>
-              <CardDescription>Your past purchases and lendings.</CardDescription>
+              <CardDescription>Your past orders.</CardDescription>
             </CardHeader>
             <CardContent>
               {orders && orders.length > 0 ? (

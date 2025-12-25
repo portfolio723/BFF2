@@ -52,7 +52,7 @@ export type CommunityPost = {
 
 export type CartItem = {
   book: Book;
-  type: 'buy' | 'lend';
+  type: 'owned' | 'shared';
   quantity: number;
 };
 
@@ -96,7 +96,7 @@ export type OrderItem = {
   book_id: string;
   quantity: number;
   price_at_purchase: number;
-  type: 'lend' | 'buy';
+  type: 'shared' | 'owned';
 };
 
 export type Order = {

@@ -231,12 +231,12 @@ const FeaturesSection = () => {
     {
       icon: BookOpen,
       title: "Vast Collection",
-      description: "Access thousands of books across all genres, from bestsellers to rare finds.",
+      description: "Access thousands of books across all genres, from academic texts to rare finds.",
     },
     {
       icon: Truck,
       title: "Pay Only Delivery",
-      description: "Lend books for free – just pay minimal delivery charges to your doorstep.",
+      description: "Get books for free – just pay minimal delivery charges to your doorstep.",
     },
     {
       icon: Gift,
@@ -251,12 +251,12 @@ const FeaturesSection = () => {
     {
       icon: CreditCard,
       title: "Flexible Options",
-      description: "Lend for a period or buy outright. Choose what works best for you.",
+      description: "Get a book for a limited period or keep it. Choose what works for you.",
     },
     {
       icon: Shield,
       title: "Verified Users",
-      description: "KYC verified members ensure safe transactions and trusted exchanges.",
+      description: "KYC verified members ensure a safe and trusted community.",
     },
   ];
 
@@ -429,7 +429,7 @@ const CTASection = () => {
               className="mt-6 text-background/70 max-w-lg mx-auto"
             >
               Join thousands of book lovers who have discovered the joy of 
-              affordable reading with Books For Fosters.
+              accessible reading with Books For Fosters.
             </motion.p>
             
             <motion.div

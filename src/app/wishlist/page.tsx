@@ -15,7 +15,7 @@ export default function WishlistPage() {
   const { items: wishlist, removeFromWishlist } = useWishlist();
   const { addToCart } = useCartStore();
 
-  const handleAddToCart = (item: Book, type: "lend" | "buy") => {
+  const handleAddToCart = (item: Book, type: "shared" | "owned") => {
     addToCart(item, type);
   };
 
@@ -77,11 +77,11 @@ export default function WishlistPage() {
 
                   <div className="flex items-center justify-between mt-3 pt-3 border-t border-border">
                     <div>
-                      <p className="text-xs text-muted-foreground">Lend from</p>
+                      <p className="text-xs text-muted-foreground">Contribution</p>
                       <p className="font-semibold">₹{item.lendingPrice}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs text-muted-foreground">Buy for</p>
+                      <p className="text-xs text-muted-foreground">Contribution</p>
                       <p className="font-semibold">₹{item.price}</p>
                     </div>
                   </div>
@@ -90,18 +90,18 @@ export default function WishlistPage() {
                     <Button
                       variant="outline"
                       className="flex-1 rounded-full gap-1 text-xs"
-                      onClick={() => handleAddToCart(item, "lend")}
+                      onClick={() => handleAddToCart(item, "shared")}
                       disabled={!item.lendingPrice || item.availability === 'out-of-stock'}
                     >
-                      Lend
+                      Share
                     </Button>
                     <Button
                       className="flex-1 rounded-full gap-1 text-xs"
-                      onClick={() => handleAddToCart(item, "buy")}
+                      onClick={() => handleAddToCart(item, "owned")}
                       disabled={item.availability === 'out-of-stock'}
                     >
                       <ShoppingCart className="w-3 h-3" />
-                      Buy
+                      Get
                     </Button>
                   </div>
                 </div>

@@ -56,7 +56,7 @@ export default function TermsOfUsePage() {
             <Section icon={Users} title="2. Nature of the Initiative">
                 <ul>
                     <li>BFF does not sell books</li>
-                    <li>BFF does not operate as a lending or profit-making service</li>
+                    <li>BFF does not operate as a profit-making service</li>
                     <li>Participation is voluntary and community-based</li>
                 </ul>
             </Section>
@@ -67,9 +67,9 @@ export default function TermsOfUsePage() {
                     <li>Donated books are shared without any charge</li>
                     <li>Books may be returned to continue the sharing cycle</li>
                 </ul>
-                <h4>B. High-Value Book Lending (BFF Plus)</h4>
+                <h4>B. High-Value Book Program (BFF Plus)</h4>
                 <ul>
-                    <li>Certain high-cost books are made available under a shared lending model</li>
+                    <li>Certain high-cost books are made available under a shared model</li>
                     <li>A nominal maintenance contribution (e.g., ₹50) may be collected</li>
                     <li>This amount is not for profit. It supports handling, circulation, and sustainability</li>
                 </ul>

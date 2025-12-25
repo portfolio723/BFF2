@@ -196,12 +196,12 @@ const AboutPage = () => {
                         <div className="w-10 h-10 bg-background rounded-lg flex items-center justify-center">
                              <ShieldCheck className="w-5 h-5 text-foreground" />
                         </div>
-                        <h3 className="font-heading text-xl font-medium">BFF Plus Lending</h3>
+                        <h3 className="font-heading text-xl font-medium">BFF Plus Program</h3>
                     </div>
                     <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
-                        <li>High-value reference books available via a shared lending model.</li>
+                        <li>High-value reference books available via a shared model.</li>
                         <li>A nominal maintenance contribution (e.g., ₹50) may be collected to support handling and sustainability.</li>
-                        <li>This is not rent or profit.</li>
+                        <li>This is not for profit.</li>
                         <li>A refundable security deposit may apply for select books.</li>
                     </ul>
                 </motion.div>
