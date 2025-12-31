@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://your-website-url.com'; // Replace with your actual domain
+  const baseUrl = 'https://www.booksforfoster.org/'; // Replace with your actual domain
 
   const staticPages = [
     '/',
