@@ -151,7 +151,7 @@ const CategoriesSection = () => {
 
   const imageMap: { [key: string]: string } = {
     "UPSC": "/UPSC.png",
-    "Space & Astronomy": "/space.png",
+    "Space & Astronomy": "https://images.unsplash.com/photo-1603811594813-63f576d92fd0?q=80&w=779&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "Psychology": "/psychology.png",
     "Geography": "/geography.png",
     "Self Development": "/self.png",
@@ -169,7 +169,7 @@ const CategoriesSection = () => {
   };
 
   return (
-    <section className="py-20 lg:py-28 bg-secondary/30">
+    <section id="genres" className="py-20 lg:py-28 bg-secondary/30">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

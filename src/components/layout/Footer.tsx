@@ -60,7 +60,7 @@ export const Footer = () => {
               {[
                 { name: "Donate Books", href: "/donate" },
                 { name: "Community", href: "/community" },
-                { name: "Free PDFs", href: "/pdfs" },
+                { name: "Explore Genres", href: "/#genres" },
               ].map((item) => (
                 <li key={item.name}>
                   <Link href={item.href} className="text-muted-foreground hover:text-foreground transition-colors text-sm">
