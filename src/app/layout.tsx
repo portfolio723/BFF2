@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en" className="h-full">
       <head>
           <title>Books For Fosters</title>
-          <meta name="description" content="Your local destination for books in Hyderabad." />
+          <meta name="description" content="A community-driven initiative in Hyderabad for sharing educational books. Donate pre-loved books, find new reads, and help make knowledge accessible to all." />
           <link rel="icon" href="/favicon.svg" media="(prefers-color-scheme: light)" />
           <link rel="icon" href="/favicon-dark.svg" media="(prefers-color-scheme: dark)" />
           <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
