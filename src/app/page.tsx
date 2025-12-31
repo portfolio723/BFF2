@@ -440,8 +440,8 @@ const CTASection = () => {
               className="mt-10 flex flex-wrap justify-center gap-4"
             >
               <Button asChild size="lg" className="rounded-full px-8 gap-2 group bg-background text-foreground hover:bg-background/90">
-                <Link href="/auth">
-                  Create Free Account
+                <Link href="/community">
+                  Join Community
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
